@@ -39,7 +39,9 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args) {
   char *str = strtok(args," ");
-  int n = atoi(str);
+  int n;
+  if(str != NULL)
+    n = atoi(str);
   if(str == NULL)
     cpu_exec(1);
   else
