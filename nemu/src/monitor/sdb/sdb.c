@@ -52,7 +52,7 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
   char *str = strtok(args," ");
-  if(strcmp(str, "r") != 0){
+  if(strcmp(str, "r") == 0){
     printf("he");
     isa_reg_display();
     return 0;
