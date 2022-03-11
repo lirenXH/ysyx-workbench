@@ -41,8 +41,10 @@ static int cmd_si(char *args) {
   char *str = strtok(args," ");
   printf("str:%s\n",str); 
   int n = atoi(str);
-  if(str == NULL)
-    cpu_exec(1);
+  if(str == NULL){
+    n = 1;
+    cpu_exec(n);
+    }
   else
     cpu_exec(n);
   return 0;
