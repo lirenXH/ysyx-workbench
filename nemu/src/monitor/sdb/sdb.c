@@ -71,7 +71,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Run the program N times",cmd_si},
   { "x", "Scan memory",cmd_x},
-  { "info r","Print register information",cmd_info}
+  { "info r","Print register information",cmd_info},
   /* TODO: Add more commands */
 
 };
