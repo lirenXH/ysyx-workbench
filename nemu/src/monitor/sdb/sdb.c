@@ -40,7 +40,11 @@ static int cmd_q(char *args) {
 static int cmd_si(char *args) {
   char *str = strtok(args," ");
   printf("str:%s\n",str); 
-  cpu_exec(1);
+  int n = atoi(str);
+  if(str == NULL)
+    cpu_exec(1);
+  else
+    cpu_exec(n);
   return 0;
 }
 
