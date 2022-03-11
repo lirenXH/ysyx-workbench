@@ -2,6 +2,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <string.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -50,8 +51,16 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-  isa_reg_display();
-  return 0;
+  char *str = strtok(args," ");
+/*  if(strcmp(str, 'r') != 0){
+    isa_reg_display();
+    return 0;
+  }
+  else */
+  int n;
+  n = atoi(str);
+  printf("%d",n);
+    return 0;
 }
 
 static int cmd_x(char *args) {
@@ -71,7 +80,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Run the program N times",cmd_si},
   { "x", "Scan memory",cmd_x},
-  { "info r","Print register information",cmd_info},
+  { "info","Print register information",cmd_info},
   /* TODO: Add more commands */
 
 };
