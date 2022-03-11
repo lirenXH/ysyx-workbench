@@ -52,14 +52,11 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
   char *str = strtok(args," ");
-/*  if(strcmp(str, 'r') != 0){
+  if(strcmp(str, "r") != 0){
     isa_reg_display();
     return 0;
   }
-  else */
-  int n;
-  n = atoi(str);
-  printf("%d",n);
+  else 
     return 0;
 }
 
