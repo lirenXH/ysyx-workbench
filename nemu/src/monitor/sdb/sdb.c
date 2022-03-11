@@ -38,7 +38,8 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-  printf("test");
+  char *str = strtok(args," ");
+  printf("%s",str); 
   cpu_exec(1);
   return 0;
 }
