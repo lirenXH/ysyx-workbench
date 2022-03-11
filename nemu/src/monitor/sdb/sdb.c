@@ -35,7 +35,7 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
-  printf("NEMU exit successfully!");
+  printf("NEMU exit successfully!\n");
   return -1;
 }
 
