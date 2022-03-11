@@ -2,7 +2,6 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <ctype.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -41,9 +40,8 @@ static int cmd_q(char *args) {
 static int cmd_si(char *args) {
   char *str = strtok(args," ");
   int c = isdigit(str);
-  printf("%d",c);
-  printf("%s",str); 
-//  cpu_exec(1);
+  printf("str:%s c:%d\n",str,c); 
+  cpu_exec(1);
   return 0;
 }
 
