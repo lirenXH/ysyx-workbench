@@ -39,7 +39,7 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args) {
   printf("test");
-  cpu_exec(-1);
+  cpu_exec(1);
   return 0;
 }
 
