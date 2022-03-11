@@ -39,8 +39,7 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args) {
   char *str = strtok(args," ");
-  int c = isdigit(str);
-  printf("str:%s c:%d\n",str,c); 
+  printf("str:%s\n",str); 
   cpu_exec(1);
   return 0;
 }
