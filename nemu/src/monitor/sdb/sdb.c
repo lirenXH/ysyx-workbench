@@ -65,11 +65,13 @@ static int cmd_x(char *args) {
   int num,i;
   long int addr_begin;
   long int addr_i;
+  long int read_addr;
   sscanf(args,"%d %lx",&num,&addr_begin);
   printf("%d,%lx\n",num,addr_begin);
   addr_i = addr_begin;
   for(i=0;i<num;i++){
-    printf("地址:%#lx  ::  %#lx  \n",addr_i,paddr_read(addr_i,4));
+    read_addr = paddr_read(addr_i,4);
+    printf("地址:%#lx  ::  %#lx  \n",addr_i,read_addr);
     addr_i = addr_i + 4;
   }
   return 0;
