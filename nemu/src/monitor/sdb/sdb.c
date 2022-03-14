@@ -70,7 +70,7 @@ static int cmd_x(char *args) {
   printf("%d,%lx\n",num,addr_begin);
   addr_i = addr_begin;
   for(i=0;i<num;i++){
-    read_addr = paddr_read(addr_i,16);
+    read_addr = paddr_read(addr_i,8);
     printf("地址:%#lx  ::  %#012lx  \n",addr_i,read_addr);
     addr_i = addr_i + 4;
   }
