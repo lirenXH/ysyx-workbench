@@ -67,7 +67,6 @@ static int cmd_x(char *args) {
   long int addr_i;
   long int read_addr;
   sscanf(args,"%d %lx",&num,&addr_begin);
-  printf("%d,%lx\n",num,addr_begin);
   addr_i = addr_begin;
   for(i=0;i<num;i++){
     read_addr = paddr_read(addr_i,8);
