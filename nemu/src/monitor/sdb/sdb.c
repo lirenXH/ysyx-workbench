@@ -63,10 +63,10 @@ static int cmd_info(char *args) {
 
 static int cmd_x(char *args) {
   int num,i;
-  int addr_begin;
-  vaddr_t addr_i;
-  sscanf(args,"%d %x",&num,&addr_begin);
-  printf("%d,%x\n",num,addr_begin);
+  long int addr_begin;
+  long int addr_i;
+  sscanf(args,"%d %lx",&num,&addr_begin);
+  printf("%d,%lx\n",num,addr_begin);
   addr_i = addr_begin;
   for(i=0;i<num;i++){
     printf("地址:%#lx  ::  %#lx  \n",addr_i,paddr_read(addr_i,4));
