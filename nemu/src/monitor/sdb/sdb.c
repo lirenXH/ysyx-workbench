@@ -4,7 +4,7 @@
 #include <readline/history.h>
 #include <string.h>
 #include "sdb.h"
-
+#include <memory/paddr.h>
 static int is_batch_mode = false;
 
 void init_regex();
@@ -62,11 +62,16 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  int num;
-  int l;
-  sscanf(args,"%d %x",&num,&l);
-  printf("%d,%x\n",num,l);
-  cpu_exec(-1);
+  int num,i;
+  int addr_begin;
+  vaddr_t addr_i;
+  sscanf(args,"%d %x",&num,&addr_begin);
+  printf("%d,%x\n",num,addr_begin);
+  addr_i = addr_begin;
+  for(i=0;i<num;i++){
+    printf("地址:%#lx  ::  %#lx  \n",addr_i,(word_t)paddr_read(addr_i,4));
+    addr_i = addr_begin + 4;
+  }
   return 0;
 }
 
