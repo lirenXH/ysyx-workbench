@@ -71,7 +71,7 @@ static int cmd_x(char *args) {
   addr_i = addr_begin;
   for(i=0;i<num;i++){
     read_addr = paddr_read(addr_i,4);
-    printf("地址:%#lx  ::  %#010lx  \n",addr_i,read_addr);
+    printf("地址:%#lx  ::  %#012lx  \n",addr_i,read_addr);
     addr_i = addr_i + 4;
   }
   return 0;
