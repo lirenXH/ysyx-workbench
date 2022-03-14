@@ -62,6 +62,11 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
+  int num;
+  int l;
+  char str[20];
+  sscanf(str,"%d %x",&num,&l);
+  printf("%d,%x",num,l);
   cpu_exec(-1);
   return 0;
 }
