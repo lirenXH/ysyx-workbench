@@ -21,9 +21,10 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
+  {" +" , TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
+  {"==" , TK_EQ},        // equal
+  {"-"  , '-'},		//reduce
 };
 
 #define NR_REGEX ARRLEN(rules)
