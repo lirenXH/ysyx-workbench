@@ -5,7 +5,6 @@
 #include <string.h>
 #include "sdb.h"
 #include <memory/paddr.h>
-#include "expr.c"
 static int is_batch_mode = false;
 
 void init_regex();
@@ -53,7 +52,6 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_p(char *args) {
-  make_token(args);
   return 0;
 }
 
