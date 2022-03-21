@@ -5,6 +5,7 @@
 #include <string.h>
 #include "sdb.h"
 #include <memory/paddr.h>
+#include "expr.c"
 static int is_batch_mode = false;
 
 void init_regex();
@@ -51,6 +52,11 @@ static int cmd_si(char *args) {
   return 0;
 }
 
+static int cmd_p(char *args) {
+  make_token(args);
+  return 0;
+}
+
 static int cmd_info(char *args) {
   char *str = strtok(args," ");
   if(strcmp(str, "r") == 0){
@@ -88,6 +94,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Run the program N times",cmd_si},
   { "x", "Scan memory",cmd_x},
+  { "p", "expr",cmd_p},
   { "info","Print register information",cmd_info},
   /* TODO: Add more commands */
 
