@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ , NUM
+  TK_NOTYPE = 256, TK_EQ  
 
   /* TODO: Add more token types */
 
@@ -21,14 +21,23 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +" , TK_NOTYPE},   // spaces
-  {"\\+", '+'},         // plus
-  {"==" , TK_EQ},       // equal
-  {"-"  , '-'},		//reduce
-  {"\\(", '('},		//(
-  {"\\)", ')'},		//)
-  {"/" , '/'},   	///
-  {"[0-9]" , NUM},
+  {" +" , TK_NOTYPE},    // spaces
+  {"\\+", '+'},         // plus 43
+  {"==" , TK_EQ},        // equal
+  {"-"  , '-'},		//reduce 45
+  {"\\(", '('},		//( 40
+  {"\\)", ')'},		//) 41
+  {"/" , '/'},   /// 47
+  {"0" , '0'}, //48
+  {"1" , '1'}, //49
+  {"2" , '2'}, //50
+  {"3" , '3'}, //51
+  {"4" , '4'}, //52
+  {"5" , '5'}, //53
+  {"6" , '6'}, //54
+  {"7" , '7'}, //55
+  {"8" , '8'}, //56
+  {"9" , '9'}, //57
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -85,6 +94,12 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+          case 43 : tokens->type = 43;
+          case 45 : tokens->type = 45;
+          case 40 : tokens->type = 40;
+          case 41 : tokens->type = 41;
+          case 47 : tokens->type = 47;
+          case 48 : tokens->type = 48;
           default: TODO();
         }
 
