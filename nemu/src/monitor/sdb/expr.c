@@ -112,7 +112,7 @@ static bool make_token(char *e) {
           default: TODO();
         }
 
-        //break;
+        break;
       }
     }
 
@@ -121,7 +121,8 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
+	for(i=0;i<5;i++)
+		printf("type:%d		str:%s\n",tokens[i].type,tokens[i].str);
   return true;
 }
 
