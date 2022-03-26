@@ -99,8 +99,8 @@ static bool make_token(char *e) {
           case 40 : tokens->type = 40;
           case 41 : tokens->type = 41;
           case 47 : tokens->type = 47;
-          case 48 : {tokens[nr_token].type = 48;printf("!0!,%d\n",tokens->type);nr_token++;};
-          case 49 : {tokens->type = 49;printf("!1!,%d\n",tokens->type);};
+          case 48 : {tokens[nr_token].type = 48;printf("!0!,%d\n",tokens[nr_token].type);nr_token++;};
+          case 49 : {tokens[nr_token].type = 49;printf("!1!,%d\n",tokens[nr_token-1].type);nr_token++;};
           case 50 : printf("!2!\n");
           default: TODO();
         }
