@@ -114,7 +114,7 @@ static bool make_token(char *e) {
           default: TODO();
         }
 
-        break;
+        //break;
       }
     }
 
