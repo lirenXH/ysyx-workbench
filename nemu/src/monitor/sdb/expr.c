@@ -1,5 +1,5 @@
 #include <isa.h>
-
+#include <string.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -94,14 +94,14 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          case 43 : tokens->type = 43;
-          case 45 : tokens->type = 45;
-          case 40 : tokens->type = 40;
-          case 41 : tokens->type = 41;
-          case 47 : tokens->type = 47;
-          case 48 : {tokens[nr_token].type = 48;printf("!0!,%d\n",tokens[nr_token].type);nr_token++;};
+          case 43 : {tokens->type = 43;nr_token++;};
+          case 45 : {tokens->type = 45;nr_token++;};
+          case 40 : {tokens->type = 40;nr_token++;};
+          case 41 : {tokens->type = 41;nr_token++;};
+          case 47 : {tokens->type = 47;nr_token++;};
+          case 48 : {tokens[nr_token].type = 48;strcpy(tokens[nr_token].str,"0");printf("!0!,%d\n",tokens[nr_token].type);nr_token++;};
           case 49 : {tokens[nr_token].type = 49;printf("!1!,%d\n",tokens[nr_token].type);nr_token++;};
-          case 50 : printf("!2!\n");
+          case 50 : {tokens[nr_token].type = 50;printf("!2!,%d\n",tokens[nr_token].type);nr_token++;};
           default: TODO();
         }
 
