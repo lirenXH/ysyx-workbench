@@ -94,11 +94,11 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          case 43 : {tokens->type = 43;nr_token++;break;};
-          case 45 : {tokens->type = 45;nr_token++;break;};
-          case 40 : {tokens->type = 40;nr_token++;break;};
-          case 41 : {tokens->type = 41;nr_token++;break;};
-          case 47 : {tokens->type = 47;nr_token++;break;};
+          case 43 : {tokens[nr_token].type = 43;nr_token++;break;};
+          case 45 : {tokens[nr_token].type = 45;nr_token++;break;};
+          case 40 : {tokens[nr_token].type = 40;nr_token++;break;};
+          case 41 : {tokens[nr_token].type = 41;nr_token++;break;};
+          case 47 : {tokens[nr_token].type = 47;nr_token++;break;};
           case 48 : {tokens[nr_token].type = 48;strcpy(tokens[nr_token].str,"0");nr_token++;break;};
           case 49 : {tokens[nr_token].type = 49;strcpy(tokens[nr_token].str,"1");nr_token++;break;};
           case 50 : {tokens[nr_token].type = 50;strcpy(tokens[nr_token].str,"2");nr_token++;break;};
