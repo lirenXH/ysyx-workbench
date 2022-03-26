@@ -102,15 +102,15 @@ static bool make_token(char *e) {
           case 48 : {tokens[nr_token].type = 48;strcpy(tokens[nr_token].str,"0");nr_token++;};
           case 49 : {tokens[nr_token].type = 49;strcpy(tokens[nr_token].str,"1");nr_token++;};
           case 50 : {tokens[nr_token].type = 50;strcpy(tokens[nr_token].str,"2");nr_token++;};
-          case 51 : {tokens[nr_token].type = 51;strcpy(tokens[nr_token].str,"3");nr_token++;	
-          	for(j=0;j<5;j++)
-							printf("type:%d		str:%s\n",tokens[j].type,tokens[j].str);};
+          case 51 : {tokens[nr_token].type = 51;strcpy(tokens[nr_token].str,"3");nr_token++;};
           case 52 : {tokens[nr_token].type = 52;strcpy(tokens[nr_token].str,"4");nr_token++;};
           case 53 : {tokens[nr_token].type = 53;strcpy(tokens[nr_token].str,"5");nr_token++;};
           case 54 : {tokens[nr_token].type = 54;strcpy(tokens[nr_token].str,"6");nr_token++;};
           case 55 : {tokens[nr_token].type = 55;strcpy(tokens[nr_token].str,"7");nr_token++;};
           case 56 : {tokens[nr_token].type = 56;strcpy(tokens[nr_token].str,"8");nr_token++;};
-          case 57 : {tokens[nr_token].type = 57;strcpy(tokens[nr_token].str,"9");nr_token++;};
+          case 57 : {tokens[nr_token].type = 57;strcpy(tokens[nr_token].str,"9");nr_token++;
+          for(j=0;j<5;j++)
+							printf("type:%d		str:%s\n",tokens[j].type,tokens[j].str);};
           default: TODO();
         }
 
