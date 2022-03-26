@@ -50,6 +50,7 @@ static int cmd_si(char *args) {
     cpu_exec(n);
   return 0;
 }
+
 bool *a;
 static int cmd_p(char *args) {
   expr(args,a);
