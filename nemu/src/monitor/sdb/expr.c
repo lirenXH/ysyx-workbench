@@ -71,7 +71,7 @@ static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
   int position = 0;
-  int i;
+  int i,j;
   regmatch_t pmatch;
 
   nr_token = 0;
@@ -102,7 +102,9 @@ static bool make_token(char *e) {
           case 48 : {tokens[nr_token].type = 48;strcpy(tokens[nr_token].str,"0");nr_token++;};
           case 49 : {tokens[nr_token].type = 49;strcpy(tokens[nr_token].str,"1");nr_token++;};
           case 50 : {tokens[nr_token].type = 50;strcpy(tokens[nr_token].str,"2");nr_token++;};
-          case 51 : {tokens[nr_token].type = 51;strcpy(tokens[nr_token].str,"3");nr_token++;};
+          case 51 : {tokens[nr_token].type = 51;strcpy(tokens[nr_token].str,"3");nr_token++;	
+          	for(j=0;j<5;j++)
+							printf("type:%d		str:%s\n",tokens[j].type,tokens[j].str);};
           case 52 : {tokens[nr_token].type = 52;strcpy(tokens[nr_token].str,"4");nr_token++;};
           case 53 : {tokens[nr_token].type = 53;strcpy(tokens[nr_token].str,"5");nr_token++;};
           case 54 : {tokens[nr_token].type = 54;strcpy(tokens[nr_token].str,"6");nr_token++;};
@@ -121,8 +123,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-	for(i=0;i<5;i++)
-		printf("type:%d		str:%s\n",tokens[i].type,tokens[i].str);
   return true;
 }
 
