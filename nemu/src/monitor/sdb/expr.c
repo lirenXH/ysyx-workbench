@@ -99,7 +99,9 @@ static bool make_token(char *e) {
           case 40 : tokens->type = 40;
           case 41 : tokens->type = 41;
           case 47 : tokens->type = 47;
-          case 48 : printf("000!!");;
+          case 48 : tokens->type = 47;
+          case 49 : printf("!1!");
+          case 50 : printf("!2!");
           default: TODO();
         }
 
