@@ -109,7 +109,7 @@ static bool make_token(char *e) {
           case 55 : {tokens[nr_token].type = 55;strcpy(tokens[nr_token].str,"7");nr_token++;};
           case 56 : {tokens[nr_token].type = 56;strcpy(tokens[nr_token].str,"8");nr_token++;};
           case 57 : {tokens[nr_token].type = 57;strcpy(tokens[nr_token].str,"9");nr_token++;
-          for(j=0;j<5;j++)
+          for(j=0;j<10;j++)
 							printf("type:%d		str:%s\n",tokens[j].type,tokens[j].str);};
           default: TODO();
         }
