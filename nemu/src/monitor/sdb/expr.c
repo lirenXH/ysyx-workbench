@@ -97,6 +97,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
         	case 256 : break;
           case 43 : {tokens[nr_token].type = 43;nr_token++;break;};
+          case 42 : {tokens[nr_token].type = 42;nr_token++;break;};
           case 45 : {tokens[nr_token].type = 45;nr_token++;break;};
           case 40 : {tokens[nr_token].type = 40;nr_token++;break;};
           case 41 : {tokens[nr_token].type = 41;nr_token++;break;};
