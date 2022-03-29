@@ -73,7 +73,7 @@ static int nr_token __attribute__((used))  = 0;
 
 
 int valve(int a){
-	printf("a = %d,nr_token = %d\n",a,(int)(long)tokens[a].str);
+	printf("a = %d,nr_token = %p\n",a,(void*)(intptr_t)tokens[a].str);
 	return 0;
 }
 
