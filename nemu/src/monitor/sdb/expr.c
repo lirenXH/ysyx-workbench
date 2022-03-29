@@ -12,10 +12,6 @@ enum {
 
 };
 
-int valve(int a){
-	printf("nr_token = %d\n",a);
-	return 0;
-}
 
 static struct rule {
   const char *regex;
@@ -74,6 +70,14 @@ typedef struct token {
 
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
+
+
+int valve(int a){
+	printf("nr_token = %d\n",(int)(long)tokens[nr_token-1].str);
+	return 0;
+}
+
+
 
 static bool make_token(char *e) {
   int position = 0;
