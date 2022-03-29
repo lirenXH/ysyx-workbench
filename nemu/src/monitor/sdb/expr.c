@@ -122,6 +122,7 @@ static bool make_token(char *e) {
 
         break;
       }
+      printf("test\n");
     }
 		
 		for(j=0;j<10;j++)
