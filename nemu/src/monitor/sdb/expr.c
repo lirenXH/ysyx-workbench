@@ -122,7 +122,6 @@ static bool make_token(char *e) {
 
         break;
       }
-      printf("test\n");
     }
 		
 		for(j=0;j<10;j++)
@@ -132,6 +131,7 @@ static bool make_token(char *e) {
       return false;
     }
   }
+  valve(nr_token);
   return true;
 }
 
