@@ -12,6 +12,11 @@ enum {
 
 };
 
+int valve(int a){
+	printf("nr_token = %d\n",a);
+	return 0;
+}
+
 static struct rule {
   const char *regex;
   int token_type;
@@ -111,8 +116,8 @@ static bool make_token(char *e) {
           case 54 : {tokens[nr_token].type = 54;strcpy(tokens[nr_token].str,"6");nr_token++;break;};
           case 55 : {tokens[nr_token].type = 55;strcpy(tokens[nr_token].str,"7");nr_token++;break;};
           case 56 : {tokens[nr_token].type = 56;strcpy(tokens[nr_token].str,"8");nr_token++;break;};
-          case 57 : {tokens[nr_token].type = 57;strcpy(tokens[nr_token].str,"9");nr_token++;break;};
-          default: TODO();
+          case 57 : {tokens[nr_token].type = 57;strcpy(tokens[nr_token].str,"9");nr_token++;valve(nr_token);break;};
+          default: valve(nr_token);
         }
 
         break;
@@ -137,7 +142,6 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
   
 //----------------------------------------------------------------------------
 
