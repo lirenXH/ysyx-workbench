@@ -73,9 +73,14 @@ static int nr_token __attribute__((used))  = 0;
 
 
 int valve(int a){
-	printf("a = %d,nr_token = %ld\n",a,(intptr_t)tokens[a].str);
+	int aa;
+	sscanf(tokens[nr_token].str, "%d", &aa);
+	printf("aa = %d,nr_token = %d\n",aa,a);
 	return 0;
 }
+
+
+
 
 
 
