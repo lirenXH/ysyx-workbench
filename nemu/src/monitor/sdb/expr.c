@@ -74,7 +74,7 @@ static int nr_token __attribute__((used))  = 0;
 //----------------------------------------------------------------------------
 
 int check_parentheses(int p,int q){
-  if(!strcmp("(",tokens[p].str)&&!strcmp(")",tokens[q].str))
+  if(tokens[p].type==40&&tokens[q].type==41)
     return 1;
   else{
   	printf("NO (\n");
@@ -88,7 +88,7 @@ int check_parentheses(int p,int q){
   int flag2=0;
   int op = 0;
   int val1,val2;
-  int aa,bb;
+  int aa,op1;
   printf("p=%d,q=%d\n",p,q);
   if (p > q) {
     /* Bad expression */
@@ -101,8 +101,8 @@ int check_parentheses(int p,int q){
      * Return the value of the number.
      */
 	  sscanf(tokens[p].str, "%d", &aa);
+	  printf("1111\n");
     return aa;
-      	printf("1111\n");
   }
   else if (check_parentheses(p, q) == 1) {
     /* The expression is surrounded by a matched pair of parentheses.
@@ -113,11 +113,9 @@ int check_parentheses(int p,int q){
   }
   else {
     for(i=0;i<=nr_token;i++){
-    	if(tokens[i].type==43)
-    		printf("i=%d\n",i);
-      if((!strcmp("*",tokens[i].str))||(!strcmp("+",tokens[i].str))||(!strcmp("-",tokens[i].str))||(!strcmp("/",tokens[i].str))){
+      if(tokens[i].type==42||tokens[i].type==43||tokens[i].type==45||tokens[i].type==47){
         for (j = 0; j <= i; j++){
-          if(!strcmp("(",tokens[j].str)){    //为(
+          if(tokens[i].type==40){    //为(
             flag1 = 1;
             }
           else{															//pr
@@ -126,20 +124,20 @@ int check_parentheses(int p,int q){
          }
         }
         for (j = i+1; j <= nr_token; j++){    //bug ()+()!!!!!!!!
-          if(!strcmp(")",tokens[j].str))   //为)
+          if(tokens[i].type==41)   //为)
             flag2 = 1;
           else
           	flag1 = 0;
         }
           	printf("3333\n");
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
-          if(!strcmp("+",tokens[i].str)||!strcmp("-",tokens[i].str)){
+          if(tokens[i].type==43||tokens[i].type==45){
             op = i;
-            printf("在%d处找到主运算符+ -%s\n",i,tokens[i].str);
+            printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
           }
-          else if(!strcmp("*",tokens[i].str)||!strcmp("/",tokens[i].str)){
+          else if(tokens[i].type==42||tokens[i].type==47){
             op = i;
-            printf("在%d处找到主运算符* /\n",i);
+            printf("在%d处找到主运算符* %d/\n",i,tokens[i].type);
           }
         }
 
@@ -149,8 +147,8 @@ int check_parentheses(int p,int q){
     //循环搜索i前是否有（  i后是否有）
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
-		sscanf(tokens[op].str, "%d", &bb);
-    switch (bb) {
+		op1 = tokens[op].type;
+    switch (op1) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;/* ... */
       case '*': return val1 * val2;/* ... */
