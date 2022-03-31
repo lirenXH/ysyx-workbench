@@ -74,17 +74,7 @@ static int nr_token __attribute__((used))  = 0;
 //----------------------------------------------------------------------------
 
 int check_parentheses(int p,int q){
-  int flag=0;
-  int i;
-  if(!strcmp("(",tokens[p].str)&&!strcmp(")",tokens[q].str)){
-    for(i=p;i<=q;i++){
-      if(!strcmp("(",tokens[p].str))
-        flag++;
-      else if(!strcmp(")",tokens[p].str))
-        flag--;
-    }
-  }
-  if(flag==0)
+  if(!strcmp("(",tokens[p].str)&&!strcmp(")",tokens[q].str))
     return 1;
   else
     return 0;
