@@ -136,12 +136,10 @@ int check_parentheses(int p,int q){
           if(!strcmp("+",tokens[i].str)||!strcmp("-",tokens[i].str)){
             op = i;
             printf("在%d处找到主运算符+ -%s\n",i,tokens[i].str);
-            break;
           }
           else if(!strcmp("*",tokens[i].str)||!strcmp("/",tokens[i].str)){
             op = i;
             printf("在%d处找到主运算符* /\n",i);
-            break;
           }
         }
 
