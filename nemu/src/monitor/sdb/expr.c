@@ -216,7 +216,7 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  printf("hello!\n");
+  eval(0,nr_token-1);
   return true;
 }
 
