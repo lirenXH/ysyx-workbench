@@ -99,12 +99,14 @@ int check_parentheses(int p,int q){
      */
 	  sscanf(tokens[p].str, "%d", &aa);
     return aa;
+      	printf("1111\n");
   }
   else if (check_parentheses(p, q) == 1) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
     return eval(p + 1, q - 1);
+      	printf("2222\n");
   }
   else {
     for(i=0;i<=nr_token;i++){
@@ -122,7 +124,7 @@ int check_parentheses(int p,int q){
           else
           	flag1 = 0;
         }
-          	printf("1111\n");
+          	printf("3333\n");
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
           if(!strcmp("+",tokens[i].str)||!strcmp("-",tokens[i].str)){
             op = i;
