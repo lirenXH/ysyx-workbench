@@ -87,7 +87,7 @@ int check_parentheses(int p,int q){
   int op = 0;
   int val1,val2;
   int aa,bb;
-  printf("p=%d,q=%d",p,q);
+  printf("p=%d,q=%d\n",p,q);
   if (p > q) {
     /* Bad expression */
     printf("p > q! error~\n");
