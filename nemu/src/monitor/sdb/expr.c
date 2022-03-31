@@ -117,26 +117,24 @@ int check_parentheses(int p,int q){
     return eval(p + 1, q - 1);
   }
   else {
-    for(i=0;i<nr_token;i++){
+    for(i=0;i<=nr_token;i++){
       if(strcmp("*",tokens[i].str)||strcmp("+",tokens[i].str)||strcmp("-",tokens[i].str)||strcmp("/",tokens[i].str)){
-        for (j = 0; j < i; j++)
-        {
+        for (j = 0; j <= i; j++){
           if(strcmp("(",tokens[j].str))   //为(
             flag1 = 1;
         }
-        for (j = i+1; j < nr_token; j++)    //bug ()+()!!!!!!!!
-        {
+        for (j = i+1; j <= nr_token; j++){    //bug ()+()!!!!!!!!
           if(strcmp(")",tokens[j].str))   //为)
             flag2 = 1;
         }
-        if(!(flag1==1&&flag2==1)){     //已经筛选（） 还差检查优先级
-          if(strcmp("+",tokens[j].str)||strcmp("-",tokens[j].str)){
-            op = j;
-            printf("在%d处找到主运算符+ -",j);
+        if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
+          if(strcmp("+",tokens[i].str)||strcmp("-",tokens[i].str)){
+            op = i;
+            printf("在%d处找到主运算符+ -",i);
           }
-          else if(strcmp("*",tokens[j].str)||strcmp("/",tokens[j].str)){
-            op = j;
-            printf("在%d处找到主运算符* /",j);
+          else if(strcmp("*",tokens[i].str)||strcmp("/",tokens[i].str)){
+            op = i;
+            printf("在%d处找到主运算符* /",i);
           }
         }
 
