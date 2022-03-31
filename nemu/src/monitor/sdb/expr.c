@@ -76,8 +76,10 @@ static int nr_token __attribute__((used))  = 0;
 int check_parentheses(int p,int q){
   if(!strcmp("(",tokens[p].str)&&!strcmp(")",tokens[q].str))
     return 1;
-  else
+  else{
+  	printf("NO (\n");
     return 0;
+  }
 }
 
  int eval(int p, int q) {
