@@ -100,7 +100,7 @@ int check_parentheses(int p,int q){
   if (p > q) {
     /* Bad expression */
     printf("p > q! error~\n");
-    return 0;
+    assert(0);
   }
   else if (p == q) {
     /* Single token.
