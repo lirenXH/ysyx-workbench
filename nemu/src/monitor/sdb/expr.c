@@ -127,7 +127,7 @@ int check_parentheses(int p,int q){
           if(strcmp(")",tokens[j].str))   //为)
             flag2 = 1;
         }
-        if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
+        if((flag1&&flag2)){     //已经筛选（） 还差检查优先级
           if(strcmp("+",tokens[i].str)||strcmp("-",tokens[i].str)){
             op = i;
             printf("在%d处找到主运算符+ -",i);
