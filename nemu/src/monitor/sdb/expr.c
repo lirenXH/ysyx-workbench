@@ -217,7 +217,7 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  eval(0,nr_token-1);
+  printf("结果为:%d",eval(0,nr_token-1));
   return true;
 }
 
