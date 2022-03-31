@@ -217,6 +217,7 @@ static bool make_token(char *e) {
     }
   }
   return true;
+  printf("hello!");
 }
 
 
