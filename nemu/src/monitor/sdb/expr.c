@@ -117,6 +117,7 @@ int check_parentheses(int p,int q){
     return eval(p + 1, q - 1);
   }
   else {
+  	printf("1111\n");
     for(i=0;i<=nr_token;i++){
       if(!strcmp("*",tokens[i].str)||!strcmp("+",tokens[i].str)||!strcmp("-",tokens[i].str)||!strcmp("/",tokens[i].str)){
         for (j = 0; j <= i; j++){
