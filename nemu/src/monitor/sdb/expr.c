@@ -71,18 +71,94 @@ typedef struct token {
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
+//----------------------------------------------------------------------------
 
-int valve(int a){
-	int aa;
-	sscanf(tokens[a-1].str, "%d", &aa);
-	printf("aa = %d,nr_token = %d\n",aa,a);
-	return 0;
+int check_parentheses(int p,int q){
+  int flag=0;
+  int i;
+  if(strcmp("(",tokens[p].str)&&strcmp(")",tokens[q].str)){
+    for(i=p;i<=q;i++){
+      if(strcmp("(",tokens[p].str))
+        flag++;
+      else if(strcmp(")",tokens[p].str))
+        flag--;
+    }
+  }
+  if(flag==0)
+    return 1;
+  else
+    return 0;
+}
+
+ int eval(int p, int q) {
+  int i,j;
+  int flag1=0;
+  int flag2=0;
+  int op = 0;
+  int val1,val2;
+  int aa,bb;
+  if (p > q) {
+    /* Bad expression */
+    printf("p > q! error~\n");
+    return 0;
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+	  sscanf(tokens[p].str, "%d", &aa);
+    return aa;
+  }
+  else if (check_parentheses(p, q) == 1) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1);
+  }
+  else {
+    for(i=0;i<nr_token;i++){
+      if(strcmp("*",tokens[i].str)||strcmp("+",tokens[i].str)||strcmp("-",tokens[i].str)||strcmp("/",tokens[i].str)){
+        for (j = 0; j < i; j++)
+        {
+          if(strcmp("(",tokens[j].str))   //为(
+            flag1 = 1;
+        }
+        for (j = i+1; j < nr_token; j++)    //bug ()+()!!!!!!!!
+        {
+          if(strcmp(")",tokens[j].str))   //为)
+            flag2 = 1;
+        }
+        if(!(flag1==1&&flag2==1)){     //已经筛选（） 还差检查优先级
+          if(strcmp("+",tokens[j].str)||strcmp("-",tokens[j].str)){
+            op = j;
+            printf("在%d处找到主运算符+ -",j);
+          }
+          else if(strcmp("*",tokens[j].str)||strcmp("/",tokens[j].str)){
+            op = j;
+            printf("在%d处找到主运算符* /",j);
+          }
+        }
+
+      }
+
+    }
+    //循环搜索i前是否有（  i后是否有）
+    val1 = eval(p, op - 1);
+    val2 = eval(op + 1, q);
+		sscanf(tokens[op].str, "%d", &bb);
+    switch (bb) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;/* ... */
+      case '*': return val1 * val2;/* ... */
+      case '/': return val1 / val2;/* ... */
+      default: assert(0);
+    }
+  }
 }
 
 
-
-
-
+//----------------------------------------------------------------------------
 
 static bool make_token(char *e) {
   int position = 0;
@@ -126,7 +202,7 @@ static bool make_token(char *e) {
           case 55 : {tokens[nr_token].type = 55;strcpy(tokens[nr_token].str,"7");nr_token++;break;};
           case 56 : {tokens[nr_token].type = 56;strcpy(tokens[nr_token].str,"8");nr_token++;break;};
           case 57 : {tokens[nr_token].type = 57;strcpy(tokens[nr_token].str,"9");nr_token++;break;};
-          default: valve(nr_token);
+          default: return 0;
         }
 
         break;
@@ -140,7 +216,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  valve(nr_token);
   return true;
 }
 
