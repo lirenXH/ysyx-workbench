@@ -76,11 +76,11 @@ static int nr_token __attribute__((used))  = 0;
 int check_parentheses(int p,int q){
   int flag=0;
   int i;
-  if(strcmp("(",tokens[p].str)&&strcmp(")",tokens[q].str)){
+  if(!strcmp("(",tokens[p].str)&&!strcmp(")",tokens[q].str)){
     for(i=p;i<=q;i++){
-      if(strcmp("(",tokens[p].str))
+      if(!strcmp("(",tokens[p].str))
         flag++;
-      else if(strcmp(")",tokens[p].str))
+      else if(!strcmp(")",tokens[p].str))
         flag--;
     }
   }
@@ -118,7 +118,7 @@ int check_parentheses(int p,int q){
   }
   else {
     for(i=0;i<=nr_token;i++){
-      if(strcmp("*",tokens[i].str)||strcmp("+",tokens[i].str)||strcmp("-",tokens[i].str)||strcmp("/",tokens[i].str)){
+      if(!strcmp("*",tokens[i].str)||!strcmp("+",tokens[i].str)||!strcmp("-",tokens[i].str)||!strcmp("/",tokens[i].str)){
         for (j = 0; j <= i; j++){
           if(!strcmp("(",tokens[j].str))    //为(
             flag1 = 1;
@@ -133,12 +133,12 @@ int check_parentheses(int p,int q){
           	flag1 = 0;
         }
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
-          if(strcmp("+",tokens[i].str)||strcmp("-",tokens[i].str)){
+          if(!strcmp("+",tokens[i].str)||!strcmp("-",tokens[i].str)){
             op = i;
             printf("在%d处找到主运算符+ -%s\n",i,tokens[i].str);
             break;
           }
-          else if(strcmp("*",tokens[i].str)||strcmp("/",tokens[i].str)){
+          else if(!strcmp("*",tokens[i].str)||!strcmp("/",tokens[i].str)){
             op = i;
             printf("在%d处找到主运算符* /\n",i);
             break;
