@@ -137,11 +137,13 @@ int check_parentheses(int p,int q){
             op = i;
             printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
             printf("op:%d   q:%d\n",op,q);
+            break;
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
             printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
             printf("op:%d   q:%d\n",op,q);
+            break;
           }
         }
 
