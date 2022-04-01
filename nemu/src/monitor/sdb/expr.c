@@ -112,7 +112,7 @@ int check_parentheses(int p,int q){
     return eval(p + 1, q - 1);
   }
   else {
-    for(i=0;i<=nr_token;i++){
+    for(i=p;i<=q;i++){
       if(tokens[i].type==42||tokens[i].type==43||tokens[i].type==45||tokens[i].type==47){
         for (j = 0; j <= i; j++){
           if(tokens[i].type==40){    //为(
@@ -144,7 +144,6 @@ int check_parentheses(int p,int q){
       }
 
     }
-    //循环搜索i前是否有（  i后是否有）
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
 		op1 = tokens[op].type;
