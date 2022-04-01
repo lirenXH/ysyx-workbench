@@ -74,10 +74,12 @@ static int nr_token __attribute__((used))  = 0;
 //----------------------------------------------------------------------------
 
 int check_parentheses(int p,int q){
-  if(tokens[p].type==40&&tokens[q].type==41)
+  if(tokens[p].type==40&&tokens[q].type==41){
+  	printf("YES ()\n");
     return 1;
+   }
   else{
-  	printf("NO (\n");
+  	printf("NO ()\n");
     return 0;
   }
 }
