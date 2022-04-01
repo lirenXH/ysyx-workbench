@@ -146,7 +146,7 @@ int check_parentheses(int p,int q){
       }
 
     }
-    printf("op:%d   q:%d",op,q);
+    printf("op:%d   q:%d\n",op,q);
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
     
