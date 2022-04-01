@@ -136,17 +136,18 @@ int check_parentheses(int p,int q){
           if(tokens[i].type==42||tokens[i].type==47){
             op = i;
             printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+            printf("op:%d   q:%d\n",op,q);
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
             printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
+            printf("op:%d   q:%d\n",op,q);
           }
         }
 
       }
 
     }
-    printf("op:%d   q:%d\n",op,q);
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
     
