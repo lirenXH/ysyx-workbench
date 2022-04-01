@@ -114,7 +114,7 @@ int check_parentheses(int p,int q){
   else {
     for(i=p;i<=q;i++){
       if(tokens[i].type==42||tokens[i].type==43||tokens[i].type==45||tokens[i].type==47){
-        for (j = 0; j <= i; j++){
+        for (j = p; j <= i; j++){
           if(tokens[i].type==40){    //为(
             flag1 = 1;
             }
@@ -123,7 +123,7 @@ int check_parentheses(int p,int q){
           	flag1 = 0;
          }
         }
-        for (j = i+1; j <= nr_token; j++){    //bug ()+()!!!!!!!!
+        for (j = i+1; j <= q; j++){    //bug ()+()!!!!!!!!
           if(tokens[i].type==41)   //为)
             flag2 = 1;
           else
