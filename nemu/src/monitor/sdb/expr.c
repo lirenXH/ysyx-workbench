@@ -85,7 +85,7 @@ int check_parentheses(int p,int q){
 }
 
  int eval(int p, int q) {
-  int i,j;
+  int i,j,k;
   int flag1=0;
   int flag2=0;
   int op = 0;
@@ -134,10 +134,20 @@ int check_parentheses(int p,int q){
           	printf("3333\n");
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
           if(tokens[i].type==42||tokens[i].type==47){
-            op = i;
-            printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
-            printf("op:%d   q:%d\n",op,q);
-            break;
+          	for(k=i;k<q;k++){
+          		if(tokens[i].type==43||tokens[i].type==45){
+		        		op = i;
+				        printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
+				        printf("op:%d   q:%d\n",op,q);
+				        break;
+          		}
+          		else{
+          			op = i;
+				        printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+				        printf("op:%d   q:%d\n",op,q);
+				        break;
+          		}
+          	}
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
