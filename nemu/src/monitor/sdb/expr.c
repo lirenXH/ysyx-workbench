@@ -118,7 +118,7 @@ int check_parentheses(int p,int q){
           if(tokens[i].type==40){    //为(
             flag1 = 1;
             }
-          else{															//pr
+          else{														
           	printf("NO ( 2\n");
           	flag1 = 0;
          }
@@ -137,7 +137,7 @@ int check_parentheses(int p,int q){
           }
           else if(tokens[i].type==42||tokens[i].type==47){
             op = i;
-            printf("在%d处找到主运算符* %d/\n",i,tokens[i].type);
+            printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
           }
         }
 
