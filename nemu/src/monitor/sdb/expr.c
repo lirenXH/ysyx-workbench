@@ -131,13 +131,13 @@ int check_parentheses(int p,int q){
         }
           	printf("3333\n");
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
-          if(tokens[i].type==43||tokens[i].type==45){
-            op = i;
-            printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
-          }
-          else if(tokens[i].type==42||tokens[i].type==47){
+          if(tokens[i].type==42||tokens[i].type==47){
             op = i;
             printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+          }
+          else if(tokens[i].type==43||tokens[i].type==45){
+            op = i;
+            printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
           }
         }
 
