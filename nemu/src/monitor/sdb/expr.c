@@ -224,6 +224,9 @@ static bool make_token(char *e) {
     }
   }
   printf("结果为:%d\n",eval(0,nr_token-1));
+  for(int qing=0;qing<32;qing++)
+  	tokens[qing].type = 0;
+  memset( tokens->str,0,31);
   return true;
 }
 
