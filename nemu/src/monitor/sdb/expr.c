@@ -110,23 +110,19 @@ int check_parentheses(int p,int q){
         for (j = p; j <= i; j++){
           if(tokens[j].type==40){    //为(
             flag1 = 1;
-            printf("YES ( 2\n");
             break;
             }
           else{														
-          	printf("NO ( 2  j:%d\n",j);
           	flag1 = 0;
          }
         }
         for (j = i+1; j <= q; j++){    //bug ()+()!!!!!!!!
           if(tokens[j].type==41){   //为)
             flag2 = 1;
-            printf("YES ) 2\n");
             break;
             }
           else{
           	flag2 = 0;
-          	printf("NO ) 2  j:%d\n",j);
           	}
         }
         if(flag1&&flag2){     //已经筛选（） 还差检查优先级
