@@ -143,8 +143,10 @@ int check_parentheses(int p,int q){
     }
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
-    if(val1==0||val2==0)
+    if(val1==0||val2==0){
+    	printf("出现除0 error\n");
     	assert(0);
+    	}
 		op1 = tokens[op].type;
     switch (op1) {
       case '+': return val1 + val2;
