@@ -207,9 +207,11 @@ static bool make_token(char *e) {
     }
   }
   printf("结果为:%d\n",eval(0,nr_token-1));
-  for(int qing=0;qing<32;qing++)						//每次运算后清空结构体 防止溢出
+  for(int qing=0;qing<32;qing++){					//每次运算后清空结构体 防止溢出
   	tokens[qing].type = 0;
-  memset( tokens->str,0,31);
+  	for(int qing2=0;qing2<32;qing2++)
+  		tokens[qing].str[qing2] = 0;
+  }
   return true;
 }
 
