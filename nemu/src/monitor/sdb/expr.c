@@ -161,7 +161,7 @@ int check_parentheses(int p,int q){
 static bool make_token(char *e) {
   int position = 0;
   int i;
-  //int j;
+  int j;
   regmatch_t pmatch;
 
   nr_token = 0;
@@ -199,8 +199,8 @@ static bool make_token(char *e) {
       }
     }
 		
-		//for(j=0;j<nr_token;j++)
-							//printf("type:%d		str:%s\n",tokens[j].type,tokens[j].str);
+		for(j=0;j<nr_token;j++)
+							printf("type:%d		str:%s\n",tokens[j].type,tokens[j].str);
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
