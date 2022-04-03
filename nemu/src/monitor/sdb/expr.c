@@ -68,10 +68,10 @@ int check_parentheses(int p,int q){
 int count_l=0;// qingling 00!!!!
 int count_r=0;
   if(tokens[p].type==40&&tokens[q].type==41){
-  	for(int i=p+1;i<q;i++){				//判断左右两侧括号是否匹配
-  		if(tokens[p].type==40)
+  	for(int ii=p+1;ii<q;ii++){				//判断左右两侧括号是否匹配
+  		if(tokens[ii].type==40)
   			count_l++;
-  		if(tokens[p].type==41)
+  		if(tokens[ii].type==41)
   			count_r++;
   	}
   	if(count_l==count_r){
