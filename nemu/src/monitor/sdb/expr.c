@@ -129,8 +129,12 @@ int check_parentheses(int p,int q){
           	printf("NO ) 2\n");
           	}
         }
-        if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
-          if(tokens[i].type==42||tokens[i].type==47){
+        if(flag1&&flag2){     //已经筛选（） 还差检查优先级
+          printf("jump!~\n");
+        	continue;
+        }
+        else{
+        	if(tokens[i].type==42||tokens[i].type==47){
             op = i;
             printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
             printf("op:%d   q:%d\n",op,q);
@@ -142,10 +146,6 @@ int check_parentheses(int p,int q){
             printf("op:%d   q:%d\n",op,q);
             break;
           }
-        }
-        else{
-        	printf("jump!~\n");
-        	continue;
 			}
       }
 
