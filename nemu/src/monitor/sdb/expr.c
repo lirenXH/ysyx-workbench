@@ -110,6 +110,7 @@ int check_parentheses(int p,int q){
         for (j = p; j <= i; j++){
           if(tokens[i].type==40){    //为(
             flag1 = 1;
+            printf("YES ( 2\n");
             break;
             }
           else{														
@@ -120,6 +121,7 @@ int check_parentheses(int p,int q){
         for (j = i+1; j <= q; j++){    //bug ()+()!!!!!!!!
           if(tokens[i].type==41){   //为)
             flag2 = 1;
+            printf("YES ) 2\n");
             break;
             }
           else{
@@ -141,9 +143,10 @@ int check_parentheses(int p,int q){
             break;
           }
         }
-        else 
+        else{
+        	printf("jump!~\n");
         	continue;
-
+			}
       }
 
     }
