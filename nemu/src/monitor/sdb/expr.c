@@ -119,7 +119,7 @@ int count_r=0;
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    printf("2222\n");
+    //printf("2222\n");
     return eval(p + 1, q - 1);
   }
   else {
