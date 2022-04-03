@@ -81,14 +81,14 @@ int count_r=0;
     	return 1;
     	}
     else{
-			printf("NO ()\n");
+			printf("NO1 ()\n");
 			count_l=0;
 			count_r=0;
 		  return 0;
   	}
    }
   else{
-  	printf("NO ()\n");
+  	printf("NO2 ()\n");
     return 0;
   }
 }
