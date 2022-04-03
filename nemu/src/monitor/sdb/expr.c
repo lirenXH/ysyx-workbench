@@ -108,7 +108,7 @@ int check_parentheses(int p,int q){
     for(i=p;i<=q;i++){
       if(tokens[i].type==42||tokens[i].type==43||tokens[i].type==45||tokens[i].type==47){
         for (j = p; j <= i; j++){
-          if(tokens[i].type==40){    //为(
+          if(tokens[j].type==40){    //为(
             flag1 = 1;
             printf("YES ( 2\n");
             break;
@@ -119,7 +119,7 @@ int check_parentheses(int p,int q){
          }
         }
         for (j = i+1; j <= q; j++){    //bug ()+()!!!!!!!!
-          if(tokens[i].type==41){   //为)
+          if(tokens[j].type==41){   //为)
             flag2 = 1;
             printf("YES ) 2\n");
             break;
