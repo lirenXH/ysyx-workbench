@@ -119,8 +119,10 @@ int check_parentheses(int p,int q){
         for (j = i+1; j <= q; j++){    //bug ()+()!!!!!!!!
           if(tokens[i].type==41)   //为)
             flag2 = 1;
-          else
-          	flag1 = 0;
+          else{
+          	flag2 = 0;
+          	printf("NO ) 2\n");
+          	}
         }
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
           if(tokens[i].type==42||tokens[i].type==47){
