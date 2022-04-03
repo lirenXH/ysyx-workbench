@@ -53,8 +53,12 @@ static int cmd_si(char *args) {
 
 bool *a;
 static int cmd_p(char *args) {
-  expr(args,a);
-  return 0;
+  int qiuzhi=0;
+  qiuzhi = expr(args,a);
+  if(qiuzhi)
+  	return 0;
+  else
+  	return 0;
 }
 
 static int cmd_info(char *args) {

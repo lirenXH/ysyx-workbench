@@ -236,7 +236,7 @@ static bool make_token(char *e) {
   if(result==-1){
   	printf("出现除0 error\n");
   	return false;
-  }
+  	}
   else
   	printf("结果为:%d\n",result);
   for(int qing=0;qing<32;qing++){					//每次运算后清空结构体 防止溢出
@@ -259,6 +259,6 @@ word_t expr(char *e, bool *success) {
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------  
-
-  return 0;
+	else
+  	return 0;
 }
