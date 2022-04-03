@@ -167,7 +167,6 @@ int count_r=0;
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
     if(val1==0||val2==0){
-    	printf("出现除0 error\n");
     	return -1;   //暂定
     	}
 		op1 = tokens[op].type;
@@ -187,6 +186,7 @@ int count_r=0;
 static bool make_token(char *e) {
   int position = 0;
   int i;
+  int result;
   //int j;
   regmatch_t pmatch;
 
@@ -232,7 +232,13 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  printf("结果为:%d\n",eval(0,nr_token-1));
+  result = eval(0,nr_token-1);
+  if(result==-1){
+  	printf("出现除0 error\n");
+  	return false;
+  }
+  else
+  	printf("结果为:%d\n",result);
   for(int qing=0;qing<32;qing++){					//每次运算后清空结构体 防止溢出
   	tokens[qing].type = 0;
   	for(int qing2=0;qing2<32;qing2++)
