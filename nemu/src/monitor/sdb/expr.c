@@ -100,7 +100,7 @@ int count_r=0;
   int op = 0;
   int val1,val2;
   int aa,op1;
-  printf("p=%d,q=%d\n",p,q);
+  //printf("p=%d,q=%d\n",p,q);
   if (p > q) {
     /* Bad expression */
     printf("p > q! error~\n");
@@ -112,7 +112,7 @@ int count_r=0;
      * Return the value of the number.
      */
 	  sscanf(tokens[p].str, "%d", &aa);
-	  printf("1111\n");
+	  //printf("1111\n");
     return aa;
   }
   else if (check_parentheses(p, q) == 1) {
