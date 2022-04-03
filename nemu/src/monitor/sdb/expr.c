@@ -122,7 +122,6 @@ int check_parentheses(int p,int q){
           else
           	flag1 = 0;
         }
-          	printf("3333\n");
         if(!(flag1&&flag2)){     //已经筛选（） 还差检查优先级
           if(tokens[i].type==42||tokens[i].type==47){
             op = i;
@@ -137,6 +136,8 @@ int check_parentheses(int p,int q){
             break;
           }
         }
+        else 
+        	continue;
 
       }
 
