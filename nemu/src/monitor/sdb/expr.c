@@ -75,7 +75,7 @@ int count_r=0;
   			count_r++;
   	}
   	if(count_l==count_r){
-  		printf("YES ()\n");
+  		//printf("YES ()\n");
   		count_l=0;
   		count_r=0;
     	return 1;
@@ -88,7 +88,7 @@ int count_r=0;
   	}
    }
   else{
-  	printf("NO2 ()\n");
+  	//printf("NO2 ()\n");
     return 0;
   }
 }
@@ -144,20 +144,20 @@ int count_r=0;
           	}
         }
         if(flag1&&flag2){     //已经筛选（） 还差检查优先级
-          printf("jump!~\n");
+          //printf("jump!~\n");
         	continue;
         }
         else{
         	if(tokens[i].type==42||tokens[i].type==47){
             op = i;
             printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
-            printf("op:%d   q:%d\n",op,q);
+            //printf("op:%d   q:%d\n",op,q);
             break;
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
             printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
-            printf("op:%d   q:%d\n",op,q);
+            //printf("op:%d   q:%d\n",op,q);
             break;
           }
 			}
