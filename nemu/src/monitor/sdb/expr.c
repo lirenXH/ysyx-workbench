@@ -114,7 +114,7 @@ int check_parentheses(int p,int q){
             break;
             }
           else{														
-          	printf("NO ( 2\n");
+          	printf("NO ( 2  j:%d\n",j);
           	flag1 = 0;
          }
         }
@@ -126,7 +126,7 @@ int check_parentheses(int p,int q){
             }
           else{
           	flag2 = 0;
-          	printf("NO ) 2\n");
+          	printf("NO ) 2  j:%d\n",j);
           	}
         }
         if(flag1&&flag2){     //已经筛选（） 还差检查优先级
