@@ -81,7 +81,7 @@ int count_r=0;
     	return 1;
     	}
     else{
-			printf("NO1 () count_l:%d  count_r:%d\n",count_l,count_r);
+			//printf("NO1 () count_l:%d  count_r:%d\n",count_l,count_r);
 			count_l=0;
 			count_r=0;
 		  return 0;
@@ -168,7 +168,7 @@ int count_r=0;
     val2 = eval(op + 1, q);
     if(val1==0||val2==0){
     	printf("出现除0 error\n");
-    	assert(0);
+    	return -1;   //暂定
     	}
 		op1 = tokens[op].type;
     switch (op1) {
