@@ -65,9 +65,27 @@ static int nr_token __attribute__((used))  = 0;
 //----------------------------------------------------------------------------
 
 int check_parentheses(int p,int q){
+int count_l=0;// qingling 00!!!!
+int count_r=0;
   if(tokens[p].type==40&&tokens[q].type==41){
-  	printf("YES ()\n");
-    return 1;
+  	for(int i=p+1;i<q;i++){				//判断左右两侧括号是否匹配
+  		if(tokens[p].type==40)
+  			count_l++;
+  		if(tokens[p].type==41)
+  			count_r++;
+  	}
+  	if(count_l==count_r){
+  		printf("YES ()\n");
+  		count_l=0;
+  		count_r=0;
+    	return 1;
+    	}
+    else{
+			printf("NO ()\n");
+			count_l=0;
+			count_r=0;
+		  return 0;
+  	}
    }
   else{
   	printf("NO ()\n");
