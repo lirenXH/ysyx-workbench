@@ -81,7 +81,7 @@ int count_r=0;
     	return 1;
     	}
     else{
-			printf("NO1 ()\n");
+			printf("NO1 () count_l:%d  count_r:%d\n",count_l,count_r);
 			count_l=0;
 			count_r=0;
 		  return 0;
