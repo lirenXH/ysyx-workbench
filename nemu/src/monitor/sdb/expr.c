@@ -145,7 +145,7 @@ int check_parentheses(int p,int q){
     val2 = eval(op + 1, q);
     if(val1==0||val2==0){
     	printf("出现除0 error\n");
-    	assert(0);
+    	return -1;
     	}
 		op1 = tokens[op].type;
     switch (op1) {
