@@ -94,12 +94,14 @@ int count_r=0;
 }
 
  int eval(int p, int q) {
-  int i,j;
+  int i,j,k,x;
   int flag1=0;
   int flag2=0;
   int op = 0;
   int val1,val2;
   int aa,op1;
+  int count_r=0;
+  int count_l=0;
   //printf("p=%d,q=%d\n",p,q);
   if (p > q) {
     /* Bad expression */
@@ -149,10 +151,36 @@ int count_r=0;
         }
         else{
         	if(tokens[i].type==42||tokens[i].type==47){
-            op = i;
-            printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
-            //printf("op:%d   q:%d\n",op,q);
-            break;
+        		for(k=i+1;i<q;k++){
+        			if(tokens[k].type==43||tokens[k].type==45){
+        				for(x=i;x<=k;k++){
+        					if(tokens[j].type==40)
+        						count_l++;
+        					if(tokens[j].type==41)
+        						count_l--;
+        				}
+        				for(x=k+1;x<=q;x++){
+        					if(tokens[j].type==40)
+        						count_r++;
+        					if(tokens[j].type==41)
+        						count_r--;
+        				}
+        				if(count_l==0&&count_r==0){
+        					printf("jump!~\n");
+        					continue;
+        				}
+        				else{
+		      				op = i;
+						      printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+						      //printf("op:%d   q:%d\n",op,q);
+						      break;
+        				}
+        			}
+        			op = i;
+		          printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+		          //printf("op:%d   q:%d\n",op,q);
+		          break;
+        		}
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
