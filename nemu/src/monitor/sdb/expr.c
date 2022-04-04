@@ -94,8 +94,7 @@ int count_r=0;
 }
 
  int eval(int p, int q) {
-  int i,j;
-  int k,x;
+  int i,j,k,x;
   int flag1=0;
   int flag2=0;
   int op = 0;
@@ -152,27 +151,23 @@ int count_r=0;
         }
         else{
         	if(tokens[i].type==42||tokens[i].type==47){
-        		for(k=i+1;k<=q;k++){
+        		for(k=i+1;i<q;k++){
         			printf("tokens[k]=%d\n",tokens[k].type);
         			if(tokens[k].type==43||tokens[k].type==45){
         				printf("faxian +-!!\n");
-        				for(x=i;x<=k;x++){
-        					printf("tokens[x]=%d\n",tokens[x].type);
-        					if(tokens[x].type==40){
-        						printf("l++\n");
+        				for(x=i;x<=k;k++){
+        					if(tokens[j].type==40)
         						count_l++;
-        						}
-        					if(tokens[x].type==41)
+        					if(tokens[j].type==41)
         						count_l--;
         				}
-        				for(x=k;x<=q;x++){
-        				printf("tokens[x]2=%d\n",tokens[x].type);
-        					if(tokens[x].type==40)
+        				for(x=k+1;x<=q;x++){
+        					if(tokens[j].type==40)
         						count_r++;
-        					if(tokens[x].type==41)
+        					if(tokens[j].type==41)
         						count_r--;
         				}
-        				if(count_l+count_r==0){
+        				if(count_l==0&&count_r==0){
         					printf("jump!1~\n");
         					continue;
         				}
@@ -183,12 +178,13 @@ int count_r=0;
 						      break;
         				}
         			}
-        			printf("count_l=%d,count_r=%d\n",count_l,count_r);
+        			else{
+		      			op = i;
+				        printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
+				        //printf("op:%d   q:%d\n",op,q);
+				        break;
+		          }
         		}
-        		op = i;
-				    printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
-				    //printf("op:%d   q:%d\n",op,q);
-				    break;
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
@@ -196,8 +192,9 @@ int count_r=0;
             //printf("op:%d   q:%d\n",op,q);
             break;
           }
-				}
+			}
       }
+
     }
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
