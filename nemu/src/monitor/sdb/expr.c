@@ -153,6 +153,7 @@ int count_r=0;
         	if(tokens[i].type==42||tokens[i].type==47){
         		for(k=i+1;i<q;k++){
         			if(tokens[k].type==43||tokens[k].type==45){
+        				printf("faxian +-!!\n");
         				for(x=i;x<=k;k++){
         					if(tokens[j].type==40)
         						count_l++;
