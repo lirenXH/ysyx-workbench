@@ -156,16 +156,16 @@ int count_r=0;
         			if(tokens[k].type==43||tokens[k].type==45){
         				printf("faxian +-!!\n");
         				for(x=i;x<=k;k++){
-        					if(tokens[j].type==40)
-        						count_l++;
-        					if(tokens[j].type==41)
-        						count_l--;
+        					//if(tokens[j].type==40)
+        					//	count_l++;
+        					//if(tokens[j].type==41)
+        					//	count_l--;
         				}
         				for(x=k+1;x<=q;x++){
-        					if(tokens[j].type==40)
-        						count_r++;
-        					if(tokens[j].type==41)
-        						count_r--;
+        					//if(tokens[j].type==40)
+        						//count_r++;
+        					//if(tokens[j].type==41)
+        						//count_r--;
         				}
         				if(count_l==0&&count_r==0){
         					printf("jump!1~\n");
