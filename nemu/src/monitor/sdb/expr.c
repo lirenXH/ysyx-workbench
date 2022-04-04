@@ -156,10 +156,8 @@ int count_r=0;
         			if(tokens[k].type==43||tokens[k].type==45){
         				printf("faxian +-!!\n");
         				for(x=i;x<=k;k++){
-        					if(tokens[j].type==40){
-        						printf("faxian (  \n");
+        					if(tokens[j].type==40)
         						count_l++;
-        					}
         					if(tokens[j].type==41)
         						count_l--;
         				}
@@ -180,11 +178,13 @@ int count_r=0;
 						      break;
         				}
         			}
-		        }
-        		op = i;
-				    printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
-				    //printf("op:%d   q:%d\n",op,q);
-				    break;
+        			else{
+		      			op = i;
+				        printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
+				        //printf("op:%d   q:%d\n",op,q);
+				        break;
+		          }
+        		}
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
