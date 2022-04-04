@@ -95,14 +95,14 @@ int count_r=0;
 
  int eval(int p, int q) {
   int i,j;
-  //int k,x;
+  int k,x;
   int flag1=0;
   int flag2=0;
   int op = 0;
   int val1,val2;
   int aa,op1;
-  //int count_r=0;
-  //int count_l=0;
+  int count_r=0;
+  int count_l=0;
   //printf("p=%d,q=%d\n",p,q);
   if (p > q) {
     /* Bad expression */
@@ -152,7 +152,7 @@ int count_r=0;
         }
         else{
         	if(tokens[i].type==42||tokens[i].type==47){
-        		/*for(k=i+1;i<q;k++){
+        		for(k=i+1;i<q;k++){
         			printf("tokens[k]=%d\n",tokens[k].type);
         			if(tokens[k].type==43||tokens[k].type==45){
         				printf("faxian +-!!\n");
@@ -179,13 +179,13 @@ int count_r=0;
 						      break;
         				}
         			}
-        			else{*/
+        			else{
 		      			op = i;
 				        printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
 				        //printf("op:%d   q:%d\n",op,q);
 				        break;
-		          //}
-        		//}
+		          }
+        		}
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
