@@ -171,13 +171,13 @@ int count_r=0;
         				}
         				else{
 		      				op = i;
-						      printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+						      printf("在%d处找到主运算符1* /%d\n",i,tokens[i].type);
 						      //printf("op:%d   q:%d\n",op,q);
 						      break;
         				}
         			}
         			op = i;
-		          printf("在%d处找到主运算符* /%d\n",i,tokens[i].type);
+		          printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
 		          //printf("op:%d   q:%d\n",op,q);
 		          break;
         		}
