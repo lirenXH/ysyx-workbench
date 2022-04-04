@@ -179,6 +179,7 @@ int count_r=0;
 						      break;
         				}
         			}
+        			printf("count_l=%d,count_r=%d\n",count_l,count_r);
         		}
         		op = i;
 				    printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
