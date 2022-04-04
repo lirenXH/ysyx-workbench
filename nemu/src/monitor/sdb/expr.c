@@ -166,7 +166,7 @@ int count_r=0;
         						count_r--;
         				}
         				if(count_l==0&&count_r==0){
-        					printf("jump!~\n");
+        					printf("jump!1~\n");
         					continue;
         				}
         				else{
