@@ -159,7 +159,7 @@ int count_r=0;
         				for(x=i;x<=k;x++){
         					printf("tokens[x]=%d\n",tokens[x].type);
         					if(tokens[x].type==40){
-        						printf("l++");
+        						printf("l++\n");
         						count_l++;
         						}
         					if(tokens[x].type==41)
@@ -172,7 +172,7 @@ int count_r=0;
         					if(tokens[x].type==41)
         						count_r--;
         				}
-        				if(count_l==0&&count_r==0){
+        				if(count_l+count_r==0){
         					printf("jump!1~\n");
         					continue;
         				}
