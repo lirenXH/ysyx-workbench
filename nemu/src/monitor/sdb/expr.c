@@ -94,13 +94,10 @@ int count_r=0;
 }
 
  int eval(int p, int q) {
-  int i,j,k,x;
-  int flag1=0;
-  int flag2=0;
+  int i;
   int op = 0;
   int val1,val2;
   int aa,op1;
-  int count_r=0;
   int count_l=0;
   //printf("p=%d,q=%d\n",p,q);
   if (p > q) {
@@ -126,76 +123,33 @@ int count_r=0;
   }
   else {
     for(i=p;i<=q;i++){
-      if(tokens[i].type==42||tokens[i].type==43||tokens[i].type==45||tokens[i].type==47){
-        for (j = p; j <= i; j++){
-          if(tokens[j].type==40){    //为(
-            flag1 = 1;
-            break;
-            }
-          else{														
-          	flag1 = 0;
-         }
-        }
-        for (j = i+1; j <= q; j++){    //bug ()+()!!!!!!!!
-          if(tokens[j].type==41){   //为)
-            flag2 = 1;
-            break;
-            }
-          else{
-          	flag2 = 0;
-          	}
-        }
-        if(flag1&&flag2){     //已经筛选（） 还差检查优先级
-          printf("jump!~\n");
-        	continue;
-        }
-        else{
-        	if(tokens[i].type==42||tokens[i].type==47){
-        		for(k=i+1;i<q;k++){
-        			//printf("tokens[k]=%d\n",tokens[k].type);
-        			if(tokens[k].type==43||tokens[k].type==45){
-        				printf("faxian +-!!\n");
-        				for(x=i;x<=k;k++){
-        					//if(tokens[j].type==40)
-        					//	count_l++;
-        					//if(tokens[j].type==41)
-        					//	count_l--;
-        				}
-        				for(x=k+1;x<=q;x++){
-        					//if(tokens[j].type==40)
-        						//count_r++;
-        					//if(tokens[j].type==41)
-        						//count_r--;
-        				}
-        				if(count_l==0&&count_r==0){
-        					printf("jump!1~\n");
-        					continue;
-        				}
-        				else{
-		      				op = i;
-						      //printf("在%d处找到主运算符1* /%d\n",i,tokens[i].type);
-						      //printf("op:%d   q:%d\n",op,q);
-						      break;
-        				}
-        			}
-        			else{
-		      			op = i;
-				        //printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
-				        //printf("op:%d   q:%d\n",op,q);
-				        break;
-		          }
-        		}
-          }
-          else if(tokens[i].type==43||tokens[i].type==45){
-            op = i;
-            //printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
-            //printf("op:%d   q:%d\n",op,q);
-            break;
-          }
+			if(tokens[i].type==40){
+  			count_l++;i++;
+  			while(1){
+  				if(tokens[i].type==40)
+  					count_l++;
+  				else if(tokens[i].type==41)
+  					count_l--;
+  				if(count_l==0)
+  					break;
+  				i++;	
+  			}
+  		}
+  		
+      if(tokens[i].type==42||tokens[i].type==47){
+      	op = i;
+		  	printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
+		  	//printf("op:%d   q:%d\n",op,q);
+				break;
 			}
+      else if(tokens[i].type==43||tokens[i].type==45){
+        op = i;
+        printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
+        //printf("op:%d   q:%d\n",op,q);
+        break;
       }
-
     }
+  }
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
     if(val1==0||val2==0){
@@ -209,7 +163,6 @@ int count_r=0;
       case '/': return val1 / val2;/* ... */
       default: assert(0);
     }
-  }
 }
 
 

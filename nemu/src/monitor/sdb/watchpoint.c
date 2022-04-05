@@ -3,7 +3,7 @@
 #define NR_WP 32
 
 typedef struct watchpoint {
-  int NO;
+  int NO;    //监视点序号
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
