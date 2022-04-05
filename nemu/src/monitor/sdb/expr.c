@@ -152,7 +152,7 @@ int count_r=0;
         else{
         	if(tokens[i].type==42||tokens[i].type==47){
         		for(k=i+1;i<q;k++){
-        			printf("tokens[k]=%d\n",tokens[k].type);
+        			//printf("tokens[k]=%d\n",tokens[k].type);
         			if(tokens[k].type==43||tokens[k].type==45){
         				printf("faxian +-!!\n");
         				for(x=i;x<=k;k++){
@@ -173,14 +173,14 @@ int count_r=0;
         				}
         				else{
 		      				op = i;
-						      printf("在%d处找到主运算符1* /%d\n",i,tokens[i].type);
+						      //printf("在%d处找到主运算符1* /%d\n",i,tokens[i].type);
 						      //printf("op:%d   q:%d\n",op,q);
 						      break;
         				}
         			}
         			else{
 		      			op = i;
-				        printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
+				        //printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
 				        //printf("op:%d   q:%d\n",op,q);
 				        break;
 		          }
@@ -188,7 +188,7 @@ int count_r=0;
           }
           else if(tokens[i].type==43||tokens[i].type==45){
             op = i;
-            printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
+            //printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
             //printf("op:%d   q:%d\n",op,q);
             break;
           }
