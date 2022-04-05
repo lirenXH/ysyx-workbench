@@ -162,7 +162,7 @@ int find_op(int p, int q){
     val2 = eval(op + 1, q);
     printf("val1= %d val2= %d\n",val1,val2);
     if(val1==0||val2==0){
-    	return -1;   //暂定
+    	return -65530;   //暂定
     	}
 		op1 = tokens[op].type;
     switch (op1) {
@@ -228,7 +228,7 @@ static bool make_token(char *e) {
     }
   }
   result = eval(0,nr_token-1);
-  if(result==-1){
+  if(result<-65000){
   	printf("出现除0 error\n");
   	return false;
   	}
