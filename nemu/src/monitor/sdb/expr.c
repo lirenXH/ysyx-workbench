@@ -93,12 +93,46 @@ int count_r=0;
   }
 }
 
+int find_op(int p, int q){
+ 	int i;
+ 	int op_place = 0;
+ 	int youxian = 0;
+ 	int zuiyou = 0;
+ 	int count_l=0;
+ 	for(i=p;i<=q;i++){
+			if(tokens[i].type==40){
+  			count_l++;i++;
+  			while(1){
+  				if(tokens[i].type==40)
+  					count_l++;
+  				else if(tokens[i].type==41)
+  					count_l--;
+  				if(count_l==0)
+  					break;
+  				i++;	
+  			}
+  		}
+  		else if(tokens[i].type==43||tokens[i].type==45||tokens[i].type==42||tokens[i].type==47){
+				if(tokens[i].type==43||tokens[i].type==45)
+					youxian = 2;
+				else
+					youxian = 1;
+				if(youxian >= zuiyou){
+					zuiyou = youxian;
+					op_place = i;
+				}
+  		}
+ 	}
+ 	return op_place;
+}
+
+
+
+
  int eval(int p, int q) {
-  int i;
   int op = 0;
   int val1,val2;
   int aa,op1;
-  int count_l=0;
   //printf("p=%d,q=%d\n",p,q);
   if (p > q) {
     /* Bad expression */
@@ -122,33 +156,8 @@ int count_r=0;
     return eval(p + 1, q - 1);
   }
   else {
-    for(i=p;i<=q;i++){
-			if(tokens[i].type==40){
-  			count_l++;i++;
-  			while(1){
-  				if(tokens[i].type==40)
-  					count_l++;
-  				else if(tokens[i].type==41)
-  					count_l--;
-  				if(count_l==0)
-  					break;
-  				i++;	
-  			}
-  		}
-  		if(tokens[i].type==43||tokens[i].type==45){
-        op = i;
-        printf("在%d处找到主运算符+ -%d\n",i,tokens[i].type);
-        //printf("op:%d   q:%d\n",op,q);
-        break;
-			}
-      else if(tokens[i].type==42||tokens[i].type==47){
-      	op = i;
-		  	printf("在%d处找到主运算符2* /%d\n",i,tokens[i].type);
-		  	//printf("op:%d   q:%d\n",op,q);
-				break;
-      }
-    }
-  }
+    
+  	op = find_op(p,q);
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
     printf("val1= %d val2= %d\n",val1,val2);
@@ -163,6 +172,7 @@ int count_r=0;
       case '/': return val1 / val2;/* ... */
       default: assert(0);
     }
+  }
 }
 
 
