@@ -162,7 +162,8 @@ int find_op(int p, int q){
     val2 = eval(op + 1, q);
     printf("val1= %d val2= %d\n",val1,val2);
     if(val1==0||val2==0){
-    	return 0;   //暂定
+    	printf("/0    error~\n");
+    	assert(0);   //暂定
     	}
 		op1 = tokens[op].type;
     switch (op1) {
