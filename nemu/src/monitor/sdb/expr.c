@@ -111,7 +111,7 @@ int count_r=0;
      * Return the value of the number.
      */
 	  sscanf(tokens[p].str, "%d", &aa);
-	  //printf("1111\n");
+	  printf("NUM : %d\n",aa);
     return aa;
   }
   else if (check_parentheses(p, q) == 1) {
