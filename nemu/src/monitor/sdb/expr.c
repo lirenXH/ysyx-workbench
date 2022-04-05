@@ -228,7 +228,7 @@ static bool make_token(char *e) {
     }
   }
   result = eval(0,nr_token-1);
-  if(result<-65000){
+  if(result==0){
   	printf("出现除0 error\n");
   	return false;
   	}
