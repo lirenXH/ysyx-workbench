@@ -229,11 +229,6 @@ static bool make_token(char *e) {
     }
   }
   result = eval(0,nr_token-1);
-  if(result==0){
-  	printf("出现除0 error\n");
-  	return false;
-  	}
-  else
   	printf("结果为:%d\n",result);
   for(int qing=0;qing<32;qing++){					//每次运算后清空结构体 防止溢出
   	tokens[qing].type = 0;
