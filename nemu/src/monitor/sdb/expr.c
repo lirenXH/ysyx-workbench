@@ -129,7 +129,7 @@ int find_op(int p, int q){
 
 
 
- int eval(int p, int q) {
+ word_t eval(int p, int q) {
   int op = 0;
   int val1,val2;
   int aa,op1;
