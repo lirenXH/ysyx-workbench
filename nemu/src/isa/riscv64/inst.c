@@ -41,7 +41,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
   s->dnpc = s->snpc;
-  int jalr1;
+  word_t jalr1;
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* body */ ) { \
   decode_operand(s, &dest, &src1, &src2, concat(TYPE_, type)); \
