@@ -63,12 +63,14 @@ int main(int argc, char** argv) {
         top->rst = 0;
       if ((main_time % 10) == 5) {
         top->clk = 1;
-        printf("here1,%d\n",top->rom_addr);
-        top->inst = pmem_read(0x80000000,4);
-        printf("here2\n");
       }
       if ((main_time % 10) == 0) 
         top->clk = 0;
+      if (((main_time % 10) == 0)&&main_time > 14){
+        printf("here1,%d\n",top->pc_out);
+        top->inst = pmem_read(top->pc_out,4);
+        printf("here2\n");
+      }
       top->eval();
       tfp->dump(main_time);
       main_time++;
