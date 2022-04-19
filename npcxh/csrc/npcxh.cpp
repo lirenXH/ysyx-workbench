@@ -9,11 +9,14 @@
 vluint64_t main_time = 0;
 
 static const uint32_t img [] = {
-  0x01408093,  // 
-  0x00608093,  // 
-  0x00118113,  // 
-  0x00328193,  // 
-  0x00408093,  // 
+               //     imme      rs1       rd                     rd  rs1 imme reg  result
+  0x01408093,  // 000000010100 00001 000 00001 0010011      addi  1  1    20
+  0x00608093,  // 000000000110 00001 000 00001 0010011      addi  1  1    6    1     20
+  0x00118113,  // 000000000001 00011 000 00010 0010011      addi  2  3    1    1     26
+  0x00208093,  // 000000000010_00001_000_00001_0010011      addi  1  1    2    2      1
+  0x00310213,  // 000000000011 00010 000 00100 0010011      addi  4  2    3    1     28
+  0x00410093,  // 000000000100 00010 000 00001 0010011      addi  1  2    4    4      4
+               //                                                                     5
 };
 
 
@@ -41,10 +44,6 @@ void init_isa() {
   printf("The img has been loaded\n");
 }
 
-double sc_time_stamp()
-{
-    return main_time;
-}
 
 int main(int argc, char** argv) {
     VerilatedContext* contextp = new VerilatedContext;
@@ -52,29 +51,28 @@ int main(int argc, char** argv) {
     Vysyx_22040759_npc* top = new Vysyx_22040759_npc{contextp};
     Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
-
+    int flag = 0 ;
     top->trace(tfp,0);
     tfp->open("obj_dir/dump.vcd");
     init_isa();
     top->rst = 1;
     top->clk = 0;
-    while (sc_time_stamp() < 1000 ) {
-      if (main_time > 14) 
-        top->rst = 0;
-      if ((main_time % 10) == 5) {
+    while (main_time < 500 ) {
+      if ((main_time % 40) == 20) {
         top->clk = 1;
       }
-      if ((main_time % 10) == 0) 
+      if ((main_time % 40) == 0) 
         top->clk = 0;
-      if (((main_time % 10) == 0)&&main_time > 14){
-        printf("here1,%d\n",top->pc_out);
+      if (main_time >= 40) {
+        top->rst = 0;
+      }
+      if ((main_time % 40) == 19 && main_time > 40){
         top->inst = pmem_read(top->pc_out,4);
-        printf("here2\n");
+        printf("inst: %lx\n",pmem_read(top->pc_out,4));
       }
       top->eval();
       tfp->dump(main_time);
       main_time++;
-      printf("here3,%ld,%d\n",main_time,top->clk);
     }
     top->final();
     tfp->close();

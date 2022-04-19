@@ -5,7 +5,6 @@ module ysyx_22040759_npc(
     output[31:0]    pc_out  //pc:data_out
     );
     
-    //wire [31:0] pc_out;
     wire [31:0] pc_new;
     wire [6:0]  opcode;
     wire [2:0]  func3;
@@ -21,8 +20,6 @@ module ysyx_22040759_npc(
     wire [31:0] result;
     wire [31:0] alu2;
     assign alu2 = (immsel == 1'b1)? imme:src2;
-    //assign rom_addr = pc_out[9:2];
-    
     ysyx_22040759_PC PC(
     .clk       (clk),
     .rst       (rst),
@@ -57,7 +54,7 @@ module ysyx_22040759_npc(
     ysyx_22040759_ALU ALU(
     .src1   (src1),
     .src2   (alu2),
-    .alusel (alusel),     //ALU功能选择 
+    .alusel (alusel),      //ALU功能选择 
     .result (result)   
     );  
     
