@@ -2,9 +2,16 @@ module ysyx_22040759_npc(
     input           clk,
     input           rst,
     input [31:0]    inst,
-    output[31:0]    pc_out  //pc:data_out
+    output[31:0]    pc_out 
     );
-    
+//------------------------------------------------------------
+// to test  
+import "DPI-C" function void c_ebreak();
+always@(*){
+  if(inst == 32'h100073)
+    c_ebreak();
+}
+//------------------------------------------------------------
     wire [31:0] pc_new;
     wire [6:0]  opcode;
     wire [2:0]  func3;
@@ -20,6 +27,7 @@ module ysyx_22040759_npc(
     wire [31:0] result;
     wire [31:0] alu2;
     assign alu2 = (immsel == 1'b1)? imme:src2;
+
     ysyx_22040759_PC PC(
     .clk       (clk),
     .rst       (rst),
