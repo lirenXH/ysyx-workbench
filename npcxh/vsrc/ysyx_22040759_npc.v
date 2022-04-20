@@ -7,10 +7,10 @@ module ysyx_22040759_npc(
 //------------------------------------------------------------
 // to test  
 import "DPI-C" function void c_ebreak();
-always@(*){
+always@(inst)begin
   if(inst == 32'h100073)
     c_ebreak();
-}
+end
 //------------------------------------------------------------
     wire [31:0] pc_new;
     wire [6:0]  opcode;

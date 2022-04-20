@@ -15,7 +15,6 @@ int flag = 0;
 void c_ebreak(){
   printf("THE c_ebreak is called!\n");
   flag = 1;
-  printf("flag=%d\n",flag);
 }
 //------------------------------------------------------------
 
