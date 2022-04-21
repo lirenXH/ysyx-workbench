@@ -87,11 +87,11 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 void *memset(void *s, int c, size_t n) {
-    char *_dst = (char*)s;
+    char *dst = (char*)s;
     //assert ('\0' != *_dst);
     for (;0 < n;n--)
     {
-        *_dst++ = c;
+        *dst++ = c;
     }
     return s;
 }
