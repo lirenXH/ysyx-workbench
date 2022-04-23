@@ -13,9 +13,82 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
 
-int sprintf(char *out, const char *fmt, ...) {
-  panic("Not implemented");
+int sprintf(char * out,const char * fmt, ...)
+{
+	va_list ap;
+	char *sval;
+  const char *p;
+	int ival;
+	char buf[30];
+  char buff[30];
+	int strcnt = 0;
+  int count=0;
+	///
+
+	char str_buf[64];
+	char * str_buf_p = str_buf;
+	unsigned char i = 0;
+	
+	va_start(ap, fmt);
+	for (p = fmt; *p; p++)
+	{
+			if(*p != '%')
+			{
+					*str_buf_p = *p;
+					str_buf_p ++;
+					strcnt ++;
+                    count++;
+					continue;
+			}
+
+			switch(*++p)
+			{
+			case 'd':
+					ival = va_arg(ap, int);
+                    //printf("ival=%d\n",ival);
+                    int len=0;
+                    while(ival>=10){
+                        buff[len]=(char)('0'+ival%10);
+                        ival=ival/10;
+                        //printf("buff=%s\n",buff);
+                        len++;
+                    }
+                    buff[len]=(char)('0'+ival%10);
+                    //printf("buff=%s\n",buf);
+                    int lenn =len;
+                    for(int ii = 0; ii <= len ;ii++){
+                        buf[ii]=buff[lenn];
+                        lenn--;
+                    }
+					for(i = 0; buf[i] != '\0'; i++)
+					{
+							*str_buf_p = buf[i];
+							str_buf_p ++;
+							strcnt ++;
+                            count++;
+					}
+                    for(i=0;i<=len;i++)
+                        buf[i] = '\0';
+					break;
+			case 's':
+					sval = va_arg(ap, char *);
+					while(*sval != '\0')
+					{
+							*str_buf_p = *sval;
+							str_buf_p ++;
+							strcnt ++;
+							sval ++;
+                            count++;
+					}
+					break;
+			}
+	}
+	va_end(ap);           
+    memcpy(out,str_buf,strcnt); 
+	out[strcnt]=0;          
+    return count-2;
 }
+
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
   panic("Not implemented");
