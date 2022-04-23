@@ -86,7 +86,7 @@ int sprintf(char * out,const char * fmt, ...)
 	va_end(ap);           
     memcpy(out,str_buf,strcnt); 
 	out[strcnt]=0;          
-    return count-2;
+    return count-1;
 }
 
 
