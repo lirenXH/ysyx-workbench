@@ -65,10 +65,10 @@ int sprintf(char * out,const char * fmt, ...)
 							*str_buf_p = buf[i];
 							str_buf_p ++;
 							strcnt ++;
-                            count++;
+              count++;
 					}
-                    for(i=0;i<=len;i++)
-                        buf[i] = '\0';
+          for(i=0;i<=len;i++)
+            buf[i] = '\0';
 					break;
 			case 's':
 					sval = va_arg(ap, char *);
@@ -78,14 +78,14 @@ int sprintf(char * out,const char * fmt, ...)
 							str_buf_p ++;
 							strcnt ++;
 							sval ++;
-                            count++;
+              count++;
 					}
 					break;
 			}
 	}
 	va_end(ap);           
     memcpy(out,str_buf,strcnt); 
-	out[strcnt]=0;          
+	//out[strcnt]=0;          
     return count-1;
 }
 
