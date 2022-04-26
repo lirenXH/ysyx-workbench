@@ -36,7 +36,7 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   printf("NEMU exit successfully!\n");
-  //cpu_quit();
+  cpu_quit();
   return -1;
 }
 
