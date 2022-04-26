@@ -124,7 +124,10 @@ void iringbuff(word_t irpcc,char irpp[50]){
   static int iri=0;
   iringbuf[iri].irpc=irpcc;
   strcpy(iringbuf[iri].irp,irpp);
-  iri=iri%16+1;
+  if(iri==15)
+    iri=0;
+  else
+    iri++;
   if(nemu_state.state==NEMU_ABORT||nemu_state.halt_ret==1){
     char error_flag[10] = "<<----";
     for(int i=0;i<=15;i++){
