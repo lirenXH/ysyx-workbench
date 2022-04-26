@@ -20,7 +20,7 @@ static word_t pmem_read(paddr_t addr, int len) {
 
 static void pmem_write(paddr_t addr, int len, word_t data) {
   host_write(guest_to_host(addr), len, data);
-  printf("wmem:%x data:%lx\n",addr,data);
+  printf("wmem:0x%x data:0x%lx\n",addr,data);
 }
 
 static void out_of_bound(paddr_t addr) {
