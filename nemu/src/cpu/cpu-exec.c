@@ -14,9 +14,16 @@ CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
+////////////////////////iringbuf
+static struct iringbuf
+{
+  word_t irpc;
+  char irp[50];
+}iringbuf[16];
 
+//////////////////////////////////
 void device_update();
-
+void iringbuff(word_t irpcc,char irpp[50]);
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -52,7 +59,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-  printf("pc:%#08lx %s\n",s->pc,p);
+  iringbuff(s->pc,p);
 #endif
 }
 
@@ -112,3 +119,18 @@ void cpu_exec(uint64_t n) {
     case NEMU_QUIT: statistic();
   }
 }
+////////////////////////iringbuf
+void iringbuff(word_t irpcc,char irpp[50]){
+  static int iri=0;
+  iringbuf[iri].irpc=irpcc;
+  strcpy(iringbuf[iri].irp,irpp);
+  if(iri==15)
+    iri=0;
+  else
+    iri++;
+  if(nemu_state.state==NEMU_ABORT||nemu_state.halt_ret==1)
+    for(int i=0;i<=15;i++){
+      printf("pc:%#08lx %s\n",iringbuf[i].irpc,iringbuf[i].irp);
+    }
+}
+////////////////////////////////
