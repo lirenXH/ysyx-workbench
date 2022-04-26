@@ -47,10 +47,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
   int space_len = ilen_max - ilen;
   if (space_len < 0) space_len = 0;
   space_len = space_len * 3 + 1;
-  printf("pc:%#08lx %s\n",s->pc,p);
   memset(p, ' ', space_len);
   p += space_len;
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+  printf("pc:%#08lx %s\n",s->pc,p);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   printf("pc:%#08lx %s\n",s->pc,s->logbuf);
