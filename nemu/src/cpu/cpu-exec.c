@@ -128,9 +128,14 @@ void iringbuff(word_t irpcc,char irpp[50]){
     iri=0;
   else
     iri++;
-  if(nemu_state.state==NEMU_ABORT||nemu_state.halt_ret==1)
+  if(nemu_state.state==NEMU_ABORT||nemu_state.halt_ret==1){
+    char error_flag[10] = "<<----";
     for(int i=0;i<=15;i++){
-      printf("pc:%#08lx %s\n",iringbuf[i].irpc,iringbuf[i].irp);
+      if(i!=iri-1)
+        printf("pc:%#08lx %s\n",iringbuf[i].irpc,iringbuf[i].irp);
+      else
+        printf("pc:%#08lx %s %s\n",iringbuf[i].irpc,iringbuf[i].irp,error_flag);
     }
+  }
 }
 ////////////////////////////////
