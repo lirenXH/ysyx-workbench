@@ -146,7 +146,7 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         printf("%u\t", shdr[i].sh_info);
         printf("%2lu bytes\t", shdr[i].sh_addralign);
         printf("%4lx\n", shdr[i].sh_entsize);
-        if(!strcpy(&strtable[shdr[i].sh_name],".symtab"))
+        if(!strcmp(&strtable[shdr[i].sh_name],".symtab"))
             printf("catch symtab!!\n");
     }
 }
