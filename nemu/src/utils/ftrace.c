@@ -10,6 +10,7 @@ FILE *fp;
 char strtable[9999];
 
 void section_header_64_parse(Elf64_Ehdr* ehdr);
+void ELF_header_64_parse(Elf64_Ehdr* ehdr);
 void print64(void(*fun)(Elf64_Ehdr* ehdr));
 
 void init_ftrace(const char *ftrace_file) {
@@ -30,6 +31,7 @@ void init_ftrace(const char *ftrace_file) {
     OStype = str[4] == 1 ? 32 : 64; //判断elf⽂件为32位还是64位
     printf("魔数检验通过，该⽂件为%d位ELF⽂件\n", OStype);
     if(OStype ==64){
+        print64(ELF_header_64_parse);
         print64(section_header_64_parse);
     }
     Assert(fp, "Can not open elf'%s'", ftrace_file);
