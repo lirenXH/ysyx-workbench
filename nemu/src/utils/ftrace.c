@@ -100,6 +100,8 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Sym sym[99];
     fseek(fp,symoff,SEEK_SET);
     frc=fread(sym,sizeof(Elf64_Sym),26,fp);//count !!
+    fseek(fp, sym[sym->st_shndx].st_value,SEEK_SET);
+    frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
     printf("--------------------------------------------\n");
     printf("------size----type-------------------------\n");
     for(int i =0; i <=25;i++){
