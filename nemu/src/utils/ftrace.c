@@ -6,7 +6,7 @@ FILE *ftrace_fp = NULL;
 void init_ftrace(const char *ftrace_file) {
   ftrace_fp = stdout;
   if (ftrace_file != NULL) {
-    FILE *fp = fopen(ftrace_file, "w");
+    FILE *fp = fopen(ftrace_file, "r");
     Assert(fp, "Can not open elf'%s'", ftrace_file);
     ftrace_fp = fp;
   }
