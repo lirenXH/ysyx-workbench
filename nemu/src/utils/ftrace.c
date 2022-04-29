@@ -43,8 +43,6 @@ void print64(void(*fun)(Elf64_Ehdr* ehdr)){
     //freopen("CON","w",stdout);
     fun(ehdr);
     //freopen("result.txt","a+",stdout);
-    fun(ehdr);
-    //freopen("CON","w",stdout);
 }
 void ELF_header_64_parse(Elf64_Ehdr* ehdr){
 fseek(fp,0,SEEK_SET);
