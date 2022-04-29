@@ -96,9 +96,12 @@ switch(ehdr->e_version){
 }
 //----------------------------------------------------------
 void symtab_64_parse(Elf64_Ehdr* ehdr){
-   // Elf64_Sym sym[99];
-    //fseek(fp, ehdr->e_shoff,SEEK_SET);
-       // printf("st_name=%s\n",sym->st_name);
+    Elf64_Sym sym[99];
+    fseek(fp,symoff,SEEK_SET);
+    frc=fread(sym,sizeof(Elf64_Sym),20,fp);//count !!
+    for(int i =0; i < 20;++i){
+        printf("[%02d]\t%s", i,&strtable[sym[i].st_name]);
+        }
 }
 //----------------------------------------------------------
 void section_header_64_parse(Elf64_Ehdr* ehdr){
