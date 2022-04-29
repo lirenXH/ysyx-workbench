@@ -100,7 +100,7 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
     frc=fread(strtable,1, shdr[ehdr->e_shstrndx].sh_size, fp);
     printf("There are %d section headers, starting at offset 0x%04lx:\n\n", count, ehdr->e_shoff);
     puts("节头表:");
-    printf("[编号]      名称            类型                属性          虚拟地址         偏移量          ⼤⼩        索引值    信息    对齐长度    表项⼤⼩\n");
+    printf("[编号]      名称            类型                属性          虚拟地址         偏移量          ⼤⼩           索引值    信息    对齐长度    表项⼤⼩\n");
     for(int i =0; i < count;++i){
         printf("[%02d]\t%s", i,&strtable[shdr[i].sh_name]);
         for(int j =0; j <20-strlen(&strtable[shdr[i].sh_name]);++j){
