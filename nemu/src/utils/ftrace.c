@@ -102,7 +102,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     frc=fread(sym,sizeof(Elf64_Sym),25,fp);//count !!
     printf("--------------------------------------------\n");
     printf("------size----type-------------------------\n");
-    for(int i =0; i < 25;++i){
+    for(int i =0; i < 25;i++){
         printf("[%02d]\t%ld\t%d\n", i,sym[i].st_size,sym[i].st_info);
         }
 }
