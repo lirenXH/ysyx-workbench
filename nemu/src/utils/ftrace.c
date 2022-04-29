@@ -152,9 +152,9 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         printf("%u\t", shdr[i].sh_info);
         printf("%2lu bytes\t", shdr[i].sh_addralign);
         printf("%4lx\n", shdr[i].sh_entsize);
-        if(!strcmp(&strtable[shdr[i].sh_name],".symtab")){
+        if(!strcmp(&strtable[shdr[i].sh_name],".strtab")){
             symoff = shdr[i].sh_offset;
-            printf("catch symtab!!\n");
+            printf("catch strtab!!\n");
             printf("off=%d\n",symoff);
         }
     }
