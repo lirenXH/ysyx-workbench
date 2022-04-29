@@ -103,7 +103,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     printf("--------------------------------------------\n");
     printf("------size----type-------------------------\n");
     for(int i =0; i <=25;i++){
-        printf("[%02d]\t%ld\t%d\n", i,sym[i].st_size,sym[i].st_info);
+        printf("[%02d]\t%ld\t%d\t%d\n", i,sym[i].st_size,sym[i].st_info,sym[i].st_name);
         }
 }
 //----------------------------------------------------------
