@@ -107,10 +107,10 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     fseek(fp, sym[sym->st_shndx].st_value,SEEK_SET);
     frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
     printf("--------------------------------------------\n");
-    printf("--------value-------size----type-------------------------\n");
+    printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=25;i++){
         printf("[%02d]\t%08lx\t%ld\t%d\t%s\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,&strtable[sym[i].st_name]);
-        if(sym[i].st_info==18){
+        if(sym[i].st_info==18&&sym[i].st_info!=0){
             int fnum=0;
             func[fnum].value=sym[i].st_value;
             printf("fnum:%08x\n",func[fnum].value);
