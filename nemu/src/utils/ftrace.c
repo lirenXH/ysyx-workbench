@@ -10,7 +10,7 @@ void init_ftrace(const char *ftrace_file) {
   if (ftrace_file != NULL) {
     FILE *fp = fopen(ftrace_file, "rb");
     memset(str,0,sizeof(str));
-    frc=fread(str,1,5, fp);
+    frc=fread(str,1,15, fp);
     printf("frc=%d,str=%s\n",frc,str);
     //print64(program_header_64_parse);
     Assert(fp, "Can not open elf'%s'", ftrace_file);
