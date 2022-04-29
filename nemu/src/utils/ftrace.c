@@ -99,10 +99,10 @@ switch(ehdr->e_version){
 void symtab_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Sym sym[99];
     fseek(fp,symoff,SEEK_SET);
-    frc=fread(sym,sizeof(Elf64_Sym),1,fp);//count !!
+    frc=fread(sym,sizeof(Elf64_Sym),10,fp);//count !!
     printf("--------------------------------------------\n");
     for(int i =0; i < 10;++i){
-        printf("[%02d]\t%s\n", i,&strtable[sym[i].st_name]);
+        printf("[%02d]\t%ld\n", i,sym[i].st_size);
         }
 }
 //----------------------------------------------------------
@@ -152,9 +152,9 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         printf("%u\t", shdr[i].sh_info);
         printf("%2lu bytes\t", shdr[i].sh_addralign);
         printf("%4lx\n", shdr[i].sh_entsize);
-        if(!strcmp(&strtable[shdr[i].sh_name],".strtab")){
+        if(!strcmp(&strtable[shdr[i].sh_name],".symtab")){
             symoff = shdr[i].sh_offset;
-            printf("catch strtab!!\n");
+            printf("catch symtab!!\n");
             printf("off=%d\n",symoff);
         }
     }
