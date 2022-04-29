@@ -52,6 +52,9 @@ $(shell mkdir -p $(DST_DIR))
 
 ### Compilation targets (a binary image or archive)
 IMAGE_REL = build/$(NAME)-$(ARCH)
+######
+IMAGE_ELF = $(WORK_DIR)/build/$(NAME)-$(ARCH).elf
+######
 IMAGE     = $(abspath $(IMAGE_REL))
 ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
 

@@ -7,7 +7,7 @@ void init_ftrace(const char *ftrace_file) {
   ftrace_fp = stdout;
   if (ftrace_file != NULL) {
     FILE *fp = fopen(ftrace_file, "w");
-    Assert(fp, "Can not open '%s'", ftrace_file);
+    Assert(fp, "Can not open elf'%s'", ftrace_file);
     ftrace_fp = fp;
   }
 }
