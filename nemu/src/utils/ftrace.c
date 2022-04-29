@@ -23,6 +23,14 @@ void init_ftrace(const char *ftrace_file) {
     printf("frc=%d,str=%s\n",frc,text);
     frc=fread(text,1,1024,fp);
     printf("frc=%d,str=%s\n",frc,text);
+    frc=fread(text,1,1024,fp);
+    printf("frc=%d,str=%s\n",frc,text);
+    frc=fread(text,1,1024,fp);
+    printf("frc=%d,str=%s\n",frc,text);
+    frc=fread(text,1,1024,fp);
+    printf("frc=%d,str=%s\n",frc,text);
+    frc=fread(text,1,1024,fp);
+    printf("frc=%d,str=%s\n",frc,text);
     Assert(fp, "Can not open elf'%s'", ftrace_file);
     ftrace_fp = fp;
   }
