@@ -99,9 +99,9 @@ switch(ehdr->e_version){
 void symtab_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Sym sym[99];
     fseek(fp,symoff,SEEK_SET);
-    frc=fread(sym,sizeof(Elf64_Sym),10,fp);//count !!
+    frc=fread(sym,sizeof(Elf64_Sym),25,fp);//count !!
     printf("--------------------------------------------\n");
-    for(int i =0; i < 10;++i){
+    for(int i =0; i < 25;++i){
         printf("[%02d]\t%ld\n", i,sym[i].st_size);
         }
 }
