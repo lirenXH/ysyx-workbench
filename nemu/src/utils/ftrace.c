@@ -11,6 +11,7 @@ char strtable[9999];
 
 void section_header_64_parse(Elf64_Ehdr* ehdr);
 void ELF_header_64_parse(Elf64_Ehdr* ehdr);
+void symtab_64_parse(Elf64_Ehdr* ehdr);
 void print64(void(*fun)(Elf64_Ehdr* ehdr));
 
 void init_ftrace(const char *ftrace_file) {
@@ -44,6 +45,8 @@ void print64(void(*fun)(Elf64_Ehdr* ehdr)){
     fun(ehdr);
     //freopen("result.txt","a+",stdout);
 }
+
+//-------------------------------------------------
 void ELF_header_64_parse(Elf64_Ehdr* ehdr){
 fseek(fp,0,SEEK_SET);
 frc=fread(ehdr,sizeof(Elf64_Ehdr),1, fp);
@@ -90,7 +93,13 @@ switch(ehdr->e_version){
     printf("节头表表项数量:\t\t%u\n", ehdr->e_shnum);
     printf("字符串表在节头表中索引:\t%u\n", ehdr->e_shstrndx);
 }
-
+//----------------------------------------------------------
+void symtab_64_parse(Elf64_Ehdr* ehdr){
+   // Elf64_Sym sym[99];
+    //fseek(fp, ehdr->e_shoff,SEEK_SET);
+       // printf("st_name=%s\n",sym->st_name);
+}
+//----------------------------------------------------------
 void section_header_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Shdr shdr[99];
     int count = ehdr->e_shnum;
@@ -137,5 +146,7 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         printf("%u\t", shdr[i].sh_info);
         printf("%2lu bytes\t", shdr[i].sh_addralign);
         printf("%4lx\n", shdr[i].sh_entsize);
+        if(strcpy(&strtable[shdr[i].sh_name],".symtab"))
+            printf("catch symtab!!\n");
     }
 }
