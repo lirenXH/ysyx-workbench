@@ -44,6 +44,53 @@ void print64(void(*fun)(Elf64_Ehdr* ehdr)){
     fun(ehdr);
     //freopen("CON","w",stdout);
 }
+void ELF_header_64_parse(Elf64_Ehdr* ehdr){
+fseek(fp,0,SEEK_SET);
+frc=fread(ehdr,sizeof(Elf64_Ehdr),1, fp);
+puts("ELF头:");
+printf("Magic:\t\t\t");
+for(int i =0; i < EI_NIDENT;++i)printf("%02x ", ehdr->e_ident[i]);
+    printf("\n类别:\t\t\t");
+    switch(ehdr->e_type){
+    case 0:printf("未知⽂件类型\n");break;
+    case 1:printf("可重定位⽂件\n");break;
+    case 2:printf("可执⾏⽂件\n");break;
+    case 3:printf("动态链接库⽂件\n");break;
+    case 4:printf("Core⽂件\n");break;
+    case 0xff00:printf("特定处理器⽂件扩展下边界\n");break;
+    case 0xffff:printf("特定处理器⽂件扩展上边界\n");break;
+}
+printf("处理器体系结构:\t\t");
+switch(ehdr->e_machine){
+    case 0:printf("未知体系结构\n");break;
+    case 1:printf("AT&T WE 32100\n");break;
+    case 2:printf("SPARC\n");break;
+    case 3:printf("Intel Architecture\n");break;
+    case 4:printf("Motorola 68000\n");break;
+    case 5:printf("Motorola 88000\n");break;
+    case 7:printf("Intel 80860\n");break;
+    case 8:printf("MIPS RS3000 Big-Endian\n");break;
+    case 10:printf("MIPS RS4000 Big-Endian\n");break;
+    case 62:printf("AMD x86-64 architecture\n");break;
+}
+printf("version:\t\t");
+switch(ehdr->e_version){
+    case 0:printf("⾮法版本号\n");break;
+    case 1:printf("当前版本号\n");break;
+}
+    printf("⼊⼝虚拟地址:\t\t0x%016lx\n", ehdr->e_entry);
+    printf("程序头表偏移量:\t\t0x%08lx\n", ehdr->e_phoff);
+    printf("节头表偏移量:\t\t0x%08lx\n", ehdr->e_shoff);
+    printf("处理器标志位:\t\t%x\n", ehdr->e_flags);
+    printf("ELF⽂件头⼤⼩:\t\t%u bytes\n", ehdr->e_ehsize);
+    printf("程序头标每⼀表项⼤⼩:\t%u bytes\n", ehdr->e_phentsize);
+    printf("程序头标每⼀表项⼤⼩:\t%u bytes\n", ehdr->e_phentsize);
+    printf("程序头表表项数量:\t%u\n", ehdr->e_phnum);
+    printf("节头表每⼀表项⼤⼩:\t%u bytes\n", ehdr->e_shentsize);
+    printf("节头表表项数量:\t\t%u\n", ehdr->e_shnum);
+    printf("字符串表在节头表中索引:\t%u\n", ehdr->e_shstrndx);
+}
+
 void section_header_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Shdr shdr[99];
     int count = ehdr->e_shnum;
