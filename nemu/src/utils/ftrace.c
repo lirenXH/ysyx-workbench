@@ -12,10 +12,13 @@ void init_ftrace(const char *ftrace_file) {
     FILE *fp = fopen(ftrace_file, "rb");
     memset(str,0,sizeof(str));
     memset(text,0,sizeof(text));
+    while(fgets(text, 1024, fp) != NULL){
+        printf ("%s\n",text);
+    }
     frc=fread(str,1,5,fp);
     printf("frc=%d,str=%s\n",frc,str);
     while(fgets(text, 1024, fp) != NULL){
-        printf ("%s",text);
+        printf ("%s\n",text);
     }
     Assert(fp, "Can not open elf'%s'", ftrace_file);
     ftrace_fp = fp;
