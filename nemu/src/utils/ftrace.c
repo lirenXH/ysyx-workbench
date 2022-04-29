@@ -35,6 +35,7 @@ void init_ftrace(const char *ftrace_file) {
     if(OStype ==64){
         print64(ELF_header_64_parse);
         print64(section_header_64_parse);
+        print64(symtab_64_parse);
     }
     Assert(fp, "Can not open elf'%s'", ftrace_file);
     ftrace_fp = fp;
