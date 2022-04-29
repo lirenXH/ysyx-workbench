@@ -7,6 +7,7 @@ int OStype;
 int frc;
 int *frc1;
 FILE *fp;
+int symoff;
 char strtable[9999];
 
 void section_header_64_parse(Elf64_Ehdr* ehdr);
@@ -146,7 +147,10 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         printf("%u\t", shdr[i].sh_info);
         printf("%2lu bytes\t", shdr[i].sh_addralign);
         printf("%4lx\n", shdr[i].sh_entsize);
-        if(!strcmp(&strtable[shdr[i].sh_name],".symtab"))
+        if(!strcmp(&strtable[shdr[i].sh_name],".symtab")){
+            symoff = shdr[i].sh_offset;
             printf("catch symtab!!\n");
+            printf("off=%d\n",symoff);
+        }
     }
 }
