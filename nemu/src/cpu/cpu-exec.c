@@ -28,7 +28,7 @@ extern struct funt{
 //////////////////////////////////
 void device_update();
 void iringbuff(word_t irpcc,char irpp[50]);
-void ftrace_main(word_t ftpc,uint8_t inst);
+void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc);
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -65,7 +65,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   iringbuff(s->pc,p);
-  ftrace_main(s->pc,s->isa.inst.val);
+  ftrace_main(s->pc,s->isa.inst.val,s->dnpc);
 #endif
 }
 
@@ -145,11 +145,23 @@ void iringbuff(word_t irpcc,char irpp[50]){
   }
 }
 
-void ftrace_main(word_t ftpc,uint8_t inst){
-  printf("pc:%#08lx,inst:%x\n",ftpc,inst);
-  if((inst&0x0000007f)==0b01101111)
-    printf("catch jal\n");
-  for(int i=0;i<func[1].ffnum;i++)
-    printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,i,func[i].value,func[i].name);
+void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
+  //printf("pc:%#08lx,inst:%x\n",ftpc,inst);
+  char space[10]="  ";
+  int space_len=0;
+  if(((inst&0x0000007f)==0b01101111)||((inst&0x0000007f)==0b01100111)){
+    printf("catch jal/jalr\n");
+    for(int i=0;i<func[1].ffnum;i++){
+      if(fdnpc==func[i].value){
+        printf("%ld:",ftpc);
+        for(int j=0;j<space_len;j++)
+          printf("%s",space);
+        space_len++;
+        printf("call [%s@%d]",func[i].name,func[i].value);
+      }
+    }
+  }
+  //for(int i=0;i<func[1].ffnum;i++)
+    //printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,i,func[i].value,func[i].name);
 }
 ////////////////////////////////
