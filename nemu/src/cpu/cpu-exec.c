@@ -66,6 +66,12 @@ static void exec_once(Decode *s, vaddr_t pc) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   iringbuff(s->pc,p);
   ftrace_main(s->pc,s->isa.inst.val,s->dnpc);
+  for(int i=0;i<func[1].ffnum;i++){
+      if(s->dnpc==func[i].value){
+        printf("%ld:",s->dnpc);
+        printf(" call [%s@%d]\n",func[i].name,func[i].value);
+      }
+  }
 #endif
 }
 
