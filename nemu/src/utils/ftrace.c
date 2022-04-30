@@ -107,13 +107,14 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     int fnum=0;
     fseek(fp,symoff,SEEK_SET);
     frc=fread(sym,sizeof(Elf64_Sym),symcount,fp);
-    //fseek(fp, sym->st_name+symoff,SEEK_SET);
+    fseek(fp,stroff,SEEK_SET);
+    frc=fread(strtable,1, sym->st_size, fp);
     //frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=symcount-1;i++){
-        fseek(fp, sym[i].st_name+stroff,SEEK_SET);
-        frc=fread(strtable,1, sym[i].st_size, fp);
+        //fseek(fp, sym[i].st_name+stroff,SEEK_SET);
+        //frc=fread(strtable,1, sym[i].st_size, fp);
         printf("[%02d]\t%08lx\t%ld\t%d\t%s\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,&strtable[sym[i].st_name]);
         if(sym[i].st_info==18){   
             func[fnum].value=sym[i].st_value;
@@ -124,7 +125,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
         }
     }
 }
-//----------------------------------------------------------
+//--------------------------------------------------------Q--
 void section_header_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Shdr shdr[99];
     int count = ehdr->e_shnum;
