@@ -161,7 +161,7 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
         space_len = space_len + 4;
       }
     }
-    if(((inst&0x0000ffff)==0b1000000001100111)){
+    if(inst==0x00008067){
       for(int i=0;i<func[1].ffnum;i++){
         if(ftpc-func[i].value<=func[i].fsize){
           if(space_len>=4)
