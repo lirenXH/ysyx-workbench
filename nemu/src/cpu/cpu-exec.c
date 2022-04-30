@@ -150,7 +150,7 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
   char space[10]="  ";
   int space_len=0;
   if(((inst&0x0000007f)==0b01101111)||((inst&0x0000007f)==0b01100111)){
-    printf("catch jal/jalr\n");
+    printf("catch jal/jalr dnpc=%ld\n",fdnpc);
     for(int i=0;i<func[1].ffnum;i++){
       if(fdnpc==func[i].value){
         printf("%ld:",ftpc);
