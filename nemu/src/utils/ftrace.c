@@ -8,8 +8,8 @@ int frc;
 int *frc1;
 FILE *fp;
 int symoff;
-int shrcount;
-int shrcount2;
+size_t shrcount;
+size_t shrcount2;
 char strtable[9999];
 struct funt{
     int value;
