@@ -154,7 +154,7 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
       if(fdnpc==func[i].value){
         printf("%#08lx:",ftpc);
         for(int j=0;j<=space_len;j++)
-          printf("  ");
+          printf("\t");
         space_len=space_len+2;
         printf("call [%s@%ld]\n",func[i].name,func[i].value);
       }
