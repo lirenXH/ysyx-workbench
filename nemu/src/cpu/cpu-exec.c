@@ -161,7 +161,7 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
       }
     }
   }
-  for(int ii=0;ii<func[1].ffnum;ii++)
-    printf("cpu:::==ffnum=%d fnum[%d]:%ld name:%s\n",func[1].ffnum,ii,func[ii].value,func[ii].name);
+  //for(int ii=0;ii<func[1].ffnum;ii++)
+  //  printf("cpu:::==ffnum=%d fnum[%d]:%ld name:%s\n",func[1].ffnum,ii,func[ii].value,func[ii].name);
 }
 ////////////////////////////////
