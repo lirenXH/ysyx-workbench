@@ -147,15 +147,14 @@ void iringbuff(word_t irpcc,char irpp[50]){
 
 void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
   //printf("pc:%#08lx,inst:%x\n",ftpc,inst);
-  int space_len=1;
+  char space[200];
   if(((inst&0x0000007f)==0b01101111)||((inst&0x0000007f)==0b01100111)){
     //printf("catch jal/jalr dnpc=%ld\n",fdnpc);
     for(int i=0;i<func[1].ffnum;i++){
       if(fdnpc==func[i].value){
+        strcat(space,"  ");
         printf("%#08lx:",ftpc);
-        for(int j=0;j<=space_len;j++)
-          printf("\t");
-        space_len=space_len+2;
+        printf("%s",space);
         printf("call [%s@%ld]\n",func[i].name,func[i].value);
       }
     }
