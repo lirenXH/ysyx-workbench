@@ -147,7 +147,7 @@ void iringbuff(word_t irpcc,char irpp[50]){
 
 void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
   //printf("pc:%#08lx,inst:%x\n",ftpc,inst);
-  int space_len=0;
+  int space_len=1;
   if(((inst&0x0000007f)==0b01101111)||((inst&0x0000007f)==0b01100111)){
     //printf("catch jal/jalr dnpc=%ld\n",fdnpc);
     for(int i=0;i<func[1].ffnum;i++){
