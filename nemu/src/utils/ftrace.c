@@ -15,6 +15,7 @@ char strtable[9999];
 Elf64_Shdr shdr[99];
 struct funt{
     int value;
+    int ffnum;
     char name[20];
 }func[20];
 
@@ -51,9 +52,7 @@ void init_ftrace(const char *ftrace_file) {
 }
 void print64(void(*fun)(Elf64_Ehdr* ehdr)){
     static Elf64_Ehdr ehdr[1];
-    //freopen("CON","w",stdout);
     fun(ehdr);
-    //freopen("result.txt","a+",stdout);
 }
 
 //-------------------------------------------------
@@ -111,6 +110,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     frc=fread(sym,sizeof(Elf64_Sym),symcount,fp);
     fseek(fp,shdr[strnum].sh_offset,SEEK_SET);
     frc=fread(strtable,1, shdr[strnum].sh_size, fp);
+    func[1].ffnum=symcount;
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=symcount-1;i++){
@@ -120,8 +120,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
             strcpy(func[fnum].name,&strtable[sym[i].st_name]);
             if(func[fnum].value==0x80000000)
                 fnum--;
-            printf("fnum[%d]:%08x name:%s\n",fnum,func[fnum].value,func[fnum].name);
-
+            printf("ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,fnum,func[fnum].value,func[fnum].name);
             fnum++;
         }
     }
