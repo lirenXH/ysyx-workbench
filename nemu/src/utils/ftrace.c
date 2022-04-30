@@ -9,6 +9,7 @@ int *frc1;
 FILE *fp;
 int symoff;
 int stroff;
+int strnum;
 int symcount;
 char strtable[9999];
 struct funt{
@@ -180,8 +181,9 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         }
         if(!strcmp(&strtable[shdr[i].sh_name],".strtab")){
             stroff = shdr[i].sh_offset;
+            strnum = i;
             printf("catch strtab!!\n");
-            printf("stroff=%d\n",stroff);
+            printf("stroff=%d,strnum=%d\n",stroff,strnum);
         }
     }
 }
