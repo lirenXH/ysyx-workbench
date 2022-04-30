@@ -28,6 +28,7 @@ extern struct funt{
 //////////////////////////////////
 void device_update();
 void iringbuff(word_t irpcc,char irpp[50]);
+void ftrace_main();
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -64,6 +65,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   iringbuff(s->pc,p);
+  ftrace_main();
 #endif
 }
 
