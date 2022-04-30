@@ -153,7 +153,6 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
     for(int i=0;i<func[1].ffnum;i++){
       if(fdnpc==func[i].value){
         printf("%#08lx:",ftpc);
-        printf("%ld:",ftpc);
         for(int j=0;j<=space_len;j++)
           printf("  ");
         space_len=space_len+2;
