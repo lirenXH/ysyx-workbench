@@ -144,7 +144,7 @@ config ITRACE
 config FTRACE
   depends on TRACE
   bool "Enable ftracer"
-  default y
+  default n
 
 config ITRACE_COND
   depends on ITRACE
