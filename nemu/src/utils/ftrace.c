@@ -106,8 +106,8 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     Elf64_Sym sym[99];
     int fnum=0;
     fseek(fp,symoff,SEEK_SET);
-    size_t entries = shrcount2 / shrcount;
-    printf("symcount=%ld\n",entries);
+    //size_t entries = shrcount2 / shrcount;
+    //printf("symcount=%ld\n",entries);
     frc=fread(sym,sizeof(Elf64_Sym),26,fp);//count !!
     fseek(fp, sym[sym->st_shndx].st_value,SEEK_SET);
     frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
@@ -134,6 +134,7 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
     frc=fread(strtable,1, shdr[ehdr->e_shstrndx].sh_size, fp);
     shrcount=shdr->sh_entsize;
     shrcount2=shdr->sh_size;
+    printf("shrcount=%ld,shrcount2=%ld\n",shrcount,shrcount2);
     printf("There are %d section headers, starting at offset 0x%04lx:\n\n", count, ehdr->e_shoff);
     puts("节头表:");
     printf("[编号]      名称            类型                属性          虚拟地址         偏移量          ⼤⼩           索引值    信息    对齐长度    表项⼤⼩\n");
