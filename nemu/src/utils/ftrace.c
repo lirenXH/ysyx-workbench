@@ -9,9 +9,10 @@ int *frc1;
 FILE *fp;
 int symoff;
 int stroff;
-int strnum1;
+int strnum;
 int symcount;
 char strtable[9999];
+Elf64_Shdr shdr[99];
 struct funt{
     int value;
     char name[20];
@@ -108,8 +109,8 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     int fnum=0;
     fseek(fp,symoff,SEEK_SET);
     frc=fread(sym,sizeof(Elf64_Sym),symcount,fp);
-    fseek(fp,stroff,SEEK_SET);
-    frc=fread(strtable,1, sym->st_size, fp);
+    fseek(fp,shdr[strnum].sh_offset,SEEK_SET);
+    frc=fread(strtable,1, shdr[strnum].sh_size, fp);
     //frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
@@ -128,7 +129,6 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
 }
 //--------------------------------------------------------Q--
 void section_header_64_parse(Elf64_Ehdr* ehdr){
-    Elf64_Shdr shdr[99];
     int count = ehdr->e_shnum;
     fseek(fp, ehdr->e_shoff,SEEK_SET);
     frc=fread(shdr,sizeof(Elf64_Shdr), count, fp);
@@ -181,9 +181,9 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         }
         if(!strcmp(&strtable[shdr[i].sh_name],".strtab")){
             stroff = shdr[i].sh_offset;
-            strnum1 = i;
+            strnum = i;
             printf("catch strtab!!\n");
-            printf("stroff=%d,strnum1=%d,,%ld\n",stroff,strnum1,shdr[strnum1].sh_offset);
+            printf("stroff=%d,strnum=%d\n",stroff,strnum);
         }
     }
 }
