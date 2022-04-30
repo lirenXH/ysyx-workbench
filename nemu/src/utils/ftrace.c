@@ -8,8 +8,7 @@ int frc;
 int *frc1;
 FILE *fp;
 int symoff;
-size_t shrcount;
-size_t shrcount2;
+int symcount;
 char strtable[9999];
 struct funt{
     int value;
@@ -132,9 +131,6 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
     frc=fread(shdr,sizeof(Elf64_Shdr), count, fp);
     fseek(fp, shdr[ehdr->e_shstrndx].sh_offset,SEEK_SET);
     frc=fread(strtable,1, shdr[ehdr->e_shstrndx].sh_size, fp);
-    shrcount=shdr->sh_entsize;
-    shrcount2=shdr->sh_size;
-    printf("shrcount=%ld,shrcount2=%ld\n",shrcount,shrcount2);
     printf("There are %d section headers, starting at offset 0x%04lx:\n\n", count, ehdr->e_shoff);
     puts("节头表:");
     printf("[编号]      名称            类型                属性          虚拟地址         偏移量          ⼤⼩           索引值    信息    对齐长度    表项⼤⼩\n");
@@ -176,8 +172,9 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         printf("%4lx\n", shdr[i].sh_entsize);
         if(!strcmp(&strtable[shdr[i].sh_name],".symtab")){
             symoff = shdr[i].sh_offset;
+            symcount=shdr[i].sh_size/shdr[i].sh_entsize;
             printf("catch symtab!!\n");
-            printf("off=%d\n",symoff);
+            printf("off=%d,count=%d\n",symoff,symcount);
         }
     }
 }
