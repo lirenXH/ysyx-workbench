@@ -111,7 +111,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=symcount-1;i++){
-        printf("[%02d]\t%08lx\t%ld\t%d\t%d\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,sym[i].st_name);
+        printf("[%02d]\t%08lx\t%ld\t%d\t%d\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,sym[i].st_name+symoff);
         if(sym[i].st_info==18){   
             func[fnum].value=sym[i].st_value;
             if(func[fnum].value==0x80000000)
