@@ -66,7 +66,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   iringbuff(s->pc,p);
-  ftrace_main(s->pc,s->isa.inst.val,s->dnpc);
+  IFDEF(CONFIG_FTRACE,ftrace_main(s->pc,s->isa.inst.val,s->dnpc));
 #endif
 }
 

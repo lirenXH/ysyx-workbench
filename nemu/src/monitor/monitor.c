@@ -100,7 +100,7 @@ void init_monitor(int argc, char *argv[]) {
   init_log(log_file);
 
   /* Open the ftrace file. */
-  IFDEF(CONFIG_FTRACE,init_ftrace(ftrace_file));
+  init_ftrace(ftrace_file);
 
   /* Initialize memory. */
   init_mem();
