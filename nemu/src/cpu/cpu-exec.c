@@ -146,7 +146,7 @@ void iringbuff(word_t irpcc,char irpp[50]){
 }
 
 void ftrace_main(word_t ftpc,uint8_t inst){
-  printf("pc:%#08lx,inst:%x",ftpc,inst);
+  printf("pc:%#08lx,inst:%x\n",ftpc,inst);
   for(int i=0;i<func[1].ffnum;i++)
     printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,i,func[i].value,func[i].name);
 }
