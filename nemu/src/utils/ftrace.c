@@ -106,12 +106,14 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     int fnum=0;
     fseek(fp,symoff,SEEK_SET);
     frc=fread(sym,sizeof(Elf64_Sym),symcount,fp);
-    fseek(fp, sym[sym->st_shndx].st_name+symoff,SEEK_SET);
-    frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
+    //fseek(fp, sym->st_name+symoff,SEEK_SET);
+    //frc=fread(strtable,1, sym[sym->st_shndx].st_size, fp);
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=symcount-1;i++){
-        printf("[%02d]\t%08lx\t%ld\t%d\t%d\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,sym[i].st_name);
+        fseek(fp, sym[i].st_name+symoff,SEEK_SET);
+        frc=fread(strtable,1, sym[i].st_size, fp);
+        printf("[%02d]\t%08lx\t%ld\t%d\t%s\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,&strtable[sym[i].st_name]);
         if(sym[i].st_info==18){   
             func[fnum].value=sym[i].st_value;
             if(func[fnum].value==0x80000000)
