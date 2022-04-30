@@ -16,6 +16,7 @@ Elf64_Shdr shdr[99];
 struct funt{
     uint64_t value;
     int ffnum;
+    int fsize;
     char name[20];
 }func[20];
 
@@ -116,6 +117,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
         printf("[%02d]\t%08lx\t%ld\t%d\t%s\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,&strtable[sym[i].st_name]);
         if(sym[i].st_info==18){   
             func[fnum].value=sym[i].st_value;
+            func[fnum].fsize=sym[i].st_size;
             strcpy(func[fnum].name,&strtable[sym[i].st_name]);
             if(func[fnum].value==0x80000000)
                 fnum--;

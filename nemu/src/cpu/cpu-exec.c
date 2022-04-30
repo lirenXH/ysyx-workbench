@@ -23,6 +23,7 @@ static struct iringbuf
 extern struct funt{
     uint64_t value;
     int ffnum;
+    int fsize;
     char name[20];
 }func[20];
 //////////////////////////////////
@@ -148,7 +149,7 @@ void iringbuff(word_t irpcc,char irpp[50]){
 void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
   //printf("pc:%#08lx,inst:%x\n",ftpc,inst);
   static int space_len=0;
-  if(((inst&0x0000007f)==0b01101111)||((inst&0x0000007f)==0b01100111)){
+  if(((inst&0x0000007f)==0b1101111)||((inst&0x0000007f)==0b1100111)){
     //printf("catch jal/jalr dnpc=%ld\n",fdnpc);
     for(int i=0;i<func[1].ffnum;i++){
       if(fdnpc==func[i].value){
@@ -158,6 +159,18 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
           putchar(' ');
         printf("call [%s@%ld]\n",func[i].name,func[i].value);
         space_len = space_len + 4;
+      }
+    }
+    if(((inst&0x00000fff)==0b000001101111)||((inst&0x00000fff)==0b000001100111)){
+      for(int i=0;i<func[1].ffnum;i++){
+        if(ftpc-func[i].value<=func[i].fsize){
+          if(space_len>=4)
+            space_len= space_len-4;
+        printf("%#08lx:",ftpc);
+        for(int j=0;j<=space_len;j++)
+          putchar(' ');
+        printf("ret [%s]\n",func[i].name);
+        }
       }
     }
   }
