@@ -20,7 +20,11 @@ static struct iringbuf
   word_t irpc;
   char irp[50];
 }iringbuf[16];
-
+extern struct funt{
+    int value;
+    int ffnum;
+    char name[20];
+}func[20];
 //////////////////////////////////
 void device_update();
 void iringbuff(word_t irpcc,char irpp[50]);
@@ -137,5 +141,10 @@ void iringbuff(word_t irpcc,char irpp[50]){
         printf("pc:%#08lx %s %s\n",iringbuf[i].irpc,iringbuf[i].irp,error_flag);
     }
   }
+}
+
+void ftrace_main(){
+  for(int i=0;i<func[1].ffnum;i++)
+    printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,i,func[i].value,func[i].name);
 }
 ////////////////////////////////
