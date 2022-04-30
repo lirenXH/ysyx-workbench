@@ -110,7 +110,6 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     frc=fread(sym,sizeof(Elf64_Sym),symcount,fp);
     fseek(fp,shdr[strnum].sh_offset,SEEK_SET);
     frc=fread(strtable,1, shdr[strnum].sh_size, fp);
-    func[1].ffnum=symcount;
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=symcount-1;i++){
@@ -180,6 +179,7 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
         if(!strcmp(&strtable[shdr[i].sh_name],".strtab")){
             stroff = shdr[i].sh_offset;
             strnum = i;
+            func[1].ffnum=strnum;
             printf("catch strtab!!\n");
             printf("stroff=%d,strnum=%d\n",stroff,strnum);
         }
