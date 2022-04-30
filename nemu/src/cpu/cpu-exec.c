@@ -28,7 +28,7 @@ extern struct funt{
 //////////////////////////////////
 void device_update();
 void iringbuff(word_t irpcc,char irpp[50]);
-void ftrace_main();
+void ftrace_main(word_t ftpc,uint8_t inst);
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -65,7 +65,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   iringbuff(s->pc,p);
-  ftrace_main();
+  ftrace_main(s->pc,s->isa.inst.val);
 #endif
 }
 
@@ -145,7 +145,8 @@ void iringbuff(word_t irpcc,char irpp[50]){
   }
 }
 
-void ftrace_main(){
+void ftrace_main(word_t ftpc,uint8_t inst){
+  printf("pc:%#08lx,inst:%x",ftpc,inst);
   for(int i=0;i<func[1].ffnum;i++)
     printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,i,func[i].value,func[i].name);
 }
