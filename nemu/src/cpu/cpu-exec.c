@@ -157,11 +157,11 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
         for(int j=0;j<space_len;j++)
           printf("%s",space);
         space_len++;
-        printf("call [%s@%d]",func[i].name,func[i].value);
+        printf("call [%s@%d]\n",func[i].name,func[i].value);
       }
     }
   }
-  for(int i=0;i<func[1].ffnum;i++)
-    printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,i,func[i].value,func[i].name);
+  for(int ii=0;ii<func[1].ffnum;ii++)
+    printf("cpu:::==ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,ii,func[ii].value,func[ii].name);
 }
 ////////////////////////////////
