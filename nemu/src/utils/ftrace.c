@@ -8,6 +8,7 @@ int frc;
 int *frc1;
 FILE *fp;
 int symoff;
+int stroff;
 int symcount;
 char strtable[9999];
 struct funt{
@@ -111,9 +112,9 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
     printf("--------------------------------------------\n");
     printf("--------value---------size----type-------------------------\n");
     for(int i =0; i <=symcount-1;i++){
-        fseek(fp, sym[i].st_name+symoff,SEEK_SET);
+        fseek(fp, sym[i].st_name+stroff,SEEK_SET);
         frc=fread(strtable,1, sym[i].st_size, fp);
-        printf("[%02d]\t%08lx\t%ld\t%d\t%s\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,&strtable[sym[i].st_name+symoff]);
+        printf("[%02d]\t%08lx\t%ld\t%d\t%s\t\n", i,sym[i].st_value,sym[i].st_size,sym[i].st_info,&strtable[sym[i].st_name+stroff]);
         if(sym[i].st_info==18){   
             func[fnum].value=sym[i].st_value;
             if(func[fnum].value==0x80000000)
@@ -174,7 +175,12 @@ void section_header_64_parse(Elf64_Ehdr* ehdr){
             symoff = shdr[i].sh_offset;
             symcount=shdr[i].sh_size/shdr[i].sh_entsize;//jisuan count!~
             printf("catch symtab!!\n");
-            printf("off=%d,count=%d\n",symoff,symcount);
+            printf("symoff=%d,count=%d\n",symoff,symcount);
+        }
+        if(!strcmp(&strtable[shdr[i].sh_name],".strtab")){
+            stroff = shdr[i].sh_offset;
+            printf("catch strtab!!\n");
+            printf("stroff=%d\n",stroff);
         }
     }
 }
