@@ -115,7 +115,8 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
             func[fnum].value=sym[i].st_value;
             if(func[fnum].value==0x80000000)
                 printf("start\n");
-            printf("fnum:%08x\n",func[fnum].value);
+            printf("fnum[%d]:%08x\n",fnum,func[fnum].value);
+            fnum++;
         }
     }
 }
