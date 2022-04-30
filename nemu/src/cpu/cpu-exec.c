@@ -157,7 +157,7 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
         printf("%#08lx:",ftpc);
         for(int j=0;j<=space_len;j++)
           putchar(' ');
-        printf("call [%s@%ld]\n",func[i].name,func[i].value);
+        printf("call [%s@%lx]\n",func[i].name,func[i].value);
         space_len = space_len + 4;
       }
     }
