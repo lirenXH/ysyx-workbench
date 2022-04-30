@@ -29,7 +29,7 @@ extern struct funt{
 //////////////////////////////////
 void device_update();
 void iringbuff(word_t irpcc,char irpp[50]);
-void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc);
+void ftrace_main(word_t ftpc,uint64_t inst,word_t fdnpc);
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -146,7 +146,7 @@ void iringbuff(word_t irpcc,char irpp[50]){
   }
 }
 
-void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
+void ftrace_main(word_t ftpc,uint64_t inst,word_t fdnpc){
   //printf("pc:%#08lx,inst:%x\n",ftpc,inst);
   static int space_len=0;
   if(((inst&0x0000007f)==0b1101111)||((inst&0x0000007f)==0b1100111)){
