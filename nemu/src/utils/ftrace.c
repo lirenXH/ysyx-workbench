@@ -14,7 +14,7 @@ int symcount;
 char strtable[9999];
 Elf64_Shdr shdr[99];
 struct funt{
-    int value;
+    uint64_t value;
     int ffnum;
     char name[20];
 }func[20];
@@ -119,7 +119,7 @@ void symtab_64_parse(Elf64_Ehdr* ehdr){
             strcpy(func[fnum].name,&strtable[sym[i].st_name]);
             if(func[fnum].value==0x80000000)
                 fnum--;
-            printf("ffnum=%d fnum[%d]:%08x name:%s\n",func[1].ffnum,fnum,func[fnum].value,func[fnum].name);
+            printf("ffnum=%d fnum[%d]:%08lx name:%s\n",func[1].ffnum,fnum,func[fnum].value,func[fnum].name);
             fnum++;
         }
     }

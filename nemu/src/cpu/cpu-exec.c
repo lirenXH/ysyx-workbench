@@ -21,7 +21,7 @@ static struct iringbuf
   char irp[50];
 }iringbuf[16];
 extern struct funt{
-    int value;
+    uint64_t value;
     int ffnum;
     char name[20];
 }func[20];
@@ -66,12 +66,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   iringbuff(s->pc,p);
   ftrace_main(s->pc,s->isa.inst.val,s->dnpc);
-  for(int i=0;i<func[1].ffnum;i++){
-      if(s->dnpc==func[i].value){
-        printf("%ld:",s->dnpc);
-        printf(" call [%s@%d]\n",func[i].name,func[i].value);
-      }
-  }
 #endif
 }
 
@@ -163,11 +157,11 @@ void ftrace_main(word_t ftpc,uint8_t inst,word_t fdnpc){
         for(int j=0;j<space_len;j++)
           printf("%s",space);
         space_len++;
-        printf("call [%s@%d]\n",func[i].name,func[i].value);
+        printf("call [%s@%ld]\n",func[i].name,func[i].value);
       }
     }
   }
   for(int ii=0;ii<func[1].ffnum;ii++)
-    printf("cpu:::==ffnum=%d fnum[%d]:%d name:%s\n",func[1].ffnum,ii,func[ii].value,func[ii].name);
+    printf("cpu:::==ffnum=%d fnum[%d]:%ld name:%s\n",func[1].ffnum,ii,func[ii].value,func[ii].name);
 }
 ////////////////////////////////
