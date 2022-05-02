@@ -20,6 +20,7 @@ int sprintf(char * out,const char * fmt, ...)
     const char *p;
 	int ival;
 	long int lival;
+	//double fval;
 	char buf[50];
     char buff[50];
 	int strcnt = 0;
@@ -96,7 +97,7 @@ int sprintf(char * out,const char * fmt, ...)
 					if(*++p=='d'){
 					int len1=0;
 					lival = va_arg(ap,long int);
-                    printf("ival=%ld\n",lival);
+                    //printf("ival=%ld\n",lival);
 					if(lival<0){
 						while(lival<=-10){
 							int fu_lival=0;
