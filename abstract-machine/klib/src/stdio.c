@@ -64,6 +64,7 @@ int sprintf(char * out,const char * fmt, ...)
 						buff[len]=(char)('0'+0-ival%10);
 						len++;
 						buff[len]='-';
+						count++;
 					}
 					else{
 						while(ival>=10){
@@ -111,6 +112,7 @@ int sprintf(char * out,const char * fmt, ...)
 						buff[len1]=(char)('0'+0-lival%10);
 						len1++;
 						buff[len1]='-';
+						count++;
 					}
 					else{
 						while(lival>=10){
