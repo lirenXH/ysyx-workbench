@@ -160,7 +160,6 @@ int sprintf(char * out,const char * fmt, ...)
     return count-1;
 }
 
-
 int snprintf(char *out, size_t n, const char *fmt, ...) {
   panic("Not implemented");
 }
