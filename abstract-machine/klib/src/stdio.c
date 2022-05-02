@@ -19,8 +19,9 @@ int sprintf(char * out,const char * fmt, ...)
 	char *sval;
     const char *p;
 	int ival;
-	char buf[30];
-    char buff[30];
+	long int lival;
+	char buf[50];
+    char buff[50];
 	int strcnt = 0;
     int count=0;
 	///
@@ -45,17 +46,34 @@ int sprintf(char * out,const char * fmt, ...)
 			switch(*++p)
 			{
 			case 'd':
-					ival = va_arg(ap, int);
+					ival = va_arg(ap,int);
+					//	printf("fu shu\n");   
                     //printf("ival=%d\n",ival);
                     int len=0;
-                    while(ival>=10){
-                        buff[len]=(char)('0'+ival%10);
-                        ival=ival/10;
-                        //printf("buff=%s|\n",buff);
-                        len++;
-                    }
-                    buff[len]=(char)('0'+ival%10);
-                    //printf("buff=%s|\n",buff);
+					if(ival<0){
+						while(ival<=-10){
+							int fu_ival=0;
+							fu_ival=0-ival%10;
+							//printf("fu_lival=%d\n",fu_ival);
+							buff[len]=(char)('0'+fu_ival%10);
+							ival=ival/10;
+							//printf("buff=%s|\n",buff);
+							len++;
+						}
+						buff[len]=(char)('0'+0-ival%10);
+						len++;
+						buff[len]='-';
+					}
+					else{
+						while(ival>=10){
+							buff[len]=(char)('0'+ival%10);
+							ival=ival/10;
+							//printf("buff=%s|\n",buff);
+							len++;
+						}
+						buff[len]=(char)('0'+ival%10);
+						//printf("buff=%s|\n",buff);
+					}
                     int lenn =len;
                     for(int ii = 0; ii <= len ;ii++){
                         buf[ii]=buff[lenn];
@@ -73,6 +91,54 @@ int sprintf(char * out,const char * fmt, ...)
 					memset(buf,'\0',sizeof(buf));
 					//printf("00:buff=%s\n",buff);
 					//printf("00:buf=%s\n",buf);
+					break;
+			case 'l':
+					if(*++p=='d'){
+					int len1=0;
+					lival = va_arg(ap,long int);
+                    printf("ival=%ld\n",lival);
+					if(lival<0){
+						while(lival<=-10){
+							int fu_lival=0;
+							fu_lival=0-lival%10;
+							//printf("fu_lival=%d\n",fu_lival);
+							buff[len1]=(char)('0'+fu_lival%10);
+							lival=lival/10;
+							//printf("buff=%s|\n",buff);
+							len1++;
+						}
+						buff[len1]=(char)('0'+0-lival%10);
+						len1++;
+						buff[len1]='-';
+					}
+					else{
+						while(lival>=10){
+							buff[len1]=(char)('0'+lival%10);
+							lival=lival/10;
+							//printf("buff=%s|\n",buff);
+							len1++;
+						}
+						buff[len1]=(char)('0'+lival%10);
+						//printf("buff=%s\n",buff);
+					}
+					int lenn1 =len1;
+					for(int ii = 0; ii <= len1 ;ii++){
+						buf[ii]=buff[lenn1];
+						lenn1--;
+					}
+					//printf("buf=%s|\n",buf);
+					for(i = 0; buf[i] != '\0'; i++)
+					{
+							*str_buf_p = buf[i];
+							str_buf_p ++;
+							strcnt ++;
+                            count++;
+					}
+                    memset(buff,'\0',sizeof(buff));
+					memset(buf,'\0',sizeof(buf));
+					//printf("00:buff=%s\n",buff);
+					//printf("00:buf=%s\n",buf);
+					}
 					break;
 			case 's':
 					sval = va_arg(ap, char *);
