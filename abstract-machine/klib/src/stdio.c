@@ -64,7 +64,6 @@ int sprintf(char * out,const char * fmt, ...)
 						buff[len]=(char)('0'+0-ival%10);
 						len++;
 						buff[len]='-';
-						count++;
 					}
 					else{
 						while(ival>=10){
@@ -112,7 +111,6 @@ int sprintf(char * out,const char * fmt, ...)
 						buff[len1]=(char)('0'+0-lival%10);
 						len1++;
 						buff[len1]='-';
-						count++;
 					}
 					else{
 						while(lival>=10){
@@ -159,7 +157,7 @@ int sprintf(char * out,const char * fmt, ...)
 	va_end(ap);           
     memcpy(out,str_buf,strcnt); 
 	out[strcnt]='\0';          
-    return count-1;
+    return count;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
