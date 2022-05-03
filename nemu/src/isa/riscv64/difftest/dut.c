@@ -1,12 +1,17 @@
 #include <isa.h>
 #include <cpu/difftest.h>
 #include "../local-include/reg.h"
-
+char *regs1[] = {
+  "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
+  "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
+  "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
+  "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
+};
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   int re_flag=1;
   int pc_flag=1;
   for(int i=0;i<32;i++){
-    printf("ref_r->gpr[%d]=0x%08lX,cpu.gpr[%d]=0x%08lX\n",i,ref_r->gpr[i],i,cpu.gpr[i]);
+    printf("ref_r.gpr[%s]=0x%08lX,cpu.gpr[%s]=0x%08lX\n",regs1[i],ref_r->gpr[i],regs1[i],cpu.gpr[i]);
     if(ref_r->gpr[i]==cpu.gpr[i])
       re_flag=1;
     else{
