@@ -13,8 +13,10 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
     //  break;
     //}
     }
-  if(ref_r->pc!=pc)
+  if(ref_r->pc!=pc){
+    printf("pc error\n");
     re_flag=0;
+  }
   if(re_flag)
     return true;
   else
