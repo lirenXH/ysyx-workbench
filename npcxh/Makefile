@@ -27,6 +27,11 @@ VERILATOR_INPUT =  $(VSRC_DIR) $(CSRC_DIR)
 default: run
 
 run:
+	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "makefile is running!"
 	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
+	./obj_dir/Vysyx_22040759_npc
 	@echo "makefile is completed"
+
+wave:
+	gtkwave ./obj_dir/dump.vcd

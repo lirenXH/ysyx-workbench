@@ -25,8 +25,8 @@ static const uint32_t img [] = {
   0x00118113,  // 000000000001 00011 000 00010 0010011      addi  2  3    1    1     26
   0x00208093,  // 000000000010_00001_000_00001_0010011      addi  1  1    2    2      1
   0x00310213,  // 000000000011 00010 000 00100 0010011      addi  4  2    3    1     28
-  0x00410093,  // 000000000100 00010 000 00001 0010011      addi  1  2    4    4      4
-  0x00100073   //                                                                     5
+  0x00410293,  // 000000000100 00010 000 00101 0010011      addi  1  2    4    4      4
+  0x00100073   //                                                                   5
 };
 static inline uint64_t host_read(void *addr, int len) {
   switch (len) {
@@ -52,7 +52,6 @@ void init_isa() {
   printf("The img has been loaded\n");
 }
 
-
 int main(int argc, char** argv) {
     VerilatedContext* contextp = new VerilatedContext;
     contextp->commandArgs(argc, argv);
@@ -64,25 +63,31 @@ int main(int argc, char** argv) {
     init_isa();
     top->rst = 1;
     top->clk = 0;
-    for(int main_time=0;main_time<500;main_time++){
+    top->eval();
+    printf("800000:%lx\n",pmem_read(0x80000000,4));
+    printf("1\n");
+    for(main_time=0;main_time<500;main_time++){
       if ((main_time % 40) == 20) {
         top->clk = 1;
+        top->eval();
       }
-      if ((main_time % 40) == 0) 
+      if ((main_time % 40) == 0) {
         top->clk = 0;
-      if (main_time >= 40) {
+        top->eval();
+      }
+      if (main_time >= 30) {
         top->rst = 0;
       }
-      if ((main_time % 40) == 20 && main_time > 40){
+      if ((main_time % 40) == 20){
         top->inst = pmem_read(top->pc_out,4);
         printf("inst: %lx\n",pmem_read(top->pc_out,4));
       }
+      top->eval();
+      tfp->dump(main_time);
       if(flag==1){
         printf("THE break is called!\n");
         break;
       }
-      top->eval();
-      tfp->dump(main_time);
     }
     top->final();
     tfp->close();
