@@ -1,3 +1,4 @@
+`include "ysyx_22040759_define.v"
 module ysyx_22040759_PC(
     input clk,
     input rst,

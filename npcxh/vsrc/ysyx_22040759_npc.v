@@ -1,6 +1,7 @@
+`include"ysyx_22040759_inst.v"
 module ysyx_22040759_npc(
-    input           clk,
-    input           rst,
+    input           clk ,
+    input           rst ,
     input [31:0]    inst,
     output[31:0]    pc_out 
     );
@@ -13,6 +14,9 @@ always@(inst)begin
 end
 //------------------------------------------------------------
     wire [31:0] pc_new;
+    wire [31:0] pc_alu;
+    wire [31:0] pc_pc ;
+    wire        pc_sel;
     wire [6:0]  opcode;
     wire [2:0]  func3;
     wire [4:0]  rs1;
@@ -28,6 +32,13 @@ end
     wire [31:0] alu2;
     assign alu2 = (immsel == 1'b1)? imme:src2;
 
+    ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回选择器
+    pc_sel   (pc_sel),
+    pc_alu   (pc_alu),
+    pc_pc    (pc_pc ),
+    pc_new   (pc_new)
+    );
+
     ysyx_22040759_PC PC(
     .clk       (clk),
     .rst       (rst),
@@ -36,12 +47,12 @@ end
     );
     
     ysyx_22040759_32add add32(
-    .a(pc_out),
-    .b(32'h4),
-    .c(pc_new)
+    .a         (pc_out),
+    .b         (32'h4),
+    .c         (pc_pc)
     );
     
-    ysyx_22040759_inst_decode inst_decode(
+    ysyx_22040759_inst_control inst_control(
     .inst      (inst),
     .opcode    (opcode),
     .func3     (func3),
@@ -49,14 +60,6 @@ end
     .rs2       (rs2),
     .rd        (rd),
     .imme      (imme)
-    );
-    
-    ysyx_22040759_control control(
-    .opcode    (opcode),
-    .func3     (func3), 
-    .immsel    (immsel),   //立即数拓展
-    .regwen    (regwen),   //读寄存器使能
-    .alusel    (alusel)    //ALU功能选择
     );
     
     ysyx_22040759_ALU ALU(
