@@ -28,11 +28,11 @@ module ysyx_22040759_inst_control(                     //译码+控制
         casez(inst)
                             //     3         3       2          2          1        1       1
                             // imme_sel  alu_sel  alu_a_sel  alu_b_sel  reg_wen  pc_sel  wreg_sel
-            `addi   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_alu,`wreg_alu};
-            `auipc  :con_signal={`imm_u,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_alu,`wreg_alu};
-            `lui    :con_signal={`imm_u,`alu_add,`alu_a_0  ,`alu_b_imm,`reg_wen,`pc_alu,`wreg_alu};
-            `jal    :con_signal={`imm_j,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_pc };
-            `jalr   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_pc };
+            `addi   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_pc,`wreg_alu};
+            `auipc  :con_signal={`imm_u,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_pc,`wreg_alu};
+            `lui    :con_signal={`imm_u,`alu_add,`alu_a_0  ,`alu_b_imm,`reg_wen,`pc_pc,`wreg_alu};
+            `jal    :con_signal={`imm_j,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_alu ,`wreg_pc };
+            `jalr   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_alu ,`wreg_pc };
             default :con_signal={`imm_x,`alu_xxx,`alu_a_x  ,`alu_b_x  ,`N      ,`N     ,`N       };
         endcase
     end
