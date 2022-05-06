@@ -1,4 +1,4 @@
-`include "ysyx_22040759_define.v"
+`include "./vsrc/ysyx_22040759_define.v"
 module ysyx_22040759_PC(
     input clk,
     input rst,
@@ -13,3 +13,4 @@ module ysyx_22040759_PC(
         end
     end
 endmodule
+
