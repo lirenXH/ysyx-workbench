@@ -9,7 +9,7 @@
 #define PG_ALIGN __attribute((aligned(4096)))
 
 vluint64_t main_time = 0;
-int flag = 0;
+static int flag = 0;
 //------------------------------------------------------------
 //to test
 void c_ebreak(){
@@ -20,14 +20,20 @@ void c_ebreak(){
 
 static const uint32_t img [] = {
                //     imme      rs1       rd                     rd  rs1 imme reg  result
-  0x01408093,  // 000000010100 00001 000 00001 0010011      addi  1  1    20
-  0x00608093,  // 000000000110 00001 000 00001 0010011      addi  1  1    6    1     20
-  0x00118113,  // 000000000001 00011 000 00010 0010011      addi  2  3    1    1     26
-  0x00208093,  // 000000000010_00001_000_00001_0010011      addi  1  1    2    2      1
-  0x00310213,  // 000000000011 00010 000 00100 0010011      addi  4  2    3    1     28
-  0x00410293,  // 000000000100 00010 000 00101 0010011      addi  1  2    4    4      4
-  0x00100073   //                                                                   5
+  0x00000413,  // 000000010100 00001 000 00001 0010011      addi  1  1    20
+  0x00009117,  // 000000000110 00001 000 00001 0010011      addi  1  1    6    1     20
+  0xffc10113,  // 000000000001 00011 000 00010 0010011      addi  2  3    1    1     26
+  0x00c000ef,  // 000000000010_00001_000_00001_0010011      addi  1  1    2    2      1
+  0x00000513,  // 000000000011 00010 000 00100 0010011      addi  4  2    3    1     28
+  0x00008067,  // 000000000100 00010 000 00101 0010011      addi  1  2    4    4      4
+  0xff010113,  //                                                                     5
+  0x00000517,
+  0x01450513,
+  0x00113423,  //sd  nope
+  0xfe9ff0ef,
+  0x0000006f
 };
+
 static inline uint64_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
@@ -64,9 +70,7 @@ int main(int argc, char** argv) {
     top->rst = 1;
     top->clk = 0;
     top->eval();
-    printf("800000:%lx\n",pmem_read(0x80000000,4));
-    printf("1\n");
-    for(main_time=0;main_time<500;main_time++){
+    for(main_time=0;main_time<1000;main_time++){
       if ((main_time % 40) == 20) {
         top->clk = 1;
         top->eval();
@@ -82,12 +86,12 @@ int main(int argc, char** argv) {
         top->inst = pmem_read(top->pc_out,4);
         printf("inst: %lx\n",pmem_read(top->pc_out,4));
       }
-      top->eval();
-      tfp->dump(main_time);
       if(flag==1){
         printf("THE break is called!\n");
         break;
       }
+      top->eval();
+      tfp->dump(main_time);
     }
     top->final();
     tfp->close();

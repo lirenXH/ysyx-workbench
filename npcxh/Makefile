@@ -35,3 +35,9 @@ run:
 
 wave:
 	gtkwave ./obj_dir/dump.vcd
+
+bianyi:
+	@echo "makefile is running!"
+	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
+	@echo "makefile is completed"
+
