@@ -20,20 +20,34 @@ void c_ebreak(){
 
 static const uint32_t img [] = {
                //     imme      rs1       rd                     rd  rs1 imme reg  result
-  0x00000413,  // 000000010100 00001 000 00001 0010011      addi  1  1    20
-  0x00009117,  // 000000000110 00001 000 00001 0010011      addi  1  1    6    1     20
-  0xffc10113,  // 000000000001 00011 000 00010 0010011      addi  2  3    1    1     26
-  0x00c000ef,  // 000000000010_00001_000_00001_0010011      addi  1  1    2    2      1
-  0x00000513,  // 000000000011 00010 000 00100 0010011      addi  4  2    3    1     28
-  0x00008067,  // 000000000100 00010 000 00101 0010011      addi  1  2    4    4      4
-  0xff010113,  //                                                                     5
-  0x00000517,
-  0x01450513,
-  0x00113423,  //sd  nope
-  0xfe9ff0ef,
-  0x0000006f
+               //<_start>:
+  0x00000413,  //     li	s0,0  
+  0x00009117,  //     auipc	sp,0x9  
+  0xffc10113,  //     addi	sp,sp,-4 # 80009000 <_end>  
+  0x00c000ef,  //     jal	ra,80000018 <_trm_init> 
+               //<main>:
+  0x00000513,  //     li	a0,0  
+  0x00008067,  //     ret 
+               //<_trm_init>:
+  0xff010113,  //     addi	sp,sp,-16                                                                    5
+  0x00000517,  //     auipc	a0,0x0
+  0x01450513,  //     addi	a0,a0,20 # 80000030 <_etext>   
+  0x00113423,  //     sd	ra,8(sp)
+  0xfe9ff0ef,  //     jal	ra,80000010 <main>
+  0x0000006f   //     j	8000002c <_trm_init+0x14>
 };
-
+li	s0,0
+auipc	sp,0x9
+addi	sp,sp,-4 # 80009000 <_end>
+jal	ra,80000018 <_trm_init>
+li	a0,0
+ret
+addi	sp,sp,-16
+auipc	a0,0x0
+addi	a0,a0,20 # 80000030 <_etext>      //aready
+sd	ra,8(sp)
+jal	ra,80000010 <main>
+j	8000002c <_trm_init+0x14>
 static inline uint64_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
