@@ -31,23 +31,14 @@ static const uint32_t img [] = {
                //<_trm_init>:
   0xff010113,  //     addi	sp,sp,-16                                                                    5
   0x00000517,  //     auipc	a0,0x0
-  0x01450513,  //     addi	a0,a0,20 # 80000030 <_etext>   
+  0x01c50513,  //     addi	a0,a0,20 # 80000030 <_etext>   
   0x00113423,  //     sd	ra,8(sp)
   0xfe9ff0ef,  //     jal	ra,80000010 <main>
-  0x0000006f   //     j	8000002c <_trm_init+0x14>
+  0x00050513,  //     j	8000002c <_trm_init+0x14>
+  0x00100073,
+  0x0000006f
 };
-li	s0,0
-auipc	sp,0x9
-addi	sp,sp,-4 # 80009000 <_end>
-jal	ra,80000018 <_trm_init>
-li	a0,0
-ret
-addi	sp,sp,-16
-auipc	a0,0x0
-addi	a0,a0,20 # 80000030 <_etext>      //aready
-sd	ra,8(sp)
-jal	ra,80000010 <main>
-j	8000002c <_trm_init+0x14>
+
 static inline uint64_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
