@@ -135,7 +135,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
-  for (i = 1; i < 32; i++) {
+  for (i = 0; i < 31; i++) {
     printf("gpr[%s] = 0x%08lx\n",regs[i], cpu_gpr[i]);
   }
 }
