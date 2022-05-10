@@ -12,7 +12,7 @@ VSRC_DIR = $(shell find ./vsrc/ -name '*.v')
 #-name '*.v')
 CSRC_DIR = $(shell find ./csrc/ -name 'npcxh.cpp')
 # Find cpp file
-
+IMG = /home/xuhao/learngit/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv64-npc.bin
 # Generate C++ in executable form
 VERILATOR_FLAGS += -cc --exe
 # Warn abount lint issues; may not want this on less solid designs
@@ -30,11 +30,9 @@ run:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "makefile is running!"
 	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
-	./obj_dir/Vysyx_22040759_npc
-	@echo "makefile is completed"
-
-wave:
+	./obj_dir/Vysyx_22040759_npc -i $(IMG)
 	gtkwave ./obj_dir/dump.vcd
+	@echo "makefile is completed"
 
 bianyi:
 	@echo "makefile is running!"

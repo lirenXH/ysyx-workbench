@@ -8,13 +8,14 @@ module ysyx_22040759_GPR (
   input [4:0] raddr2,
   input wen,
   output [31:0] rdata1,
-  output [31:0] rdata2
+  output [31:0] rdata2,
+  output [31:0] a0                     //sim test
     );
   reg [31:0] register [31:1];
   
   assign rdata1 = (raddr1==5'b0) ? 32'b0 : register[raddr1];
   assign rdata2 = (raddr2==5'b0) ? 32'b0 : register[raddr2];
-  
+  assign a0     = register[5'd10];     //sim test
   integer i;
   always @(posedge clk) begin                           
     if(rst)begin

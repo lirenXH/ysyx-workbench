@@ -3,21 +3,52 @@
 #include <fstream>
 #include <string.h>
 #include <memory>
+#include <assert.h>
+#include <getopt.h>
 #include "Vysyx_22040759_npc.h"
 #include <svdpi.h>
 #include "Vysyx_22040759_npc__Dpi.h"
 #define PG_ALIGN __attribute((aligned(4096)))
-
 vluint64_t main_time = 0;
+static char *img_file = NULL;
 static int flag = 0;
-//------------------------------------------------------------
+static int halt_ret = 0;
+int flag2 = 0;
+int break_time=0;
+// ----------- state -----------
+
+enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
+struct NPCstate{
+  int state=NPC_RUNNING;
+  uint32_t halt_pc;
+  uint32_t halt_ret;
+} npcstate;
+//------------------------------
+
 //to test
+//------------------------------------------------------------
+
 void c_ebreak(){
-  printf("THE c_ebreak is called!\n");
+  //printf("THE c_ebreak is called!\n");
+  npcstate.state=NPC_END;
   flag = 1;
 }
+void c_npctrap(int pc,int code){
+  //printf("pc=0x%08d ,code=%d\n",pc,code);
+  npcstate.halt_pc=pc;
+  npcstate.halt_ret=code;
+}
+void npc_halt_ret(){      //判断halt_ret的值来实现hit good trip/hit bad trip
+  if(npcstate.state == NPC_END&&npcstate.halt_ret == 0)
+    printf("\033[32m""  HIT GOOD TRAP\n");
+  else
+    printf("\033[31m""  HIT BAD TRAP\n");
+}
+
 //------------------------------------------------------------
 
+//ram
+//--------------------------------------------------------------------------
 static const uint32_t img [] = {
                //     imme      rs1       rd                     rd  rs1 imme reg  result
                //<_start>:
@@ -25,18 +56,6 @@ static const uint32_t img [] = {
   0x00009117,  //     auipc	sp,0x9  
   0xffc10113,  //     addi	sp,sp,-4 # 80009000 <_end>  
   0x00c000ef,  //     jal	ra,80000018 <_trm_init> 
-               //<main>:
-  0x00000513,  //     li	a0,0  
-  0x00008067,  //     ret 
-               //<_trm_init>:
-  0xff010113,  //     addi	sp,sp,-16                                                                    5
-  0x00000517,  //     auipc	a0,0x0
-  0x01c50513,  //     addi	a0,a0,20 # 80000030 <_etext>   
-  0x00113423,  //     sd	ra,8(sp)
-  0xfe9ff0ef,  //     jal	ra,80000010 <main>
-  0x00050513,  //     j	8000002c <_trm_init+0x14>
-  0x00100073,
-  0x0000006f
 };
 
 static inline uint64_t host_read(void *addr, int len) {
@@ -63,6 +82,44 @@ void init_isa() {
   printf("The img has been loaded\n");
 }
 
+static long load_img() {
+  if (img_file == NULL) {
+    printf("No image is given. Use the default build-in image.");
+    return 4096; // built-in image size
+  }
+
+  FILE *fp = fopen(img_file, "rb");
+  assert("Can not open ");
+
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+
+  printf("The image is %s, size = %ld\n", img_file, size);
+
+  fseek(fp, 0, SEEK_SET);
+  int ret = fread(guest_to_host(0x80000000), size, 1, fp);
+  assert(ret == 1);
+
+  fclose(fp);
+  return size;
+}
+
+static int parse_args(int argc, char *argv[]) {
+  const struct option table[] = {
+    {"image"    , optional_argument, NULL, 'i'},
+    {0          , 0                , NULL,  0 },
+  };
+  int o;
+  while ( (o = getopt_long(argc, argv, "-i:", table, NULL)) != -1) {
+    switch (o) {
+      case 'i': img_file = optarg; return 0;
+      default : exit(0);
+    }
+  }
+  return 0;
+}
+//--------------------------------------------------------------------------
+
 int main(int argc, char** argv) {
     VerilatedContext* contextp = new VerilatedContext;
     contextp->commandArgs(argc, argv);
@@ -72,10 +129,13 @@ int main(int argc, char** argv) {
     top->trace(tfp,0);
     tfp->open("obj_dir/dump.vcd");
     init_isa();
+    parse_args(argc, argv);
+    long img_size = load_img();
+    printf("the new img is loaded img_size=%ld\n",img_size);
     top->rst = 1;
     top->clk = 0;
     top->eval();
-    for(main_time=0;main_time<1000;main_time++){
+    for(main_time=0;main_time<10000;main_time++){
       if ((main_time % 40) == 20) {
         top->clk = 1;
         top->eval();
@@ -89,17 +149,23 @@ int main(int argc, char** argv) {
       }
       if ((main_time % 40) == 20){
         top->inst = pmem_read(top->pc_out,4);
-        printf("inst: %lx\n",pmem_read(top->pc_out,4));
+        printf("inst: 0x%08lx\n",pmem_read(top->pc_out,4));
       }
       if(flag==1){
-        printf("THE break is called!\n");
-        break;
+        if(flag2==40){
+          printf("THE break is called!\n");
+          break;
+        }
       }
+      if(flag==1)
+        flag2++;
       top->eval();
       tfp->dump(main_time);
     }
+    npc_halt_ret();
     top->final();
     tfp->close();
     delete top;
     delete tfp;
+    return 0;
 }

@@ -9,7 +9,9 @@ module ysyx_22040759_npc(
 //------------------------------------------------------------
 // to test  
 import "DPI-C" function void c_ebreak();
+import "DPI-C" function void c_npctrap(input int pc,input int code);
 always@(inst)begin
+  c_npctrap(pc_out,a0);
   if(inst == 32'h100073)
     c_ebreak();
 end
@@ -32,7 +34,7 @@ end
     wire [31:0] alu_b;
     wire [31:0] wreg_data;
     wire        wreg_sel;
-
+    wire [31:0] a0;   //sim test
     ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
     .wreg_sel      (wreg_sel),
     .alu_result    (alu_result),
@@ -96,6 +98,7 @@ end
   .raddr2         (rs2_o),
   .wen            (reg_wen),
   .rdata1         (src1),
-  .rdata2         (src2)
+  .rdata2         (src2),
+  .a0             (a0)  //sim test
     );
 endmodule
