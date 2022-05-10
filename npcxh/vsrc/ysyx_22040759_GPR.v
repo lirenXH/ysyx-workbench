@@ -12,7 +12,8 @@ module ysyx_22040759_GPR (
   output [31:0] a0                     //sim test
     );
   reg [31:0] register [31:1];
-  
+  import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+  initial set_gpr_ptr(register);  // rf为通用寄存器的二维数组变量
   assign rdata1 = (raddr1==5'b0) ? 32'b0 : register[raddr1];
   assign rdata2 = (raddr2==5'b0) ? 32'b0 : register[raddr2];
   assign a0     = register[5'd10];     //sim test
