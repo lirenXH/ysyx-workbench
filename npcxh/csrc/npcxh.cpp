@@ -21,8 +21,8 @@ int break_time=0;
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
 struct NPCstate{
   int state=NPC_RUNNING;
-  uint32_t halt_pc;
-  uint32_t halt_ret;
+  long long int halt_pc;
+  long long int halt_ret;
 } npcstate;
 //------------------------------
 
@@ -34,7 +34,7 @@ void c_ebreak(){
   npcstate.state=NPC_END;
   flag = 1;
 }
-void c_npctrap(int pc,int code){
+void c_npctrap(long long int pc,long long int code){
   //printf("pc=0x%08d ,code=%d\n",pc,code);
   npcstate.halt_pc=pc;
   npcstate.halt_ret=code;
@@ -122,21 +122,22 @@ static int parse_args(int argc, char *argv[]) {
 //--------------------------------------------------------------------------
 //reg
 const char *regs[] = {
-  "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
+  "ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
   "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
-uint32_t *cpu_gpr = NULL;
+uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
-  cpu_gpr = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
   for (i = 0; i < 31; i++) {
-    printf("gpr[%s] = 0x%08lx\n",regs[i], cpu_gpr[i]);
+    if(cpu_gpr[i]!=0)
+      printf("gpr[%s] = 0x%08lx\n",regs[i], cpu_gpr[i]);
   }
 }
 
@@ -171,6 +172,7 @@ int main(int argc, char** argv) {
       if ((main_time % 40) == 20){
         top->inst = pmem_read(top->pc_out,4);
         printf("inst: 0x%08lx\n",pmem_read(top->pc_out,4));
+        dump_gpr();
       }
       if(flag==1){
         if(flag2==40){

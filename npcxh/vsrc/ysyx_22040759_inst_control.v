@@ -2,7 +2,7 @@
 `include "./vsrc/ysyx_22040759_define.v"
 module ysyx_22040759_inst_control(                     //译码+控制
     input    [31:0]    inst         ,
-    output   [31:0]    imme_o       ,
+    output   [63:0]    imme_o       ,
     output   [4:0]     rs1_o        ,                          //rs1_addr
     output   [4:0]     rs2_o        ,                          //rs2_addr
     output   [4:0]     rd_o         ,                          //rd _addr
@@ -17,9 +17,9 @@ module ysyx_22040759_inst_control(                     //译码+控制
     assign rs2_o=inst[24:20];
     assign rd_o =inst[11:7] ;
     //立即数拓展
-    wire [31:0] imme_u  ={inst[31:12],{12{1'b0}} };                                  //U-type
-    wire [31:0] imme_i  ={{20{inst[31]}},inst[31:20]};                               //I-type   
-    wire [31:0] imme_j  ={{12{inst[31]}},inst[19:12],inst[20],inst[30:21],1'b0};     //J-type
+    wire [63:0] imme_u  ={{32{inst[31]}},inst[31:12],12'b0};                                  //U-type
+    wire [63:0] imme_i  ={{52{inst[31]}},inst[31:20]};                               //I-type   
+    wire [63:0] imme_j  ={{44{inst[31]}},inst[19:12],inst[20],inst[30:21],1'b0};     //J-type
     //wire [6:0]  opcode  =inst[6:0]  ;
 	//wire [2:0]  func3   =inst[14:12];
     reg  [12:0] con_signal;
@@ -44,8 +44,8 @@ module ysyx_22040759_inst_control(                     //译码+控制
             pc_sel      ,
             wreg_sel} = con_signal[9:0];
     //立即数选择
-    assign imme_o      = ({32{con_signal[12:10] == `imm_i}} & imme_i) | 
-                         ({32{con_signal[12:10] == `imm_u}} & imme_u) | 
-                         ({32{con_signal[12:10] == `imm_j}} & imme_j) ;
+    assign imme_o      = ({64{con_signal[12:10] == `imm_i}} & imme_i) | 
+                         ({64{con_signal[12:10] == `imm_u}} & imme_u) | 
+                         ({64{con_signal[12:10] == `imm_j}} & imme_j) ;
                          
 endmodule

@@ -4,37 +4,37 @@ module ysyx_22040759_npc(
     input           clk ,
     input           rst ,
     input [31:0]    inst,
-    output[31:0]    pc_out 
+    output[63:0]    pc_out 
     );
 //------------------------------------------------------------
 // to test  
 import "DPI-C" function void c_ebreak();
-import "DPI-C" function void c_npctrap(input int pc,input int code);
+import "DPI-C" function void c_npctrap(input longint pc,input longint code);
 always@(inst)begin
   c_npctrap(pc_out,a0);
   if(inst == 32'h100073)
     c_ebreak();
 end
 //------------------------------------------------------------
-    wire [31:0] pc_new;
-    wire [31:0] pc_pc ;
+    wire [63:0] pc_new;
+    wire [63:0] pc_pc ;
     wire        pc_sel;
     wire [4:0]  rs1_o;
     wire [4:0]  rs2_o;
     wire [4:0]  rd_o;
-    wire [31:0] imme_o;
+    wire [63:0] imme_o;
     wire        reg_wen;
     wire [2:0]  alu_sel;
-    wire [31:0] src1;
-    wire [31:0] src2;
-    wire [31:0] alu_result;
+    wire [63:0] src1;
+    wire [63:0] src2;
+    wire [63:0] alu_result;
     wire [1:0]  alu_a_sel;
     wire [1:0]  alu_b_sel;
-    wire [31:0] alu_a;
-    wire [31:0] alu_b;
-    wire [31:0] wreg_data;
+    wire [63:0] alu_a;
+    wire [63:0] alu_b;
+    wire [63:0] wreg_data;
     wire        wreg_sel;
-    wire [31:0] a0;   //sim test
+    wire [63:0] a0;   //sim test
     ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
     .wreg_sel      (wreg_sel),
     .alu_result    (alu_result),
@@ -51,9 +51,9 @@ end
     .pc_new       (pc_new)
     );
     
-    ysyx_22040759_32add add32(
+    ysyx_22040759_64add add64(
     .a            (pc_out),
-    .b            (32'h4),
+    .b            (64'h4),
     .c            (pc_pc)
     );
     
