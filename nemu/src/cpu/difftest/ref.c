@@ -25,6 +25,7 @@ void difftest_regcpy(void *dut, bool direction) {
         cpu.gpr[i] = 0;
       else
         cpu.gpr[i] = ctx->gpr[i];
+      printf("cpi.gpr[%d]=%ld",i,cpu.gpr[i]);
     }
     cpu.pc = ctx->pc;
   } 
