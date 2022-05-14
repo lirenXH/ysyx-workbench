@@ -12,6 +12,7 @@
 #define PG_ALIGN __attribute((aligned(4096)))
 vluint64_t main_time = 0;
 static char *img_file = NULL;
+static char *diff_so_file = NULL;
 static int flag = 0;
 static int halt_ret = 0;
 int flag2 = 0;
@@ -108,12 +109,14 @@ static long load_img() {
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"image"    , optional_argument, NULL, 'i'},
+    {"diff"     , optional_argument, NULL, 'd'},
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "-i:", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "-i:d:", table, NULL)) != -1) {
     switch (o) {
       case 'i': img_file = optarg; return 0;
+      case 'd': diff_so_file = optarg; break;
       default : exit(0);
     }
   }
