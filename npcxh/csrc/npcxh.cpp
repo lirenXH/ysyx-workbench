@@ -26,7 +26,25 @@ struct NPCstate{
   long long int halt_ret;
 } npcstate;
 //------------------------------
+//to difftest - spike - npc
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------
 //to test
 //------------------------------------------------------------
 
@@ -115,8 +133,8 @@ static int parse_args(int argc, char *argv[]) {
   int o;
   while ( (o = getopt_long(argc, argv, "-i:d:", table, NULL)) != -1) {
     switch (o) {
-      case 'i': img_file = optarg; return 0;
-      case 'd': diff_so_file = optarg; break;
+      case 'd': diff_so_file = optarg;printf("diff_so_file = %s\n",diff_so_file);    break;
+      case 'i': img_file = optarg;    printf("img_file     = %s\n",img_file);    break;
       default : exit(0);
     }
   }
