@@ -11,7 +11,7 @@ module ysyx_22040759_GPR (
   output [63:0] rdata2,
   output [63:0] a0                     //sim test
     );
-  reg [63:0] register [31:1];
+  reg [63:0] register [31:0];
   import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
   initial set_gpr_ptr(register);  // sim test 读寄存器值
   
@@ -21,7 +21,7 @@ module ysyx_22040759_GPR (
   integer i;
   always @(posedge clk) begin                           
     if(rst)begin
-        for(i = 1;i < 64;i = i + 1)
+        for(i = 0;i < 64;i = i + 1)
             register[i] <= 64'b0; 
     end
     else if((waddr != 5'b0) && wen)
