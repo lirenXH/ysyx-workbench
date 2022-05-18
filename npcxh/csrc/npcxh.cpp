@@ -246,26 +246,31 @@ extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
   long long addr = waddr & ~0x7ull;
   switch(wmask){
     //8bit
-    case 0x1  : len = 1 ; addr = addr + 1
-    case 0x2  : len = 1 ; addr = addr + 2
-    case 0x4  : len = 1 ; addr = addr + 3
-    case 0x8  : len = 1 ; addr = addr + 4
-    case 0x10 : len = 1 ; addr = addr + 5
-    case 0x20 : len = 1 ; addr = addr + 6
-    case 0x40 : len = 1 ; addr = addr + 7
-    case 0x80 : len = 1 ; addr = addr + 8
-    case -128 : len = 1 ; addr = addr + 9         //sign 0b1000_0000
+    case 0x1  : len = 1 ;                ;break;
+    case 0x2  : len = 1 ; addr = addr + 1;break;
+    case 0x4  : len = 1 ; addr = addr + 2;break;
+    case 0x8  : len = 1 ; addr = addr + 3;break;
+    case 0x10 : len = 1 ; addr = addr + 4;break;
+    case 0x20 : len = 1 ; addr = addr + 5;break;
+    case 0x40 : len = 1 ; addr = addr + 6;break;
+    case -128 : len = 1 ; addr = addr + 7;break;         //sign 0b1000_0000
     //16bit
-    case 0x3  :
-    case 0xc  :
-    case 0x30 :
-    case -64  :         //sign 0b1100_0000
+    case 0x3  : len = 2 ;                ;break;
+    case 0xc  : len = 2 ; addr = addr + 2;break;
+    case 0x30 : len = 2 ; addr = addr + 4;break;
+    case -64  : len = 2 ; addr = addr + 6;break;         //sign 0b1100_0000
     //32bit
-    case 0xf  :         
-    case -16  :         //sign 0b1111_0000
+    case 0xf  : len = 4 ;                ;break;      
+    case -16  : len = 4 ; addr = addr + 4;break;         //sign 0b1111_0000
     //64bit
-    case -1   :         //sign 0b1111_1111
+    case -1   : len = 8 ;                 break;         //sign 0b1111_1111
+    default   : printf(RED "write addr error!\n" NONE);assert(0);
   }
+  printf("waddr = %016llx\n",waddr);
+  printf(" addr = %016llx\n",addr);
+  printf("wmask = %x\n",wmask);
+
+  host_write(guest_to_host(addr), len, wdata);
 }
 
 static long load_img() {
