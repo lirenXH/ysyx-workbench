@@ -13,7 +13,7 @@
 #include "Vysyx_22040759_npc__Dpi.h"
 
 #define CONFIG_MBASE 0x80000000
-#define CINFIG_MSIZE 0x2800000
+#define CONFIG_MSIZE 0x2800000
 #define PG_ALIGN __attribute((aligned(4096)))
 
 #define RED "\033[31m"
@@ -29,9 +29,10 @@ static char *diff_so_file = NULL;
 static int ebreak_flag = 0;
 static int ebreak_flag2 = 0;
 static int halt_ret = 0;
+static int inst_count = 0;
 static int difftest_port = 1234;
 static uint64_t spike_pc;
-static uint8_t pmem[0x8000000] PG_ALIGN = {};
+static uint8_t *pmem = NULL;
 //int break_time=0;
 // ----------- state -----------
 
@@ -49,11 +50,14 @@ struct NPCstate{
 } CPU_state;
 
 CPU_state cpu ={};
-uint8_t* guest_to_host(uint32_t paddr) { return pmem + paddr - 0x80000000; }
+uint8_t* guest_to_host(paddr_t paddr) { 
+  //printf("guest_to_host: 0x%x\n",paddr);
+  return pmem + paddr - CONFIG_MBASE;
+  }
 //--------------------------------------------------------------------------
 //reg
 const char *regs[] = {
-  "ra", "sp", "gp", "tp", "t0", "t1", "t2",
+  "x0","ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
   "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
@@ -143,13 +147,14 @@ bool isa_difftest_checkregs(CPU_state *ref_r,vaddr_t dnpc){
   for(i=0;i<32;i++){
     if(ref_r->gpr[i]!=cpu_gpr[i]){  
       printf(RED "REG different ! \n" NONE);   // inst!!!
-      for(int j=0;j<32;j++)
-        printf("spike_reg[%d]=0x%08lx npc_reg[%d]=0x%08lx\n",j,ref_r->gpr[j],j,cpu_gpr[j]);
-      DIF_result = false;
+      //for(int j=0;j<32;j++)
+        //printf("spike_reg[%d]=0x%08lx npc_reg[%d]=0x%08lx\n",j,ref_r->gpr[j],j,cpu_gpr[j]);
+      printf("spike_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
+      DIF_result = true;   //FALSE
     }
     else{
       if(cpu_gpr[i]!=0)
-        printf("spike_reg[%d]=0x%08lx npc_reg[%d]=0x%08lx\n",i,ref_r->gpr[i],i,cpu_gpr[i]);
+        //printf("spike_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
       count_reg++;
     }
   }
@@ -160,67 +165,107 @@ bool isa_difftest_checkregs(CPU_state *ref_r,vaddr_t dnpc){
   return DIF_result;
 }
 
-
-
-
-
-
-
-
-
 //------------------------------
+
+
 //to test
 //------------------------------------------------------------
 
 extern "C" void c_ebreak(){
   //printf("THE c_ebreak is called!\n");
-  npcstate.state=NPC_END;
+  npcstate.state=NPC_END; //实现ebreak的
   ebreak_flag = 1;
 }
+
 extern "C" void c_npctrap(long long int pc,long long int code){
   //printf("pc=0x%08d ,code=%d\n",pc,code);
   npcstate.halt_pc=pc;       //实现good trip的
   npcstate.halt_ret=code;
 }
+
 void npc_halt_ret(){      //判断halt_ret的值来实现hit good trip/hit bad trip
-  if(npcstate.state == NPC_END&&npcstate.halt_ret == 0)
+  if(npcstate.state == NPC_END&&npcstate.halt_ret == 0){
     printf(GREEN "  HIT GOOD TRAP\n" NONE);
-  else
+    printf("inst count is : %d\n",inst_count);
+  }
+  else if(!npcstate.state == NPC_ABORT){
     printf(RED "  HIT BAD TRAP\n" NONE);
+    printf("inst count is : %d\n",inst_count);
+  }
 }
 
 //------------------------------------------------------------
 
 //ram
 //--------------------------------------------------------------------------
-static const uint32_t img [] = {
-               //     imme      rs1       rd                     rd  rs1 imme reg  result
-               //<_start>:
-  0x00000413,  //     li	s0,0  
-  0x00009117,  //     auipc	sp,0x9  
-  0xffc10113,  //     addi	sp,sp,-4 # 80009000 <_end>  
-  0x00c000ef,  //     jal	ra,80000018 <_trm_init> 
-};
+void init_ram(){
+  pmem = (uint8_t *)malloc(CONFIG_MSIZE);
+  printf(GREEN "ram init success!~\n" NONE);
+  assert(pmem);
+}
 
-static inline uint64_t host_read(void *addr, int len) {
+static inline word_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
     case 2: return *(uint16_t *)addr;
     case 4: return *(uint32_t *)addr;
     case 8: return *(uint64_t *)addr;
-    default: return 0;
+    default: {printf(RED "read error!\n" NONE);assert(0);return 4096;}
   }
 }
 
-
-static uint64_t pmem_read(uint32_t addr, int len) {
-  uint64_t ret = host_read(guest_to_host(addr), len);
-  return ret;
+static inline word_t host_write(void *addr, int len, word_t data) {
+  switch (len) {
+    case 1: *(uint8_t  *)addr = data ;return;
+    case 2: *(uint16_t *)addr = data ;return;
+    case 4: *(uint32_t *)addr = data ;return;
+    case 8: *(uint64_t *)addr = data ;return;
+    default: {printf(RED "write error!\n" NONE);assert(0);}
+  }
 }
 
-void init_isa() {
-  memcpy(guest_to_host(0x80000000), img, sizeof(img));
-  printf("The img has been loaded\n");
+// read
+extern "C" void pmem_read(long long raddr, long long *rdata) {
+  // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
+  //printf("raddr is :0x%llx\n",raddr);
+  if(raddr >=CONFIG_MBASE){
+    *rdata = host_read(guest_to_host(raddr & ~0x7ull),8);
+    //printf("rdata is 0x%016llx\n",*rdata);
+  }
+  else {
+    *rdata = 0;
+    printf(RED "raddr error \n" NONE);
+  }
+}
+//write
+extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
+  // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
+  // `wmask`中每比特表示`wdata`中1个字节的掩码,
+  // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
+  int len;
+  long long addr = waddr & ~0x7ull;
+  switch(wmask){
+    //8bit
+    case 0x1  : len = 1 ; addr = addr + 1
+    case 0x2  : len = 1 ; addr = addr + 2
+    case 0x4  : len = 1 ; addr = addr + 3
+    case 0x8  : len = 1 ; addr = addr + 4
+    case 0x10 : len = 1 ; addr = addr + 5
+    case 0x20 : len = 1 ; addr = addr + 6
+    case 0x40 : len = 1 ; addr = addr + 7
+    case 0x80 : len = 1 ; addr = addr + 8
+    case -128 : len = 1 ; addr = addr + 9         //sign 0b1000_0000
+    //16bit
+    case 0x3  :
+    case 0xc  :
+    case 0x30 :
+    case -64  :         //sign 0b1100_0000
+    //32bit
+    case 0xf  :         
+    case -16  :         //sign 0b1111_0000
+    //64bit
+    case -1   :         //sign 0b1111_1111
+  }
 }
 
 static long load_img() {
@@ -238,7 +283,7 @@ static long load_img() {
   printf("The image is %s, size = %ld\n", img_file, size);
 
   fseek(fp, 0, SEEK_SET);
-  int ret = fread(guest_to_host(0x80000000), size, 1, fp);
+  int ret = fread(guest_to_host(CONFIG_MBASE), size, 1, fp);
   assert(ret == 1);
 
   fclose(fp);
@@ -270,8 +315,8 @@ int main(int argc, char** argv) {
     VerilatedVcdC* tfp = new VerilatedVcdC;
     top->trace(tfp,0);
     tfp->open("obj_dir/dump.vcd");
-    init_isa();           //初始化内存
     parse_args(argc, argv);
+    init_ram();           //初始化内存
     long img_size = load_img();
     printf("the new img is loaded img_size=%ld\n",img_size);
     top->rst = 1;
@@ -279,9 +324,10 @@ int main(int argc, char** argv) {
     top->eval();
 
     init_difftest(diff_so_file,img_size,difftest_port);
-    for(main_time=0;main_time<10000;main_time++){
+    for(main_time=0;main_time<5000;main_time++){
       if ((main_time % 40) == 20) {
         top->clk = 1;
+        printf(GREEN "\nmain time is : %ld\n" NONE,main_time);
         top->eval();
       }
       if ((main_time % 40) == 0) {
@@ -292,14 +338,16 @@ int main(int argc, char** argv) {
         top->rst = 0;
       }
       if ((main_time % 40) == 20){
-        top->inst = pmem_read(top->pc_out,4);
+        //top->inst = pmem_read(top->pc_out,4);
         difftest_step(top->pc_out);
-        printf("\nspike_pc:0x%08lx ,npc_pc:0x%08lx ,inst: 0x%08lx\n",spike_pc,top->pc_out,pmem_read(top->pc_out,4));
+        printf("spike_pc:0x%08lx ,npc_pc:0x%08lx\n",spike_pc,top->pc_out);
+        inst_count++;
         //dump_gpr();
       }
 
       if(npcstate.state == NPC_ABORT){
-        printf("\n!!!!NPC_ABORT!!!!\n");
+        printf(RED "\n!!!!NPC_ABORT!!!!\n" NONE);
+        printf("inst count is : %d\n",inst_count);
         break;
       } 
       if(ebreak_flag==1){

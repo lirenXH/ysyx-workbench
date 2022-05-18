@@ -11,7 +11,8 @@ module ysyx_22040759_inst_control(                     //译码+控制
     output   [2:0]     alu_sel      ,
     output             pc_sel       ,
     output             reg_wen      ,
-    output             wreg_sel     
+    output             mem_wen      ,
+    output   [1:0]     wreg_sel     
     );
     assign rs1_o=inst[19:15];
     assign rs2_o=inst[24:20];
@@ -22,18 +23,18 @@ module ysyx_22040759_inst_control(                     //译码+控制
     wire [63:0] imme_j  ={{44{inst[31]}},inst[19:12],inst[20],inst[30:21],1'b0};     //J-type
     //wire [6:0]  opcode  =inst[6:0]  ;
 	//wire [2:0]  func3   =inst[14:12];
-    reg  [12:0] con_signal;
+    reg  [14:0] con_signal;
     //译码
     always@(*)begin
         casez(inst)
-                            //     3         3       2          2          1        1       1
-                            // imme_sel  alu_sel  alu_a_sel  alu_b_sel  reg_wen  pc_sel  wreg_sel
-            `addi   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu};
-            `auipc  :con_signal={`imm_u,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu};
-            `lui    :con_signal={`imm_u,`alu_add,`alu_a_0  ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu};
-            `jal    :con_signal={`imm_j,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_alu,`wreg_pc };
-            `jalr   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_alu,`wreg_pc };
-            default :con_signal={`imm_x,`alu_xxx,`alu_a_x  ,`alu_b_x  ,`N      ,`N     ,`N       };
+                            //     3         3       2          2          1        1       2          1
+                            // imme_sel  alu_sel  alu_a_sel  alu_b_sel  reg_wen  pc_sel  wreg_sel   mem_wen
+            `addi   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu,    `N};
+            `auipc  :con_signal={`imm_u,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu,    `N};
+            `lui    :con_signal={`imm_u,`alu_add,`alu_a_0  ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu,    `N};
+            `jal    :con_signal={`imm_j,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_alu,`wreg_pc ,    `N};
+            `jalr   :con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_alu,`wreg_pc ,    `N};
+            default :con_signal={`imm_x,`alu_xxx,`alu_a_x  ,`alu_b_x  ,`N      ,`N     ,`N       ,    `N};
         endcase
     end
     //控制信号产生
@@ -42,7 +43,8 @@ module ysyx_22040759_inst_control(                     //译码+控制
             alu_b_sel   ,
             reg_wen     ,
             pc_sel      ,
-            wreg_sel} = con_signal[9:0];
+            wreg_sel    ,
+            mem_wen} = con_signal[11:0];
     //立即数选择
     assign imme_o      = ({64{con_signal[12:10] == `imm_i}} & imme_i) | 
                          ({64{con_signal[12:10] == `imm_u}} & imme_u) | 

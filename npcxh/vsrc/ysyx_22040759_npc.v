@@ -3,7 +3,7 @@
 module ysyx_22040759_npc(
     input           clk ,
     input           rst ,
-    input [31:0]    inst,
+    //input [31:0]    inst,
     output[63:0]    pc_out 
     );
 //------------------------------------------------------------
@@ -11,6 +11,7 @@ module ysyx_22040759_npc(
 import "DPI-C" function void c_ebreak();
 import "DPI-C" function void c_npctrap(input longint pc,input longint code);
 always@(inst)begin
+  $display(".v inst is %h",inst);
   c_npctrap(pc_out,a0);
   if(inst == 32'h100073)
     c_ebreak();
@@ -18,6 +19,7 @@ end
 //------------------------------------------------------------
     wire [63:0] pc_new;
     wire [63:0] pc_pc ;
+    wire [31:0] inst;
     wire        pc_sel;
     wire [4:0]  rs1_o;
     wire [4:0]  rs2_o;
@@ -33,12 +35,15 @@ end
     wire [63:0] alu_a;
     wire [63:0] alu_b;
     wire [63:0] wreg_data;
-    wire        wreg_sel;
+    wire [1:0]  wreg_sel;
+    wire [63:0] mem_rdata;
+    wire        mem_wen;
     wire [63:0] a0;   //sim test
     ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
     .wreg_sel      (wreg_sel),
     .alu_result    (alu_result),
     .wreg_data     (wreg_data),
+    .mem_rdata     (mem_rdata),
     .pc_sel        (pc_sel),
     .pc_pc         (pc_pc),
     .pc_new        (pc_new)
@@ -68,6 +73,7 @@ end
     .alu_sel      (alu_sel),
     .pc_sel       (pc_sel),
     .reg_wen      (reg_wen),
+    .mem_wen      (mem_wen),
     .wreg_sel     (wreg_sel)
     );
 
@@ -101,4 +107,15 @@ end
   .rdata2         (src2),
   .a0             (a0)  //sim test
     );
+
+  ysyx_22040759_inst_ram inst_ram(
+  .inst_raddr     (pc_out),
+  .inst           (inst)
+  );
+  ysyx_22040759_data_ram data_ram(
+  mem_wen      (mem_wen),
+  raddr        (alu_result),
+  wdata        (src2),
+  rdata        (mem_rdata)
+  );
 endmodule
