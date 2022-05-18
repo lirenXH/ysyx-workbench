@@ -113,9 +113,11 @@ end
   .inst           (inst)
   );
   ysyx_22040759_data_ram data_ram(
-  mem_wen      (mem_wen),
-  raddr        (alu_result),
-  wdata        (src2),
-  rdata        (mem_rdata)
+  .mem_wen      (mem_wen),
+  .clk          (clk),
+  //.raddr        (alu_result),
+  .waddr        (alu_result),
+  .wdata        (src2),
+  //.rdata        (mem_rdata)
   );
 endmodule

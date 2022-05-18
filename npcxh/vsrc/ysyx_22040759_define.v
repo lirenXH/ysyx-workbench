@@ -39,4 +39,5 @@
 
 `define wreg_pc     2'd1
 `define wreg_alu    2'd0
+`define wreg_xx     2'd0
 `define wreg_ram    2'd2
