@@ -263,12 +263,13 @@ extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
     case 0xf  : len = 4 ;                ;break;      
     case -16  : len = 4 ; addr = addr + 4;break;         //sign 0b1111_0000
     //64bit
-    case -1   : len = 8 ;                 break;         //sign 0b1111_1111
+    case -1   : len = 8 ; printf(GREEN "sd!\n" NONE); break;         //sign 0b1111_1111
     default   : printf(RED "write addr error!\n" NONE);assert(0);
   }
-  printf("waddr = %016llx\n",waddr);
-  printf(" addr = %016llx\n",addr);
-  printf("wmask = %x\n",wmask);
+  printf("waddr = 0x%016llx\n",waddr);
+  printf(" addr = 0x%016llx\n",addr);
+  printf("wdata = 0x%016llx\n",wdata);
+  printf("wmask = 0x%x\n",wmask);
 
   host_write(guest_to_host(addr), len, wdata);
 }

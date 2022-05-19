@@ -21,22 +21,28 @@ module ysyx_22040759_inst_control(                     //译码+控制
     assign rd_o =inst[11:7] ;
     assign func3=inst[14:12];
     //立即数拓展
-    wire [63:0] imme_u  ={{32{inst[31]}},inst[31:12],12'b0};                                  //U-type
+    wire [63:0] imme_u  ={{32{inst[31]}},inst[31:12],12'b0};                         //U-type
     wire [63:0] imme_i  ={{52{inst[31]}},inst[31:20]};                               //I-type   
     wire [63:0] imme_j  ={{44{inst[31]}},inst[19:12],inst[20],inst[30:21],1'b0};     //J-type
+    wire [63:0] imme_s  ={{52{inst[31]}},inst[31:25],inst[11:7]};                    //S-type
     //wire [6:0]  opcode  =inst[6:0]  ;
     reg  [15:0] con_signal;
     //译码
     always@(*)begin
         casez(inst)
-                                   //     3        3       2          2          1        1       2          1       1     
-                                   // imme_sel alu_sel  alu_a_sel  alu_b_sel  reg_wen  pc_sel  wreg_sel   mem_wen mem_ren  
-            `addi   :      con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu,    `N   ,  `N    };
-            `auipc  :      con_signal={`imm_u,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu,    `N   ,  `N    };
-            `lui    :      con_signal={`imm_u,`alu_add,`alu_a_0  ,`alu_b_imm,`reg_wen,`pc_pc ,`wreg_alu,    `N   ,  `N    };
-            `jal    :      con_signal={`imm_j,`alu_add,`alu_a_pc ,`alu_b_imm,`reg_wen,`pc_alu,`wreg_pc ,    `N   ,  `N    };
-            `jalr   :      con_signal={`imm_i,`alu_add,`alu_a_reg,`alu_b_imm,`reg_wen,`pc_alu,`wreg_pc ,    `N   ,  `N    };
-            default :begin con_signal={`imm_x,`alu_xxx,`alu_a_x  ,`alu_b_x  ,`N      ,`N     ,`wreg_xx ,    `N   ,  `N    };$display("unknown inst!");end
+                                   //     3        3       2          2          1         1       2          1       1     
+                                   // imme_sel alu_sel    alu_a_sel  alu_b_sel  reg_wen   pc_sel  wreg_sel   mem_wen mem_ren  
+            `addi   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `auipc  :      con_signal={`imm_u,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `lui    :      con_signal={`imm_u,`alu_add  ,`alu_a_0  ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `jal    :      con_signal={`imm_j,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    };
+            `jalr   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    };
+            `sd     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    };
+            `ld     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    };
+            `add    :      con_signal={`imm_x,`alu_add  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `sub    :      con_signal={`imm_x,`alu_sub  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `sltiu  :      con_signal={`imm_i,`alu_sltiu,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    }; 
+            default :begin con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`N       ,`N     ,`wreg_xx ,    `N   ,  `N    };$display("unknown inst!");end
         endcase
     end
     //控制信号产生
@@ -51,6 +57,7 @@ module ysyx_22040759_inst_control(                     //译码+控制
     //立即数选择
     assign imme_o      = ({64{con_signal[15:13] == `imm_i}} & imme_i) | 
                          ({64{con_signal[15:13] == `imm_u}} & imme_u) | 
-                         ({64{con_signal[15:13] == `imm_j}} & imme_j) ;
+                         ({64{con_signal[15:13] == `imm_j}} & imme_j) |
+                         ({64{con_signal[15:13] == `imm_s}} & imme_s) ;
                          
 endmodule
