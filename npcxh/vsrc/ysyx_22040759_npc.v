@@ -119,7 +119,7 @@ end
   ysyx_22040759_data_ram data_ram(
   .mem_wen      (mem_wen),
   .mem_ren      (mem_ren),
-  .wmask        (func3),
+  .func3        (func3),
   .clk          (clk),
   .raddr        (alu_result),
   .waddr        (alu_result),
