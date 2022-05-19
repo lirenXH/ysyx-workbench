@@ -35,7 +35,7 @@ end
     wire [1:0]  alu_b_sel;
     wire [63:0] alu_a;
     wire [63:0] alu_b;
-    wire        brach_rlt;
+    wire [7:0]  b_control;
     wire [63:0] wreg_data;
     wire [1:0]  wreg_sel;
     wire [63:0] mem_rdata;
@@ -67,7 +67,7 @@ end
   
   ysyx_22040759_inst_control inst_control(
   .inst         (inst),
-  .brach_rlt    (brach_rlt),
+  .b_control    (b_control),
   .imme_o       (imme_o),
   .rs1_o        (rs1_o),  
   .rs2_o        (rs2_o),  
@@ -105,7 +105,7 @@ end
   src1          (src1),
   src2          (src2),
   blu_sel       (alu_sel),
-  brach_rlt     (brach_rlt)
+  b_control     (b_control)
   );
   
   ysyx_22040759_GPR GPR (

@@ -16,6 +16,7 @@
 `define alu_or      4'd1
 `define alu_sub     4'd2
 `define alu_sltiu   4'd3
+`define bru_beq     4'd14
 `define bru_bne     4'd15
 
 //alu_a_sel

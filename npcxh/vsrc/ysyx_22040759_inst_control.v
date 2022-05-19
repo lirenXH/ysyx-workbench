@@ -2,7 +2,7 @@
 `include "./vsrc/ysyx_22040759_define.v"
 module ysyx_22040759_inst_control(                     //译码+控制
     input    [31:0]    inst         ,
-    input              brach_rlt    ,
+    input    [7:0]     b_control    ,
     output   [63:0]    imme_o       ,
     output   [4:0]     rs1_o        ,                          //rs1_addr
     output   [4:0]     rs2_o        ,                          //rs2_addr
@@ -17,8 +17,7 @@ module ysyx_22040759_inst_control(                     //译码+控制
     output   [2:0]     func3        ,
     output   [1:0]     wreg_sel     
     );
-    wire     [7:0]     b_control;
-    assign b_control = brach_rlt
+
     assign rs1_o=inst[19:15];
     assign rs2_o=inst[24:20];
     assign rd_o =inst[11:7] ;
@@ -46,8 +45,8 @@ module ysyx_22040759_inst_control(                     //译码+控制
             `add    :      con_signal={`imm_x,`alu_add  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
             `sub    :      con_signal={`imm_x,`alu_sub  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
             `sltiu  :      con_signal={`imm_i,`alu_sltiu,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    }; 
-            `bne    :      con_signal={`imm_b,`bru_bne  ,};
-            default :begin con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`N       ,`N     ,`wreg_xx ,    `N   ,  `N    };$display("unknown inst!");end
+            `bne    :      con_signal={`imm_b,`bru_bne  ,b_control};
+            default :begin con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    };$display("unknown inst!");end
         endcase
     end
     //控制信号产生
