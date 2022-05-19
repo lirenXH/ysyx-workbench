@@ -27,7 +27,7 @@ end
     wire [4:0]  rd_o;
     wire [63:0] imme_o;
     wire        reg_wen;
-    wire [2:0]  alu_sel;
+    wire [3:0]  alu_sel;
     wire [63:0] src1;
     wire [63:0] src2;
     wire [63:0] alu_result;
@@ -35,71 +35,80 @@ end
     wire [1:0]  alu_b_sel;
     wire [63:0] alu_a;
     wire [63:0] alu_b;
+    wire        brach_rlt;
     wire [63:0] wreg_data;
     wire [1:0]  wreg_sel;
     wire [63:0] mem_rdata;
     wire        mem_wen;
     wire        mem_ren;
     wire [63:0] a0;   //sim test
-    ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
-    .wreg_sel      (wreg_sel),
-    .alu_result    (alu_result),
-    .wreg_data     (wreg_data),
-    .mem_rdata     (mem_rdata),
-    .pc_sel        (pc_sel),
-    .pc_pc         (pc_pc),
-    .pc_new        (pc_new)
-    );
+  ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
+  .wreg_sel      (wreg_sel),
+  .alu_result    (alu_result),
+  .wreg_data     (wreg_data),
+  .mem_rdata     (mem_rdata),
+  .pc_sel        (pc_sel),
+  .pc_pc         (pc_pc),
+  .pc_new        (pc_new)
+  );
 
-    ysyx_22040759_PC PC(
-    .clk          (clk),
-    .rst          (rst),
-    .pc_out       (pc_out),
-    .pc_new       (pc_new)
-    );
-    
-    ysyx_22040759_64add add64(
-    .a            (pc_out),
-    .b            (64'h4),
-    .c            (pc_pc)
-    );
-    
-    ysyx_22040759_inst_control inst_control(
-    .inst         (inst),
-    .imme_o       (imme_o),
-    .rs1_o        (rs1_o),  
-    .rs2_o        (rs2_o),  
-    .rd_o         (rd_o),  
-    .alu_a_sel    (alu_a_sel),
-    .alu_b_sel    (alu_b_sel),
-    .alu_sel      (alu_sel),
-    .pc_sel       (pc_sel),
-    .reg_wen      (reg_wen),
-    .mem_wen      (mem_wen),
-    .mem_ren      (mem_ren),
-    .func3        (func3),
-    .wreg_sel     (wreg_sel)
-    );
+  ysyx_22040759_PC PC(
+  .clk          (clk),
+  .rst          (rst),
+  .pc_out       (pc_out),
+  .pc_new       (pc_new)
+  );
+  
+  ysyx_22040759_64add add64(
+  .a            (pc_out),
+  .b            (64'h4),
+  .c            (pc_pc)
+  );
+  
+  ysyx_22040759_inst_control inst_control(
+  .inst         (inst),
+  .brach_rlt    (brach_rlt),
+  .imme_o       (imme_o),
+  .rs1_o        (rs1_o),  
+  .rs2_o        (rs2_o),  
+  .rd_o         (rd_o),  
+  .alu_a_sel    (alu_a_sel),
+  .alu_b_sel    (alu_b_sel),
+  .alu_sel      (alu_sel),
+  .pc_sel       (pc_sel),
+  .reg_wen      (reg_wen),
+  .mem_wen      (mem_wen),
+  .mem_ren      (mem_ren),
+  .func3        (func3),
+  .wreg_sel     (wreg_sel)
+  );
 
-    ysyx_22040759_alu_sele alu_sele(
-    .src1         (src1),
-    .src2         (src2),
-    .pc_out       (pc_out),
-    .imme_i       (imme_o),
-    .alu_a_sel    (alu_a_sel),
-    .alu_b_sel    (alu_b_sel),
-    .alu_a        (alu_a),
-    .alu_b        (alu_b)
-    );
+  ysyx_22040759_alu_sele alu_sele(
+  .src1         (src1),
+  .src2         (src2),
+  .pc_out       (pc_out),
+  .imme_i       (imme_o),
+  .alu_a_sel    (alu_a_sel),
+  .alu_b_sel    (alu_b_sel),
+  .alu_a        (alu_a),
+  .alu_b        (alu_b)
+  );
 
-    ysyx_22040759_alu alu(
-    .alu_a        (alu_a),
-    .alu_b        (alu_b),
-    .alu_sel       (alu_sel),      //ALU功能选择 
-    .alu_result   (alu_result)   
-    );  
-    
-   ysyx_22040759_GPR GPR (
+  ysyx_22040759_alu alu(
+  .alu_a        (alu_a),
+  .alu_b        (alu_b),
+  .alu_sel      (alu_sel),      //ALU功能选择 
+  .alu_result   (alu_result)   
+  );  
+  
+  ysyx_22040759_blu blu(
+  src1          (src1),
+  src2          (src2),
+  blu_sel       (alu_sel),
+  brach_rlt     (brach_rlt)
+  );
+  
+  ysyx_22040759_GPR GPR (
   .clk            (clk),
   .rst            (rst),
   .wdata          (wreg_data),
