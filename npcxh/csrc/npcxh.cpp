@@ -150,7 +150,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r,vaddr_t dnpc){
       //for(int j=0;j<32;j++)
         //printf("spike_reg[%d]=0x%08lx npc_reg[%d]=0x%08lx\n",j,ref_r->gpr[j],j,cpu_gpr[j]);
       printf("spike_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
-      DIF_result = true;   //FALSE
+      DIF_result = false;   //FALSE
     }
     else{
       if(cpu_gpr[i]!=0)
@@ -216,11 +216,11 @@ static inline word_t host_read(void *addr, int len) {
 
 static inline word_t host_write(void *addr, int len, word_t data) {
   switch (len) {
-    case 1: *(uint8_t  *)addr = data ;break;
-    case 2: *(uint16_t *)addr = data ;break;
-    case 4: *(uint32_t *)addr = data ;break;
-    case 8: *(uint64_t *)addr = data ;break;
-    default: {printf(RED "write error!\n" NONE);break;}
+    case 1: *(uint8_t  *)addr = data ;return 1;break;
+    case 2: *(uint16_t *)addr = data ;return 1;break;
+    case 4: *(uint32_t *)addr = data ;return 1;break;
+    case 8: *(uint64_t *)addr = data ;return 1;break;
+    default: printf(RED "write error!\n" NONE);return 1;break;
   }
 }
 

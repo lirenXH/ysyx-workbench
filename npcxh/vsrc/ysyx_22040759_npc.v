@@ -23,6 +23,7 @@ end
     wire        pc_sel;
     wire [4:0]  rs1_o;
     wire [4:0]  rs2_o;
+    wire [2:0]  func3;
     wire [4:0]  rd_o;
     wire [63:0] imme_o;
     wire        reg_wen;
@@ -38,6 +39,7 @@ end
     wire [1:0]  wreg_sel;
     wire [63:0] mem_rdata;
     wire        mem_wen;
+    wire        mem_ren;
     wire [63:0] a0;   //sim test
     ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
     .wreg_sel      (wreg_sel),
@@ -74,6 +76,8 @@ end
     .pc_sel       (pc_sel),
     .reg_wen      (reg_wen),
     .mem_wen      (mem_wen),
+    .mem_ren      (mem_ren),
+    .func3        (func3),
     .wreg_sel     (wreg_sel)
     );
 
@@ -114,10 +118,12 @@ end
   );
   ysyx_22040759_data_ram data_ram(
   .mem_wen      (mem_wen),
+  .mem_ren      (mem_ren),
+  .wmask        (func3),
   .clk          (clk),
-  //.raddr        (alu_result),
+  .raddr        (alu_result),
   .waddr        (alu_result),
   .wdata        (src2),
-  //.rdata        (mem_rdata)
+  .rdata        (mem_rdata)
   );
 endmodule
