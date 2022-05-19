@@ -19,8 +19,9 @@ end
 //------------------------------------------------------------
     wire [63:0] pc_new;
     wire [63:0] pc_pc ;
+    wire [63:0] blu_pc;
     wire [31:0] inst;
-    wire        pc_sel;
+    wire [1:0]  pc_sel;
     wire [4:0]  rs1_o;
     wire [4:0]  rs2_o;
     wire [2:0]  func3;
@@ -35,13 +36,13 @@ end
     wire [1:0]  alu_b_sel;
     wire [63:0] alu_a;
     wire [63:0] alu_b;
-    wire [7:0]  b_control;
     wire [63:0] wreg_data;
     wire [1:0]  wreg_sel;
     wire [63:0] mem_rdata;
     wire        mem_wen;
     wire        mem_ren;
     wire [63:0] a0;   //sim test
+
   ysyx_22040759_pc_i_sel pc_i_sel(        //pc写回/寄存器写回选择器
   .wreg_sel      (wreg_sel),
   .alu_result    (alu_result),
@@ -49,6 +50,7 @@ end
   .mem_rdata     (mem_rdata),
   .pc_sel        (pc_sel),
   .pc_pc         (pc_pc),
+  .blu_pc        (blu_pc),
   .pc_new        (pc_new)
   );
 
@@ -67,7 +69,6 @@ end
   
   ysyx_22040759_inst_control inst_control(
   .inst         (inst),
-  .b_control    (b_control),
   .imme_o       (imme_o),
   .rs1_o        (rs1_o),  
   .rs2_o        (rs2_o),  
@@ -102,10 +103,12 @@ end
   );  
   
   ysyx_22040759_blu blu(
-  src1          (src1),
-  src2          (src2),
-  blu_sel       (alu_sel),
-  b_control     (b_control)
+  .src1          (src1),
+  .src2          (src2),
+  .blu_sel       (alu_sel),
+  .imme_b        (imme_o),
+  .pc_out        (pc_out),
+  .blu_pc        (blu_pc)
   );
   
   ysyx_22040759_GPR GPR (

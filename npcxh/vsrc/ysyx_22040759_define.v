@@ -16,8 +16,10 @@
 `define alu_or      4'd1
 `define alu_sub     4'd2
 `define alu_sltiu   4'd3
-`define bru_beq     4'd14
-`define bru_bne     4'd15
+`define alu_addw    4'b1000//最高位为1时  代表32位w   8
+//blu_sel
+`define blu_beq     4'd0
+`define blu_bne     4'd1
 
 //alu_a_sel
 `define alu_a_x     2'd0
@@ -37,8 +39,9 @@
 
 //pc_sel
 
-`define pc_pc       1'd0
-`define pc_alu      1'd1
+`define pc_pc       2'd0
+`define pc_alu      2'd1
+`define blu_pc      2'd2
 
 //wreg_sel
 
