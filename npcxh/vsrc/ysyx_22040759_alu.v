@@ -18,12 +18,12 @@ module ysyx_22040759_alu(
     wire    [63:0]     sltu_result;
     wire               risc32_mode = alu_sel[4];
 
-    wire [31:0] srl_32 = alu_a[31:0] >> shamt[4:0]         ;   
+    wire [31:0] srl_32 = alu_a[31:0] >> shamt[4:0]          ;   
     wire [31:0] sra_32 = $signed(alu_a[31:0]) >>> shamt[4:0];
-    wire [31:0] sll_32 = alu_a[31:0] << shamt[4:0]         ;
-    wire [63:0] sll_64 = alu_a << shamt                    ;
-    wire [63:0] sra_64 = $signed(alu_a) >>> shamt          ;
-    wire [63:0] srl_64 = alu_a >> shamt                    ;
+    wire [31:0] sll_32 = alu_a[31:0] << shamt[4:0]          ;
+    wire [63:0] sll_64 = alu_a << shamt                     ;
+    wire [63:0] sra_64 = $signed(alu_a) >>> shamt           ;
+    wire [63:0] srl_64 = alu_a >> shamt                     ;
     
 
     wire [63:0] sll_result = risc32_mode ? {32'd0,sll_32} : sll_64 ;
