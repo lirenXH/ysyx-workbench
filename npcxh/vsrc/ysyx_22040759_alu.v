@@ -15,6 +15,7 @@ module ysyx_22040759_alu(
     wire    [63:0]     or_result;
     wire    [63:0]     div_result;
     wire    [63:0]     mul_result;
+    wire    [63:0]     rem_result;
     wire    [63:0]     sltu_result;
     wire               risc32_mode = alu_sel[4];
 
@@ -38,6 +39,7 @@ module ysyx_22040759_alu(
     assign xor_result   = alu_a ^ alu_b;
     assign div_result   = alu_a / alu_b;
     assign mul_result   = alu_a * alu_b;
+    assign rem_result   = alu_a % alu_b;
     assign slt_result   = {63'b0,{$signed(alu_a) < $signed(alu_b)}};
     assign sltu_result  = {63'b0,{alu_a < alu_b}};
 
@@ -49,6 +51,7 @@ module ysyx_22040759_alu(
                       | ({64{alu_sel == `alu_xor  }} & xor_result  )
                       | ({64{alu_sel == `alu_divw }} & div_result  )
                       | ({64{alu_sel == `alu_mulw }} & mul_result  )
+                      | ({64{alu_sel == `alu_remw }} & rem_result  )
                       | ({64{alu_sel == `alu_sltu }} & sltu_result )
                       | ({64{alu_sel == `alu_slt  }} & slt_result  )
                       | ({64{alu_sel == `alu_sra  }} & sra_result  )

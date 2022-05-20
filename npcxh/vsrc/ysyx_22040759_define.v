@@ -27,6 +27,7 @@
 `define alu_sllw    5'b10001
 `define alu_mulw    5'b10010
 `define alu_divw    5'b10011
+`define alu_remw    5'b10100
 //blu_sel
 `define blu_beq     5'd0
 `define blu_bne     5'd1
