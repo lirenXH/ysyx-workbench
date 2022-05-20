@@ -9,17 +9,24 @@
 `define imm_j       3'd2
 `define imm_s       3'd3
 `define imm_b       3'd4
-
+`define imm_r       3'd0
 //alu_sel
-`define alu_xxx     4'd0
-`define alu_add     4'd0
-`define alu_or      4'd1
-`define alu_sub     4'd2
-`define alu_sltiu   4'd3
-`define alu_addw    4'b1000//最高位为1时  代表32位w   8
+`define alu_xxx     5'd0
+`define alu_add     5'd0
+`define alu_or      5'd1
+`define alu_sub     5'd2
+`define alu_slt     5'd3
+`define alu_sltu    5'd9
+`define alu_sra     5'd4   //右移
+`define alu_srl     5'd5   //左移
+`define alu_sll     5'd6   //逻辑左移
+`define alu_and     5'd7
+`define alu_xor     5'd8
+`define alu_addw    5'b10000//最高位为1时  代表32位w   16
+`define alu_sllw    5'b10001
 //blu_sel
-`define blu_beq     4'd0
-`define blu_bne     4'd1
+`define blu_beq     5'd0
+`define blu_bne     5'd1
 
 //alu_a_sel
 `define alu_a_x     2'd0

@@ -28,7 +28,7 @@ end
     wire [4:0]  rd_o;
     wire [63:0] imme_o;
     wire        reg_wen;
-    wire [3:0]  alu_sel;
+    wire [4:0]  alu_sel;
     wire [63:0] src1;
     wire [63:0] src2;
     wire [63:0] alu_result;
@@ -135,7 +135,7 @@ end
   .clk          (clk),
   .raddr        (alu_result),
   .waddr        (alu_result),
-  .wdata        (src2),
-  .mem_rdata        (mem_rdata)
+  .mem_wdata    (src2),
+  .mem_rdata    (mem_rdata)
   );
 endmodule
