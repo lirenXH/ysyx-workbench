@@ -28,7 +28,9 @@ reg [7:0]  wmask = 8'd0;
                                  |({8{data_yu==7}} & 8'b1000_0000);
                           wdata = {56'b0,mem_wdata[7:0] } ;end
             3'b001: begin wmask = 8'h3 ;wdata = {48'b0,mem_wdata[15:0]};end
-            3'b010: begin wmask = 8'hf ;wdata = {32'b0,mem_wdata[31:0]};end
+            3'b010: begin wmask = ({8{data_yu==0}} & 8'b0000_1111)
+                                 |({8{data_yu==4}} & 8'b1111_0000);
+                          wdata = {32'b0,mem_wdata[31:0]};end
             3'b011: begin wmask = 8'hff;wdata = mem_wdata      ;end
             default:begin wmask = 8'hff;wdata = mem_wdata      ;end
         endcase

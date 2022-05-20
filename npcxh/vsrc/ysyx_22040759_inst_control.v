@@ -39,6 +39,7 @@ module ysyx_22040759_inst_control(                     //译码+控制
             `jal    :      con_signal={`imm_j,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    };
             `jalr   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    };
             `sd     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    };
+            `sw     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    };
             `sb     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    };
             `ld     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    };
             `lw     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    };
@@ -56,9 +57,12 @@ module ysyx_22040759_inst_control(                     //译码+控制
             `sltu   :      con_signal={`imm_r,`alu_sltu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    }; 
             `srai   :      con_signal={`imm_i,`alu_sra  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };//doubt
             `sllw   :      con_signal={`imm_r,`alu_sllw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `slli   :      con_signal={`imm_i,`alu_sll  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
+            `srli   :      con_signal={`imm_i,`alu_srl  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    };
             //fenzhi
             `bne    :      con_signal={`imm_b,`blu_bne  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    };
             `beq    :      con_signal={`imm_b,`blu_beq  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    };
+            `bge    :      con_signal={`imm_b,`blu_bge  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    };
             `ebreak :      con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    };
             default :begin con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    };$display("unknown inst!");end
         endcase

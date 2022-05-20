@@ -44,11 +44,11 @@ module ysyx_22040759_alu(
                       | ({64{alu_sel == `alu_and  }} & and_result  )
                       | ({64{alu_sel == `alu_xor  }} & xor_result  )
                       | ({64{alu_sel == `alu_sltu }} & sltu_result )
-                      | ({64{alu_sel == `alu_slt  }} & slt_result)
+                      | ({64{alu_sel == `alu_slt  }} & slt_result  )
                       | ({64{alu_sel == `alu_sra  }} & sra_result  )
                       | ({64{alu_sel == `alu_srl  }} & srl_result  )
                       | ({64{alu_sel == `alu_sll  }} & sll_result  )
-                      | ({64{alu_sel == `alu_sllw }} & sll_result  );
+                      | ({64{alu_sel == `alu_sllw }} & sll_result  );  // w 分开
 
     assign alu_result = risc32_mode ? {{32{sel_result[31]}},sel_result[31:0]} : sel_result;
 

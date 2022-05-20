@@ -27,6 +27,7 @@
 //blu_sel
 `define blu_beq     5'd0
 `define blu_bne     5'd1
+`define blu_bge     5'd2
 
 //alu_a_sel
 `define alu_a_x     2'd0
