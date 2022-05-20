@@ -46,6 +46,7 @@ module ysyx_22040759_alu(
     assign sel_result = ({64{alu_sel == `alu_add  }} & add_result  )
                       | ({64{alu_sel == `alu_addw }} & add_result  )
                       | ({64{alu_sel == `alu_sub  }} & sub_result  )
+                      | ({64{alu_sel == `alu_subw }} & sub_result  )
                       | ({64{alu_sel == `alu_or   }} & or_result   )
                       | ({64{alu_sel == `alu_and  }} & and_result  )
                       | ({64{alu_sel == `alu_xor  }} & xor_result  )
