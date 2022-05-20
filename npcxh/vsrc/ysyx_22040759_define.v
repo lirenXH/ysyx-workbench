@@ -22,8 +22,11 @@
 `define alu_sll     5'd6   //逻辑左移
 `define alu_and     5'd7
 `define alu_xor     5'd8
+
 `define alu_addw    5'b10000//最高位为1时  代表32位w   16
 `define alu_sllw    5'b10001
+`define alu_mulw    5'b10010
+`define alu_divw    5'b10011
 //blu_sel
 `define blu_beq     5'd0
 `define blu_bne     5'd1
