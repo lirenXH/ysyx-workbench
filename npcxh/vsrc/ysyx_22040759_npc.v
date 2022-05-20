@@ -136,6 +136,6 @@ end
   .raddr        (alu_result),
   .waddr        (alu_result),
   .wdata        (src2),
-  .rdata        (mem_rdata)
+  .mem_rdata        (mem_rdata)
   );
 endmodule
