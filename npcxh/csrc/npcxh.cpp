@@ -330,7 +330,7 @@ int main(int argc, char** argv) {
     top->eval();
 
     init_difftest(diff_so_file,img_size,difftest_port);
-    for(main_time=0;main_time<100000;main_time++){
+    for(main_time=0;main_time<500000;main_time++){
       if ((main_time % 40) == 20) {
         top->clk = 1;
         printf(GREEN "\nmain time is : %ld\n" NONE,main_time);
