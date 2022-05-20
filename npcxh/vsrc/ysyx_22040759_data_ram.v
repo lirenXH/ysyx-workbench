@@ -26,8 +26,12 @@ reg [7:0]  wmask = 8'd0;
                                  |({8{data_yu==5}} & 8'b0010_0000)
                                  |({8{data_yu==6}} & 8'b0100_0000)
                                  |({8{data_yu==7}} & 8'b1000_0000);
-                          wdata = {56'b0,mem_wdata[7:0] } ;end
-            3'b001: begin wmask = 8'h3 ;wdata = {48'b0,mem_wdata[15:0]};end
+                          wdata = {56'b0,mem_wdata[7:0] };end
+            3'b001: begin wmask = ({8{data_yu==0}} & 8'b0000_0011)
+                                 |({8{data_yu==2}} & 8'b0000_1100)
+                                 |({8{data_yu==4}} & 8'b0011_0000)
+                                 |({8{data_yu==6}} & 8'b1100_0000);
+                          wdata = {48'b0,mem_wdata[15:0]};end
             3'b010: begin wmask = ({8{data_yu==0}} & 8'b0000_1111)
                                  |({8{data_yu==4}} & 8'b1111_0000);
                           wdata = {32'b0,mem_wdata[31:0]};end
@@ -45,7 +49,6 @@ reg [7:0]  wmask = 8'd0;
                                 |({64{data_yu==2}} & {{48{rdata[31]}},rdata[31:16]})
                                 |({64{data_yu==4}} & {{48{rdata[47]}},rdata[47:32]})
                                 |({64{data_yu==6}} & {{48{rdata[63]}},rdata[63:48]});
-            3'b011: mem_rdata = rdata;                                                                           //ld
             3'b010: mem_rdata = (data_yu==0) ? {{32{rdata[31]}},rdata[31:0]} : {{32{rdata[63]}},rdata[63:32]};   //lw
             3'b100: mem_rdata =  ({64{data_yu==0}} & {56'b0,rdata[7 :0] })                                       //lbu
                                 |({64{data_yu==1}} & {56'b0,rdata[15:8] })
@@ -59,6 +62,7 @@ reg [7:0]  wmask = 8'd0;
                                 |({64{data_yu==2}} & {48'b0,rdata[31:16]})
                                 |({64{data_yu==4}} & {48'b0,rdata[47:32]})
                                 |({64{data_yu==6}} & {48'b0,rdata[63:48]});
+            3'b011: mem_rdata = rdata;                                                                           //ld
             default:mem_rdata = rdata;
         endcase
     end

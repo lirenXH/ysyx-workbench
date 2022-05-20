@@ -37,9 +37,9 @@ module ysyx_22040759_alu(
     assign or_result    = alu_a | alu_b;
     assign and_result   = alu_a & alu_b;
     assign xor_result   = alu_a ^ alu_b;
-    assign div_result   = alu_a / alu_b;
+    assign div_result   = $signed(alu_a) / $signed(alu_b);
     assign mul_result   = alu_a * alu_b;
-    assign rem_result   = alu_a % alu_b;
+    assign rem_result   = $signed(alu_a) % $signed(alu_b);
     assign slt_result   = {63'b0,{$signed(alu_a) < $signed(alu_b)}};
     assign sltu_result  = {63'b0,{alu_a < alu_b}};
 
@@ -50,13 +50,18 @@ module ysyx_22040759_alu(
                       | ({64{alu_sel == `alu_or   }} & or_result   )
                       | ({64{alu_sel == `alu_and  }} & and_result  )
                       | ({64{alu_sel == `alu_xor  }} & xor_result  )
+                      | ({64{alu_sel == `alu_div  }} & div_result  )
                       | ({64{alu_sel == `alu_divw }} & div_result  )
+                      | ({64{alu_sel == `alu_mul  }} & mul_result  )
                       | ({64{alu_sel == `alu_mulw }} & mul_result  )
+                      | ({64{alu_sel == `alu_rem  }} & rem_result  )
                       | ({64{alu_sel == `alu_remw }} & rem_result  )
                       | ({64{alu_sel == `alu_sltu }} & sltu_result )
                       | ({64{alu_sel == `alu_slt  }} & slt_result  )
                       | ({64{alu_sel == `alu_sra  }} & sra_result  )
+                      | ({64{alu_sel == `alu_sraw }} & sra_result  )
                       | ({64{alu_sel == `alu_srl  }} & srl_result  )
+                      | ({64{alu_sel == `alu_srlw }} & srl_result  )
                       | ({64{alu_sel == `alu_sll  }} & sll_result  )
                       | ({64{alu_sel == `alu_sllw }} & sll_result  );  // w 分开
 
