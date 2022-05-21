@@ -18,7 +18,7 @@ reg [63:0] rdata;  //中转rdata
 reg [7:0]  wmask = 8'd0;
     always @(*)begin
         case(func3)
-            3'b000: begin wmask = ({8{data_yu==0}} & 8'b0000_0001)
+            3'b000: begin wmask = ({8{data_yu==0}} & 8'b0000_0001)                                     //sb
                                  |({8{data_yu==1}} & 8'b0000_0010)
                                  |({8{data_yu==2}} & 8'b0000_0100)
                                  |({8{data_yu==3}} & 8'b0000_1000)
@@ -27,15 +27,15 @@ reg [7:0]  wmask = 8'd0;
                                  |({8{data_yu==6}} & 8'b0100_0000)
                                  |({8{data_yu==7}} & 8'b1000_0000);
                           wdata = {56'b0,mem_wdata[7:0] };end
-            3'b001: begin wmask = ({8{data_yu==0}} & 8'b0000_0011)
+            3'b001: begin wmask = ({8{data_yu==0}} & 8'b0000_0011)                                     //sh
                                  |({8{data_yu==2}} & 8'b0000_1100)
                                  |({8{data_yu==4}} & 8'b0011_0000)
                                  |({8{data_yu==6}} & 8'b1100_0000);
                           wdata = {48'b0,mem_wdata[15:0]};end
-            3'b010: begin wmask = ({8{data_yu==0}} & 8'b0000_1111)
+            3'b010: begin wmask = ({8{data_yu==0}} & 8'b0000_1111)                                     //sw
                                  |({8{data_yu==4}} & 8'b1111_0000);
                           wdata = {32'b0,mem_wdata[31:0]};end
-            3'b011: begin wmask = 8'hff;wdata = mem_wdata      ;end
+            3'b011: begin wmask = 8'hff;wdata = mem_wdata      ;end                                    //sd
             default:begin wmask = 8'hff;wdata = mem_wdata      ;end
         endcase
         if(mem_ren)begin
@@ -49,7 +49,7 @@ reg [7:0]  wmask = 8'd0;
                                 |({64{data_yu==2}} & {{48{rdata[31]}},rdata[31:16]})
                                 |({64{data_yu==4}} & {{48{rdata[47]}},rdata[47:32]})
                                 |({64{data_yu==6}} & {{48{rdata[63]}},rdata[63:48]});
-            3'b010: mem_rdata = (data_yu==0) ? {{32{rdata[31]}},rdata[31:0]} : {{32{rdata[63]}},rdata[63:32]};   //lw
+            3'b010: mem_rdata =  (data_yu==0) ? {{32{rdata[31]}},rdata[31:0]} : {{32{rdata[63]}},rdata[63:32]};  //lw
             3'b100: mem_rdata =  ({64{data_yu==0}} & {56'b0,rdata[7 :0] })                                       //lbu
                                 |({64{data_yu==1}} & {56'b0,rdata[15:8] })
                                 |({64{data_yu==2}} & {56'b0,rdata[23:16]})

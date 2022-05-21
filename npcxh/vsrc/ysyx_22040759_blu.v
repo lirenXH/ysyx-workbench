@@ -1,5 +1,5 @@
 `include "./vsrc/ysyx_22040759_define.v"
-module ysyx_22040759_blu(
+module ysyx_22040759_blu(                               //B系指令跳转模块
     input       [63:0]  src1     ,
     input       [63:0]  src2     ,
     input       [4 :0]  blu_sel  ,
