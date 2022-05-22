@@ -4,7 +4,7 @@
 
 #define NR_MAP 16
 static IOMap maps[NR_MAP] = {};
-static int nr_map = 0;
+static int nr_map = 0;       //the  count of device
 
 /* device interface */
 void add_pio_map(const char *name, ioaddr_t addr, void *space, uint32_t len, io_callback_t callback) {
