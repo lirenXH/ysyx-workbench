@@ -4,10 +4,76 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
+			
+void printNum(unsigned long num, int base);
+void printDeci(int dec);				
+void printStr(char *str);	
 
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+  int i = 0;
+    va_list va_ptr;
+    va_start(va_ptr, fmt);
+    while (fmt[i] != '\0')
+    {
+		if (fmt[i] != '%')
+		{
+    	    putch(fmt[i++]);
+			continue;
+		}
+		switch (fmt[++i]) 
+		{
+			case 'd': printDeci(va_arg(va_ptr,int));           
+			  		  break; 
+		    case 'c': putch(va_arg(va_ptr,int));            
+			  		  break;
+		    case 's': printStr(va_arg(va_ptr,char *));
+					  break;
+			default : break;
+		}
+
+		i++; 
+    }
+    va_end(va_ptr);
+	return 0;
 }
+
+void printNum(unsigned long num, int base)
+{
+	if (num == 0)
+    {
+        return;
+    }
+	printNum(num/base, base);
+    putch("0123456789abcdef"[num%base]);
+}
+void printDeci(int dec)
+{
+	if (dec < 0)
+    {
+        putch('-');
+		dec = -dec;  	 
+    }
+    if (dec == 0)
+    {
+        putch('0');
+		return;
+    }
+    else
+    {
+        printNum(dec, 10); 
+    }
+}
+
+void printStr(char *str)
+{
+    int i = 0;
+
+    while (str[i] != '\0')
+    {
+        putch(str[i++]);
+    }
+}
+
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
