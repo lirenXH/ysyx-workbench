@@ -36,7 +36,7 @@ int printf(const char *fmt, ...) {
 		i++; 
     }
     va_end(va_ptr);
-	return 0;				//return the long of string
+	return printf_count;				//return the long of string
 }
 
 void printNum(unsigned long num, int base)
