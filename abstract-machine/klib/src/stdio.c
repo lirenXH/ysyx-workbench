@@ -8,9 +8,10 @@
 void printNum(unsigned long num, int base);
 void printDeci(int dec);				
 void printStr(char *str);	
-
+int printf_count;
 int printf(const char *fmt, ...) {
-  int i = 0;
+  	int i = 0;
+	printf_count = 0;
     va_list va_ptr;
     va_start(va_ptr, fmt);
     while (fmt[i] != '\0')
@@ -18,6 +19,7 @@ int printf(const char *fmt, ...) {
 		if (fmt[i] != '%')
 		{
     	    putch(fmt[i++]);
+			printf_count ++;
 			continue;
 		}
 		switch (fmt[++i]) 
@@ -34,7 +36,7 @@ int printf(const char *fmt, ...) {
 		i++; 
     }
     va_end(va_ptr);
-	return 0;
+	return 0;				//return the long of string
 }
 
 void printNum(unsigned long num, int base)
@@ -45,6 +47,7 @@ void printNum(unsigned long num, int base)
     }
 	printNum(num/base, base);
     putch("0123456789abcdef"[num%base]);
+	printf_count ++;
 }
 void printDeci(int dec)
 {
@@ -71,6 +74,7 @@ void printStr(char *str)
     while (str[i] != '\0')
     {
         putch(str[i++]);
+		printf_count ++;
     }
 }
 
