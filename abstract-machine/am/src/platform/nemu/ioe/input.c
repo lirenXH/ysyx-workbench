@@ -4,7 +4,7 @@
 #define KEYDOWN_MASK 0x8000
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
-  uint64_t a = 1;
+  uint64_t a = inl(KBD_ADDR+1);
   if(a != 0){
     kbd->keydown = 1;
     kbd->keycode = a;
