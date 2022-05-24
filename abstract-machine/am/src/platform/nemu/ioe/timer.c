@@ -6,9 +6,9 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint64_t a = inl(0xa0000048);
-  uint64_t b = inl(0xa000004c) << 31;
-  uint64_t c = a|b;
-  uptime->us = c;
+  //uint64_t b = inl(0xa000004c);
+  //uint64_t c = a|b;
+  uptime->us = a;
   //rtc_io_handler();
   //inl(0xa0000048);
 }
