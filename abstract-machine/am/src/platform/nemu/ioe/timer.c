@@ -5,8 +5,9 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  //uptime->us = 0;
-  outl(DEVICE_BASE,uptime->us);
+  uptime->us = inl(0xa0000048);;
+  //rtc_io_handler();
+  //inl(0xa0000048);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
