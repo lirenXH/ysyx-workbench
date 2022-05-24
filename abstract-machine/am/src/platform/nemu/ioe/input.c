@@ -5,10 +5,10 @@
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   uint32_t a = inl(KBD_ADDR);
-  uint32_t b = a | KEYDOWN_MASK;
-  if(b != 0){
+  //uint32_t b = a | KEYDOWN_MASK;
+  if(a != 0){
     kbd->keydown = 1;
-    kbd->keycode = b;
+    kbd->keycode = a;
   }
   else{
     kbd->keydown = 0;
