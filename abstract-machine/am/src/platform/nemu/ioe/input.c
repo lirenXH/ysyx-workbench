@@ -6,5 +6,5 @@
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   uint32_t a = inl(KBD_ADDR);
   kbd->keydown = (a & KEYDOWN_MASK) ? true : false;   //最高位确定是否按下
-  kbd->keycode = a & KEYDOWN_MASK;
+  kbd->keycode = a & ~KEYDOWN_MASK;
 }
