@@ -34,8 +34,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     count = w;
   else 
     count = 400 - x;
-  for(int i = 0;i < 300&&i < h;i++){
-    for(int j = 0;j<count;j++){
+  for(int i=0;i<300&&i<h;i++){
+    for(int j=0;j<count;j++){
       f[x+i+(y+j)*400] = *(pixels+i);
     }
     pixels = pixels + count;
