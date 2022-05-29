@@ -27,6 +27,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int y = ctl->y;
   int w = ctl->w;
   int h = ctl->h;
+  if(w==0||h==0) return;
   uint32_t *f = (uint32_t*)(uintptr_t)FB_ADDR;
   uint32_t *pixels  = ctl->pixels;
   int count = 0;
