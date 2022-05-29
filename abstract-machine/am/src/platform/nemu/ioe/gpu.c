@@ -31,13 +31,15 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *f = (uint32_t*)(uintptr_t)FB_ADDR;
   uint32_t *pixels  = ctl->pixels;
   int count = 0;
-  if(w < (400 - x))
+  if(w < (400 - x)){
     count = w;
-  else 
+  }
+  else{ 
     count = 400 - x;
+  }
   for(int i=0;i<300&&i<h;i++){
     for(int j=0;j<count;j++){
-      f[x+i+(y+j)*400] = *(pixels+i);
+      f[x+j+(y+i)*400] = *(pixels+j);
     }
     pixels = pixels + count;
   }
