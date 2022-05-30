@@ -5,6 +5,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static unsigned long int next = 1;
 static char *addr;
+static int malloc_flag = 1;
 //Setting *setting;
 int rand(void) {
   // RAND_MAX assumed to be 32767
@@ -33,10 +34,15 @@ int atoi(const char* nptr) {
 void *malloc(size_t size) {
   //----------------------
   size  = (size_t)ROUNDUP(size, 8);
-  addr = heap.start;
-  char *old = addr;
-  old += size;
-  return old;
+  if(malloc_flag){
+    addr = heap.start;
+    malloc_flag = 0;
+  }
+  else {
+    addr = addr + size;
+    //assert((uintptr_t)heap.start <= (uintptr_t)addr && (uintptr_t)hbrk < (uintptr_t)heap.end);
+    return addr;
+  }
   //----------------------
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
