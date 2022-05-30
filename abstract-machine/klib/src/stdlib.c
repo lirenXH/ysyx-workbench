@@ -33,10 +33,8 @@ int atoi(const char* nptr) {
 void *malloc(size_t size) {
   //----------------------
   size  = (size_t)ROUNDUP(size, 8);
-  addr = heap.start;
-  char *old = addr;
-  old += size;
-  return old;
+  addr += size;
+  return addr;
   //----------------------
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
