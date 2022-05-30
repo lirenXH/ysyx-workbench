@@ -4,7 +4,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static unsigned long int next = 1;
-static char *hbrk;
+static char *addr;
 //Setting *setting;
 int rand(void) {
   // RAND_MAX assumed to be 32767
@@ -33,11 +33,9 @@ int atoi(const char* nptr) {
 void *malloc(size_t size) {
   //----------------------
   size  = (size_t)ROUNDUP(size, 8);
-  char *old = hbrk;
-  hbrk += size;
-  for (uint64_t *p = (uint64_t *)old; p != (uint64_t *)hbrk; p ++) {
-    *p = 0;
-  }
+  addr = heap.start;
+  char *old = addr;
+  old += size;
   return old;
   //----------------------
   // On native, malloc() will be called during initializaion of C runtime.
