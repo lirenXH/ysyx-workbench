@@ -1,19 +1,21 @@
 `include"./vsrc/ysyx_22040759_define.v"
 module ysyx_22040759_EXE(
     input          clk           ,
-    input          rst         ,
+    input          rst           ,
     //allowin
     input          ms_allowin    ,
     output         es_allowin    ,
     //from ds
     input          ds_to_es_valid,
-    input  [277:0] ds_to_es_bus  ,
+    input  [280:0] ds_to_es_bus  ,
     //to ms
     output         es_to_ms_valid,
     output [204:0] es_to_ms_bus  ,
+    //to fs
+    output [130:0] blu_to_fs_bus
 );
 reg         es_valid      ;
-reg  [277:0]ds_to_es_bus_r;
+reg  [280:0]ds_to_es_bus_r;
 wire        es_ready_go   ;
 
 wire [4:0]  es_alu_sel;
@@ -33,6 +35,9 @@ wire [63:0] es_alu_result;
 wire [63:0] es_blu_pc;
 wire        es_mem_wen;
 wire        es_mem_ren;
+wire        es_jump_flag;
+wire [1:0]  es_pc_sel;
+wire        br_taken;
 assign es_ready_go    = 1'b1;
 assign es_allowin     = !es_valid || es_ready_go && ms_allowin;
 assign es_to_ms_valid =  es_valid && es_ready_go;
@@ -49,7 +54,9 @@ always @(posedge clk) begin
     end
 end
 
-assign {es_mem_wen      ,  //277 : 277
+assign {es_pc_sel       ,  //280 : 279
+        es_jump_flag    ,  //278 : 278
+        es_mem_wen      ,  //277 : 277
         es_mem_ren      ,  //276 : 276
         es_alu_sel      ,  //275 : 271 alu功能选择       5
         es_alu_a_sel    ,  //270 : 269 操作1选择         2
@@ -90,13 +97,22 @@ ysyx_22040759_alu alu(
     .alu_result     (es_alu_result)
     ); 
 
-ysyx_22040759_blu blu(             //B系指令跳转模块 在跳转的时候 bru送给IF ID冲刷信号即可
-    .src1     (es_src1 ),
-    .src2     (es_src2 ),
-    .blu_sel  (es_alu_sel),
-    .imme_b   (es_imme ),
-    .pc_out   (es_pc),
-    .blu_pc   (es_blu_pc)
+ysyx_22040759_blu blu(                //B系指令跳转模块 在跳转的时候 bru送给IF ID冲刷信号即可
+    .src1      (es_src1 ),
+    .src2      (es_src2 ),
+    .blu_sel   (es_alu_sel),
+    .imme_b    (es_imme ),
+    .pc_out    (es_pc),
+    .jump_flag (es_jump_flag),
+    .blu_pc    (es_blu_pc),
+    .br_taken  (br_taken)
 );
+
+assign blu_to_fs_bus = {es_alu_result//64
+                        es_pc_sel    //2
+                        br_taken     //1
+                        es_blu_pc    //64
+                        };
+
 endmodule
 

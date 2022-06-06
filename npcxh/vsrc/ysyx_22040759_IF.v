@@ -6,13 +6,15 @@ module ysyx_22040759_IF(
     //allwoin
     input         ds_allowin     , //译码的allowin
     //brbus
-    input  [64:0] br_bus         , //跳转总线
+    input  [130:0]blu_to_fs_bus  , //跳转总线
     //to ds
     output        fs_to_ds_valid ,
     output [95:0] fs_to_ds_bus   , //IF输出总线
     // inst sram interface
-    output        i_ram_en   ,
-    output [63:0] inst_raddr ,
+    output        i_ram_en       ,
+    output [63:0] inst_raddr     ,
+    //to brush
+    input         blu_brush_flag ,
     input  [31:0] inst             //给i-ram
 );
 
@@ -26,7 +28,18 @@ wire [63:0] nextpc;
 
 wire        br_taken;                    //这个跳转目标选择得改！！！！!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 wire [63:0] br_target;
-assign {br_taken,br_target} = br_bus;    //跳转使能，跳转目标 1+64
+wire [63:0] fs_blu_pc;
+wire [63:0] fs_alu_result;
+wire [1 :0] fs_pc_sel;
+assign {fs_alu_result//64
+        fs_pc_sel    //2
+        br_taken     //1
+        fs_blu_pc    //64
+        }  = blu_to_fs_bus;    //跳转使能，跳转目标 
+assign nextpc =  ({64{fs_pc_sel==`pc_pc }} & seq_pc       )|
+                 ({64{fs_pc_sel==`pc_alu}} & fs_alu_result)|
+                 ({64{fs_pc_sel==`blu_pc}} & fs_blu_pc    ); //如果分支失败 使用seq_pc
+
 
 wire [31:0] fs_inst;
 reg  [63:0] fs_pc;
