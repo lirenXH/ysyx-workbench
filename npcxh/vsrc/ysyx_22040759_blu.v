@@ -8,15 +8,14 @@ module ysyx_22040759_blu(                               //B系指令跳转模块
     input               jump_flag   ,
     input       [1 :0]  blu_wreg_sel,
     output      [63:0]  blu_pc      ,
-    output              br_taken    ,  //blu_brush_flag
+    output              br_taken       //blu_brush_flag
 );
 
-    wire br_taken;
     wire equ = src1 == src2;
     wire lt  = $signed(src1) < $signed(src2);
     wire ltu = src1 < src2;
 
-    wire [63:0] blu_pc = (((blu_sel == `blu_jalr) ? src1 : pc_out) + imme_b ) & ~((blu_sel == `blu_jalr) ? 64'd1 : 64'd0);
+    assign blu_pc = (((blu_sel == `blu_jalr) ? src1 : pc_out) + imme_b ) & ~((blu_sel == `blu_jalr) ? 64'd1 : 64'd0);
     // JAL   PC + imm          out = PC+4
     // JALR (rs1 + imm ) & ~1  out = PC+4
     // B     PC + imm

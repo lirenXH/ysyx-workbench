@@ -2,7 +2,6 @@
 `include"./vsrc/ysyx_22040759_define.v"
 module ysyx_22040759_ID(                                                //写后读  ： 阻塞  前递
                                                                         //分支跳转： 冲刷
-    input    [31:0]    inst          ,
     input              clk           ,
     input              rst           ,
         //allowin
@@ -17,11 +16,11 @@ module ysyx_22040759_ID(                                                //写后
         //to rf: for write back
     input    [69:0]    ws_to_rf_bus  ,
         //to brush 
-    input              blu_brush_flag,
+    input              ds_br_taken,   //blu_to_fs_bus[64]
         //to test
     output   [63:0]    a0
     );
-
+    wire   [31:0]    inst          ;
     wire   [63:0]    imme_o        ;  //wire
     wire   [4:0]     rs1_o         ;  //wire                        //rs1_addr
     wire   [4:0]     rs2_o         ;  //wire                        //rs2_addr
@@ -48,7 +47,10 @@ module ysyx_22040759_ID(                                                //写后
 
     wire [31:0] ds_inst;
     wire [63:0] ds_pc  ;
-    assign {ds_inst,ds_pc  } = fs_to_ds_bus_r;
+    wire [63:0] ds_pc_final  ;
+    assign {ds_inst,
+            ds_pc  
+           } = fs_to_ds_bus_r;
 
     wire        rf_wen   ;
     wire [ 4:0] rf_waddr;
@@ -90,14 +92,16 @@ module ysyx_22040759_ID(                                                //写后
     //wire [6:0]  opcode  =inst[6:0]  ;
     reg  [19:0] con_signal;
     //译码
+    assign inst = ds_br_taken ? 32'h13 : ds_inst;
+
     always@(*)begin
         casez(inst)
                                    //     3        5       2          2          1         2       2            1       1          1
                                    // imme_sel alu_sel    alu_a_sel  alu_b_sel  reg_wen   pc_sel  wreg_sel    mem_wen mem_ren  jump_flag
             `auipc  :      con_signal={`imm_u,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `lui    :      con_signal={`imm_u,`alu_add  ,`alu_a_0  ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `jal    :      con_signal={`imm_j,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    ,   `N};
-            `jalr   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    ,   `N};
+            `jal    :      con_signal={`imm_j,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    ,   `Y};
+            `jalr   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    ,   `Y};
             `sh     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    ,   `N};
             `sd     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    ,   `N};
             `sw     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `N    ,   `N};
@@ -163,7 +167,7 @@ module ysyx_22040759_ID(                                                //写后
                          ({64{con_signal[19:17] == `imm_j}} & imme_j) |
                          ({64{con_signal[19:17] == `imm_s}} & imme_s) |
                          ({64{con_signal[19:17] == `imm_b}} & imme_b) ;
-
+    assign ds_pc_final  = ds_br_taken ? 64'd0 : ds_pc;
     assign ds_to_es_bus = {pc_sel       ,  //280 : 279
                            jump_flag    ,  //278 : 278
                            mem_wen      ,  //277 : 277
@@ -178,7 +182,7 @@ module ysyx_22040759_ID(                                                //写后
                            func3        ,  //194 : 192 d_ram掩码        3
                            src1         ,  //191 : 128 reg_src1        64
                            src2         ,  //127 : 64  reg_src2        64
-                           ds_pc           //63  : 0   正在运行指令PC    64
+                           ds_pc_final           //63  : 0   正在运行指令PC    64
                            };
 
     ysyx_22040759_GPR GPR (

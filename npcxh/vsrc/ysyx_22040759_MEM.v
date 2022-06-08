@@ -11,7 +11,7 @@ module ysyx_22040759_MEM(                   //尝试在MEM跟D_RAM交互
     input  [204:0] es_to_ms_bus  ,
     //to ws
     output         ms_to_ws_valid,
-    output [200:0] ms_to_ws_bus  ,
+    output [199:0] ms_to_ws_bus  
 );
 
 reg         ms_valid;
@@ -51,16 +51,16 @@ always @(posedge clk) begin
     end
 
     if (es_to_ms_valid && ms_allowin) begin
-        es_to_ms_bus_r  = es_to_ms_bus;
+        es_to_ms_bus_r  <= es_to_ms_bus;
     end
 end
 
-assign ms_to_ws_bus ={ ms_reg_wen     ,  //200:199    写寄存器使能
-                       ms_rd_o        ,  //198:194    目标寄存器
-                       ms_wreg_sel    ,  //193:192
-                       ms_rdata       ,  //191:128
-                       ms_alu_result  ,  //127:64    写寄存器值
-                       ms_pc             //63 :0     PC 支持jal/jalr
+assign ms_to_ws_bus ={ ms_reg_wen     ,  //199:199   1 写寄存器使能
+                       ms_rd_o        ,  //198:194   5 目标寄存器
+                       ms_wreg_sel    ,  //193:192   2
+                       ms_rdata       ,  //191:128   64
+                       ms_alu_result  ,  //127:64    64 写寄存器值
+                       ms_pc             //63 :0     64 PC 支持jal/jalr
                       };
 
 ysyx_22040759_data_ram ram(

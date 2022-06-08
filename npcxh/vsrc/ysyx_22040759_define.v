@@ -24,7 +24,7 @@
 `define alu_sltu    5'd9
 `define alu_mul     5'd10
 `define alu_rem     5'd11
-`define alu_div     5'd12  01100
+`define alu_div     5'd12   //01100
 
 `define alu_addw    5'b10000//最高位为1时  代表32位w   16
 `define alu_sllw    5'b10001
@@ -41,6 +41,8 @@
 `define blu_blt     5'd3
 `define blu_bltu    5'd4
 `define blu_bgeu    5'd5
+`define blu_jal     5'd6
+`define blu_jalr    5'd7
 //alu_a_sel
 `define alu_a_x     2'd0
 `define alu_a_reg   2'd0

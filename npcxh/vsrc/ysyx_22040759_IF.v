@@ -13,8 +13,6 @@ module ysyx_22040759_IF(
     // inst sram interface
     output        i_ram_en       ,
     output [63:0] inst_raddr     ,
-    //to brush
-    input         blu_brush_flag ,
     input  [31:0] inst             //给i-ram
 );
 
@@ -24,31 +22,31 @@ wire        fs_allowin;
 wire        to_fs_valid;
 
 wire [63:0] seq_pc;
+wire [63:0] wait_jump_pc;
 wire [63:0] nextpc;
-
-wire        br_taken;                    //这个跳转目标选择得改！！！！!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-wire [63:0] br_target;
+wire [63:0] fs_pc_final;
+wire        br_taken;                   
 wire [63:0] fs_blu_pc;
 wire [63:0] fs_alu_result;
 wire [1 :0] fs_pc_sel;
-assign {fs_alu_result//64
-        fs_pc_sel    //2
-        br_taken     //1
+assign {fs_alu_result,//64
+        fs_pc_sel    ,//2
+        br_taken     ,//1
         fs_blu_pc    //64
         }  = blu_to_fs_bus;    //跳转使能，跳转目标 
 assign nextpc =  ({64{fs_pc_sel==`pc_pc }} & seq_pc       )|
                  ({64{fs_pc_sel==`pc_alu}} & fs_alu_result)|
-                 ({64{fs_pc_sel==`blu_pc}} & fs_blu_pc    ); //如果分支失败 使用seq_pc
+                 ({64{fs_pc_sel==`blu_pc}} & wait_jump_pc ); 
 
 
 wire [31:0] fs_inst;
 reg  [63:0] fs_pc;
-assign fs_to_ds_bus = {fs_inst ,fs_pc};  //所取指令，PC    32+64
+assign fs_to_ds_bus = {fs_inst ,fs_pc_final};  //所取指令，PC    32+64
 
 // pre-IF stage
 assign to_fs_valid  = ~rst;              //新IF有效位
-assign seq_pc       = fs_pc + 3'h4;      //下一阶段的PC   pre-IF 阶段只负责产生nextPC
-assign nextpc       = br_taken ? br_target : seq_pc; //是否跳转
+assign seq_pc       = fs_pc + 64'd4;      //下一阶段的PC   pre-IF 阶段只负责产生nextPC
+assign wait_jump_pc    = br_taken ? fs_blu_pc : seq_pc; //如果分支失败 使用seq_pc
 
 // IF stage
 assign fs_ready_go    = 1'b1;            //IF阶段完成
@@ -62,8 +60,8 @@ always @(posedge clk) begin
         fs_valid <= to_fs_valid;//如果IF可进 更新数据有效位
     end
 
-    if (rst) begin            //复位PC
-        fs_pc <= 32'h7FFFFFFC;  //trick: to make nextpc be 0xbfc00000 during rst 
+    if (rst) begin              //复位PC
+        fs_pc <= 64'h7FFFFFFC;  //trick: to make nextpc be 0xbfc00000 during rst 
     end
     else if (to_fs_valid && fs_allowin) begin //更新PC
         fs_pc <= nextpc;
@@ -73,6 +71,6 @@ end
 assign i_ram_en        = to_fs_valid && fs_allowin;//同时取指
 assign inst_raddr      = nextpc;
 
-assign fs_inst         = inst;
-
+assign fs_inst         = br_taken ? 32'h13 : inst ; //nop:inst brush
+assign fs_pc_final     = br_taken ? 64'h0  : fs_pc; //nop:inst brush
 endmodule

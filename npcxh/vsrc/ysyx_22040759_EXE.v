@@ -71,15 +71,15 @@ assign {es_pc_sel       ,  //280 : 279
         es_pc              //63  : 0   正在运行指令PC    64
         }  =  ds_to_es_bus_r;
 
-assign es_to_ms_bus = { es_src2        ,  //204:141    64
-                        es_mem_wen     ,  //140:140    1
-                        es_mem_ren     ,  //139:139    1
-                        es_func3       ,  //138:136    3
-                        es_wreg_sel    ,  //135:134    2
-                        es_reg_wen     ,  //133:133    1
-                        es_rd_o        ,  //132:128    5
-                        es_alu_result  ,  //127:64     64
-                        es_pc             //63:0       64
+assign es_to_ms_bus = { es_src2        ,  //204 : 141    64
+                        es_mem_wen     ,  //140 : 140    1
+                        es_mem_ren     ,  //139 : 139    1
+                        es_func3       ,  //138 : 136    3
+                        es_wreg_sel    ,  //135 : 134    2
+                        es_reg_wen     ,  //133 : 133    1
+                        es_rd_o        ,  //132 : 128    5
+                        es_alu_result  ,  //127 : 64     64
+                        es_pc             //63  : 0       64
                       };
 
 assign es_alu_a = ({64{es_alu_a_sel == `alu_a_reg}} & es_src1  ) | 
@@ -98,21 +98,21 @@ ysyx_22040759_alu alu(
     ); 
 
 ysyx_22040759_blu blu(                //B系指令跳转模块 在跳转的时候 bru送给IF ID冲刷信号即可
-    .src1      (es_src1 ),
-    .src2      (es_src2 ),
-    .blu_sel   (es_alu_sel),
-    .imme_b    (es_imme ),
-    .pc_out    (es_pc),
-    .jump_flag (es_jump_flag),
-    .blu_pc    (es_blu_pc),
-    .br_taken  (br_taken)
+    .src1         (es_src1 ),
+    .src2         (es_src2 ),
+    .blu_sel      (es_alu_sel),
+    .imme_b       (es_imme ),
+    .pc_out       (es_pc),
+    .jump_flag    (es_jump_flag),
+    .blu_wreg_sel (es_wreg_sel),
+    .blu_pc       (es_blu_pc),
+    .br_taken     (br_taken)
 );
 
-assign blu_to_fs_bus = {es_alu_result//64
-                        es_pc_sel    //2
-                        br_taken     //1
-                        es_blu_pc    //64
+assign blu_to_fs_bus = {es_alu_result,//130 : 67   64
+                        es_pc_sel    ,//66  : 65   2
+                        br_taken     ,//64  : 64   1
+                        es_blu_pc     //63  : 0    64
                         };
 
 endmodule
-
