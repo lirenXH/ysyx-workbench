@@ -106,15 +106,14 @@ void cpu_exec(uint64_t n) {
   }
 
 
-  uint64_t timer_start = get_time();//
-  printf("timer_start1:%ld\n",timer_start);
-  execute(n);
-  uint64_t timer_end = get_time();
-  printf("timer_start2:%ld\n",timer_start);
-  g_timer += timer_end - timer_start;
-  printf("g_timer:%ld\n",g_timer);
+  uint64_t timer_start = get_time();//运行前获取时间
+
+  execute(n);   //单步执行n次
+
+  uint64_t timer_end = get_time();//运行后时间
+  g_timer += timer_end - timer_start;//将执行n条指令的时间加到nemu的本次执行时间 运行最后既为总执行时间
   switch (nemu_state.state) {
-    case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
+    case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;//单次执行后 将nemu.state从running切换到stop，继续接收指令
 
     case NEMU_END: case NEMU_ABORT:
       Log("nemu: %s at pc = " FMT_WORD,
