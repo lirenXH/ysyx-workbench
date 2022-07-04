@@ -24,8 +24,10 @@ static uint64_t get_time_internal() {
 }
 
 uint64_t get_time() {
-  if (boot_time == 0) boot_time = get_time_internal();
+  if (boot_time == 0) boot_time = get_time_internal();  //
   uint64_t now = get_time_internal();
+  //I DO
   printf("boot_time:%ld now:%ld\n",boot_time,now);
+  //
   return now - boot_time;
 }
