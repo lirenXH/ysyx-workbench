@@ -8,7 +8,7 @@ IFDEF(CONFIG_TIMER_CLOCK_GETTIME,
 
 static uint64_t boot_time = 0;
 
-static uint64_t get_time_internal() {
+static uint64_t get_time_internal() {  //选择时钟源来自哪里
 #if defined(CONFIG_TARGET_AM)
   uint64_t us = io_read(AM_TIMER_UPTIME).us;
 #elif defined(CONFIG_TIMER_GETTIMEOFDAY)
@@ -24,12 +24,10 @@ static uint64_t get_time_internal() {
 }
 
 uint64_t get_time() {
-  if (boot_time == 0) {
-    boot_time = get_time_internal();
-    printf("get boot time :%ld\n",boot_time);}  //
-  uint64_t now = get_time_internal();
+  if (boot_time == 0) boot_time = get_time_internal();  //仅在nemu开始运行时获取系统时间 
+  uint64_t now = get_time_internal();                   //每次执行get_time都获取系统时间
   //I DO
   //printf("boot_time:%ld now:%ld\n",boot_time,now);
-  //
-  return now - boot_time;
+  //  
+  return now - boot_time;               //当前时间 - 开始时间 = 指令执行时间
 }
