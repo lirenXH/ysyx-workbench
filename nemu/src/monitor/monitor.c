@@ -32,7 +32,7 @@ static char *img_file = NULL;
 static char *ftrace_file = NULL;
 static int difftest_port = 1234;
 
-static long load_img() {
+static long load_img() {  //读取.bin文件到memory中
   if (img_file == NULL) {
     Log("No image is given. Use the default build-in image.");
     return 4096; // built-in image size
@@ -72,7 +72,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'l': log_file = optarg; break;
       case 'f': printf("ftrace file opened!\n");ftrace_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 1: img_file = optarg; return 0;
+      case 1: img_file = optarg; return 0;     //获取到程序镜像文件路径
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");

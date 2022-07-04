@@ -3,7 +3,7 @@
 #include <isa.h>
 #include <cpu/difftest.h>
 
-void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
+void set_nemu_state(int state, vaddr_t pc, int halt_ret) { //同步nemu状态
   difftest_skip_ref();
   nemu_state.state = state;
   nemu_state.halt_pc = pc;
@@ -11,7 +11,7 @@ void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
 }
 
 __attribute__((noinline))
-void invalid_inst(vaddr_t thispc) {
+void invalid_inst(vaddr_t thispc) {  //未知指令处理函数
   uint32_t temp[2];
   vaddr_t pc = thispc;
   temp[0] = inst_fetch(&pc, 4);

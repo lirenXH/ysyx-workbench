@@ -23,12 +23,12 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
   IFDEF(CONFIG_MTRACE, printf("waddr:0x%x data:0x%lx\n",addr,data));
 }
 
-static void out_of_bound(paddr_t addr) {
+static void out_of_bound(paddr_t addr) {  //越界判断函数
   panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR ") at pc = " FMT_WORD,
       addr, CONFIG_MBASE, CONFIG_MBASE + CONFIG_MSIZE, cpu.pc);
 }
 
-void init_mem() {
+void init_mem() {  //初始化physical memory
 #if   defined(CONFIG_PMEM_MALLOC)
   pmem = malloc(CONFIG_MSIZE);
   assert(pmem);
