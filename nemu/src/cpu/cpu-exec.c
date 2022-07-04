@@ -97,8 +97,8 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
-  g_print_step = (n < MAX_INST_TO_PRINT);
-  switch (nemu_state.state) {
+  g_print_step = (n < MAX_INST_TO_PRINT);           //检查si大小决定是否需要依次打印运行指令
+  switch (nemu_state.state) {                       //cpu每执行一步，检测一次nemu状态，决定是否结束运行
     case NEMU_END: case NEMU_ABORT:
       printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
       return;
