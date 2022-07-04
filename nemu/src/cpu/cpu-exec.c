@@ -109,8 +109,8 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_start = get_time();//
   printf("timer_start1:%ld\n",timer_start);
   execute(n);
-  printf("timer_start2:%ld\n",timer_start);
   uint64_t timer_end = get_time();
+  printf("timer_start2:%ld\n",timer_start);
   g_timer += timer_end - timer_start;
 
   switch (nemu_state.state) {
