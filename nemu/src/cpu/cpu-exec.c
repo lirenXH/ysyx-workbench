@@ -115,7 +115,7 @@ void cpu_exec(uint64_t n) {
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;//单次执行后 将nemu.state从running切换到stop，继续接收指令
 
-    case NEMU_END: case NEMU_ABORT:
+    case NEMU_END: case NEMU_ABORT://如果运行结束，根据nemu.state和nemu.halt的返回值(a0寄存器的值)判断程序执行对错
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN) :
