@@ -1,6 +1,9 @@
  Nemu
     include
         cpu
+            ifetch.h
+            //定义了取指函数instr_fetch()，调用vaddr_ifetch()访存 根据pc,取出长度为len的数据
+            //同时使pc + le ， 返回取出的指令
             difftest.h
             //difftest_check_reg用于进行ref与dut的寄存器比较
 	src 
@@ -24,6 +27,13 @@
             //进入sdb的主循环 等待接受指令
 		isa
 			riscv64
+                instr
+                    decode.c
+                    isa_fetch_decode()
+                    调用 instr_fetch() 由pc取出16位指令
+                    先判断是否为压缩(c)指令 若是则调用 table_rvc()进行译码
+                    若不是则再次调用 instr_fetch()再取出高16位 进行拼接组成32位指令 送到 table_main()进行译码
+                
 				difftest 
                     dut.c 
 					isa_difftest_checkregs() 
@@ -48,8 +58,8 @@
                         decode_exec()    执行(译码)函数
                             //调用operand函数译码 将译码结果记录到相应的操作数变量 s->dnpc = s->snpc pc 更新pc
                             //识别opcode 并执行各个指令的行为
-                    "在此文件中添加指令" 前提是需要编译出对应指令
-                    reg.c 寄存器堆的实现
+                    "在此文件中添加指令" 
+                    reg.c 寄存器堆的实现  complete
                         //定义了32个通用reg的名称 以及浮点寄存器fpregs 8个M模式的CSR 以及S模式下的异常处理CSR
                         isa_reg_display()
                         //打印所有的寄存器值
@@ -67,15 +77,27 @@
                         //若存在名称为name的寄存器, 则返回其当前值, 并设置success为true; 否则设置success为false.
                     mmu.c 进行地址映射
                     //访存地址被执行单元发出，MMU拦截并转换为物理地址
+                        isa_mmu_check()
+                        "?"//检查指令是否合法 并改变MMU_state
         memory
-            paddr.c Nemu的物理内存
+            paddr.c 物理内存
                 //init_mem初始化内存[0x80000000, 0x88000000]
                 //pmem_write向内存/IO中写 通过指针实现  判断是否越界 虚实地址转换
                 //pmem_read从向内存/IO中读
                 //先判断读取数据大小 1/2/4/8字节 地址转换 调用host_read()访存
-            vaddr.c 虚拟内存
-                vaddr_ifetch()
-                //调用vaddr_read_internal()用于取指
+            vaddr.c 虚拟内存    "MMU工作原理""虚实地址转换"
+                vaddr_read_internal()
+                内部读 根据mmu_mode 若为"MMU_DYNAMIC"则进行 isa_mmu_check()
+                后 调用 vaddr_mmu_read() 访存 "访存原理存疑"
+                "MMU_DIRECT"则直接调用 paddr_read() 直接访问物理内存
+                vaddr_mmu_read()
+                先调用 isa_mmu_translate() 转为页号"?" 根据转换后addr通过 paddr_read()访存
+                vaddr_read_cross_page()
+                "?"跨页读
+                vaddr_write_cross_page()
+                "?"跨页写
+                vaddr_ifetch()  mmu_mode == MMU_DYNAMIC
+                //调用vaddr_read_internal()用于取指 
                 vaddr_read()
                 //与ifetch()相似
                 vaddr_write()
