@@ -20,9 +20,8 @@ static void restart() {
 }
 
 void init_isa() {
-  /* Load built-in image. */
+  // Load built-in image. 内置程序 
   memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));
-  printf("img_size=%ld\n",sizeof(img));
   /* Initialize this virtual computer system. */
   restart();
 }

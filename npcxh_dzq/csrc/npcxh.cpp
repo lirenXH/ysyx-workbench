@@ -31,7 +31,7 @@ static int ebreak_flag2 = 0;
 static int halt_ret = 0;
 static int inst_count = 0;
 static int difftest_port = 1234;
-static uint64_t spike_pc;
+static uint64_t nemu_pc;
 static uint8_t *pmem = NULL;
 //int break_time=0;
 // ----------- state -----------
@@ -139,22 +139,22 @@ bool isa_difftest_checkregs(CPU_state *ref_r,vaddr_t dnpc){
   int i = 0;
   int count_reg = 0;
   bool DIF_result = true;
-  spike_pc = ref_r->pc;
+  nemu_pc = ref_r->pc;
   if(ref_r->pc != dnpc){
-    printf("PC false! \nspike_pc is: 0x%08lx  npc_pc is 0x%08lx\n",ref_r->pc,dnpc);
+    printf("PC false! \nnemu_pc is: 0x%08lx  npc_pc is 0x%08lx\n",ref_r->pc,dnpc);
     DIF_result = false;
   }
   for(i=0;i<32;i++){
     if(ref_r->gpr[i]!=cpu_gpr[i]){  
       printf(RED "REG different ! \n" NONE);   // inst!!!
       //for(int j=0;j<32;j++)
-        //printf("spike_reg[%d]=0x%08lx npc_reg[%d]=0x%08lx\n",j,ref_r->gpr[j],j,cpu_gpr[j]);
-      printf("spike_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
+        //printf("nemu_reg[%d]=0x%08lx npc_reg[%d]=0x%08lx\n",j,ref_r->gpr[j],j,cpu_gpr[j]);
+      printf("nemu_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
       DIF_result = false;   //FALSE
     }
     else{
       if(cpu_gpr[i]!=0)
-        //printf("spike_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
+        printf("nemu_reg[%s]=0x%08lx npc_reg[%s]=0x%08lx\n",regs[i],ref_r->gpr[i],regs[i],cpu_gpr[i]);
       count_reg++;
     }
   }
@@ -346,7 +346,7 @@ int main(int argc, char** argv) {
       if ((main_time % 40) == 20){
         //top->inst = pmem_read(top->pc_out,4);
         difftest_step(top->pc_out);
-        printf("spike_pc:0x%08lx ,npc_pc:0x%08lx\n",spike_pc,top->pc_out);
+        printf("nemu_pc:0x%08lx ,npc_pc:0x%08lx\n",nemu_pc,top->pc_out);
         inst_count++;
         //dump_gpr();
       }
