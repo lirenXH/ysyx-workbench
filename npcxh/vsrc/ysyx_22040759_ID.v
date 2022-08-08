@@ -12,7 +12,7 @@ module ysyx_22040759_ID(                                                //写后
     input    [95:0]    fs_to_ds_bus  ,
         //to es
     output             ds_to_es_valid,  
-    output   [280:0]   ds_to_es_bus  , //control signal bus
+    output   [290:0]   ds_to_es_bus  , //control signal bus
         //to rf: for write back
     input    [69:0]    ws_to_rf_bus  ,
         //to brush 
@@ -168,7 +168,10 @@ module ysyx_22040759_ID(                                                //写后
                          ({64{con_signal[19:17] == `imm_s}} & imme_s) |
                          ({64{con_signal[19:17] == `imm_b}} & imme_b) ;
     assign ds_pc_final  = ds_br_taken ? 64'd0 : ds_pc;
-    assign ds_to_es_bus = {pc_sel       ,  //280 : 279
+    assign ds_to_es_bus = {
+                           rs1_o        ,  //290 ：286 前递
+                           rs2_o        ,  //285 ：281 前递                            
+                           pc_sel       ,  //280 : 279
                            jump_flag    ,  //278 : 278
                            mem_wen      ,  //277 : 277
                            mem_ren      ,  //276 : 276

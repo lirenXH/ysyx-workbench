@@ -7,15 +7,21 @@ module ysyx_22040759_EXE(
     output         es_allowin    ,
     //from ds
     input          ds_to_es_valid,
-    input  [280:0] ds_to_es_bus  ,
+    input  [290:0] ds_to_es_bus  ,
+    //for forward
+    input  [1:0]   ForwardA      ,
+    input  [1:0]   ForwardB      ,   
+    input  [63:0]  ms_alu_result ,
+    input  [63:0]  ws_alu_result ,
     //to ms
     output         es_to_ms_valid,
-    output [204:0] es_to_ms_bus  ,
-    //to fs
+    output [150:0] es_to_ms_bus  ,
+    output [63:0]  alu_result    ,
+    //to fs 
     output [130:0] blu_to_fs_bus
 );
 reg         es_valid      ;
-reg  [280:0]ds_to_es_bus_r;
+reg  [290:0]ds_to_es_bus_r;
 wire        es_ready_go   ;
 
 wire [4:0]  es_alu_sel;
@@ -30,8 +36,11 @@ wire [63:0] es_imme;
 wire [2:0]  es_func3;
 wire [63:0] es_src1;
 wire [63:0] es_src2;
+wire [63:0] es_for_src1;
+wire [63:0] es_for_src2;
 wire [63:0] es_pc;
-wire [63:0] es_alu_result;
+wire [4:0]  es_rs1;
+wire [4:0]  es_rs2;
 wire [63:0] es_blu_pc;
 wire        es_mem_wen;
 wire        es_mem_ren;
@@ -54,7 +63,10 @@ always @(posedge clk) begin
     end
 end
 
-assign {es_pc_sel       ,  //280 : 279
+assign {
+        es_rs1          ,  //290 ：286 前递
+        es_rs2          ,  //285 ：281 前递   
+        es_pc_sel       ,  //280 : 279
         es_jump_flag    ,  //278 : 278
         es_mem_wen      ,  //277 : 277
         es_mem_ren      ,  //276 : 276
@@ -71,33 +83,42 @@ assign {es_pc_sel       ,  //280 : 279
         es_pc              //63  : 0   正在运行指令PC    64
         }  =  ds_to_es_bus_r;
 
-assign es_to_ms_bus = { es_src2        ,  //204 : 141    64
+assign es_to_ms_bus = { 
+                        es_rs1         ,  //214 ：210    5 前递
+                        es_rs2         ,  //209 ：205    5 前递   
+                        es_src2        ,  //204 : 141    64
                         es_mem_wen     ,  //140 : 140    1
                         es_mem_ren     ,  //139 : 139    1
                         es_func3       ,  //138 : 136    3
                         es_wreg_sel    ,  //135 : 134    2
                         es_reg_wen     ,  //133 : 133    1
-                        es_rd_o        ,  //132 : 128    5
-                        es_alu_result  ,  //127 : 64     64
+                        es_rd_o        ,  //132 : 128    5     -64
                         es_pc             //63  : 0       64
                       };
+assign es_for_src1 = ({64{ForwardA == 2'b10}} & ms_alu_result  ) |    //先选是否来自前递
+                     ({64{ForwardA == 2'b01}} & ws_alu_result  ) |
+                     ({64{ForwardA == 2'b00}} & es_src1 );
 
-assign es_alu_a = ({64{es_alu_a_sel == `alu_a_reg}} & es_src1  ) | 
-                  ({64{es_alu_a_sel == `alu_a_pc }} & es_pc    ) | 
+assign es_for_src2 = ({64{ForwardB == 2'b10}} & ms_alu_result  ) | 
+                     ({64{ForwardB == 2'b01}} & ws_alu_result  ) |
+                     ({64{ForwardB == 2'b00}} & es_src1 );
+
+assign es_alu_a = ({64{es_alu_a_sel == `alu_a_reg}} & es_for_src1) |   //再选操作
+                  ({64{es_alu_a_sel == `alu_a_pc }} & es_pc      ) | 
                   ({64{es_alu_a_sel == `alu_a_0  }} & 64'b0 ) ;
 
-assign es_alu_b = ({64{es_alu_b_sel == `alu_b_reg}} & es_src2  ) | 
-                  ({64{es_alu_b_sel == `alu_b_imm}} & es_imme  ) |
+assign es_alu_b = ({64{es_alu_b_sel == `alu_b_reg}} & es_for_src2) | 
+                  ({64{es_alu_b_sel == `alu_b_imm}} & es_imme    ) |
                   ({64{es_alu_b_sel == `alu_b_0  }} & 64'b0 ) ;
 
 ysyx_22040759_alu alu(
     .alu_a          (es_alu_a),
     .alu_b          (es_alu_b),
     .alu_sel        (es_alu_sel),     //ALU   功能选择
-    .alu_result     (es_alu_result)
+    .alu_result     (alu_result)
     ); 
 
-ysyx_22040759_blu blu(                //B系指令跳转模块 在跳转的时候 bru送给IF ID冲刷信号即可
+ysyx_22040759_blu blu(                //B系指令跳转模块 在跳转的时候 bru送给IF ID冲刷信号
     .src1         (es_src1 ),
     .src2         (es_src2 ),
     .blu_sel      (es_alu_sel),
@@ -109,7 +130,7 @@ ysyx_22040759_blu blu(                //B系指令跳转模块 在跳转的时�
     .br_taken     (br_taken)
 );
 
-assign blu_to_fs_bus = {es_alu_result,//130 : 67   64
+assign blu_to_fs_bus = {alu_result   ,//130 : 67   64
                         es_pc_sel    ,//66  : 65   2
                         br_taken     ,//64  : 64   1
                         es_blu_pc     //63  : 0    64

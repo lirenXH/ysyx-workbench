@@ -22,4 +22,4 @@ image: $(IMAGE).elf
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
 run: image
-	$(MAKE) -C $(NEMU_HOME)/../npcxh_dzq run IMG=$(IMAGE).bin
+	$(MAKE) -C $(NEMU_HOME)/../npcxh run IMG=$(IMAGE).bin

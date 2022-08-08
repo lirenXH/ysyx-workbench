@@ -8,14 +8,16 @@ module ysyx_22040759_MEM(                   //尝试在MEM跟D_RAM交互
     output         ms_allowin    ,
     //from es
     input          es_to_ms_valid,
-    input  [204:0] es_to_ms_bus  ,
+    input  [140:0] es_to_ms_bus  ,
+    input  [63:0]  es_to_alu_result,
     //to ws
     output         ms_to_ws_valid,
     output [199:0] ms_to_ws_bus  
 );
 
 reg         ms_valid;
-reg [204:0] es_to_ms_bus_r;
+reg [140:0] es_to_ms_bus_r;
+reg [63:0]  es_to_alu_result_r;
 wire        ms_ready_go;
 
 wire [63:0] ms_pc;  
@@ -35,10 +37,9 @@ assign  { ms_src2        ,  //204:141    64
           ms_wreg_sel    ,  //135:134    2
           ms_reg_wen     ,  //133:133    1
           ms_rd_o        ,  //132:128    5
-          ms_alu_result  ,  //127:64     64
           ms_pc             //63:0       64
         } = es_to_ms_bus_r;
-
+assign ms_alu_result  = es_to_alu_result_r;
 assign ms_ready_go    = 1'b1;
 assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin;
 assign ms_to_ws_valid = ms_valid && ms_ready_go;
@@ -52,6 +53,7 @@ always @(posedge clk) begin
 
     if (es_to_ms_valid && ms_allowin) begin
         es_to_ms_bus_r  <= es_to_ms_bus;
+        es_to_alu_result_r <= es_to_alu_result;
     end
 end
 
