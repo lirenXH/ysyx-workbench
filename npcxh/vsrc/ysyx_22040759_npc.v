@@ -43,11 +43,17 @@ wire [31 :0]inst;
 
 wire [1:0] ForwardA;
 wire [1:0] ForwardB;
+wire       pcwrite    ;
+wire       IF_ID_write;
+wire       en_control ;
+wire [4:0] ds_rs1_o   ;
+wire [4:0] ds_rs2_o   ;
 ysyx_22040759_IF IF(
     .clk            (clk),
     .rst            (rst),
     .ds_allowin     (ds_allowin),     //译码的allowin
     .blu_to_fs_bus  (blu_to_fs_bus),  //跳转总线
+    .pcwrite        (pcwrite),
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),   //IF输出总线
     .i_ram_en       (i_ram_en),
@@ -60,6 +66,16 @@ ysyx_22040759_inst_ram inst_ram(
     .i_ram_en       (i_ram_en),
     .inst           (inst) 
 );
+ysyx_22040759_hazard hazard(
+    .rst                 (rst),
+	.IF_ID_rs1           (ds_rs1_o), 
+	.IF_ID_rs2           (ds_rs2_o),
+	.ID_EX_rd            (es_to_ms_bus[68:64]),
+	.ID_EX_memread       (es_to_ms_bus[75:75]),
+	.pcwrite             (pcwrite),
+	.IF_ID_write         (IF_ID_write),
+	.en_control          (en_control)
+);
 ysyx_22040759_ID ID(
     .clk            (clk),
     .rst            (rst),
@@ -69,16 +85,22 @@ ysyx_22040759_ID ID(
     //from fs 
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),
+    //from hazard
+    .en_control     (en_control),
+    .IF_ID_write    (IF_ID_write),
     //to es 
     .ds_to_es_valid (ds_to_es_valid),  
     .ds_to_es_bus   (ds_to_es_bus),          //control signal bus
+    //to hazard
+    .rs1_o           (ds_rs1_o),  
+    .rs2_o           (ds_rs2_o),
     //to rf: for write back
     .ws_to_rf_bus   (ws_to_rf_bus),
     //to brush      
     .ds_br_taken    (blu_to_fs_bus[64]),          //blu_to_fs_bus[64]
     //to test        
     .a0             (a0) 
-    );
+);
 ysyx_22040759_forward forward(
     .ID_EX_RegisterRs1  (es_to_ms_bus[150:146]),
     .ID_EX_RegisterRs2  (es_to_ms_bus[145:141]),

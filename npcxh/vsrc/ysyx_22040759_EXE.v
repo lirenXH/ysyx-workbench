@@ -92,8 +92,8 @@ assign es_to_ms_bus = {
                         es_func3       ,  //138 : 136    3
                         es_wreg_sel    ,  //135 : 134    2
                         es_reg_wen     ,  //133 : 133    1
-                        es_rd_o        ,  //132 : 128    5     -64
-                        es_pc             //63  : 0       64
+                        es_rd_o        ,  //68  : 64     5     -64!!!
+                        es_pc             //63  : 0      64
                       };
 assign es_for_src1 = ({64{ForwardA == 2'b10}} & ms_alu_result  ) |    //先选是否来自前递
                      ({64{ForwardA == 2'b01}} & ws_alu_result  ) |

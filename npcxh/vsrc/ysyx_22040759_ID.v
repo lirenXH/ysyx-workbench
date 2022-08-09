@@ -10,9 +10,15 @@ module ysyx_22040759_ID(                                                //写后
         //from fs
     input              fs_to_ds_valid,
     input    [95:0]    fs_to_ds_bus  ,
+        //from hazard
+    input              en_control    ,
+    input              IF_ID_write   ,
         //to es
     output             ds_to_es_valid,  
     output   [290:0]   ds_to_es_bus  , //control signal bus
+        //to hazard
+    output   [4:0]     rs1_o         ,    
+    output   [4:0]     rs2_o         ,
         //to rf: for write back
     input    [69:0]    ws_to_rf_bus  ,
         //to brush 
@@ -22,8 +28,8 @@ module ysyx_22040759_ID(                                                //写后
     );
     wire   [31:0]    inst          ;
     wire   [63:0]    imme_o        ;  //wire
-    wire   [4:0]     rs1_o         ;  //wire                        //rs1_addr
-    wire   [4:0]     rs2_o         ;  //wire                        //rs2_addr
+    //wire   [4:0]     rs1_o         ;  //wire                        //rs1_addr
+    //wire   [4:0]     rs2_o         ;  //wire                        //rs2_addr
     wire   [63:0]    src1          ;
     wire   [63:0]    src2          ;
     wire   [4:0]     rd_o          ;  //wire                        //rd _addr
@@ -72,7 +78,7 @@ module ysyx_22040759_ID(                                                //写后
             ds_valid <= fs_to_ds_valid;
         end
         //---------------------------------
-        if (fs_to_ds_valid && ds_allowin) begin
+        if (fs_to_ds_valid && ds_allowin && !IF_ID_write) begin
             fs_to_ds_bus_r <= fs_to_ds_bus;
         end
     end
@@ -95,6 +101,7 @@ module ysyx_22040759_ID(                                                //写后
     assign inst = ds_br_taken ? 32'h13 : ds_inst;
 
     always@(*)begin
+        if(en_control==0)begin
         casez(inst)
                                    //     3        5       2          2          1         2       2            1       1          1
                                    // imme_sel alu_sel    alu_a_sel  alu_b_sel  reg_wen   pc_sel  wreg_sel    mem_wen mem_ren  jump_flag
@@ -150,6 +157,10 @@ module ysyx_22040759_ID(                                                //写后
             `nop    :      con_signal={`imm_i,`alu_add  ,`alu_a_0  ,`alu_b_0  ,`reg_nwen,`pc_pc ,`wreg_alu ,   `N   ,  `N    ,   `N};
             default :begin con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    ,   `N};$display("unknown inst!");end
         endcase
+        end
+        else begin
+            con_signal = 20'b0;$display("hazard!");
+        end
     end
     //控制信号产生
     assign {alu_sel     ,

@@ -1,6 +1,5 @@
 `include"./vsrc/ysyx_22040759_define.v"
-module ysyx_22040759_MEM(                   //尝试在MEM跟D_RAM交互 
-                                            //LOAD
+module ysyx_22040759_MEM(                   
     input          clk           ,
     input          rst           ,
     //allowin

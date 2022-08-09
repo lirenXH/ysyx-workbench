@@ -7,6 +7,8 @@ module ysyx_22040759_IF(
     input         ds_allowin     , //译码的allowin
     //brbus
     input  [130:0]blu_to_fs_bus  , //跳转总线
+    //form fazard
+    input         pcwrite        ,
     //to ds
     output        fs_to_ds_valid ,
     output [95:0] fs_to_ds_bus   , //IF输出总线
@@ -32,7 +34,7 @@ wire [1 :0] fs_pc_sel;
 assign {fs_alu_result,//64
         fs_pc_sel    ,//2
         br_taken     ,//1
-        fs_blu_pc    //64
+        fs_blu_pc     //64
         }  = blu_to_fs_bus;    //跳转使能，跳转目标 
 assign nextpc =  ({64{fs_pc_sel==`pc_pc }} & seq_pc       )|
                  ({64{fs_pc_sel==`pc_alu}} & fs_alu_result)|
@@ -68,7 +70,7 @@ always @(posedge clk) begin
     end
 end
 
-assign i_ram_en        = to_fs_valid && fs_allowin;//同时取指
+assign i_ram_en        = to_fs_valid && fs_allowin && (!pcwrite);//同时取指
 assign inst_raddr      = nextpc;
 
 assign fs_inst         = br_taken ? 32'h13 : inst ; //nop:inst brush
