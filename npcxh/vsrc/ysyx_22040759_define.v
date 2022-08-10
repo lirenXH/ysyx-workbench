@@ -41,8 +41,8 @@
 `define blu_blt     5'd3
 `define blu_bltu    5'd4
 `define blu_bgeu    5'd5
-`define blu_jal     5'd6
-`define blu_jalr    5'd7
+`define blu_jal     5'd0
+`define blu_jalr    5'd0
 //alu_a_sel
 `define alu_a_x     2'd0
 `define alu_a_reg   2'd0

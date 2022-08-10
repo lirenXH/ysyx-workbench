@@ -6,16 +6,17 @@ module ysyx_22040759_WB(
     output          ws_allowin    ,
     //from ms
     input           ms_to_ws_valid,
-    input  [199:0]  ms_to_ws_bus  ,
+    input  [231:0]  ms_to_ws_bus  ,
     //to rf: for write back
     output [69:0]   ws_to_rf_bus  ,
+    output [31:0]   ws_inst       ,
     output [63:0]   ws_pc
 );
 
 reg         ws_valid;
 wire        ws_ready_go;
 
-reg [199:0] ms_to_ws_bus_r;
+reg [231:0] ms_to_ws_bus_r;
 
 wire            ws_reg_wen    ;
 wire  [4:0]     ws_rd_o       ;
@@ -25,12 +26,14 @@ wire  [63:0]    ws_alu_result ;
 wire            rf_wen        ;
 wire  [4:0]     rf_waddr      ;
 wire  [63:0]    rf_wreg_data  ;
-assign { ws_reg_wen     ,  //199:199    写寄存器使能
-         ws_rd_o        ,  //198:194    目标寄存器
-         ws_wreg_sel    ,  //193:192
-         ws_rdata       ,  //191:128
-         ws_alu_result  ,  //127:64    写寄存器值
-         ws_pc             //63 :0     PC 支持jal/jalr
+assign {    
+            ws_inst        ,  //231:200    test
+            ws_reg_wen     ,  //199:199    写寄存器使能
+            ws_rd_o        ,  //198:194    目标寄存器
+            ws_wreg_sel    ,  //193:192
+            ws_rdata       ,  //191:128
+            ws_alu_result  ,  //127:64    写寄存器值
+            ws_pc             //63 :0     PC 支持jal/jalr
         } = ms_to_ws_bus_r;
 
 assign ws_ready_go = 1'b1;

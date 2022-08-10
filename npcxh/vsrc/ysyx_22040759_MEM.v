@@ -9,13 +9,14 @@ module ysyx_22040759_MEM(
     input          es_to_ms_valid,
     input  [140:0] es_to_ms_bus  ,
     input  [63:0]  es_to_alu_result,
+    input  [31:0]  es_to_ms_inst,
     //to ws
     output         ms_to_ws_valid,
-    output [199:0] ms_to_ws_bus  
+    output [231:0] ms_to_ws_bus  
 );
 
 reg         ms_valid;
-reg [140:0] es_to_ms_bus_r;
+reg [172:0] es_to_ms_bus_r;
 reg [63:0]  es_to_alu_result_r;
 wire        ms_ready_go;
 
@@ -29,7 +30,10 @@ wire        ms_mem_ren;
 wire        ms_mem_wen;
 wire [63:0] ms_src2;
 wire [63:0] ms_rdata;
-assign  { ms_src2        ,  //204:141    64
+wire [31:0] ms_inst;
+assign  { 
+          ms_inst        ,  //236:205    32
+          ms_src2        ,  //204:141    64
           ms_mem_wen     ,  //140:140    1
           ms_mem_ren     ,  //139:139    1
           ms_func3       ,  //138:136    3
@@ -51,12 +55,14 @@ always @(posedge clk) begin
     end
 
     if (es_to_ms_valid && ms_allowin) begin
-        es_to_ms_bus_r  <= es_to_ms_bus;
+        es_to_ms_bus_r  <= {es_to_ms_inst,es_to_ms_bus};
         es_to_alu_result_r <= es_to_alu_result;
     end
 end
 
-assign ms_to_ws_bus ={ ms_reg_wen     ,  //199:199   1 写寄存器使能
+assign ms_to_ws_bus ={ 
+                       ms_inst        ,  //231:200   31
+                       ms_reg_wen     ,  //199:199   1 写寄存器使能
                        ms_rd_o        ,  //198:194   5 目标寄存器
                        ms_wreg_sel    ,  //193:192   2
                        ms_rdata       ,  //191:128   64

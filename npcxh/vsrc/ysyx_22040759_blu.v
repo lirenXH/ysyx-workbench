@@ -14,18 +14,18 @@ module ysyx_22040759_blu(                               //B系指令跳转模块
     wire equ = src1 == src2;
     wire lt  = $signed(src1) < $signed(src2);
     wire ltu = src1 < src2;
-
+    wire br_valid;
     assign blu_pc = (((blu_sel == `blu_jalr) ? src1 : pc_out) + imme_b ) & ~((blu_sel == `blu_jalr) ? 64'd1 : 64'd0);
     // JAL   PC + imm          out = PC+4
     // JALR (rs1 + imm ) & ~1  out = PC+4
     // B     PC + imm
-    wire  br_valid =   ((blu_sel == `blu_jal  ) &(blu_wreg_sel == `wreg_pc))|| 
-                       ((blu_sel == `blu_jalr ) &(blu_wreg_sel == `wreg_pc))||
-                       ((blu_sel == `blu_beq  ) &&  equ )||
-                       ((blu_sel == `blu_bne  ) && ~equ )||
-                       ((blu_sel == `blu_blt  ) &&  lt  )||
-                       ((blu_sel == `blu_bge  ) && ~lt  )||
-                       ((blu_sel == `blu_bgeu ) && ~ltu )||
-                       ((blu_sel == `blu_bltu ) &&  ltu ); 
+    assign  br_valid =   ((blu_sel == `blu_jal  ) &&(blu_wreg_sel == `wreg_pc))|| 
+                         ((blu_sel == `blu_jalr ) &&(blu_wreg_sel == `wreg_pc))||
+                         ((blu_sel == `blu_beq  ) &&  equ )||
+                         ((blu_sel == `blu_bne  ) && ~equ )||
+                         ((blu_sel == `blu_blt  ) &&  lt  )||
+                         ((blu_sel == `blu_bge  ) && ~lt  )||
+                         ((blu_sel == `blu_bgeu ) && ~ltu )||
+                         ((blu_sel == `blu_bltu ) &&  ltu ); 
     assign br_taken= br_valid&&jump_flag;
 endmodule 

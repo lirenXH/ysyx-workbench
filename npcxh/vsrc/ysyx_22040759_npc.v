@@ -4,6 +4,7 @@ module ysyx_22040759_npc(
     input           clk ,
     input           rst ,
     //input [31:0]    inst,
+    output[31:0]    ws_inst,
     output[63:0]    pc_out
     );
 //------------------------------------------------------------
@@ -13,7 +14,7 @@ import "DPI-C" function void c_npctrap(input longint pc,input longint code);
 always@(inst)begin
   $display(".v inst is %h",inst);
   c_npctrap(pc_out,a0);
-  if(inst == 32'h100073)
+  if(ws_inst == 32'h100073)
     c_ebreak();
 end
 //------------------------------------------------------------
@@ -31,10 +32,10 @@ wire ms_to_ws_valid;
 //bus
 wire [130:0] blu_to_fs_bus;
 wire [95 :0] fs_to_ds_bus ;
-wire [290:0] ds_to_es_bus ;
+wire [322:0] ds_to_es_bus ;
 wire [69 :0] ws_to_rf_bus ;  //ID写回
-wire [150:0] es_to_ms_bus ;
-wire [199:0] ms_to_ws_bus ;
+wire [182:0] es_to_ms_bus ;
+wire [231:0] ms_to_ws_bus ;
 wire [63:0]  es_alu_result;
 //inst_ram
 wire        i_ram_en  ;
@@ -142,6 +143,7 @@ ysyx_22040759_MEM MEM(
     //from es
     .es_to_ms_valid(es_to_ms_valid),
     .es_to_ms_bus  (es_to_ms_bus[140:0]),
+    .es_to_ms_inst (es_to_ms_bus[182:151]),
     .es_to_alu_result(es_alu_result),
     //to ws
     .ms_to_ws_valid(ms_to_ws_valid),
@@ -158,6 +160,7 @@ ysyx_22040759_WB WB(
     .ms_to_ws_bus  (ms_to_ws_bus),
     //to rf: for write back
     .ws_to_rf_bus  (ws_to_rf_bus),
+    .ws_inst       (ws_inst),
     .ws_pc         (pc_out)
 );
 

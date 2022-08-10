@@ -7,7 +7,7 @@ module ysyx_22040759_EXE(
     output         es_allowin    ,
     //from ds
     input          ds_to_es_valid,
-    input  [290:0] ds_to_es_bus  ,
+    input  [322:0] ds_to_es_bus  ,
     //for forward
     input  [1:0]   ForwardA      ,
     input  [1:0]   ForwardB      ,   
@@ -15,13 +15,13 @@ module ysyx_22040759_EXE(
     input  [63:0]  ws_alu_result ,
     //to ms
     output         es_to_ms_valid,
-    output [150:0] es_to_ms_bus  ,
+    output [182:0] es_to_ms_bus  ,
     output [63:0]  alu_result    ,
     //to fs 
     output [130:0] blu_to_fs_bus
 );
 reg         es_valid      ;
-reg  [290:0]ds_to_es_bus_r;
+reg  [322:0]ds_to_es_bus_r;
 wire        es_ready_go   ;
 
 wire [4:0]  es_alu_sel;
@@ -41,6 +41,7 @@ wire [63:0] es_for_src2;
 wire [63:0] es_pc;
 wire [4:0]  es_rs1;
 wire [4:0]  es_rs2;
+wire [31:0] es_inst;
 wire [63:0] es_blu_pc;
 wire        es_mem_wen;
 wire        es_mem_ren;
@@ -64,6 +65,7 @@ always @(posedge clk) begin
 end
 
 assign {
+        es_inst         ,  //322 : 291 ds_inst
         es_rs1          ,  //290 ：286 前递
         es_rs2          ,  //285 ：281 前递   
         es_pc_sel       ,  //280 : 279
@@ -84,14 +86,15 @@ assign {
         }  =  ds_to_es_bus_r;
 
 assign es_to_ms_bus = { 
-                        es_rs1         ,  //214 ：210    5 前递
-                        es_rs2         ,  //209 ：205    5 前递   
-                        es_src2        ,  //204 : 141    64
-                        es_mem_wen     ,  //140 : 140    1
-                        es_mem_ren     ,  //139 : 139    1
-                        es_func3       ,  //138 : 136    3
-                        es_wreg_sel    ,  //135 : 134    2
-                        es_reg_wen     ,  //133 : 133    1
+                        es_inst        ,  //182 : 151  ds_inst
+                        es_rs1         ,  //150 ：146    5 前递
+                        es_rs2         ,  //145 ：141    5 前递   
+                        es_src2        ,  //140 : 77    64
+                        es_mem_wen     ,  //76  : 76     1
+                        es_mem_ren     ,  //75  : 75     1
+                        es_func3       ,  //74  : 72     3
+                        es_wreg_sel    ,  //71  : 70     2
+                        es_reg_wen     ,  //69  : 69     1
                         es_rd_o        ,  //68  : 64     5     -64!!!
                         es_pc             //63  : 0      64
                       };
@@ -101,7 +104,7 @@ assign es_for_src1 = ({64{ForwardA == 2'b10}} & ms_alu_result  ) |    //先选�
 
 assign es_for_src2 = ({64{ForwardB == 2'b10}} & ms_alu_result  ) | 
                      ({64{ForwardB == 2'b01}} & ws_alu_result  ) |
-                     ({64{ForwardB == 2'b00}} & es_src1 );
+                     ({64{ForwardB == 2'b00}} & es_src2 );
 
 assign es_alu_a = ({64{es_alu_a_sel == `alu_a_reg}} & es_for_src1) |   //再选操作
                   ({64{es_alu_a_sel == `alu_a_pc }} & es_pc      ) | 

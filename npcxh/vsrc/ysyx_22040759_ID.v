@@ -15,7 +15,7 @@ module ysyx_22040759_ID(                                                //写后
     input              IF_ID_write   ,
         //to es
     output             ds_to_es_valid,  
-    output   [290:0]   ds_to_es_bus  , //control signal bus
+    output   [322:0]   ds_to_es_bus  , //control signal bus
         //to hazard
     output   [4:0]     rs1_o         ,    
     output   [4:0]     rs2_o         ,
@@ -180,6 +180,7 @@ module ysyx_22040759_ID(                                                //写后
                          ({64{con_signal[19:17] == `imm_b}} & imme_b) ;
     assign ds_pc_final  = ds_br_taken ? 64'd0 : ds_pc;
     assign ds_to_es_bus = {
+                           inst         ,  //322 : 291 ds_inst
                            rs1_o        ,  //290 ：286 前递
                            rs2_o        ,  //285 ：281 前递                            
                            pc_sel       ,  //280 : 279
@@ -196,7 +197,7 @@ module ysyx_22040759_ID(                                                //写后
                            func3        ,  //194 : 192 d_ram掩码        3
                            src1         ,  //191 : 128 reg_src1        64
                            src2         ,  //127 : 64  reg_src2        64
-                           ds_pc_final           //63  : 0   正在运行指令PC    64
+                           ds_pc_final     //63  : 0   正在运行指令PC    64
                            };
 
     ysyx_22040759_GPR GPR (
