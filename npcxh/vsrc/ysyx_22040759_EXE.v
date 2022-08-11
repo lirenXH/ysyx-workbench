@@ -13,9 +13,11 @@ module ysyx_22040759_EXE(
     input  [1:0]   ForwardB      ,   
     input  [63:0]  ms_alu_result ,
     input  [63:0]  ws_alu_result ,
+    output [4:0]   es_rs1        ,
+    output [4:0]   es_rs2       ,    
     //to ms
     output         es_to_ms_valid,
-    output [182:0] es_to_ms_bus  ,
+    output [172:0] es_to_ms_bus  ,
     output [63:0]  alu_result    ,
     //to fs 
     output [130:0] blu_to_fs_bus
@@ -39,8 +41,6 @@ wire [63:0] es_src2;
 wire [63:0] es_for_src1;
 wire [63:0] es_for_src2;
 wire [63:0] es_pc;
-wire [4:0]  es_rs1;
-wire [4:0]  es_rs2;
 wire [31:0] es_inst;
 wire [63:0] es_blu_pc;
 wire        es_mem_wen;
@@ -86,10 +86,8 @@ assign {
         }  =  ds_to_es_bus_r;
 
 assign es_to_ms_bus = { 
-                        es_inst        ,  //182 : 151  ds_inst
-                        es_rs1         ,  //150 ：146    5 前递
-                        es_rs2         ,  //145 ：141    5 前递   
-                        es_src2        ,  //140 : 77    64
+                        es_inst        ,  //172 : 141  ds_inst
+                        es_for_src2    ,  //140 : 77    64
                         es_mem_wen     ,  //76  : 76     1
                         es_mem_ren     ,  //75  : 75     1
                         es_func3       ,  //74  : 72     3
@@ -122,8 +120,8 @@ ysyx_22040759_alu alu(
     ); 
 
 ysyx_22040759_blu blu(                //B系指令跳转模块 在跳转的时候 bru送给IF ID冲刷信号
-    .src1         (es_src1 ),
-    .src2         (es_src2 ),
+    .src1         (es_for_src1 ),
+    .src2         (es_for_src2 ),
     .blu_sel      (es_alu_sel),
     .imme_b       (es_imme ),
     .pc_out       (es_pc),

@@ -35,7 +35,7 @@ run:
 	@echo "makefile is running!"
 	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
 	./obj_dir/Vysyx_22040759_npc -i $(IMG) -d $(SO)
-	gtkwave ./obj_dir/dump.vcd
+    gtkwave ./obj_dir/dump.vcd
 	@echo "makefile is completed"
 
 bianyi:

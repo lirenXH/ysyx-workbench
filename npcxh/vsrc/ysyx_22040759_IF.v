@@ -52,7 +52,7 @@ assign wait_jump_pc    = br_taken ? fs_blu_pc : seq_pc; //如果分支失败 使
 
 // IF stage
 assign fs_ready_go    = 1'b1;            //IF阶段完成
-assign fs_allowin     = !fs_valid || fs_ready_go && ds_allowin;//IF可进
+assign fs_allowin     = (!fs_valid || fs_ready_go && ds_allowin) && !pcwrite;//IF可进
 assign fs_to_ds_valid =  fs_valid && fs_ready_go; //IF-ID阶段有效=IF有效且IF完成
 always @(posedge clk) begin
     if (rst) begin
@@ -70,7 +70,7 @@ always @(posedge clk) begin
     end
 end
 
-assign i_ram_en        = to_fs_valid && fs_allowin && (!pcwrite);//同时取指
+assign i_ram_en        = to_fs_valid && fs_allowin && !pcwrite;//同时取指
 assign inst_raddr      = nextpc;
 
 assign fs_inst         = br_taken ? 32'h13 : inst ; //nop:inst brush

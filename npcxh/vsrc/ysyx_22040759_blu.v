@@ -10,7 +10,9 @@ module ysyx_22040759_blu(                               //B系指令跳转模块
     output      [63:0]  blu_pc      ,
     output              br_taken       //blu_brush_flag
 );
-
+    // JAL   PC + imm          out = PC+4
+    // JALR (rs1 + imm ) & ~1  out = PC+4
+    // B     PC + imm 
     wire equ = src1 == src2;
     wire lt  = $signed(src1) < $signed(src2);
     wire ltu = src1 < src2;

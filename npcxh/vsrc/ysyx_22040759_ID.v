@@ -21,7 +21,7 @@ module ysyx_22040759_ID(                                                //写后
     output   [4:0]     rs2_o         ,
         //to rf: for write back
     input    [69:0]    ws_to_rf_bus  ,
-        //to brush 
+        //to brush
     input              ds_br_taken,   //blu_to_fs_bus[64]
         //to test
     output   [63:0]    a0
@@ -49,7 +49,6 @@ module ysyx_22040759_ID(                                                //写后
 
     //wire [63:0] fs_pc;
     reg  [95:0] fs_to_ds_bus_r;
-    //assign fs_pc = fs_to_ds_bus[63:0];  //fs_pc 比 ds_pc提前一拍获得值
 
     wire [31:0] ds_inst;
     wire [63:0] ds_pc  ;
@@ -67,7 +66,7 @@ module ysyx_22040759_ID(                                                //写后
            } = ws_to_rf_bus;
     
     assign ds_ready_go    = 1'b1;
-    assign ds_allowin     = !ds_valid || ds_ready_go && es_allowin;
+    assign ds_allowin     = (!ds_valid || ds_ready_go && es_allowin)&& !IF_ID_write;
     assign ds_to_es_valid = ds_valid && ds_ready_go;
     always @(posedge clk) begin
         //---------------------------------
@@ -78,7 +77,7 @@ module ysyx_22040759_ID(                                                //写后
             ds_valid <= fs_to_ds_valid;
         end
         //---------------------------------
-        if (fs_to_ds_valid && ds_allowin && !IF_ID_write) begin
+        if (fs_to_ds_valid && ds_allowin) begin
             fs_to_ds_bus_r <= fs_to_ds_bus;
         end
     end
@@ -126,8 +125,10 @@ module ysyx_22040759_ID(                                                //写后
             `mul    :      con_signal={`imm_r,`alu_mul  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `mulw   :      con_signal={`imm_r,`alu_mulw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `div    :      con_signal={`imm_r,`alu_div  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
+            `divu   :      con_signal={`imm_r,`alu_divu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `divw   :      con_signal={`imm_r,`alu_divw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `rem    :      con_signal={`imm_r,`alu_rem  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
+            `remu   :      con_signal={`imm_r,`alu_remu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `remw   :      con_signal={`imm_r,`alu_remw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `addi   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `addw   :      con_signal={`imm_r,`alu_addw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
@@ -178,7 +179,7 @@ module ysyx_22040759_ID(                                                //写后
                          ({64{con_signal[19:17] == `imm_j}} & imme_j) |
                          ({64{con_signal[19:17] == `imm_s}} & imme_s) |
                          ({64{con_signal[19:17] == `imm_b}} & imme_b) ;
-    assign ds_pc_final  = ds_br_taken ? 64'd0 : ds_pc;
+    assign ds_pc_final  = (ds_br_taken || IF_ID_write) ? 64'd0 : ds_pc;
     assign ds_to_es_bus = {
                            inst         ,  //322 : 291 ds_inst
                            rs1_o        ,  //290 ：286 前递

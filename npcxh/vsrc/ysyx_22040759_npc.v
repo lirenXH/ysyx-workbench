@@ -34,7 +34,7 @@ wire [130:0] blu_to_fs_bus;
 wire [95 :0] fs_to_ds_bus ;
 wire [322:0] ds_to_es_bus ;
 wire [69 :0] ws_to_rf_bus ;  //ID写回
-wire [182:0] es_to_ms_bus ;
+wire [172:0] es_to_ms_bus ;
 wire [231:0] ms_to_ws_bus ;
 wire [63:0]  es_alu_result;
 //inst_ram
@@ -49,6 +49,8 @@ wire       IF_ID_write;
 wire       en_control ;
 wire [4:0] ds_rs1_o   ;
 wire [4:0] ds_rs2_o   ;
+wire [4:0] es_rs1     ;
+wire [4:0] es_rs2     ;
 ysyx_22040759_IF IF(
     .clk            (clk),
     .rst            (rst),
@@ -103,8 +105,8 @@ ysyx_22040759_ID ID(
     .a0             (a0) 
 );
 ysyx_22040759_forward forward(
-    .ID_EX_RegisterRs1  (es_to_ms_bus[150:146]),
-    .ID_EX_RegisterRs2  (es_to_ms_bus[145:141]),
+    .ID_EX_RegisterRs1  (es_rs1),
+    .ID_EX_RegisterRs2  (es_rs2),
     .EX_MEM_RegisterRd  (ms_to_ws_bus[198:194]), 
     .MEM_WB_RegisterRd  (ws_to_rf_bus[68:64]),
     .EX_MEM_RegWrite    (ms_to_ws_bus[199:199]),
@@ -126,6 +128,8 @@ ysyx_22040759_EXE EXE(
     .ForwardB      (ForwardB),   
     .ms_alu_result (ms_to_ws_bus[127:64]),
     .ws_alu_result (ws_to_rf_bus[63:0]),
+    .es_rs1        (es_rs1),
+    .es_rs2        (es_rs2),
     //to ms
     .es_to_ms_valid(es_to_ms_valid),
     .es_to_ms_bus  (es_to_ms_bus),
@@ -143,7 +147,7 @@ ysyx_22040759_MEM MEM(
     //from es
     .es_to_ms_valid(es_to_ms_valid),
     .es_to_ms_bus  (es_to_ms_bus[140:0]),
-    .es_to_ms_inst (es_to_ms_bus[182:151]),
+    .es_to_ms_inst (es_to_ms_bus[172:141]),
     .es_to_alu_result(es_alu_result),
     //to ws
     .ms_to_ws_valid(ms_to_ws_valid),

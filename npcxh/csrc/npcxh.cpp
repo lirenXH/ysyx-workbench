@@ -344,7 +344,7 @@ int main(int argc, char** argv) {
       if (main_time >= 30) {
         top->rst = 0;
       }
-      if ((top->pc_out!=0)&(main_time>=200)&(main_time%40) == 20){
+      if ((top->pc_out!=0)&(main_time>=200)&(main_time%40) == 20){   //pc为零 即冲刷 跳过不比较
         //top->inst = pmem_read(top->pc_out,4);
         difftest_step(top->pc_out);
         printf("spike_pc:0x%08lx ,npc_pc:0x%08lx\n",spike_pc,top->pc_out);
