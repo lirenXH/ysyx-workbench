@@ -22,7 +22,7 @@ module ysyx_22040759_ID(                                                //写后
         //to rf: for write back
     input    [69:0]    ws_to_rf_bus  ,
         //to brush
-    input              ds_br_taken,   //blu_to_fs_bus[64]
+    input              ds_br_taken,   //bru_to_fs_bus[64]
         //to test
     output   [63:0]    a0
     );
@@ -148,12 +148,12 @@ module ysyx_22040759_ID(                                                //写后
             `srlw   :      con_signal={`imm_r,`alu_srlw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             `srliw  :      con_signal={`imm_i,`alu_srlw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
             //fenzhi
-            `bne    :      con_signal={`imm_b,`blu_bne  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `beq    :      con_signal={`imm_b,`blu_beq  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `bge    :      con_signal={`imm_b,`blu_bge  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `blt    :      con_signal={`imm_b,`blu_blt  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `bltu   :      con_signal={`imm_b,`blu_bltu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `bgeu   :      con_signal={`imm_b,`blu_bgeu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`blu_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
+            `bne    :      con_signal={`imm_b,`bru_bne  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
+            `beq    :      con_signal={`imm_b,`bru_beq  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
+            `bge    :      con_signal={`imm_b,`bru_bge  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
+            `blt    :      con_signal={`imm_b,`bru_blt  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
+            `bltu   :      con_signal={`imm_b,`bru_bltu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
+            `bgeu   :      con_signal={`imm_b,`bru_bgeu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
             `ebreak :      con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    ,   `N};
             `nop    :      con_signal={`imm_i,`alu_add  ,`alu_a_0  ,`alu_b_0  ,`reg_nwen,`pc_pc ,`wreg_alu ,   `N   ,  `N    ,   `N};
             default :begin con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    ,   `N};$display("unknown inst!");end

@@ -6,7 +6,7 @@ module ysyx_22040759_IF(
     //allwoin
     input         ds_allowin     , //译码的allowin
     //brbus
-    input  [130:0]blu_to_fs_bus  , //跳转总线
+    input  [130:0]bru_to_fs_bus  , //跳转总线
     //form fazard
     input         pcwrite        ,
     //to ds
@@ -28,17 +28,17 @@ wire [63:0] wait_jump_pc;
 wire [63:0] nextpc;
 wire [63:0] fs_pc_final;
 wire        br_taken;                   
-wire [63:0] fs_blu_pc;
+wire [63:0] fs_bru_pc;
 wire [63:0] fs_alu_result;
 wire [1 :0] fs_pc_sel;
 assign {fs_alu_result,//64
         fs_pc_sel    ,//2
         br_taken     ,//1
-        fs_blu_pc     //64
-        }  = blu_to_fs_bus;    //跳转使能，跳转目标 
+        fs_bru_pc     //64
+        }  = bru_to_fs_bus;    //跳转使能，跳转目标 
 assign nextpc =  ({64{fs_pc_sel==`pc_pc }} & seq_pc       )|
                  ({64{fs_pc_sel==`pc_alu}} & fs_alu_result)|
-                 ({64{fs_pc_sel==`blu_pc}} & wait_jump_pc ); 
+                 ({64{fs_pc_sel==`bru_pc}} & wait_jump_pc ); 
 
 
 wire [31:0] fs_inst;
@@ -48,7 +48,7 @@ assign fs_to_ds_bus = {fs_inst ,fs_pc_final};  //所取指令，PC    32+64
 // pre-IF stage
 assign to_fs_valid  = ~rst;              //新IF有效位
 assign seq_pc       = fs_pc + 64'd4;      //下一阶段的PC   pre-IF 阶段只负责产生nextPC
-assign wait_jump_pc    = br_taken ? fs_blu_pc : seq_pc; //如果分支失败 使用seq_pc
+assign wait_jump_pc    = br_taken ? fs_bru_pc : seq_pc; //如果分支失败 使用seq_pc
 
 // IF stage
 assign fs_ready_go    = 1'b1;            //IF阶段完成

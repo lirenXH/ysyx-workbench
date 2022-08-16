@@ -30,7 +30,7 @@ wire ds_to_es_valid;
 wire es_to_ms_valid;
 wire ms_to_ws_valid;
 //bus
-wire [130:0] blu_to_fs_bus;
+wire [130:0] bru_to_fs_bus;
 wire [95 :0] fs_to_ds_bus ;
 wire [322:0] ds_to_es_bus ;
 wire [69 :0] ws_to_rf_bus ;  //ID写回
@@ -55,7 +55,7 @@ ysyx_22040759_IF IF(
     .clk            (clk),
     .rst            (rst),
     .ds_allowin     (ds_allowin),     //译码的allowin
-    .blu_to_fs_bus  (blu_to_fs_bus),  //跳转总线
+    .bru_to_fs_bus  (bru_to_fs_bus),  //跳转总线
     .pcwrite        (pcwrite),
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),   //IF输出总线
@@ -100,7 +100,7 @@ ysyx_22040759_ID ID(
     //to rf: for write back
     .ws_to_rf_bus   (ws_to_rf_bus),
     //to brush      
-    .ds_br_taken    (blu_to_fs_bus[64]),          //blu_to_fs_bus[64]
+    .ds_br_taken    (bru_to_fs_bus[64]),          //bru_to_fs_bus[64]
     //to test        
     .a0             (a0) 
 );
@@ -135,7 +135,7 @@ ysyx_22040759_EXE EXE(
     .es_to_ms_bus  (es_to_ms_bus),
     .alu_result    (es_alu_result),
     //to fs
-    .blu_to_fs_bus (blu_to_fs_bus)
+    .bru_to_fs_bus (bru_to_fs_bus)
 );
 
 ysyx_22040759_MEM MEM(              

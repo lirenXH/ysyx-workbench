@@ -36,15 +36,15 @@
 `define alu_subw    5'b10101
 `define alu_sraw    5'b10110
 `define alu_srlw    5'b10111
-//blu_sel
-`define blu_beq     5'd6
-`define blu_bne     5'd1
-`define blu_bge     5'd2
-`define blu_blt     5'd3
-`define blu_bltu    5'd4
-`define blu_bgeu    5'd5
-`define blu_jal     5'd0
-`define blu_jalr    5'd0
+//bru_sel
+`define bru_beq     5'd6
+`define bru_bne     5'd1
+`define bru_bge     5'd2
+`define bru_blt     5'd3
+`define bru_bltu    5'd4
+`define bru_bgeu    5'd5
+`define bru_jal     5'd0
+`define bru_jalr    5'd0
 //alu_a_sel
 `define alu_a_x     2'd0
 `define alu_a_reg   2'd0
@@ -65,7 +65,7 @@
 
 `define pc_pc       2'd0
 `define pc_alu      2'd1
-`define blu_pc      2'd2
+`define bru_pc      2'd2
 
 //wreg_sel
 
