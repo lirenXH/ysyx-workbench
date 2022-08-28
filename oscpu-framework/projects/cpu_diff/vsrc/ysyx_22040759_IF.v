@@ -68,13 +68,13 @@ always @(posedge clk) begin
     if (rst) begin              //复位PC
         fs_pc <= 64'h7FFFFFFC;  //trick: to make nextpc be 0xbfc00000 during rst 
     end
-    else if (to_fs_valid && fs_allowin) begin //更新PC
+    else if (to_fs_valid && fs_allowin && !pcwrite) begin //更新PC
         fs_pc <= nextpc;
         fetched <= 1'b1;
     end
 end
 
-assign i_ram_en        = to_fs_valid && fs_allowin && !pcwrite;//同时取指
+assign i_ram_en        = fs_valid && fs_allowin;//同时取指
 assign inst_raddr      = nextpc;
 
 assign fs_inst         = br_taken ? 32'h13 : inst ; //nop:inst brush

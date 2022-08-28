@@ -204,8 +204,6 @@ inline void Emulator::single_cycle() {
   dramsim3_helper_rising(axi);
 #endif
 
-  dut_ptr->clock = 1;
-  dut_ptr->eval();
 
 #if VM_TRACE == 1
   if (enable_waveform) {
@@ -217,6 +215,9 @@ inline void Emulator::single_cycle() {
     if (in_range) { tfp->dump(cycle); }
   }
 #endif
+
+  dut_ptr->clock = 1;
+  dut_ptr->eval();
 
 #ifdef WITH_DRAMSIM3
   axi_copy_from_dut_ptr(dut_ptr, axi);

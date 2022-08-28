@@ -1,5 +1,4 @@
-
-`include "defines.v"
+`include"./ysyx_22040759_define.v"
 `define AXI_TOP_INTERFACE(name) io_memAXI_0_``name
 
 module SimTop(
@@ -134,7 +133,7 @@ module SimTop(
     assign r_id                                     = `AXI_TOP_INTERFACE(r_bits_id);
     assign r_user                                   = `AXI_TOP_INTERFACE(r_bits_user);
 
-    axi_rw u_axi_rw (
+    ysyx_22040759_axi u_axi(
         .clock                          (clock),
         .reset                          (reset),
 
@@ -199,14 +198,14 @@ module SimTop(
 
     wire if_valid;
     wire if_ready;
-    wire req = `REQ_READ;
+    wire req = `REQ_READ;  //一直为读请求
     wire [63:0] if_data_read;
     wire [63:0] data_write;
     wire [63:0] if_addr;
     wire [1:0] if_size;
     wire [1:0] if_resp;
 
-    cpu u_cpu(
+    ysyx_22040759_cpu u_cpu(
         .clock                          (clock),
         .reset                          (reset),
 
