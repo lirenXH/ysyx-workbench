@@ -49,6 +49,9 @@ always @(posedge clk) begin
     if (ms_to_ws_valid && ws_allowin) begin
         ms_to_ws_bus_r <= ms_to_ws_bus;
     end
+    else if(!ms_to_ws_valid)begin
+        ms_to_ws_bus_r <= {32'h13,200'b0}; 
+    end
 end
 assign rf_waddr = ws_rd_o;
 assign rf_wen   = ws_reg_wen&&ws_valid;//目标寄存器写使能

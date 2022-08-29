@@ -53,7 +53,7 @@ reg  [63:0]pc_to_axi;
 
 wire [31:0] fs_inst;
 reg  [63:0] fs_pc;
-assign fs_to_ds_bus = {fs_inst ,fs_pc_final};  //所取指令，PC    32+64
+assign fs_to_ds_bus = fs_valid ? {fs_inst ,fs_pc_final} : {32'h13,64'h0};  //所取指令，PC    32+64
 
 // pre-IF stage
 assign to_fs_valid  = ~rst ;              //新IF有效位
@@ -61,8 +61,8 @@ assign seq_pc       = fs_pc + 64'd4;      //下一阶段的PC   pre-IF 阶段只
 assign wait_jump_pc    = br_taken ? fs_bru_pc : seq_pc; //如果分支失败 使用seq_pc
 
 // IF stage
-assign fs_ready_go    = !pcwrite;            //IF阶段完成
-assign fs_allowin     = (!fs_valid || fs_ready_go && ds_allowin) ;//IF可进
+assign fs_ready_go    = 1'b1;            //IF阶段完成
+assign fs_allowin     = (!fs_valid || fs_ready_go && ds_allowin) && !pcwrite;//IF可进
 assign fs_to_ds_valid =  fs_valid && fs_ready_go && handshake_done; //IF-ID阶段有效=IF有效且IF完成
 always @(posedge clk) begin
     if (rst) begin
@@ -101,6 +101,6 @@ assign if_valid        = fs_valid;//取指有效
 assign inst_addr       = pc_to_axi;
 
 //assign fs_inst         = br_taken ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
-assign fs_inst         = jump_r || !fs_to_ds_valid ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
-assign fs_pc_final     = jump_r || !fs_to_ds_valid ? 64'h0  : fs_pc;               //nop:inst brush
+assign fs_inst         = jump_r ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
+assign fs_pc_final     = jump_r ? 64'h0  : fs_pc;               //nop:inst brush
 endmodule

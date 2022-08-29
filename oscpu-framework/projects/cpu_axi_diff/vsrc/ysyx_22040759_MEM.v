@@ -58,8 +58,8 @@ always @(posedge clk) begin
         es_to_ms_bus_r  <= {es_to_ms_inst,es_to_ms_bus};
         es_to_alu_result_r <= es_to_alu_result;
     end 
-    else begin
-        es_to_ms_bus_r  <= 0;
+    else if(!es_to_ms_valid)begin
+        es_to_ms_bus_r  <= {32'h13,141'b0};
         es_to_alu_result_r <= 0;
     end 
 end

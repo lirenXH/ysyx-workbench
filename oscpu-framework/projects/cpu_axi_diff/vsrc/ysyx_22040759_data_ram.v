@@ -61,25 +61,3 @@ RAMHelper data_RAMHelper(
 );
     
 endmodule
-
-    //    case(func3)                     
-    //        3'b001: mem_rdata =  ({64{data_yu==0}} & {{48{rdata[15]}},rdata[15:0] })                             //lh
-    //                            |({64{data_yu==2}} & {{48{rdata[31]}},rdata[31:16]})
-    //                            |({64{data_yu==4}} & {{48{rdata[47]}},rdata[47:32]})
-    //                            |({64{data_yu==6}} & {{48{rdata[63]}},rdata[63:48]});
-    //        3'b010: mem_rdata =  (data_yu==0) ? {{32{rdata[31]}},rdata[31:0]} : {{32{rdata[63]}},rdata[63:32]};  //lw
-    //        3'b100: mem_rdata =  ({64{data_yu==0}} & {56'b0,rdata[7 :0] })                                       //lbu
-    //                            |({64{data_yu==1}} & {56'b0,rdata[15:8] })
-    //                            |({64{data_yu==2}} & {56'b0,rdata[23:16]})
-    //                            |({64{data_yu==3}} & {56'b0,rdata[31:24]})
-    //                            |({64{data_yu==4}} & {56'b0,rdata[39:32]})
-    //                            |({64{data_yu==5}} & {56'b0,rdata[47:40]})
-    //                            |({64{data_yu==6}} & {56'b0,rdata[55:48]})
-    //                            |({64{data_yu==7}} & {56'b0,rdata[63:56]}); 
-    //        3'b101: mem_rdata =  ({64{data_yu==0}} & {48'b0,rdata[15:0] })                                       //lhu
-    //                            |({64{data_yu==2}} & {48'b0,rdata[31:16]})
-    //                            |({64{data_yu==4}} & {48'b0,rdata[47:32]})
-    //                            |({64{data_yu==6}} & {48'b0,rdata[63:48]});
-    //        3'b011: mem_rdata = rdata;                                                                           //ld
-    //        default:mem_rdata = rdata;
-    //    endcase

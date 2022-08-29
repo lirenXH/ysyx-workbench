@@ -39,14 +39,14 @@ assign {fs_alu_result,//64
         br_taken     ,//1
         fs_bru_pc     //64
         }  = bru_to_fs_bus;    //跳转使能，跳转目标 
-assign nextpc =  ({64{fs_pc_sel==`pc_pc }} & seq_pc       )|
-                 ({64{fs_pc_sel==`pc_alu}} & fs_alu_result)|
-                 ({64{fs_pc_sel==`bru_pc}} & wait_jump_pc ); 
+assign nextpc =  fs_allowin? ({64{fs_pc_sel==`pc_pc }} & seq_pc       )|
+                             ({64{fs_pc_sel==`pc_alu}} & fs_alu_result)|
+                             ({64{fs_pc_sel==`bru_pc}} & wait_jump_pc )   :fs_pc; 
 
 
 wire [31:0] fs_inst;
 reg  [63:0] fs_pc;
-assign fs_to_ds_bus = {fs_inst ,fs_pc_final};  //所取指令，PC    32+64
+assign fs_to_ds_bus = fs_valid ? {fs_inst ,fs_pc_final} : {32'h13,64'h0};  //所取指令，PC    32+64
 
 // pre-IF stage
 assign to_fs_valid  = ~rst;              //新IF有效位
@@ -68,13 +68,13 @@ always @(posedge clk) begin
     if (rst) begin              //复位PC
         fs_pc <= 64'h7FFFFFFC;  //trick: to make nextpc be 0xbfc00000 during rst 
     end
-    else if (to_fs_valid && fs_allowin && !pcwrite) begin //更新PC
+    else if (to_fs_valid && fs_allowin) begin //更新PC
         fs_pc <= nextpc;
         fetched <= 1'b1;
     end
 end
 
-assign i_ram_en        = fs_valid && fs_allowin;//同时取指
+assign i_ram_en        = fs_valid;//同时取指
 assign inst_raddr      = nextpc;
 
 assign fs_inst         = br_taken ? 32'h13 : inst ; //nop:inst brush

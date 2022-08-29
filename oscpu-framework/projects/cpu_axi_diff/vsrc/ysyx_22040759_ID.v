@@ -65,10 +65,10 @@ module ysyx_22040759_ID(                                                //写后
             rf_wdata   //63:0
            } = ws_to_rf_bus;
     
-    //assign ds_ready_go    = 1'b1;
-    //assign ds_allowin     = (!ds_valid || ds_ready_go && es_allowin)&& !IF_ID_write;
-    assign ds_ready_go    = !IF_ID_write;
-    assign ds_allowin     = !ds_valid || ds_ready_go && es_allowin;
+    assign ds_ready_go    = 1'b1;
+    assign ds_allowin     = (!ds_valid || ds_ready_go && es_allowin)&& !IF_ID_write;
+    //assign ds_ready_go    = !IF_ID_write;
+    //assign ds_allowin     = !ds_valid || ds_ready_go && es_allowin;
     assign ds_to_es_valid = ds_valid && ds_ready_go;
     always @(posedge clk) begin
         //---------------------------------
@@ -82,8 +82,8 @@ module ysyx_22040759_ID(                                                //写后
         if (fs_to_ds_valid && ds_allowin) begin
             fs_to_ds_bus_r <= fs_to_ds_bus;
         end
-        else begin
-            fs_to_ds_bus_r <= 0;
+        else if(!fs_to_ds_valid)begin
+            fs_to_ds_bus_r <= {32'h13,64'h0}; //不能简单为0
         end
     end
 

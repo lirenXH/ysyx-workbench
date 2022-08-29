@@ -62,6 +62,9 @@ always @(posedge clk) begin
     if (ds_to_es_valid && es_allowin) begin
         ds_to_es_bus_r <= ds_to_es_bus;
     end
+    else if(!ds_to_es_valid)begin
+        ds_to_es_bus_r <= {32'h13,291'b0};
+    end
 end
 
 assign {
