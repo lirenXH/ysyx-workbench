@@ -32,15 +32,15 @@ wire [63:0] ms_src2;
 wire [63:0] ms_rdata;
 wire [31:0] ms_inst;
 assign  { 
-          ms_inst        ,  //236:205    32
-          ms_src2        ,  //204:141    64
-          ms_mem_wen     ,  //140:140    1
-          ms_mem_ren     ,  //139:139    1
-          ms_func3       ,  //138:136    3
-          ms_wreg_sel    ,  //135:134    2
-          ms_reg_wen     ,  //133:133    1
-          ms_rd_o        ,  //132:128    5
-          ms_pc             //63:0       64
+          ms_inst        ,  //172:141     32
+          ms_src2        ,  //140:77      64
+          ms_mem_wen     ,  //76:76       1        
+          ms_mem_ren     ,  //75:75       1        
+          ms_func3       ,  //74:72       3
+          ms_wreg_sel    ,  //71:70       2
+          ms_reg_wen     ,  //69:69       1
+          ms_rd_o        ,  //68:64       5
+          ms_pc             //63:0        64
         } = es_to_ms_bus_r;
 assign ms_alu_result  = es_to_alu_result_r;
 assign ms_ready_go    = 1'b1;

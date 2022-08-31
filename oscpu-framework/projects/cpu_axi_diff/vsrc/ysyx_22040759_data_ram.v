@@ -10,7 +10,7 @@ module ysyx_22040759_data_ram(
     input       [63:0]    mem_wdata       ,//中转wdata
     output reg  [63:0]    mem_rdata
 );
-wire[3:0]  data_yu = {raddr%8}[3:0];
+wire [3:0]  data_yu = {raddr%8}[3:0];
 wire [63:0] rdata_RAMHelper;
 wire [63:0] wdata_RAMHelper;
 //reg [63:0] wdata;
@@ -35,8 +35,8 @@ reg [63:0]  wmask = 64'd0;
             3'b010:  wmask = ({64{data_yu==0}} & 64'h0000_0000_ffff_ffff)                                     //sw
                             |({64{data_yu==4}} & 64'hffff_ffff_0000_0000);
 
-            3'b011:  wmask = 64'hffff_ffff_ffff_ffff;//wdata = mem_wdata;end                                    //sd
-            default: wmask = 64'hffff_ffff_ffff_ffff;//wdata = mem_wdata;end
+            3'b011:  wmask = 64'hffff_ffff_ffff_ffff;                                                         //sd
+            default: wmask = 64'hffff_ffff_ffff_ffff;                     
         endcase
     end
     assign rdata           = rdata_RAMHelper >> (data_yu * 8);

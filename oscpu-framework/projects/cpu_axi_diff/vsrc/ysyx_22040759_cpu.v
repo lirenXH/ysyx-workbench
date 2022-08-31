@@ -9,7 +9,16 @@ module ysyx_22040759_cpu(
     input  [63:0]   if_data_read, //1
     output [63:0]   if_addr,      //1
     output [1:0]    if_size,
-    input  [1:0]    if_resp
+    input  [1:0]    if_resp,
+
+    output          mem_valid       ,
+    input           mem_ready       ,
+    output          mem_req         ,
+    input  [63:0]   mem_data_read   ,
+    output [63:0]   mem_data_write  ,
+    output [63:0]   mem_addr        ,
+    output [1:0]    mem_size        ,
+    input  [1:0]    mem_resp        ,
 );
 //difftest
 wire [63:0] regs_ds_o[31:0];
@@ -35,10 +44,10 @@ wire [172:0] es_to_ms_bus ;
 wire [231:0] ms_to_ws_bus ;
 wire [63:0]  es_alu_result;
 //inst_ram
-wire [31 :0]inst;
+wire [31:0]inst;
 
-wire [1:0] ForwardA;
-wire [1:0] ForwardB;
+wire [1:0] ForwardA   ;
+wire [1:0] ForwardB   ;
 wire       pcwrite    ;
 wire       IF_ID_write;
 wire       en_control ;
@@ -140,12 +149,21 @@ ysyx_22040759_MEM MEM(
     .ms_allowin    (ms_allowin),
     //from es
     .es_to_ms_valid(es_to_ms_valid),
-    .es_to_ms_bus  (es_to_ms_bus[140:0]),
-    .es_to_ms_inst (es_to_ms_bus[172:141]),
+    .es_to_ms_bus  (es_to_ms_bus[138:0]),
+    .es_to_ms_inst (es_to_ms_bus[170:139]),
     .es_to_alu_result(es_alu_result),
     //to ws
     .ms_to_ws_valid(ms_to_ws_valid),
     .ms_to_ws_bus  (ms_to_ws_bus)
+    //to axi
+    .mem_valid       (mem_valid),
+    .mem_ready       (mem_ready),
+    .mem_req         (mem_req),
+    .mem_data_read   (mem_data_read),
+    .mem_data_write  (mem_data_write),
+    .mem_addr        (mem_addr),
+    .mem_size        (mem_size),
+    .mem_resp        (mem_resp)
 );
 
 ysyx_22040759_WB WB(

@@ -12,7 +12,7 @@ module ysyx_22040759_hazard(
     );
 	reg hazard_reg;
 	wire hazard_take;
-	assign hazard_take = ID_EX_memread && ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));
+	assign hazard_take = ID_EX_memread && ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));//为load指令 且 下一条指令源操作数是load所读寄存器
 
 	always@(*)begin
 		if(rst)begin
@@ -21,7 +21,7 @@ module ysyx_22040759_hazard(
 			en_control    = 1'b0;
 		end
 		else begin
-		  	if(hazard_take && !hazard_reg)begin //为load指令 且 下一条指令源操作数是load所读寄存器
+		  	if(hazard_take && !hazard_reg)begin 
 		   		pcwrite     = 1'b1;
 		   		IF_ID_write = 1'b1;
 		   		en_control  = 1'b1;

@@ -14,11 +14,13 @@ module ysyx_22040759_EXE(
     input  [63:0]  ms_alu_result ,
     input  [63:0]  ws_alu_result ,
     output [4:0]   es_rs1        ,
-    output [4:0]   es_rs2       ,    
+    output [4:0]   es_rs2        ,  
     //to ms
     output         es_to_ms_valid,
-    output [172:0] es_to_ms_bus  ,
+    output [170:0] es_to_ms_bus  ,
     output [63:0]  alu_result    ,
+    output         es_to_ms_wen  ,
+    output         es_to_ms_ren  , 
     //to fs 
     output [130:0] bru_to_fs_bus
 );
@@ -51,6 +53,9 @@ wire        br_taken;
 assign es_ready_go    = 1'b1;
 assign es_allowin     = !es_valid || es_ready_go && ms_allowin;
 assign es_to_ms_valid =  es_valid && es_ready_go;
+
+assign es_to_ms_ren = es_mem_ren;
+assign es_to_ms_wen = es_mem_wen;
 always @(posedge clk) begin
     if (rst) begin
         es_valid <= 1'b0;
@@ -89,10 +94,8 @@ assign {
         }  =  ds_to_es_bus_r;
 
 assign es_to_ms_bus = { 
-                        es_inst        ,  //172 : 141  ds_inst
-                        es_for_src2    ,  //140 : 77    64
-                        es_mem_wen     ,  //76  : 76     1
-                        es_mem_ren     ,  //75  : 75     1
+                        es_inst        ,  //170 : 139  ds_inst
+                        es_for_src2    ,  //138 : 75    64
                         es_func3       ,  //74  : 72     3
                         es_wreg_sel    ,  //71  : 70     2
                         es_reg_wen     ,  //69  : 69     1

@@ -10,7 +10,7 @@ module ysyx_22040759_data_ram(
     input       [63:0]    mem_wdata       ,//中转wdata
     output reg  [63:0]    mem_rdata
 );
-wire[3:0]  data_yu = {raddr%8}[3:0];
+wire [2:0]  data_yu = waddr[2:0];
 wire [63:0] rdata_RAMHelper;
 wire [63:0] wdata_RAMHelper;
 //reg [63:0] wdata;

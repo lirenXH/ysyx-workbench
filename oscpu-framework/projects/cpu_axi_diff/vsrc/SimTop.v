@@ -134,18 +134,27 @@ module SimTop(
     assign r_user                                   = `AXI_TOP_INTERFACE(r_bits_user);
 
     ysyx_22040759_axi u_axi(
-        .clock                          (clock),
-        .reset                          (reset),
+        .clock                             (clock),
+        .reset                             (reset),
 
-        .rw_valid_i                     (if_valid),
-        .rw_ready_o                     (if_ready),
-        .rw_req_i                       (req),
-        .data_read_o                    (if_data_read),
-        .data_write_i                   (data_write),
-        .rw_addr_i                      (if_addr),
-        .rw_size_i                      (if_size),
-        .rw_resp_o                      (if_resp),
+        .if_rw_valid_i                     (if_valid),
+        .if_rw_ready_o                     (if_ready),
+        .if_rw_req_i                       (if_req),
+        .if_data_read_o                    (if_data_read),
+        .if_data_write_i                   (data_write),
+        .if_rw_addr_i                      (if_addr),
+        .if_rw_size_i                      (if_size),
+        .if_rw_resp_o                      (if_resp),
 
+        .mem_rw_valid_i                    (mem_valid),
+        .mem_rw_ready_o                    (mem_ready),
+        .mem_rw_req_i                      (mem_req),
+        .mem_data_read_o                   (mem_data_read),
+        .mem_data_write_i                  (mem_data_write),
+        .mem_rw_addr_i                     (mem_addr),
+        .mem_rw_size_i                     (mem_size),
+        .mem_rw_resp_o                     (mem_resp),
+        
         .axi_aw_ready_i                 (aw_ready),
         .axi_aw_valid_o                 (aw_valid),
         .axi_aw_addr_o                  (aw_addr),
@@ -198,23 +207,40 @@ module SimTop(
 
     wire if_valid;
     wire if_ready;
-    wire req = `REQ_READ;  //一直为读请求
+    wire if_req = `REQ_READ;  //一直为读请求
     wire [63:0] if_data_read;
     wire [63:0] data_write;
     wire [63:0] if_addr;
     wire [1:0] if_size;
     wire [1:0] if_resp;
 
+    wire mem_valid;
+    wire mem_ready;
+    wire mem_req;
+    wire [63:0] mem_data_read;
+    wire [63:0] mem_data_write;
+    wire [63:0] mem_addr;
+    wire [1:0]  mem_size;
+    wire [1:0]  mem_resp;
     ysyx_22040759_cpu u_cpu(
-        .clock                          (clock),
-        .reset                          (reset),
+        .clock                       (clock),
+        .reset                       (reset),
 
-        .if_valid                       (if_valid),
-        .if_ready                       (if_ready),
-        .if_data_read                   (if_data_read),
-        .if_addr                        (if_addr),
-        .if_size                        (if_size),
-        .if_resp                        (if_resp)
+        .if_valid                    (if_valid),
+        .if_ready                    (if_ready),
+        .if_data_read                (if_data_read),
+        .if_addr                     (if_addr),
+        .if_size                     (if_size),
+        .if_resp                     (if_resp),
+        
+        .mem_valid                   (mem_valid),                
+        .mem_ready                   (mem_ready), 
+        .mem_req                     (mem_req),               
+        .mem_data_read               (mem_data_read),                
+        .mem_data_write              (mem_data_write),                
+        .mem_addr                    (mem_addr),                
+        .mem_size                    (mem_size),
+        .mem_resp                    (mem_resp)              
     );
 
 
