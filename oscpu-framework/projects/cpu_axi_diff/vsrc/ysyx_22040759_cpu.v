@@ -149,8 +149,8 @@ ysyx_22040759_MEM MEM(
     .ms_allowin    (ms_allowin),
     //from es
     .es_to_ms_valid(es_to_ms_valid),
-    .es_to_ms_bus  (es_to_ms_bus[138:0]),
-    .es_to_ms_inst (es_to_ms_bus[170:139]),
+    .es_to_ms_bus  (es_to_ms_bus[140:0]),
+    .es_to_ms_inst (es_to_ms_bus[172:141]),
     .es_to_alu_result(es_alu_result),
     //to ws
     .ms_to_ws_valid(ms_to_ws_valid),

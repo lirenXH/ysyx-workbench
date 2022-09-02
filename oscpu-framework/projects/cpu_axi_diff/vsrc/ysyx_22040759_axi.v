@@ -1,52 +1,5 @@
 
 `include"./ysyx_22040759_define.v"
-// Burst types
-`define AXI_BURST_TYPE_FIXED                                2'b00
-`define AXI_BURST_TYPE_INCR                                 2'b01
-`define AXI_BURST_TYPE_WRAP                                 2'b10
-// Access permissions
-`define AXI_PROT_UNPRIVILEGED_ACCESS                        3'b000
-`define AXI_PROT_PRIVILEGED_ACCESS                          3'b001
-`define AXI_PROT_SECURE_ACCESS                              3'b000
-`define AXI_PROT_NON_SECURE_ACCESS                          3'b010
-`define AXI_PROT_DATA_ACCESS                                3'b000
-`define AXI_PROT_INSTRUCTION_ACCESS                         3'b100
-// Memory types (AR)
-`define AXI_ARCACHE_DEVICE_NON_BUFFERABLE                   4'b0000
-`define AXI_ARCACHE_DEVICE_BUFFERABLE                       4'b0001
-`define AXI_ARCACHE_NORMAL_NON_CACHEABLE_NON_BUFFERABLE     4'b0010
-`define AXI_ARCACHE_NORMAL_NON_CACHEABLE_BUFFERABLE         4'b0011
-`define AXI_ARCACHE_WRITE_THROUGH_NO_ALLOCATE               4'b1010
-`define AXI_ARCACHE_WRITE_THROUGH_READ_ALLOCATE             4'b1110
-`define AXI_ARCACHE_WRITE_THROUGH_WRITE_ALLOCATE            4'b1010
-`define AXI_ARCACHE_WRITE_THROUGH_READ_AND_WRITE_ALLOCATE   4'b1110
-`define AXI_ARCACHE_WRITE_BACK_NO_ALLOCATE                  4'b1011
-`define AXI_ARCACHE_WRITE_BACK_READ_ALLOCATE                4'b1111
-`define AXI_ARCACHE_WRITE_BACK_WRITE_ALLOCATE               4'b1011
-`define AXI_ARCACHE_WRITE_BACK_READ_AND_WRITE_ALLOCATE      4'b1111
-// Memory types (AW)
-`define AXI_AWCACHE_DEVICE_NON_BUFFERABLE                   4'b0000
-`define AXI_AWCACHE_DEVICE_BUFFERABLE                       4'b0001
-`define AXI_AWCACHE_NORMAL_NON_CACHEABLE_NON_BUFFERABLE     4'b0010
-`define AXI_AWCACHE_NORMAL_NON_CACHEABLE_BUFFERABLE         4'b0011
-`define AXI_AWCACHE_WRITE_THROUGH_NO_ALLOCATE               4'b0110
-`define AXI_AWCACHE_WRITE_THROUGH_READ_ALLOCATE             4'b0110
-`define AXI_AWCACHE_WRITE_THROUGH_WRITE_ALLOCATE            4'b1110
-`define AXI_AWCACHE_WRITE_THROUGH_READ_AND_WRITE_ALLOCATE   4'b1110
-`define AXI_AWCACHE_WRITE_BACK_NO_ALLOCATE                  4'b0111
-`define AXI_AWCACHE_WRITE_BACK_READ_ALLOCATE                4'b0111
-`define AXI_AWCACHE_WRITE_BACK_WRITE_ALLOCATE               4'b1111
-`define AXI_AWCACHE_WRITE_BACK_READ_AND_WRITE_ALLOCATE      4'b1111
-
-`define AXI_SIZE_BYTES_1                                    3'b000  //size大小
-`define AXI_SIZE_BYTES_2                                    3'b001  //TODO 读写相同地址冲突
-`define AXI_SIZE_BYTES_4                                    3'b010
-`define AXI_SIZE_BYTES_8                                    3'b011
-`define AXI_SIZE_BYTES_16                                   3'b100
-`define AXI_SIZE_BYTES_32                                   3'b101
-`define AXI_SIZE_BYTES_64                                   3'b110
-`define AXI_SIZE_BYTES_128                                  3'b111
-
 
 module ysyx_22040759_axi # (
     parameter RW_DATA_WIDTH     = 64,
@@ -145,14 +98,24 @@ module ysyx_22040759_axi # (
     wire [2 :0]  rw_size_i;    
     wire         r_valid;  
     ysyx_22040759_arbiter arbiter(
-        .arbiter_en         (arbiter_en),
-        .if_rw_addr         (if_rw_addr_i),
-        .mem_rw_addr        (mem_rw_addr_i),
-        .if_rw_size         (if_rw_size_i),
-        .mem_rw_size        (mem_rw_size_i),       
-        .arbiter_addr       (rw_addr_i),
-        .arbiter_size       (rw_size_i),
-        .arbiter_valid      (r_valid)
+    .clk                    (clock),
+    .rst                    (reset),
+
+    .if_addr_valid          (if_r_valid),
+    .if_rw_addr             (if_rw_addr),
+    .if_data_valid_o        (),
+    .if_data                (),
+
+    .mem_addr_valid         (),
+    .mem_rw_addr            (),
+    .mem_data_valid_o       (),
+    .mem_data               (),     
+    
+    .rd_addr_valid          (),
+    .rd_addr                (),
+    .rd_data_valid_i        (),
+    .rd_data
+     
     );
     // handshake
     wire aw_hs      = axi_aw_ready_i & axi_aw_valid_o;    //写地址握手
@@ -277,6 +240,7 @@ module ysyx_22040759_axi # (
     end
     assign if_rw_ready_o     = rw_ready;
 
+    //-----------------Read and Write Resp------------------
     reg [1:0] rw_resp;
     wire rw_resp_nxt = w_trans ? axi_b_resp_i : axi_r_resp_i;
     wire resp_en = trans_done;
@@ -288,7 +252,7 @@ module ysyx_22040759_axi # (
             rw_resp <= rw_resp_nxt;
         end
     end
-    assign rw_resp_o      = rw_resp;
+    assign rw_resp_o      = rw_resp;//两份？
 
 
     // ------------------Write Transaction------------------
@@ -359,7 +323,7 @@ module ysyx_22040759_axi # (
 
     // Read address channel signals
     assign axi_ar_valid_o   = r_state_addr;
-    assign axi_ar_addr_o    = axi_raddr;
+    assign axi_ar_addr_o    =  ;
     assign axi_ar_prot_o    = `AXI_PROT_UNPRIVILEGED_ACCESS | `AXI_PROT_SECURE_ACCESS | `AXI_PROT_DATA_ACCESS;
     assign axi_ar_id_o      = axi_id;
     assign axi_ar_user_o    = axi_user;

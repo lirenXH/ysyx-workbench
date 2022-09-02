@@ -10,8 +10,6 @@ module ysyx_22040759_MEM(
     input  [140:0] es_to_ms_bus  ,
     input  [63:0]  es_to_alu_result,
     input  [31:0]  es_to_ms_inst,
-    input          es_to_ms_wen  ,
-    input          es_to_ms_ren  ,     
     //to ws
     output         ms_to_ws_valid,
     output [231:0] ms_to_ws_bus
@@ -27,10 +25,9 @@ module ysyx_22040759_MEM(
 );
 
 reg         ms_valid;
-reg [170:0] es_to_ms_bus_r;
+reg [172:0] es_to_ms_bus_r;
 reg [63:0]  es_to_alu_result_r;
-reg         ms_mem_wen_r;
-reg         ms_mem_ren_r;
+reg         mem_en_r;
 wire        ms_ready_go;
 
 wire [63:0] ms_pc;  
@@ -46,17 +43,19 @@ wire [63:0] ms_rdata;
 wire [31:0] ms_inst;
 wire        ms_hs_done;
 assign  { 
-          ms_inst        ,  //170:139     32
-          ms_src2        ,  //138:75      64
-          ms_func3       ,  //74:72       3
-          ms_wreg_sel    ,  //71:70       2
-          ms_reg_wen     ,  //69:69       1
-          ms_rd_o        ,  //68:64       5
-          ms_pc             //63:0        64
+          ms_inst        ,  //172:141   32
+          ms_src2        ,  //140:77    64
+          ms_mem_wen     ,  //76:76     1
+          ms_mem_ren     ,  //75:75     1
+          ms_func3       ,  //74:72     3
+          ms_wreg_sel    ,  //71:70     2
+          ms_reg_wen     ,  //69:69     1
+          ms_rd_o        ,  //68:64     5
+          ms_pc             //63:0      64
         } = es_to_ms_bus_r;
 assign ms_alu_result  = es_to_alu_result_r;
 assign ms_ready_go    = 1'b1;
-assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin && (!ms_mem_ren_r && !mem_resp);//TODO 思考读写如何阻塞 特别是读 握手信号的处理
+assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin && ms_hs_done;
 assign ms_to_ws_valid = ms_valid && ms_ready_go;
 always @(posedge clk) begin
     if (rst) begin
@@ -69,14 +68,10 @@ always @(posedge clk) begin
     if (es_to_ms_valid && ms_allowin) begin
         es_to_ms_bus_r  <= {es_to_ms_inst,es_to_ms_bus};
         es_to_alu_result_r <= es_to_alu_result;
-        ms_mem_wen_r <= es_to_ms_wen;
-        ms_mem_ren_r <= es_to_ms_ren;        
     end 
     else if(!es_to_ms_valid)begin
-        es_to_ms_bus_r  <= {32'h13,138'b0};
-        es_to_alu_result_r <= 64'b0;
-        ms_mem_wen_r <= 1'b0;
-        ms_mem_ren_r <= 1'b0;        
+        es_to_ms_bus_r  <= {32'h13,141'b0};
+        es_to_alu_result_r <= 0;
     end 
 end
 
@@ -92,8 +87,8 @@ assign ms_to_ws_bus ={
 
 
     assign   ms_hs_done     = mem_valid & mem_ready;    //握手
-    assign   mem_valid      = ms_mem_ren_r;
-    assign   mem_req        = ms_mem_wen_r ? 1'b1 : 1'b0;
+    assign   mem_valid      = ms_mem_ren;
+    assign   mem_req        = ms_mem_wen ? 1'b1 : 1'b0;
     assign   mem_size       = func3[1:0];
     assign   mem_addr       = ms_alu_result;
     assign   mem_data_write = ms_src2;
