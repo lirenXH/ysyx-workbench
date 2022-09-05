@@ -13,12 +13,10 @@ module ysyx_22040759_IF(
     output        fs_to_ds_valid ,
     output [95:0] fs_to_ds_bus   , //IF输出总线
     // to axi 
-    input  [1:0]  if_resp        ,
     input  [63:0] if_data_read   ,
     input         if_ready       ,
     output   reg  if_valid       ,
     output [63:0] inst_addr      ,
-    output [1:0]  if_size         //数据宽度选择 1
     //to difftest         
 );
 
@@ -40,7 +38,6 @@ wire [63:0] fs_alu_result;
 wire [1 :0] fs_pc_sel;
 
 wire handshake_done = if_valid & if_ready;    //握手
-assign if_size = `SIZE_W;  
 assign {fs_alu_result,//64
         fs_pc_sel    ,//2
         br_taken     ,//1
