@@ -8,8 +8,6 @@ module ysyx_22040759_cpu(
     input           if_ready,
     input  [63:0]   if_data_read, //1
     output [63:0]   if_addr,      //1
-    output [1:0]    if_size,
-    input  [1:0]    if_resp,
 
     output          mem_valid       ,
     input           mem_ready       ,
@@ -17,8 +15,7 @@ module ysyx_22040759_cpu(
     input  [63:0]   mem_data_read   ,
     output [63:0]   mem_data_write  ,
     output [63:0]   mem_addr        ,
-    output [1:0]    mem_size        ,
-    input  [1:0]    mem_resp        ,
+    output [1:0]    mem_size         
 );
 //difftest
 wire [63:0] regs_ds_o[31:0];
@@ -65,12 +62,10 @@ ysyx_22040759_IF IF(
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),   //IF输出总线
     //to axi
-    .if_resp        (if_resp),
     .if_data_read   (if_data_read),   //给i-ram
     .if_ready       (if_ready),
     .if_valid       (if_valid),
-    .inst_addr      (if_addr),
-    .if_size        (if_size)
+    .inst_addr      (if_addr) 
 );
 ysyx_22040759_hazard hazard(
   .clk                 (clock),
@@ -154,7 +149,7 @@ ysyx_22040759_MEM MEM(
     .es_to_alu_result(es_alu_result),
     //to ws
     .ms_to_ws_valid(ms_to_ws_valid),
-    .ms_to_ws_bus  (ms_to_ws_bus)
+    .ms_to_ws_bus  (ms_to_ws_bus),
     //to axi
     .mem_valid       (mem_valid),
     .mem_ready       (mem_ready),
@@ -162,8 +157,7 @@ ysyx_22040759_MEM MEM(
     .mem_data_read   (mem_data_read),
     .mem_data_write  (mem_data_write),
     .mem_addr        (mem_addr),
-    .mem_size        (mem_size),
-    .mem_resp        (mem_resp)
+    .mem_size        (mem_size)
 );
 
 ysyx_22040759_WB WB(

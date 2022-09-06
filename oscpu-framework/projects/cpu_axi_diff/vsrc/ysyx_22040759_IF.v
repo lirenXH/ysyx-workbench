@@ -16,8 +16,7 @@ module ysyx_22040759_IF(
     input  [63:0] if_data_read   ,
     input         if_ready       ,
     output   reg  if_valid       ,
-    output [63:0] inst_addr      ,
-    //to difftest         
+    output [63:0] inst_addr          
 );
 
 

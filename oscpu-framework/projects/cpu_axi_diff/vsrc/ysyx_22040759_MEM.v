@@ -6,13 +6,13 @@ module ysyx_22040759_MEM(
     input          ws_allowin    ,
     output         ms_allowin    ,
     //from es
-    input          es_to_ms_valid,
-    input  [140:0] es_to_ms_bus  ,
-    input  [63:0]  es_to_alu_result,
-    input  [31:0]  es_to_ms_inst,
+    input          es_to_ms_valid   ,
+    input  [140:0] es_to_ms_bus     ,
+    input  [63:0]  es_to_alu_result ,
+    input  [31:0]  es_to_ms_inst    ,
     //to ws
-    output         ms_to_ws_valid,
-    output [231:0] ms_to_ws_bus
+    output         ms_to_ws_valid   ,
+    output [231:0] ms_to_ws_bus     ,
     //to axi
     output         mem_valid       ,
     input          mem_ready       ,
@@ -20,8 +20,7 @@ module ysyx_22040759_MEM(
     input  [63:0]  mem_data_read   ,
     output [63:0]  mem_data_write  ,
     output [63:0]  mem_addr        ,
-    output [1:0]   mem_size        ,
-    input  [1:0]   mem_resp        
+    output [1:0]   mem_size            
 );
 
 reg         ms_valid;
@@ -55,7 +54,7 @@ assign  {
         } = es_to_ms_bus_r;
 assign ms_alu_result  = es_to_alu_result_r;
 assign ms_ready_go    = 1'b1;
-assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin && ms_hs_done;
+assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin && !ms_hs_done;
 assign ms_to_ws_valid = ms_valid && ms_ready_go;
 always @(posedge clk) begin
     if (rst) begin
@@ -89,9 +88,16 @@ assign ms_to_ws_bus ={
     assign   ms_hs_done     = mem_valid & mem_ready;    //握手
     assign   mem_valid      = ms_mem_ren;
     assign   mem_req        = ms_mem_wen ? 1'b1 : 1'b0;
-    assign   mem_size       = func3[1:0];
+    assign   mem_size       = ms_func3[1:0];
     assign   mem_addr       = ms_alu_result;
     assign   mem_data_write = ms_src2;
     assign   ms_rdata       = mem_data_read;
-
+always@(posedge clk)begin
+    if(ms_hs_done)begin
+        if(mem_req)
+        $display("mem_hs_done write addr = %x ,data = %x",ms_alu_result,ms_src2);
+        else
+        $display("mem_hs_done read  addr = %x ,data = %x",ms_alu_result,mem_data_read);
+    end
+end
 endmodule

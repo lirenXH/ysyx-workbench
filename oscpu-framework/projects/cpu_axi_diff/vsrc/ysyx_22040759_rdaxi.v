@@ -63,8 +63,8 @@ always @(posedge clk) begin
 
 // ------------------Number of transmission------------------
 reg [7:0] len;
-wire len_rst      = rst | (w_trans & w_state_idle) | (r_trans & r_state_idle);//在idle下rst len
-wire len_incr_en    = (len != axi_len) & (w_hs | r_hs);
+wire len_rst      = rst | r_state_idle;//在idle下rst len
+wire len_incr_en    = (len != axi_len) & r_hs;
     always @(posedge clk) begin
         if (len_rst) begin
             len <= 0;

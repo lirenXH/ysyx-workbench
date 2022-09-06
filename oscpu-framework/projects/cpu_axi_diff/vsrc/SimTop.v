@@ -142,22 +142,13 @@ module SimTop(
         .if_data_valid_o                   (if_ready),
         .if_data_o                         (if_data_read),
 
-        .mem_addr_valid_i                   (),
-        .mem_wen_i                          (),
-        .mem_addr_i                         (),
-        .mem_size_i                         (),
-        .mem_wdata_i                        (),
-        .ram_data_valid_o                   (),
-        .ram_rdata_o                        (),
-
-        .mem_rw_valid_i                    (mem_valid),
-        .mem_rw_ready_o                    (mem_ready),
-        .mem_rw_req_i                      (mem_req),
-        .mem_data_read_o                   (mem_data_read),
-        .mem_data_write_i                  (mem_data_write),
-        .mem_rw_addr_i                     (mem_addr),
-        .mem_rw_size_i                     (mem_size),
-        .mem_rw_resp_o                     (mem_resp),
+        .mem_addr_valid_i                   (mem_valid),
+        .mem_wen_i                          (mem_req),
+        .mem_addr_i                         (mem_addr),
+        .mem_size_i                         (mem_size),
+        .mem_wdata_i                        (mem_data_write),
+        .ram_data_valid_o                   (mem_ready),
+        .ram_rdata_o                        (mem_data_read),
         
         .axi_aw_ready_i                 (aw_ready),
         .axi_aw_valid_o                 (aw_valid),
@@ -221,7 +212,7 @@ module SimTop(
     wire [63:0] mem_data_write;
     wire [63:0] mem_addr;
     wire [1:0]  mem_size;
-    wire [1:0]  mem_resp;
+    //wire [1:0]  mem_resp;
     ysyx_22040759_cpu u_cpu(
         .clock                       (clock),
         .reset                       (reset),
@@ -237,8 +228,8 @@ module SimTop(
         .mem_data_read               (mem_data_read),                
         .mem_data_write              (mem_data_write),                
         .mem_addr                    (mem_addr),                
-        .mem_size                    (mem_size),
-        .mem_resp                    (mem_resp)              
+        .mem_size                    (mem_size)
+        //.mem_resp                    (mem_resp)              
     );
 
 

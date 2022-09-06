@@ -41,7 +41,7 @@ always@(posedge clk)begin
     if(rst)
         arbiter_handshake <= 1'b0;
     else
-        arbiter_handshake <= rd_data_valid_i && rd_addr_valid_i;
+        arbiter_handshake <= rd_data_valid_i && rd_addr_valid_o;
 end
 
 always@(posedge clk)begin
@@ -62,7 +62,7 @@ always@(posedge clk)begin
             else
                 nstate <= IDLE;
         end else
-            nstate = USR1;    
+            nstate <= USR1;    
     USR2:
         if(arbiter_handshake)begin
             if(if_addr_valid_i) //USR2连续发起请求
@@ -72,20 +72,20 @@ always@(posedge clk)begin
             else
                 nstate <= IDLE;
         end else
-            nstate = USR2; 
-    default:nstate = IDLE;
+            nstate <= USR2; 
+    default:nstate <= IDLE;
     endcase
 end
 wire final_signal = (cstate == USR2);
 
-assign rd_addr_valid_i = final_signal ? mem_rd_addr_valid_i    : if_addr_valid_i_i;
-assign rd_addr_o       = final_signal ? mem_rd_addr_i          : if_rd_addr_i     ;
+assign rd_addr_valid_o = final_signal ? mem_rd_addr_valid_i    : if_addr_valid_i;
+assign rd_addr_o       = final_signal ? mem_rd_addr_i          : if_rd_addr_i   ;
 assign rd_size_o       = final_signal ? mem_rd_size_i          : 2'b10     ;
 
 assign if_data_o  = rd_data_i;
 assign mem_rd_data_o = rd_data_i;
 
-assign if_data_valid_o     = !final_signal & rd_addr_valid_i;
-assign mem_rd_data_valid_o =  final_signal & rd_addr_valid_i;
+assign if_data_valid_o     = !final_signal & rd_data_valid_i;
+assign mem_rd_data_valid_o =  final_signal & rd_data_valid_i;
 
 endmodule
