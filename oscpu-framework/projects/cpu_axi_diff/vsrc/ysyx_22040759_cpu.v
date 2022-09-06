@@ -46,7 +46,8 @@ wire [4:0] ds_rs1_o   ;
 wire [4:0] ds_rs2_o   ;
 wire [4:0] es_rs1     ;
 wire [4:0] es_rs2     ;
-
+wire       EX_MEM_Valid;
+wire       MEM_WB_Valid;
 ysyx_22040759_IF IF(
     .clk            (clock),
     .rst            (reset),
@@ -105,6 +106,8 @@ ysyx_22040759_forward forward(
     .MEM_WB_RegisterRd  (ws_to_rf_bus[68:64]),
     .EX_MEM_RegWrite    (ms_to_ws_bus[199:199]),
     .MEM_WB_RegWrite    (ws_to_rf_bus[69:69]),
+    .EX_MEM_Valid       (es_to_ms_valid),
+    .MEM_WB_Valid       (ms_to_ws_valid),
     .ForwardA           (ForwardA),
     .ForwardB           (ForwardB)
 );

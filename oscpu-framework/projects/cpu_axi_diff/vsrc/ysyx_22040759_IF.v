@@ -53,7 +53,7 @@ reg  [63:0]pc_to_axi;
 
 wire [31:0] fs_inst;
 reg  [63:0] fs_pc;
-assign fs_to_ds_bus = fs_valid ? {fs_inst ,fs_pc_final} : {32'h13,64'h0};  //所取指令，PC    32+64
+assign fs_to_ds_bus = {fs_inst ,fs_pc_final};  //所取指令，PC    32+64
 
 // pre-IF stage
 assign to_fs_valid  = ~rst ;              //新IF有效位

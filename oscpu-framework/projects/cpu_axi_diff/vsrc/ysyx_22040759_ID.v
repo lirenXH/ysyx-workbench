@@ -82,9 +82,9 @@ module ysyx_22040759_ID(                                                //写后
         if (fs_to_ds_valid && ds_allowin) begin
             fs_to_ds_bus_r <= fs_to_ds_bus;
         end
-        else if(!fs_to_ds_valid)begin
-            fs_to_ds_bus_r <= {32'h13,64'h0}; //不能简单为0
-        end
+        //else if(!fs_to_ds_valid)begin
+        //    fs_to_ds_bus_r <= {32'h13,64'h0}; //不能简单为0
+        //end
     end
 
     ///--------------------------------------------------------
