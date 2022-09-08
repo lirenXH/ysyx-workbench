@@ -14,7 +14,7 @@ module ysyx_22040759_wraxi # (
     input  [63:0]                       wr_addr_i         ,
     input  [1:0]                        wr_size_i         ,
     output                              wr_data_valid_o   ,
-    input  [127:0]                      wr_data_i         ,  
+    input  [63:0]                       wr_data_i         ,  
 
     input                               axi_aw_ready_i    ,
     output                              axi_aw_valid_o    ,
@@ -78,7 +78,6 @@ wire w_state_write = w_state == W_STATE_WRITE, w_state_resp = w_state == W_STATE
 
 wire [AXI_ADDR_WIDTH-1:0] axi_waddr           = {wr_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};
 wire  [2:0]  data_yu;
-reg   [63:0] rw_addr_temp;
     assign axi_aw_valid_o   = w_state_addr;
     assign axi_aw_addr_o    = axi_waddr;
     assign axi_aw_prot_o    = `AXI_PROT_UNPRIVILEGED_ACCESS | `AXI_PROT_SECURE_ACCESS | `AXI_PROT_DATA_ACCESS;
@@ -91,7 +90,7 @@ reg   [63:0] rw_addr_temp;
     assign axi_aw_cache_o   = `AXI_AWCACHE_NORMAL_NON_CACHEABLE_NON_BUFFERABLE;
     assign axi_aw_qos_o     = 4'h0;
 
-    assign data_yu          = rw_addr_temp[2:0];
+    assign data_yu          = wr_addr_i[2:0];
 
     always @(*)begin
         case(wr_size_i)         //注意 地址时序问题

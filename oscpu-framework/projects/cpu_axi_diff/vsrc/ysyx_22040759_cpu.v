@@ -200,7 +200,7 @@ reg [63:0] instrCnt;
 reg [`REG_BUS] regs_diff [31 : 0];
 
 //wire inst_valid = ws_valid && (pc_out != 64'b0);
-wire inst_valid = ws_valid && (ws_inst != 32'h13);
+wire inst_valid = ws_valid && (pc_out != 64'b0);
 always @(negedge clock) begin
   if (reset) begin
     {cmt_wen, cmt_wdest, cmt_wdata, cmt_pc, cmt_inst, cmt_valid, trap, trap_code, cycleCnt, instrCnt} <= 0;

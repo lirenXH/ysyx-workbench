@@ -74,7 +74,8 @@ always @(posedge clk) begin
     end
 end
 
-assign i_ram_en        = fs_valid;//同时取指
+//assign i_ram_en        = fs_valid;//同时取指
+assign i_ram_en        = 1;
 assign inst_raddr      = nextpc;
 
 assign fs_inst         = br_taken ? 32'h13 : inst ; //nop:inst brush
