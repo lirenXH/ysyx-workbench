@@ -13,6 +13,7 @@ module ysyx_22040759_EXE(
     input  [1:0]   ForwardB      ,   
     input  [63:0]  ms_alu_result ,
     input  [63:0]  ws_alu_result ,
+    input  [63:0]  ms_load_data  ,
     output [4:0]   es_rs1        ,
     output [4:0]   es_rs2       ,    
     //to ms
@@ -62,9 +63,9 @@ always @(posedge clk) begin
     if (ds_to_es_valid && es_allowin) begin
         ds_to_es_bus_r <= ds_to_es_bus;
     end
-    else if(!ds_to_es_valid)begin
-        ds_to_es_bus_r <= {32'h13,291'b0};
-    end
+    //else if(!ds_to_es_valid)begin
+    //    ds_to_es_bus_r <= {32'h13,291'b0};
+    //end
 end
 
 assign {
@@ -99,11 +100,13 @@ assign es_to_ms_bus = {
                         es_rd_o        ,  //68  : 64     5     -64!!!
                         es_pc             //63  : 0      64
                       };
-assign es_for_src1 = ({64{ForwardA == 2'b10}} & ms_alu_result  ) |    //先选是否来自前递
+assign es_for_src1 = ({64{ForwardA == 2'b11}} & ms_load_data   ) |
+                     ({64{ForwardA == 2'b10}} & ms_alu_result  ) |    //先选是否来自前递
                      ({64{ForwardA == 2'b01}} & ws_alu_result  ) |
                      ({64{ForwardA == 2'b00}} & es_src1 );
 
-assign es_for_src2 = ({64{ForwardB == 2'b10}} & ms_alu_result  ) | 
+assign es_for_src2 = ({64{ForwardA == 2'b11}} & ms_load_data   ) |
+                     ({64{ForwardB == 2'b10}} & ms_alu_result  ) | 
                      ({64{ForwardB == 2'b01}} & ws_alu_result  ) |
                      ({64{ForwardB == 2'b00}} & es_src2 );
 

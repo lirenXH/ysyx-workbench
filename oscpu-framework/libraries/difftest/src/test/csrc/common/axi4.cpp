@@ -22,7 +22,10 @@
 
 // ar channel: (1) read raddr; (2) try to accept the address; (3) check raddr fire
 bool axi_get_raddr(const axi_channel &axi, axi_addr_t &addr) {
+  //printf("axi.ar.addr  = 0x%08x\n",axi.ar.addr);
+  //printf("axi.ar.valid = %d\n",axi.ar.valid);
   if (axi.ar.valid) {
+    //printf("read\n");
     addr = axi.ar.addr;
     return true;
   }
@@ -65,6 +68,8 @@ bool axi_check_rdata_fire(const axi_channel &axi) {
 
 // aw channel: (1) read waddr; (2) try to accept the address; (3) check waddr fire
 bool axi_get_waddr(const axi_channel &axi, axi_addr_t &addr) {
+  //printf("axi.aw.addr  = 0x%08x\n",axi.aw.addr);
+  //printf("axi.aw.valid = %d\n",axi.aw.valid);
   if (axi.aw.valid) {
     addr = axi.aw.addr;
     return true;

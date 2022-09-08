@@ -6,13 +6,19 @@ module ysyx_22040759_hazard(
 	input    [4:0]       IF_ID_rs2           ,
 	input    [4:0]       ID_EX_rd            ,
 	input                ID_EX_memread       ,
+	input 				 ID_valid  			 ,
+	input 				 EX_valid			 ,
 	output   reg         pcwrite             ,
 	output   reg         IF_ID_write         ,
 	output   reg         en_control          
     );
 	reg hazard_reg;
+	wire hazard_valid1;
+	wire hazard_valid2;
 	wire hazard_take;
-	assign hazard_take = ID_EX_memread && ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));//为load指令 且 下一条指令源操作数是load所读寄存器
+	assign hazard_valid1 = ID_valid && EX_valid;
+	assign hazard_valid2 = ID_EX_memread && ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));
+	assign hazard_take = hazard_valid1 && hazard_valid2;//为load指令 且 下一条指令源操作数是load所读寄存器
 
 	always@(*)begin
 		if(rst)begin

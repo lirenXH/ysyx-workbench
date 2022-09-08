@@ -97,6 +97,6 @@ assign if_valid        = fs_valid;//取指有效
 assign inst_addr       = pc_to_axi;
 
 //assign fs_inst         = br_taken ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
-assign fs_inst         = jump_r ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
-assign fs_pc_final     = jump_r ? 64'h0  : fs_pc;               //nop:inst brush
+assign fs_inst         = jump_r ? 32'h13 : if_data_read[31:0] ;     //nop:inst brush
+assign fs_pc_final     = jump_r ? 64'h0  : fs_pc;                   //nop:inst brush
 endmodule

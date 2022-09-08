@@ -52,7 +52,8 @@ wire [4:0] ds_rs1_o   ;
 wire [4:0] ds_rs2_o   ;
 wire [4:0] es_rs1     ;
 wire [4:0] es_rs2     ;
-
+wire       ms_isload  ;
+wire [63:0]ms_load_data;
 ysyx_22040759_IF IF(
     .clk            (clock),
     .rst            (reset),
@@ -74,6 +75,8 @@ ysyx_22040759_hazard hazard(
 	.IF_ID_rs2           (ds_rs2_o),
 	.ID_EX_rd            (es_to_ms_bus[68:64]),
 	.ID_EX_memread       (es_to_ms_bus[75:75]),
+  .ID_valid            (fs_to_ds_valid),
+  .EX_valid            (ds_to_es_valid),
 	.pcwrite             (pcwrite),
 	.IF_ID_write         (IF_ID_write),
 	.en_control          (en_control)
@@ -109,6 +112,9 @@ ysyx_22040759_forward forward(
     .MEM_WB_RegisterRd  (ws_to_rf_bus[68:64]),
     .EX_MEM_RegWrite    (ms_to_ws_bus[199:199]),
     .MEM_WB_RegWrite    (ws_to_rf_bus[69:69]),
+    .EX_MEM_Valid       (es_to_ms_valid),
+    .MEM_WB_Valid       (ms_to_ws_valid),
+    .ms_isload          (ms_isload),
     .ForwardA           (ForwardA),
     .ForwardB           (ForwardB)
 );
@@ -126,6 +132,7 @@ ysyx_22040759_EXE EXE(
     .ForwardB      (ForwardB),   
     .ms_alu_result (ms_to_ws_bus[127:64]),
     .ws_alu_result (ws_to_rf_bus[63:0]),
+    .ms_load_data  (ms_load_data),
     .es_rs1        (es_rs1),
     .es_rs2        (es_rs2),
     //to ms
@@ -137,19 +144,22 @@ ysyx_22040759_EXE EXE(
 );
 
 ysyx_22040759_MEM MEM(              
-    .clk           (clock),
-    .rst           (reset),
-    //allowin
-    .ws_allowin    (ws_allowin),
-    .ms_allowin    (ms_allowin),
+    .clk             (clock),
+    .rst             (reset),
+    //allowin  
+    .ws_allowin      (ws_allowin),
+    .ms_allowin      (ms_allowin),
     //from es
-    .es_to_ms_valid(es_to_ms_valid),
-    .es_to_ms_bus  (es_to_ms_bus[140:0]),
-    .es_to_ms_inst (es_to_ms_bus[172:141]),
+    .es_to_ms_valid  (es_to_ms_valid),
+    .es_to_ms_bus    (es_to_ms_bus[140:0]),
+    .es_to_ms_inst   (es_to_ms_bus[172:141]),
     .es_to_alu_result(es_alu_result),
+    //to forward 
+    .ms_load_data    (ms_load_data),
     //to ws
-    .ms_to_ws_valid(ms_to_ws_valid),
-    .ms_to_ws_bus  (ms_to_ws_bus),
+    .ms_to_ws_valid  (ms_to_ws_valid),
+    .ms_to_ws_bus    (ms_to_ws_bus),
+    .ms_isload       (ms_isload),
     //to axi
     .mem_valid       (mem_valid),
     .mem_ready       (mem_ready),
@@ -189,8 +199,8 @@ reg [63:0] cycleCnt;
 reg [63:0] instrCnt;
 reg [`REG_BUS] regs_diff [31 : 0];
 
-wire inst_valid = ws_valid && (pc_out != 64'b0);
-
+//wire inst_valid = ws_valid && (pc_out != 64'b0);
+wire inst_valid = ws_valid && (ws_inst != 32'h13);
 always @(negedge clock) begin
   if (reset) begin
     {cmt_wen, cmt_wdest, cmt_wdata, cmt_pc, cmt_inst, cmt_valid, trap, trap_code, cycleCnt, instrCnt} <= 0;

@@ -13,6 +13,9 @@ module ysyx_22040759_MEM(
     //to ws
     output         ms_to_ws_valid   ,
     output [231:0] ms_to_ws_bus     ,
+    output reg     ms_isload        ,
+    //to forward
+    output [63:0]  ms_load_data     ,
     //to axi
     output         mem_valid       ,
     input          mem_ready       ,
@@ -26,7 +29,8 @@ module ysyx_22040759_MEM(
 reg         ms_valid;
 reg [172:0] es_to_ms_bus_r;
 reg [63:0]  es_to_alu_result_r;
-reg         mem_en_r;
+reg         ms_stop;
+reg [1:0]   ms_state;
 wire        ms_ready_go;
 
 wire [63:0] ms_pc;  
@@ -53,8 +57,9 @@ assign  {
           ms_pc             //63:0      64
         } = es_to_ms_bus_r;
 assign ms_alu_result  = es_to_alu_result_r;
-assign ms_ready_go    = 1'b1;
-assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin && !ms_hs_done;
+//assign ms_ready_go    = ms_hs_done | ~mem_valid;
+assign ms_ready_go    = ~ms_stop && ~mem_valid;
+assign ms_allowin     = !ms_valid || ms_ready_go && ws_allowin;
 assign ms_to_ws_valid = ms_valid && ms_ready_go;
 always @(posedge clk) begin
     if (rst) begin
@@ -68,10 +73,11 @@ always @(posedge clk) begin
         es_to_ms_bus_r  <= {es_to_ms_inst,es_to_ms_bus};
         es_to_alu_result_r <= es_to_alu_result;
     end 
-    else if(!es_to_ms_valid)begin
-        es_to_ms_bus_r  <= {32'h13,141'b0};
-        es_to_alu_result_r <= 0;
-    end 
+    //else if(!es_to_ms_valid)begin
+    //    es_to_ms_bus_r  <= {32'h13,141'b0};
+    //    es_to_alu_result_r <= 0;
+    //end 
+    ms_isload <= ms_mem_ren && !ms_mem_wen;//判断是load指令 解决load相关
 end
 
 assign ms_to_ws_bus ={ 
@@ -85,19 +91,46 @@ assign ms_to_ws_bus ={
                       };
 
 
-    assign   ms_hs_done     = mem_valid & mem_ready;    //握手
+    assign   ms_hs_done     = mem_valid & mem_ready;    //读/写握手
     assign   mem_valid      = ms_mem_ren;
     assign   mem_req        = ms_mem_wen ? 1'b1 : 1'b0;
     assign   mem_size       = ms_func3[1:0];
     assign   mem_addr       = ms_alu_result;
     assign   mem_data_write = ms_src2;
     assign   ms_rdata       = mem_data_read;
-always@(posedge clk)begin
-    if(ms_hs_done)begin
-        if(mem_req)
-        $display("mem_hs_done write addr = %x ,data = %x",ms_alu_result,ms_src2);
-        else
-        $display("mem_hs_done read  addr = %x ,data = %x",ms_alu_result,mem_data_read);
+
+    assign   ms_load_data   = mem_data_read;
+
+parameter [1:0] IDLE = 2'b00,SET = 2'b01,DONE = 2'b10;
+always @(posedge clk) begin
+        if (rst)
+            ms_state <= IDLE;
+        else begin
+            case (ms_state)
+                IDLE: if (mem_valid) begin 
+                    ms_stop <= 1'b1;
+                    ms_state <= SET;
+                end
+                SET : if (ms_hs_done)begin
+                    //es_to_ms_bus_r  <= {32'h13,141'b0};
+                    es_to_ms_bus_r[76:75]  <= 2'b0;      
+                    //es_to_alu_result_r <= 0;
+                    ms_stop <= 1'b0;
+                    ms_state <= DONE;
+                end
+                DONE:                 ms_state <= IDLE;
+                default:              ms_state <= IDLE;
+            endcase
+        end
     end
-end
+
+//assign ms_stop = ms_state == SET;
+//always@(posedge clk)begin
+//    if(ms_hs_done)begin
+//        if(mem_req)
+//        $display("mem_hs_done write addr = %x ,data = %x",ms_alu_result,ms_src2);
+//        else
+//        $display("mem_hs_done read  addr = %x ,data = %x",ms_alu_result,mem_data_read);
+//    end
+//end
 endmodule

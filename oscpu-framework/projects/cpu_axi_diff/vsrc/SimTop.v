@@ -111,7 +111,7 @@ module SimTop(
     wire r_last;
     wire [`AXI_ID_WIDTH-1:0] r_id;
     wire [`AXI_USER_WIDTH-1:0] r_user;
-
+    //ar
     assign ar_ready                                 = `AXI_TOP_INTERFACE(ar_ready);
     assign `AXI_TOP_INTERFACE(ar_valid)             = ar_valid;
     assign `AXI_TOP_INTERFACE(ar_bits_addr)         = ar_addr;
@@ -124,7 +124,7 @@ module SimTop(
     assign `AXI_TOP_INTERFACE(ar_bits_lock)         = ar_lock;
     assign `AXI_TOP_INTERFACE(ar_bits_cache)        = ar_cache;
     assign `AXI_TOP_INTERFACE(ar_bits_qos)          = ar_qos;
-    
+    //r
     assign `AXI_TOP_INTERFACE(r_ready)              = r_ready;
     assign r_valid                                  = `AXI_TOP_INTERFACE(r_valid);
     assign r_resp                                   = `AXI_TOP_INTERFACE(r_bits_resp);
@@ -132,23 +132,48 @@ module SimTop(
     assign r_last                                   = `AXI_TOP_INTERFACE(r_bits_last);
     assign r_id                                     = `AXI_TOP_INTERFACE(r_bits_id);
     assign r_user                                   = `AXI_TOP_INTERFACE(r_bits_user);
+    //aw
+    assign aw_ready                                 = `AXI_TOP_INTERFACE(aw_ready);
+    assign `AXI_TOP_INTERFACE(aw_valid)             = aw_valid;
+    assign `AXI_TOP_INTERFACE(aw_bits_addr)         = aw_addr;
+    assign `AXI_TOP_INTERFACE(aw_bits_prot)         = aw_prot;
+    assign `AXI_TOP_INTERFACE(aw_bits_id)           = aw_id;
+    assign `AXI_TOP_INTERFACE(aw_bits_user)         = aw_user;
+    assign `AXI_TOP_INTERFACE(aw_bits_len)          = aw_len;
+    assign `AXI_TOP_INTERFACE(aw_bits_size)         = aw_size;
+    assign `AXI_TOP_INTERFACE(aw_bits_burst)        = aw_burst;
+    assign `AXI_TOP_INTERFACE(aw_bits_lock)         = aw_lock;
+    assign `AXI_TOP_INTERFACE(aw_bits_cache)        = aw_cache;
+    assign `AXI_TOP_INTERFACE(aw_bits_qos)          = aw_qos;
+    //w
+    assign w_ready                                  =`AXI_TOP_INTERFACE(w_ready); 
+    assign `AXI_TOP_INTERFACE(w_valid)              = w_valid;
+    assign `AXI_TOP_INTERFACE(w_bits_data)[0]       = w_data ;
+    assign `AXI_TOP_INTERFACE(w_bits_strb)          = w_strb ;
+    assign `AXI_TOP_INTERFACE(w_bits_last)          = w_last ;
+    //b
+    assign `AXI_TOP_INTERFACE(b_ready)              = b_ready;
+    assign b_valid                                  = `AXI_TOP_INTERFACE(b_valid);
+    assign b_resp                                   = `AXI_TOP_INTERFACE(b_bits_resp);
+    assign b_id                                     = `AXI_TOP_INTERFACE(b_bits_id);
+    assign b_user                                   = `AXI_TOP_INTERFACE(b_bits_user);
 
     ysyx_22040759_axi u_axi(
-        .clock                             (clock),
-        .reset                             (reset),
+        .clock                          (clock),
+        .reset                          (reset),
 
-        .if_addr_valid_i                   (if_valid),
-        .if_rd_addr_i                      (if_addr),
-        .if_data_valid_o                   (if_ready),
-        .if_data_o                         (if_data_read),
+        .if_addr_valid_i                (if_valid),
+        .if_rd_addr_i                   (if_addr),
+        .if_data_valid_o                (if_ready),
+        .if_data_o                      (if_data_read),
 
-        .mem_addr_valid_i                   (mem_valid),
-        .mem_wen_i                          (mem_req),
-        .mem_addr_i                         (mem_addr),
-        .mem_size_i                         (mem_size),
-        .mem_wdata_i                        (mem_data_write),
-        .ram_data_valid_o                   (mem_ready),
-        .ram_rdata_o                        (mem_data_read),
+        .mem_addr_valid_i               (mem_valid),
+        .mem_wen_i                      (mem_req),
+        .mem_addr_i                     (mem_addr),
+        .mem_size_i                     (mem_size),
+        .mem_wdata_i                    (mem_data_write),
+        .ram_data_valid_o               (mem_ready),
+        .ram_rdata_o                    (mem_data_read),
         
         .axi_aw_ready_i                 (aw_ready),
         .axi_aw_valid_o                 (aw_valid),
