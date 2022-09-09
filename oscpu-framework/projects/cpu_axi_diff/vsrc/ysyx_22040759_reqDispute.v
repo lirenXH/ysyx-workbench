@@ -5,7 +5,7 @@ module ysyx_22040759_reqDispute(                              //处理来自访�
   input                 mem_wen_i              ,
   input  [63:0]         mem_addr_i             ,
   input  [63:0]         mem_wdata_i            ,
-  input [2:0]           mem_size_i             ,  //ram -> from ram
+  input  [2:0]          mem_size_i             ,  //ram -> from ram
   output                ram_data_valid_o       ,
   output [63:0]         ram_rdata_o            ,
   // read 

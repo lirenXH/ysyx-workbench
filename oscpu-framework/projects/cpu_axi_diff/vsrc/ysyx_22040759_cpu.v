@@ -4,10 +4,10 @@ module ysyx_22040759_cpu(
     input           clock,
     input           reset,
     //to axi
-    output          if_valid,     //1
+    output          if_valid,     
     input           if_ready,
-    input  [63:0]   if_data_read, //1
-    output [63:0]   if_addr,      //1
+    input  [63:0]   if_data_read,
+    output [63:0]   if_addr,     
 
     output          mem_valid       ,
     input           mem_ready       ,

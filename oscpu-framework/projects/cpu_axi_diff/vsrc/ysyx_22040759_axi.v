@@ -151,7 +151,7 @@ wire              mem_wr_data_valid;
         .rd_addr_i               (rd_addr      ),
         .rd_size_i               (rd_size      ),
         .rd_data_valid_o         (rd_data_valid),   //ready
-        .data_read_o             (rd_data      ),       
+        .rdaxi_data_o            (rd_data      ),       
         //ar
         .axi_ar_ready_i          (axi_ar_ready_i),
         .axi_ar_valid_o          (axi_ar_valid_o),

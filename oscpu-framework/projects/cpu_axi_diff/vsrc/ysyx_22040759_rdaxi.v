@@ -14,7 +14,7 @@ module ysyx_22040759_rdaxi # (
     input      [AXI_ADDR_WIDTH:0]       rd_addr_i       ,
     input      [2:0]                    rd_size_i       ,
     output                              rd_data_valid_o ,             //ready
-    output     [63:0]                   data_read_o     ,       
+    output     [63:0]                   rdaxi_data_o    ,       
     //ar
     input                               axi_ar_ready_i  ,
     output                              axi_ar_valid_o  ,
@@ -40,10 +40,9 @@ module ysyx_22040759_rdaxi # (
 
 wire  ar_hs = axi_ar_ready_i && axi_ar_valid_o;
 wire  r_hs  = axi_r_ready_o && axi_r_valid_i;
-
-wire [2:0]  data_yu = rd_addr_i[2:0];
-reg  [1:0]  r_state;
-
+wire [2:0]  rd_data_yu ;
+reg [1:0] r_state;
+reg [63:0] data_read_o;
 parameter [1:0] R_STATE_IDLE = 2'b00, R_STATE_ADDR = 2'b01, R_STATE_READ  = 2'b10, R_STATE_WAIT = 2'b11;
 wire  r_state_idle = r_state == R_STATE_IDLE , r_state_addr = r_state == R_STATE_ADDR;
 wire  r_state_read = r_state == R_STATE_READ , r_state_wait = r_state == R_STATE_WAIT;
@@ -100,7 +99,7 @@ wire len_incr_en    = (len != axi_len) & r_hs;
     wire [7:0] axi_len      = aligned ? TRANS_LEN - 1 : {{7{1'b0}}, overstep};
     wire [2:0] axi_size     = AXI_SIZE[2:0];
     
-    wire [AXI_ADDR_WIDTH-1:0] axi_raddr           = {rd_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};
+    wire [AXI_ADDR_WIDTH-1:0] axi_raddr           = {rd_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};                                          
 
     wire [AXI_ID_WIDTH-1:0]   axi_id            = {AXI_ID_WIDTH{1'b0}};
     wire [AXI_USER_WIDTH-1:0] axi_user          = {AXI_USER_WIDTH{1'b0}};
@@ -122,15 +121,6 @@ wire len_incr_en    = (len != axi_len) & r_hs;
     // Read data channel signals
     assign axi_r_ready_o    = r_state_read;
 
-wire [63:0] temp_rdata;
-    assign temp_rdata      = axi_r_data_i >> (data_yu * 8);
-    assign data_read_o     =  ({64{rd_size_i==3'b000}} & {{56{temp_rdata[7 ]}},temp_rdata[7 :0]})                                      
-                             |({64{rd_size_i==3'b001}} & {{48{temp_rdata[15]}},temp_rdata[15:0]})
-                             |({64{rd_size_i==3'b010}} & {{32{temp_rdata[31]}},temp_rdata[31:0]})
-                             |({64{rd_size_i==3'b011}} & temp_rdata)
-                             |({64{rd_size_i==3'b100}} & {56'b0,temp_rdata[7:0] })                                      
-                             |({64{rd_size_i==3'b101}} & {48'b0,temp_rdata[15:0]})
-                             |({64{rd_size_i==3'b110}} & {32'b0,temp_rdata[31:0]});
 
 reg data_ok;
     always@(posedge clk)begin
@@ -143,5 +133,16 @@ reg data_ok;
     end
 
 assign rd_data_valid_o = data_ok ;
+assign rd_data_yu= rd_addr_i[2:0];
+wire [63:0] temp_rdata;
+
+assign temp_rdata           = axi_r_data_i >> (rd_data_yu * 8);
+assign rdaxi_data_o         = ({64{rd_size_i==3'b000}} & {{56{temp_rdata[7 ]}},temp_rdata[7 :0]})  //RISCV的SIZE                                
+                             |({64{rd_size_i==3'b001}} & {{48{temp_rdata[15]}},temp_rdata[15:0]})
+                             |({64{rd_size_i==3'b010}} & {{32{temp_rdata[31]}},temp_rdata[31:0]})
+                             |({64{rd_size_i==3'b011}} & temp_rdata)
+                             |({64{rd_size_i==3'b100}} & {56'b0,temp_rdata[7:0] })                                      
+                             |({64{rd_size_i==3'b101}} & {48'b0,temp_rdata[15:0]})
+                             |({64{rd_size_i==3'b110}} & {32'b0,temp_rdata[31:0]});
 
 endmodule
