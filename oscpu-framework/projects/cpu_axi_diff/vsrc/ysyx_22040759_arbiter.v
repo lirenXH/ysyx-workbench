@@ -10,13 +10,13 @@ module ysyx_22040759_arbiter(
 
     input               mem_rd_addr_valid_i  ,
     input    [63:0]     mem_rd_addr_i     ,
-    input    [1:0]      mem_rd_size_i     ,
+    input    [2:0]      mem_rd_size_i     ,
     output              mem_rd_data_valid_o  ,
     output   [63:0]     mem_rd_data_o        ,     
     
     output              rd_addr_valid_o   ,
     output   [63:0]     rd_addr_o         ,
-    output   [1:0]      rd_size_o         ,
+    output   [2:0]      rd_size_o         ,
     input               rd_data_valid_i   ,
     input    [63:0]     rd_data_i
     );  
@@ -80,7 +80,7 @@ wire final_signal = (cstate == USR2);
 
 assign rd_addr_valid_o = final_signal ? mem_rd_addr_valid_i    : if_addr_valid_i;
 assign rd_addr_o       = final_signal ? mem_rd_addr_i          : if_rd_addr_i   ;
-assign rd_size_o       = final_signal ? mem_rd_size_i          : 2'b10          ;
+assign rd_size_o       = final_signal ? mem_rd_size_i          : 3'b010         ;
 
 assign if_data_o     = rd_data_i;
 assign mem_rd_data_o = rd_data_i;

@@ -12,9 +12,9 @@ module ysyx_22040759_rdaxi # (
     //from arbiter
     input                               rd_addr_valid_i,
     input      [AXI_ADDR_WIDTH:0]       rd_addr_i       ,
-    input      [1:0]                    rd_size_i       ,
+    input      [2:0]                    rd_size_i       ,
     output                              rd_data_valid_o ,             //ready
-    output reg [63:0]                   data_read_o     ,       
+    output     [63:0]                   data_read_o     ,       
     //ar
     input                               axi_ar_ready_i  ,
     output                              axi_ar_valid_o  ,
@@ -41,7 +41,8 @@ module ysyx_22040759_rdaxi # (
 wire  ar_hs = axi_ar_ready_i && axi_ar_valid_o;
 wire  r_hs  = axi_r_ready_o && axi_r_valid_i;
 
-reg [1:0] r_state;
+wire [2:0]  data_yu = rd_addr_i[2:0];
+reg  [1:0]  r_state;
 
 parameter [1:0] R_STATE_IDLE = 2'b00, R_STATE_ADDR = 2'b01, R_STATE_READ  = 2'b10, R_STATE_WAIT = 2'b11;
 wire  r_state_idle = r_state == R_STATE_IDLE , r_state_addr = r_state == R_STATE_ADDR;
@@ -83,10 +84,10 @@ wire len_incr_en    = (len != axi_len) & r_hs;
     parameter BLOCK_TRANS   = TRANS_LEN > 1 ? 1'b1 : 1'b0;
 
     wire aligned            = BLOCK_TRANS | rd_addr_i[ALIGNED_WIDTH-1:0] == 0;
-    wire size_b             = rd_size_i == `SIZE_B;
-    wire size_h             = rd_size_i == `SIZE_H;
-    wire size_w             = rd_size_i == `SIZE_W;
-    wire size_d             = rd_size_i == `SIZE_D;
+    wire size_b             = rd_size_i[1:0] == `SIZE_B;
+    wire size_h             = rd_size_i[1:0] == `SIZE_H;
+    wire size_w             = rd_size_i[1:0] == `SIZE_W;
+    wire size_d             = rd_size_i[1:0] == `SIZE_D;
     wire [3:0] addr_op1     = {{4-ALIGNED_WIDTH{1'b0}}, rd_addr_i[ALIGNED_WIDTH-1:0]};
     wire [3:0] addr_op2     = ({4{size_b}} & {4'b0})
                                 | ({4{size_h}} & {4'b1})
@@ -100,15 +101,6 @@ wire len_incr_en    = (len != axi_len) & r_hs;
     wire [2:0] axi_size     = AXI_SIZE[2:0];
     
     wire [AXI_ADDR_WIDTH-1:0] axi_raddr           = {rd_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};
-    wire [OFFSET_WIDTH-1:0]   aligned_offset_l    = {{OFFSET_WIDTH-ALIGNED_WIDTH{1'b0}}, {rd_addr_i[ALIGNED_WIDTH-1:0]}} << 3;
-    wire [OFFSET_WIDTH-1:0]   aligned_offset_h    = AXI_DATA_WIDTH - aligned_offset_l;
-    wire [MASK_WIDTH-1:0]     mask                = (({MASK_WIDTH{size_b}} & {{MASK_WIDTH-8{1'b0}} , 8'hff})
-                                                   | ({MASK_WIDTH{size_h}} & {{MASK_WIDTH-16{1'b0}}, 16'hffff})
-                                                   | ({MASK_WIDTH{size_w}} & {{MASK_WIDTH-32{1'b0}}, 32'hffffffff})
-                                                   | ({MASK_WIDTH{size_d}} & {{MASK_WIDTH-64{1'b0}}, 64'hffffffff_ffffffff})
-                                                   ) << aligned_offset_l;                                           
-    wire [AXI_DATA_WIDTH-1:0] mask_l            = mask[AXI_DATA_WIDTH-1:0];
-    wire [AXI_DATA_WIDTH-1:0] mask_h            = mask[MASK_WIDTH-1:AXI_DATA_WIDTH];
 
     wire [AXI_ID_WIDTH-1:0]   axi_id            = {AXI_ID_WIDTH{1'b0}};
     wire [AXI_USER_WIDTH-1:0] axi_user          = {AXI_USER_WIDTH{1'b0}};
@@ -121,7 +113,7 @@ wire len_incr_en    = (len != axi_len) & r_hs;
     assign axi_ar_id_o      = axi_id;
     assign axi_ar_user_o    = axi_user;
     assign axi_ar_len_o     = axi_len;
-    assign axi_ar_size_o    = axi_size;
+    assign axi_ar_size_o    = axi_size;//AXI协议的SIZE
     assign axi_ar_burst_o   = `AXI_BURST_TYPE_INCR;
     assign axi_ar_lock_o    = 1'b0;
     assign axi_ar_cache_o   = `AXI_ARCACHE_NORMAL_NON_CACHEABLE_NON_BUFFERABLE;
@@ -130,31 +122,15 @@ wire len_incr_en    = (len != axi_len) & r_hs;
     // Read data channel signals
     assign axi_r_ready_o    = r_state_read;
 
-    wire [AXI_DATA_WIDTH-1:0] axi_r_data_l  = (axi_r_data_i & mask_l) >> aligned_offset_l;
-    wire [AXI_DATA_WIDTH-1:0] axi_r_data_h  = (axi_r_data_i & mask_h) << aligned_offset_h;
-
-    generate
-        for (genvar i = 0; i < TRANS_LEN; i += 1) begin
-            always @(posedge clk) begin
-                if (rst) begin
-                    data_read_o[i*AXI_DATA_WIDTH+:AXI_DATA_WIDTH] <= 0;
-                end
-                else if (axi_r_ready_o & axi_r_valid_i) begin
-                    if (~aligned & overstep) begin
-                        if (len[0]) begin
-                            data_read_o[AXI_DATA_WIDTH-1:0] <= data_read_o[AXI_DATA_WIDTH-1:0] | axi_r_data_h;
-                        end
-                        else begin
-                            data_read_o[AXI_DATA_WIDTH-1:0] <= axi_r_data_l;
-                        end
-                    end
-                    else if (len == i) begin
-                        data_read_o[i*AXI_DATA_WIDTH+:AXI_DATA_WIDTH] <= axi_r_data_l;
-                    end
-                end
-            end
-        end
-    endgenerate
+wire [63:0] temp_rdata;
+    assign temp_rdata      = axi_r_data_i >> (data_yu * 8);
+    assign data_read_o     =  ({64{rd_size_i==3'b000}} & {{56{temp_rdata[7 ]}},temp_rdata[7 :0]})                                      
+                             |({64{rd_size_i==3'b001}} & {{48{temp_rdata[15]}},temp_rdata[15:0]})
+                             |({64{rd_size_i==3'b010}} & {{32{temp_rdata[31]}},temp_rdata[31:0]})
+                             |({64{rd_size_i==3'b011}} & temp_rdata)
+                             |({64{rd_size_i==3'b100}} & {56'b0,temp_rdata[7:0] })                                      
+                             |({64{rd_size_i==3'b101}} & {48'b0,temp_rdata[15:0]})
+                             |({64{rd_size_i==3'b110}} & {32'b0,temp_rdata[31:0]});
 
 reg data_ok;
     always@(posedge clk)begin

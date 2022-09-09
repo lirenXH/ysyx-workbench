@@ -5,20 +5,20 @@ module ysyx_22040759_reqDispute(                              //处理来自访�
   input                 mem_wen_i              ,
   input  [63:0]         mem_addr_i             ,
   input  [63:0]         mem_wdata_i            ,
-  input [1:0]           mem_size_i             ,  //ram -> from ram
+  input [2:0]           mem_size_i             ,  //ram -> from ram
   output                ram_data_valid_o       ,
   output [63:0]         ram_rdata_o            ,
   // read 
   output                mem_rd_addr_valid_o             ,
   output  [63:0]        mem_rd_addr_o                   ,
-  output  [1:0]         mem_rd_size_o                   ,
+  output  [2:0]         mem_rd_size_o                   ,
   input                 mem_rd_data_valid_i             ,
   input   [63:0]        mem_rd_data_i                   ,
   // write 
   output                mem_wr_addr_valid_o             ,
   output   [63:0]       mem_wr_addr_o                   ,
   output   [63:0]       mem_wr_data_o                   ,
-  output   [1:0]        mem_wr_size_o                   ,
+  output   [2:0]        mem_wr_size_o                   ,
   input                 mem_wr_data_valid_i
 );
 

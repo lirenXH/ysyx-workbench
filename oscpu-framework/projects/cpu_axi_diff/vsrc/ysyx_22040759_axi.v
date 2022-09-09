@@ -21,7 +21,7 @@ module ysyx_22040759_axi # (
     input                               mem_addr_valid_i,
     input                               mem_wen_i       ,
     input    [63:0]                     mem_addr_i      ,
-    input    [1:0]                      mem_size_i      ,
+    input    [2:0]                      mem_size_i      ,
     input    [63:0]                     mem_wdata_i     ,
     output                              ram_data_valid_o,
     output   [63:0]                     ram_rdata_o     , 
@@ -78,19 +78,19 @@ module ysyx_22040759_axi # (
 );
 wire              mem_rd_addr_valid;
 wire  [63:0]      mem_rd_addr      ;
-wire  [1:0]       mem_rd_size      ;
+wire  [2:0]       mem_rd_size      ;
 wire              mem_rd_data_valid;
 wire  [63:0]      mem_rd_data      ;
 
 wire              rd_addr_valid;
 wire  [63:0]      rd_addr      ;
-wire  [1:0]       rd_size      ;
+wire  [2:0]       rd_size      ;
 wire              rd_data_valid;
 wire  [63:0]      rd_data      ;
 
 wire              mem_wr_addr_valid;
 wire  [63:0]      mem_wr_addr      ;
-wire  [1:0]       mem_wr_size      ;
+wire  [2:0]       mem_wr_size      ;
 wire  [63:0]      mem_wr_data      ;
 wire              mem_wr_data_valid;
 

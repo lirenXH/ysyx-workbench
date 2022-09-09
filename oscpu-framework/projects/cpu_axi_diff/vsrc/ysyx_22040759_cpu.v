@@ -15,7 +15,7 @@ module ysyx_22040759_cpu(
     input  [63:0]   mem_data_read   ,
     output [63:0]   mem_data_write  ,
     output [63:0]   mem_addr        ,
-    output [1:0]    mem_size         
+    output [2:0]    mem_size         
 );
 //difftest
 wire [63:0] regs_ds_o[31:0];

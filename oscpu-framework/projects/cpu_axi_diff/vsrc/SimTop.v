@@ -236,7 +236,7 @@ module SimTop(
     wire [63:0] mem_data_read;
     wire [63:0] mem_data_write;
     wire [63:0] mem_addr;
-    wire [1:0]  mem_size;
+    wire [2:0]  mem_size;
     //wire [1:0]  mem_resp;
     ysyx_22040759_cpu u_cpu(
         .clock                       (clock),

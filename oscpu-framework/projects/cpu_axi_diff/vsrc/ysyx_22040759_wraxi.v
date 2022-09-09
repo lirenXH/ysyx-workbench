@@ -12,7 +12,7 @@ module ysyx_22040759_wraxi # (
     
     input                               wr_addr_valid_i   ,
     input  [63:0]                       wr_addr_i         ,
-    input  [1:0]                        wr_size_i         ,
+    input  [2:0]                        wr_size_i         ,
     output                              wr_data_valid_o   ,
     input  [63:0]                       wr_data_i         ,  
 
@@ -93,7 +93,7 @@ wire  [2:0]  data_yu;
     assign data_yu          = wr_addr_i[2:0];
 
     always @(*)begin
-        case(wr_size_i)         //注意 地址时序问题
+        case(wr_size_i[1:0])         //注意 地址时序问题
             2'b00:   axi_w_strb_o = ({8{data_yu==0}} & 8'b0000_0001)                                     //sb
                                    |({8{data_yu==1}} & 8'b0000_0010)
                                    |({8{data_yu==2}} & 8'b0000_0100)

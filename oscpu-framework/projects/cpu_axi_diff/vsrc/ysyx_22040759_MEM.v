@@ -23,7 +23,7 @@ module ysyx_22040759_MEM(
     input  [63:0]  mem_data_read   ,
     output [63:0]  mem_data_write  ,
     output [63:0]  mem_addr        ,
-    output [1:0]   mem_size            
+    output [2:0]   mem_size            
 );
 
 reg         ms_valid;
@@ -94,7 +94,7 @@ assign ms_to_ws_bus ={
     assign   ms_hs_done     = mem_valid & mem_ready;    //读/写握手
     assign   mem_valid      = ms_mem_ren;
     assign   mem_req        = ms_mem_wen ? 1'b1 : 1'b0;
-    assign   mem_size       = ms_func3[1:0];
+    assign   mem_size       = ms_func3;
     assign   mem_addr       = ms_alu_result;
     assign   mem_data_write = ms_src2;
     assign   ms_rdata       = mem_data_read;
