@@ -54,6 +54,7 @@ wire [4:0] es_rs1     ;
 wire [4:0] es_rs2     ;
 wire       ms_isload  ;
 wire [63:0]ms_load_data;
+wire       ms_mem_ren;
 ysyx_22040759_IF IF(
     .clk            (clock),
     .rst            (reset),
@@ -69,14 +70,13 @@ ysyx_22040759_IF IF(
     .inst_addr      (if_addr) 
 );
 ysyx_22040759_hazard hazard(
-  .clk                 (clock),
+  //.clk                 (clock),
   .rst                 (reset),
 	.IF_ID_rs1           (ds_rs1_o), 
 	.IF_ID_rs2           (ds_rs2_o),
 	.ID_EX_rd            (es_to_ms_bus[68:64]),
-	.ID_EX_memread       (es_to_ms_bus[75:75]),
-  .ID_valid            (fs_to_ds_valid),
-  .EX_valid            (ds_to_es_valid),
+	//.ID_EX_memread       (es_to_ms_bus[75:75]),
+  .EX_MEM_memread      (ms_mem_ren),
 	.pcwrite             (pcwrite),
 	.IF_ID_write         (IF_ID_write),
 	.en_control          (en_control)
@@ -156,6 +156,8 @@ ysyx_22040759_MEM MEM(
     .es_to_alu_result(es_alu_result),
     //to forward 
     .ms_load_data    (ms_load_data),
+    //to fazard 
+    .ms_mem_ren      (ms_mem_ren),
     //to ws
     .ms_to_ws_valid  (ms_to_ws_valid),
     .ms_to_ws_bus    (ms_to_ws_bus),

@@ -16,6 +16,8 @@ module ysyx_22040759_MEM(
     output reg     ms_isload        ,
     //to forward
     output [63:0]  ms_load_data     ,
+    //to fazard
+    output         ms_mem_ren       ,
     //to axi
     output         mem_valid       ,
     input          mem_ready       ,
@@ -39,7 +41,7 @@ wire [4 :0] ms_rd_o;
 wire        ms_reg_wen;
 wire [1:0]  ms_wreg_sel;
 wire [2:0]  ms_func3;
-wire        ms_mem_ren;
+//wire        ms_mem_ren;
 wire        ms_mem_wen;
 wire [63:0] ms_src2;
 wire [63:0] ms_rdata;

@@ -76,15 +76,32 @@ wire w_state_write = w_state == W_STATE_WRITE, w_state_resp = w_state == W_STATE
     parameter TRANS_LEN     = RW_DATA_WIDTH / AXI_DATA_WIDTH;
     parameter BLOCK_TRANS   = TRANS_LEN > 1 ? 1'b1 : 1'b0;
 
-wire [AXI_ADDR_WIDTH-1:0] axi_waddr           = {wr_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};
-wire  [2:0]  data_yu;
+    wire aligned            = BLOCK_TRANS | wr_addr_i[ALIGNED_WIDTH-1:0] == 0;
+    wire size_b             = wr_size_i[1:0] == `SIZE_B;
+    wire size_h             = wr_size_i[1:0] == `SIZE_H;
+    wire size_w             = wr_size_i[1:0] == `SIZE_W;
+    wire size_d             = wr_size_i[1:0] == `SIZE_D;
+    wire [3:0] addr_op1     = {{4-ALIGNED_WIDTH{1'b0}}, wr_addr_i[ALIGNED_WIDTH-1:0]};
+    wire [3:0] addr_op2     = ({4{size_b}} & {4'b0})
+                                | ({4{size_h}} & {4'b1})
+                                | ({4{size_w}} & {4'b11})
+                                | ({4{size_d}} & {4'b111})
+                                ;
+    wire [3:0] addr_end     = addr_op1 + addr_op2;
+    wire       overstep     = addr_end[3:ALIGNED_WIDTH] != 0;
+
+    wire [7:0] axi_len      = aligned ? TRANS_LEN - 1 : {{7{1'b0}}, overstep};
+    wire [2:0] axi_size     = AXI_SIZE[2:0];
+    
+    wire [AXI_ADDR_WIDTH-1:0] axi_waddr           = {wr_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};
+    wire  [2:0]  data_yu;
     assign axi_aw_valid_o   = w_state_addr;
     assign axi_aw_addr_o    = axi_waddr;
     assign axi_aw_prot_o    = `AXI_PROT_UNPRIVILEGED_ACCESS | `AXI_PROT_SECURE_ACCESS | `AXI_PROT_DATA_ACCESS;
     assign axi_aw_id_o      = 4'b0;     
     assign axi_aw_user_o    = 1'b0;     
-    assign axi_aw_len_o     = 1'b0;  
-    assign axi_aw_size_o    = wr_size_i;
+    assign axi_aw_len_o     = axi_len;  
+    assign axi_aw_size_o    = axi_size;
     assign axi_aw_burst_o   = `AXI_BURST_TYPE_INCR;
     assign axi_aw_lock_o    = 1'b0;
     assign axi_aw_cache_o   = `AXI_AWCACHE_NORMAL_NON_CACHEABLE_NON_BUFFERABLE;

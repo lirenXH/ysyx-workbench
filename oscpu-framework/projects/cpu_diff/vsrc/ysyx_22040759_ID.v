@@ -171,7 +171,7 @@ module ysyx_22040759_ID(                                                //写后
         endcase
         end
         else begin
-            con_signal = 20'b0;$display("hazard!");
+            con_signal = 20'b0;//$display("hazard!");
         end
     end
     //控制信号产生

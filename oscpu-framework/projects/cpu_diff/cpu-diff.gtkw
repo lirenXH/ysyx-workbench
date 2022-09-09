@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Thu Sep  8 09:41:09 2022
+[*] Fri Sep  9 02:57:29 2022
 [*]
-[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_diff/build/2022-09-08@17:38:48.vcd"
-[dumpfile_mtime] "Thu Sep  8 09:38:48 2022"
-[dumpfile_size] 1633945
+[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_diff/build/2022-09-09@10:57:04.vcd"
+[dumpfile_mtime] "Fri Sep  9 02:57:04 2022"
+[dumpfile_size] 12587104
 [savefile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_diff/cpu-diff.gtkw"
-[timestart] 14
+[timestart] 865
 [size] 3768 2096
 [pos] -39 -39
-*0.687131 20 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*0.687131 23 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.SimTop.
 [treeopen] TOP.SimTop.EXE.
@@ -111,5 +111,7 @@ TOP.SimTop.hazard.pcwrite
 TOP.SimTop.EXE.es_allowin
 TOP.SimTop.ID.ds_allowin
 TOP.SimTop.MEM.ram.data_RAMHelper.en
+@29
+TOP.SimTop.MEM.ram.data_RAMHelper.wen
 [pattern_trace] 1
 [pattern_trace] 0
