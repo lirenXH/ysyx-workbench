@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Sep  9 03:14:05 2022
+[*] Wed Sep 14 07:43:11 2022
 [*]
-[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/build/2022-09-09@11:05:19.vcd"
-[dumpfile_mtime] "Fri Sep  9 03:05:19 2022"
-[dumpfile_size] 10031749
+[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/build/2022-09-14@15:24:44.vcd"
+[dumpfile_mtime] "Wed Sep 14 07:24:44 2022"
+[dumpfile_size] 188247
 [savefile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/cpu_axi_diff_vcd.gtkw"
-[timestart] 54804
+[timestart] 469
 [size] 3768 2096
 [pos] -1 -1
-*-4.098971 54901 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-1.098971 490 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.SimTop.
 [treeopen] TOP.SimTop.u_axi.
@@ -21,7 +21,7 @@
 [treeopen] TOP.SimTop.u_cpu.ID.
 [treeopen] TOP.SimTop.u_cpu.IF.
 [sst_width] 334
-[signals_width] 412
+[signals_width] 449
 [sst_expanded] 1
 [sst_vpaned_height] 1405
 @28
@@ -40,18 +40,14 @@ TOP.SimTop.u_cpu.WB.ws_pc[63:0]
 TOP.SimTop.u_cpu.cmt_pc[63:0]
 TOP.SimTop.u_cpu.IF.fs_inst[31:0]
 TOP.SimTop.u_cpu.ID.ds_inst[31:0]
-@23
 TOP.SimTop.u_cpu.EXE.es_inst[31:0]
-@22
 TOP.SimTop.u_cpu.MEM.ms_inst[31:0]
 TOP.SimTop.u_cpu.WB.ws_inst[31:0]
 TOP.SimTop.u_cpu.cmt_inst[31:0]
 @28
 TOP.SimTop.u_cpu.IF.fs_to_ds_valid
 TOP.SimTop.u_cpu.ID.ds_to_es_valid
-@29
 TOP.SimTop.u_cpu.EXE.es_to_ms_valid
-@28
 TOP.SimTop.u_cpu.MEM.ms_to_ws_valid
 TOP.SimTop.u_cpu.WB.ws_valid
 TOP.SimTop.u_cpu.cmt_valid
@@ -60,8 +56,6 @@ TOP.SimTop.u_cpu.ID.con_signal[19:0]
 @28
 [color] 2
 TOP.SimTop.u_cpu.EXE.bru.br_taken
-@22
-TOP.SimTop.u_cpu.EXE.bru.bru_pc[63:0]
 @200
 -
 @28
@@ -116,25 +110,12 @@ TOP.SimTop.aw_ready
 @200
 -
 @28
-[color] 6
-TOP.SimTop.u_axi.arbiter.arbiter_handshake
 [color] 2
 TOP.SimTop.u_axi.arbiter.cstate[2:0]
-TOP.SimTop.u_axi.arbiter.mem_rd_addr_valid_i
-TOP.SimTop.u_axi.arbiter.if_addr_valid_i
-[color] 1
-TOP.SimTop.u_cpu.MEM.ms_hs_done
-TOP.SimTop.u_cpu.MEM.ms_stop
-[color] 2
-TOP.SimTop.u_cpu.MEM.ms_state[1:0]
-TOP.SimTop.u_axi.reqDispute.mem_wen_i
-TOP.SimTop.u_axi.arbiter.if_data_valid_o
-TOP.SimTop.u_axi.arbiter.final_signal
 @22
 [color] 1
 TOP.SimTop.u_axi.arbiter.mem_rd_data_o[63:0]
 @28
-TOP.SimTop.u_axi.arbiter.if_data_valid_o
 TOP.SimTop.u_axi.arbiter.mem_rd_data_valid_o
 @22
 TOP.SimTop.u_cpu.MEM.mem_data_read[63:0]
@@ -157,23 +138,37 @@ TOP.SimTop.u_axi.rdaxi.rd_addr_i[64:0]
 @22
 [color] 1
 TOP.SimTop.u_axi.rdaxi.axi_ar_addr_o[63:0]
+@23
 [color] 1
 TOP.SimTop.u_axi.rdaxi.axi_r_data_i[63:0]
-@28
-TOP.SimTop.u_axi.wraxi.data_yu[2:0]
-TOP.SimTop.u_axi.rdaxi.axi_ar_size_o[2:0]
 @22
-TOP.SimTop.u_axi.wraxi.axi_w_strb_o[7:0]
 TOP.SimTop.u_axi.rdaxi.data_read_o[63:0]
+TOP.SimTop.u_axi.rdaxi.rdaxi_data_o[63:0]
 TOP.SimTop.u_axi.rdaxi.temp_rdata[63:0]
 @28
-TOP.SimTop.u_axi.rdaxi.rd_data_yu[2:0]
-@22
-TOP.SimTop.u_axi.rdaxi.rdaxi_data_o[63:0]
-@28
-TOP.SimTop.u_axi.rdaxi.rd_size_i[2:0]
-TOP.SimTop.u_cpu.MEM.ms_func3[2:0]
 TOP.SimTop.u_axi.arbiter.final_signal
-TOP.SimTop.mem_size[2:0]
+@22
+TOP.SimTop.u_cpu.icache.icache_addr[63:0]
+@28
+TOP.SimTop.u_cpu.icache.icache_data_valid
+@22
+TOP.SimTop.u_cpu.icache.icache_if_data_o[63:0]
+TOP.SimTop.u_cpu.icache.icache_if_data_o_r[63:0]
+TOP.SimTop.u_cpu.icache.icache_ram_raddr[63:0]
+@28
+[color] 2
+TOP.SimTop.u_cpu.icache.cstate
+@22
+TOP.SimTop.u_cpu.icache.icache_addr[63:0]
+@28
+TOP.SimTop.u_cpu.icache.icache_ren
+@22
+TOP.SimTop.u_cpu.icache.icache_if_data_o_r[63:0]
+TOP.SimTop.u_cpu.icache.ram_icache_rdata[63:0]
+@28
+TOP.SimTop.u_cpu.icache.icache_ram_ren
+TOP.SimTop.u_cpu.icache.hit_miss
+TOP.SimTop.u_cpu.icache.icache_if_ready
+TOP.SimTop.u_axi.rdaxi.axi_r_valid_i
 [pattern_trace] 1
 [pattern_trace] 0

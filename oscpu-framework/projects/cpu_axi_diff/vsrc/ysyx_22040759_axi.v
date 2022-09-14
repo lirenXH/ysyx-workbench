@@ -12,11 +12,11 @@ module ysyx_22040759_axi # (
     input                               clock,
     input                               reset,
 
-    //to IF state
-    input                               if_addr_valid_i ,
-    input    [63:0]                     if_rd_addr_i    ,
-    output                              if_data_valid_o ,
-    output   [63:0]                     if_data_o       ,
+    //to i-cache
+    input                               icache_addr_valid_i ,
+    input    [63:0]                     icache_rd_addr_i    ,
+    output                              icache_data_valid_o ,
+    output   [63:0]                     icache_data_o       ,
     //to MEM state              
     input                               mem_addr_valid_i,
     input                               mem_wen_i       ,
@@ -122,11 +122,11 @@ wire              mem_wr_data_valid;
     ysyx_22040759_arbiter arbiter(
     .clk                         (clock),
     .rst                         (reset),
-    //from if                                           npc to arbiter
-    .if_addr_valid_i             (if_addr_valid_i),
-    .if_rd_addr_i                (if_rd_addr_i   ),
-    .if_data_valid_o             (if_data_valid_o),
-    .if_data_o                   (if_data_o      ),
+    //from icache                                           npc to arbiter
+    .icache_addr_valid_i          (icache_addr_valid_i),
+    .icache_rd_addr_i             (icache_rd_addr_i   ),
+    .icache_data_valid_o          (icache_data_valid_o),
+    .icache_data_o                (icache_data_o      ),
     //from reqDispute mem                               req to arbiter
     .mem_rd_addr_valid_i         (mem_rd_addr_valid),
     .mem_rd_addr_i               (mem_rd_addr      ),

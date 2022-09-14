@@ -162,10 +162,10 @@ module SimTop(
         .clock                          (clock),
         .reset                          (reset),
 
-        .if_addr_valid_i                (if_valid),
-        .if_rd_addr_i                   (if_addr),
-        .if_data_valid_o                (if_ready),
-        .if_data_o                      (if_data_read),
+        .icache_addr_valid_i            (icache_valid),
+        .icache_rd_addr_i               (icache_addr),
+        .icache_data_valid_o            (icache_ready),
+        .icache_data_o                  (icache_data_read),
 
         .mem_addr_valid_i               (mem_valid),
         .mem_wen_i                      (mem_req),
@@ -225,10 +225,10 @@ module SimTop(
         .axi_r_user_i                   (r_user)
     );
 
-    wire        if_valid;
-    wire        if_ready;
-    wire [63:0] if_data_read;
-    wire [63:0] if_addr;
+    wire        icache_valid;
+    wire        icache_ready;
+    wire [63:0] icache_data_read;
+    wire [63:0] icache_addr;
 
     wire mem_valid;
     wire mem_ready;
@@ -242,10 +242,10 @@ module SimTop(
         .clock                       (clock),
         .reset                       (reset),
 
-        .if_valid                    (if_valid),
-        .if_ready                    (if_ready),
-        .if_data_read                (if_data_read),
-        .if_addr                     (if_addr),
+        .icache_valid                (icache_valid),
+        .icache_ready                (icache_ready),
+        .icache_data_read            (icache_data_read),
+        .icache_addr                 (icache_addr),
         
         .mem_valid                   (mem_valid),                
         .mem_ready                   (mem_ready), 

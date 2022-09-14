@@ -4,10 +4,10 @@ module ysyx_22040759_cpu(
     input           clock,
     input           reset,
     //to axi
-    output          if_valid,     
-    input           if_ready,
-    input  [63:0]   if_data_read,
-    output [63:0]   if_addr,     
+    output          icache_valid,     
+    input           icache_ready,
+    input  [63:0]   icache_data_read,
+    output [63:0]   icache_addr,     
 
     output          mem_valid       ,
     input           mem_ready       ,
@@ -55,6 +55,11 @@ wire [4:0] es_rs2     ;
 wire       ms_isload  ;
 wire [63:0]ms_load_data;
 wire       ms_mem_ren;
+
+wire       if_valid;       
+wire       if_ready;
+wire [63:0]if_data_read;
+wire [63:0]if_addr;  
 ysyx_22040759_IF IF(
     .clk            (clock),
     .rst            (reset),
@@ -64,10 +69,25 @@ ysyx_22040759_IF IF(
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),   //IF输出总线
     //to axi
-    .if_data_read   (if_data_read),   //给i-ram
+    .if_data_read   (if_data_read),
     .if_ready       (if_ready),
     .if_valid       (if_valid),
     .inst_addr      (if_addr) 
+);
+ysyx_22040759_icache icache(
+.clk              (clock),
+.rst              (reset),
+//to or from if
+.icache_addr      (if_addr),
+.icache_ren       (if_valid),
+.icache_if_data_o (if_data_read),
+.icache_if_ready  (if_ready),
+//to or from ram
+.ram_icache_rdata (icache_data_read),
+.icache_data_valid(icache_ready),
+.hit_miss         (),
+.icache_ram_raddr (icache_addr),
+.icache_ram_ren   (icache_valid) 
 );
 ysyx_22040759_hazard hazard(
   //.clk                 (clock),

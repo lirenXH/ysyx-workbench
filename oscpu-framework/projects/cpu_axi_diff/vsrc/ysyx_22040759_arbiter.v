@@ -3,10 +3,10 @@ module ysyx_22040759_arbiter(
     input               clk,
     input               rst,
 
-    input               if_addr_valid_i   ,
-    input    [63:0]     if_rd_addr_i      ,
-    output              if_data_valid_o   ,
-    output   [63:0]     if_data_o         ,
+    input               icache_addr_valid_i   ,
+    input    [63:0]     icache_rd_addr_i      ,
+    output              icache_data_valid_o   ,
+    output   [63:0]     icache_data_o         ,
 
     input               mem_rd_addr_valid_i  ,
     input    [63:0]     mem_rd_addr_i     ,
@@ -47,9 +47,9 @@ end
 always@(*)begin
         case(cstate)
         IDLE:
-            if(mem_rd_addr_valid_i)     //USR2优先级大于USR1 USR2MEM USR1IF
+            if(mem_rd_addr_valid_i)     //USR2优先级大于USR1 USR2MEM USR1 i-cache
                 nstate = USR2;
-            else if(if_addr_valid_i)
+            else if(icache_addr_valid_i)
                 nstate = USR1;
             else    
                 nstate = IDLE;
@@ -57,7 +57,7 @@ always@(*)begin
             if(arbiter_handshake)begin
                 if(mem_rd_addr_valid_i) 
                     nstate = USR2;
-                else if(if_addr_valid_i)
+                else if(icache_addr_valid_i)
                     nstate = USR1;
                 else
                     nstate = IDLE;
@@ -65,7 +65,7 @@ always@(*)begin
                 nstate = USR1;    
         USR2:
             if(arbiter_handshake)begin
-                if(if_addr_valid_i) //USR2连续发起请求
+                if(icache_addr_valid_i) //USR2连续发起请求
                     nstate = USR1;
                 else if(mem_rd_addr_valid_i)
                     nstate = USR2;
@@ -78,14 +78,14 @@ always@(*)begin
 end
 wire final_signal = (cstate == USR2);
 
-assign rd_addr_valid_o = final_signal ? mem_rd_addr_valid_i    : if_addr_valid_i;
-assign rd_addr_o       = final_signal ? mem_rd_addr_i          : if_rd_addr_i   ;
-assign rd_size_o       = final_signal ? mem_rd_size_i          : 3'b010         ;
+assign rd_addr_valid_o = final_signal ? mem_rd_addr_valid_i    : icache_addr_valid_i;
+assign rd_addr_o       = final_signal ? mem_rd_addr_i          : icache_rd_addr_i   ;
+assign rd_size_o       = final_signal ? mem_rd_size_i          : 3'b011         ;
 
-assign if_data_o     = rd_data_i;
+assign icache_data_o     = rd_data_i;
 assign mem_rd_data_o = rd_data_i;
 
-assign if_data_valid_o     = !final_signal & rd_data_valid_i;
+assign icache_data_valid_o     = !final_signal & rd_data_valid_i;
 assign mem_rd_data_valid_o =  final_signal & rd_data_valid_i;
 
 endmodule
