@@ -7,6 +7,7 @@ module ysyx_22040759_bru(                               //B系指令跳转模块
     input       [63:0]  pc_out      ,
     input               jump_flag   ,
     input       [1 :0]  bru_wreg_sel,
+    input               bru_valid   ,
     output      [63:0]  bru_pc      ,
     output              br_taken       //bru_brush_flag
 );
@@ -27,5 +28,6 @@ module ysyx_22040759_bru(                               //B系指令跳转模块
                          ((bru_sel == `bru_bge  ) && ~lt  )||
                          ((bru_sel == `bru_bgeu ) && ~ltu )||
                          ((bru_sel == `bru_bltu ) &&  ltu ); 
-    assign br_taken= br_valid&&jump_flag;
+    assign br_taken= br_valid && jump_flag && bru_valid;//es阶段有效，是跳转指令，条件生效
+    //assign br_taken= br_valid && jump_flag;
 endmodule 

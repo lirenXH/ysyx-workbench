@@ -10,6 +10,7 @@ module ysyx_22040759_ID(                                                //写后
         //from fs
     input              fs_to_ds_valid,
     input    [95:0]    fs_to_ds_bus  ,
+    input              jump_r        ,
         //from hazard
     input              en_control    ,
     input              IF_ID_write   ,
@@ -102,7 +103,7 @@ module ysyx_22040759_ID(                                                //写后
     //wire [6:0]  opcode  =inst[6:0]  ;
     reg  [19:0] con_signal;
     //译码
-    assign inst = ds_br_taken ? 32'h13 : ds_inst;
+    assign inst = jump_r ? 32'h13 : ds_inst;
 
     always@(*)begin
         if(en_control==0)begin
@@ -192,7 +193,7 @@ module ysyx_22040759_ID(                                                //写后
                          ({64{con_signal[19:17] == `imm_j}} & imme_j) |
                          ({64{con_signal[19:17] == `imm_s}} & imme_s) |
                          ({64{con_signal[19:17] == `imm_b}} & imme_b) ;
-    assign ds_pc_final  = (ds_br_taken || IF_ID_write) ? 64'd0 : ds_pc;
+    assign ds_pc_final  = (jump_r || IF_ID_write) ? 64'd0 : ds_pc;
     assign ds_to_es_bus = {
                            inst         ,  //322 : 291 ds_inst
                            rs1_o        ,  //290 ：286 前递

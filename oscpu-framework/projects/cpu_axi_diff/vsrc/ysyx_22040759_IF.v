@@ -12,6 +12,7 @@ module ysyx_22040759_IF(
     //to ds
     output        fs_to_ds_valid ,
     output [95:0] fs_to_ds_bus   , //IF输出总线
+    output reg    jump_r         ,
     // to axi 
     input  [63:0] if_data_read   ,
     input         if_ready       ,
@@ -21,7 +22,7 @@ module ysyx_22040759_IF(
 
 
 reg         fs_valid;
-reg         jump_r = 0;
+//reg         jump_r = 0;
 reg  [63:0] pc_r;
 wire        fs_ready_go;
 wire        fs_allowin;
@@ -92,11 +93,11 @@ always @(posedge clk) begin
     end
 end
 
-assign if_valid        = fs_valid;//取指有效
+assign if_valid        = fs_valid && !pcwrite;//取指有效
 
 assign inst_addr       = pc_to_axi;
 
 //assign fs_inst         = br_taken ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
-assign fs_inst         = jump_r ? 32'h13 : if_data_read[31:0] ;     //nop:inst brush
-assign fs_pc_final     = jump_r ? 64'h0  : fs_pc;                   //nop:inst brush
+assign fs_inst         = (jump_r || !handshake_done) ? 32'h13 : if_data_read[31:0] ;     //nop:inst brush
+assign fs_pc_final     = (jump_r || !handshake_done) ? 64'h0  : fs_pc;                   //nop:inst brush
 endmodule

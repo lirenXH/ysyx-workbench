@@ -42,7 +42,7 @@ wire [231:0] ms_to_ws_bus ;
 wire [63:0]  es_alu_result;
 //inst_ram
 wire [31:0]inst;
-
+wire       jump_r     ;
 wire [1:0] ForwardA   ;
 wire [1:0] ForwardB   ;
 wire       pcwrite    ;
@@ -68,6 +68,7 @@ ysyx_22040759_IF IF(
     .pcwrite        (pcwrite),
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),   //IF输出总线
+    .jump_r         (jump_r),
     //to axi
     .if_data_read   (if_data_read),
     .if_ready       (if_ready),
@@ -110,6 +111,7 @@ ysyx_22040759_ID ID(
     //from fs 
     .fs_to_ds_valid (fs_to_ds_valid),
     .fs_to_ds_bus   (fs_to_ds_bus),
+    .jump_r         (jump_r),
     //from hazard
     .en_control     (en_control),
     .IF_ID_write    (IF_ID_write),

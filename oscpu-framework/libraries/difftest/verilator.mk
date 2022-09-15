@@ -37,6 +37,8 @@ VEXTRA_FLAGS  = -I$(abspath $(BUILD_DIR)) --x-assign unique -O3 -CFLAGS "$(EMU_C
 EMU_TRACE ?=
 ifeq ($(EMU_TRACE),1)
 VEXTRA_FLAGS += --trace
+VEXTRA_FLAGS += --trace-underscore
+VEXTRA_FLAGS += --trace-max-array 256
 endif
 
 # Verilator multi-thread support

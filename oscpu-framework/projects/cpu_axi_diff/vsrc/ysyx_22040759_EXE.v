@@ -64,7 +64,7 @@ always @(posedge clk) begin
         ds_to_es_bus_r <= ds_to_es_bus;
     end
     //else if(!ds_to_es_valid)begin
-    //    ds_to_es_bus_r[278:278] <= ;
+    //    ds_to_es_bus_r[278:278] <= 1'b0;
     //end
 end
 
@@ -97,7 +97,7 @@ assign es_to_ms_bus = {
                         es_func3       ,  //74  : 72     3
                         es_wreg_sel    ,  //71  : 70     2
                         es_reg_wen     ,  //69  : 69     1
-                        es_rd_o        ,  //68  : 64     5     -64!!!
+                        es_rd_o        ,  //68  : 64     5    
                         es_pc             //63  : 0      64
                       };
 assign es_for_src1 = ({64{ForwardA == 2'b11}} & ms_load_data   ) |
@@ -105,7 +105,7 @@ assign es_for_src1 = ({64{ForwardA == 2'b11}} & ms_load_data   ) |
                      ({64{ForwardA == 2'b01}} & ws_alu_result  ) |
                      ({64{ForwardA == 2'b00}} & es_src1 );
 
-assign es_for_src2 = ({64{ForwardA == 2'b11}} & ms_load_data   ) |
+assign es_for_src2 = ({64{ForwardB == 2'b11}} & ms_load_data   ) |
                      ({64{ForwardB == 2'b10}} & ms_alu_result  ) | 
                      ({64{ForwardB == 2'b01}} & ws_alu_result  ) |
                      ({64{ForwardB == 2'b00}} & es_src2 );
@@ -134,7 +134,8 @@ ysyx_22040759_bru bru(                //B系指令跳转模块 在跳转的时�
     .jump_flag    (es_jump_flag),
     .bru_wreg_sel (es_wreg_sel),
     .bru_pc       (es_bru_pc),
-    .br_taken     (br_taken)
+    .br_taken     (br_taken),
+    .bru_valid    (es_valid)
 );
 
 assign bru_to_fs_bus = {alu_result   ,//130 : 67   64
