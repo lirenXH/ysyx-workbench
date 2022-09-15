@@ -2,7 +2,7 @@
 
 //cache
 `define TAG 31:11		// position of tag in icache_addr
-`define INDEX 10:3		// position of index in address  11 2^11 2048
+`define INDEX 10:3		// position of index in address
 `define OFFSET 2:0	
 
 module ysyx_22040759_icache#(
@@ -72,7 +72,7 @@ always@(posedge clk)begin
                 // read hit
 				if(icache_ren) begin
                     icache_if_data_o_r <= (icache_addr[`OFFSET] == 3'h4) ? (mem1[icache_addr[`INDEX]] >> 32) : mem1[icache_addr[`INDEX]];
-                    //$display("read addr = %016x , data = %x",icache_addr[`INDEX],mem1[icache_addr[`INDEX]]);
+                    //$display("read1 addr = %016x , data = %x",icache_addr[`TAG],mem1[icache_addr[`INDEX]]);
                 end
                 //更新lru
                 lru1[icache_addr[`INDEX]] <= 1'b0;
@@ -84,8 +84,8 @@ always@(posedge clk)begin
             else if(valid2[icache_addr[`INDEX]] && (tag2[icache_addr[`INDEX]] == icache_addr[`TAG]))begin
                 //read hit
                 if(icache_ren) begin
-                    icache_if_data_o_r <= (icache_addr[`OFFSET] == 3'h4) ? (mem1[icache_addr[`INDEX]] >> 32) : mem1[icache_addr[`INDEX]];
-                    //$display("read addr = %016x , data = %x",icache_addr[`INDEX],mem1[icache_addr[`INDEX]]);
+                    icache_if_data_o_r <= (icache_addr[`OFFSET] == 3'h4) ? (mem2[icache_addr[`INDEX]] >> 32) : mem2[icache_addr[`INDEX]];
+                    //$display("read2 addr = %016x , data = %x",icache_addr[`TAG],mem2[icache_addr[`INDEX]]);
                 end
                 //更新lru
                 lru1[icache_addr[`INDEX]] <= 1'b1;
@@ -121,6 +121,7 @@ always@(posedge clk)begin
 			end
             //way 1 lru 两路都有效，开始替换
             else if(lru1[icache_addr[`INDEX]] == 1'b1 && icache_data_valid)begin
+                $display("tihuan");
                 mem1[icache_addr[`INDEX]] <= ram_icache_rdata;
 				tag1[icache_addr[`INDEX]] <= icache_addr[`TAG];
 				valid1[icache_addr[`INDEX]] <= 1'b1;

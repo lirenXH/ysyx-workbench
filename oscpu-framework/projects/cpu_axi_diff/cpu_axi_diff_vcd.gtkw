@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Thu Sep 15 06:24:52 2022
+[*] Thu Sep 15 07:21:52 2022
 [*]
-[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/build/2022-09-15@14:22:46.vcd"
-[dumpfile_mtime] "Thu Sep 15 06:22:46 2022"
-[dumpfile_size] 5834791
+[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/build/2022-09-15@15:21:16.vcd"
+[dumpfile_mtime] "Thu Sep 15 07:21:16 2022"
+[dumpfile_size] 3929450
 [savefile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/cpu_axi_diff_vcd.gtkw"
-[timestart] 0
+[timestart] 6878
 [size] 3766 1856
 [pos] -1 -1
-*-10.000000 7579 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*0.000000 6883 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.SimTop.
 [treeopen] TOP.SimTop.u_axi.
@@ -103,7 +103,6 @@ TOP.SimTop.u_axi.wraxi.b_hs
 -icache
 @28
 TOP.SimTop.u_cpu.icache.cstate[1:0]
-@29
 [color] 2
 TOP.SimTop.u_cpu.icache.hit_miss
 @22
@@ -121,22 +120,11 @@ TOP.SimTop.u_cpu.icache.icache_ram_ren
 TOP.SimTop.u_cpu.icache.icache_if_ready_temp
 TOP.SimTop.u_cpu.icache.icache_if_ready
 @22
-TOP.SimTop.u_cpu.ID.GPR.register(8)[63:0]
-TOP.SimTop.u_cpu.ID.GPR.register(15)[63:0]
-@28
-TOP.SimTop.u_cpu.forward.ForwardA[1:0]
-TOP.SimTop.u_cpu.forward.ForwardB[1:0]
+TOP.SimTop.u_cpu.icache.mem1(0)[63:0]
+TOP.SimTop.u_cpu.icache.mem2(0)[63:0]
+@23
+TOP.SimTop.u_cpu.icache.tag1(0)[20:0]
 @22
-TOP.SimTop.u_cpu.EXE.bru.src1[63:0]
-TOP.SimTop.u_cpu.EXE.bru.src2[63:0]
-TOP.SimTop.u_cpu.forward.EX_MEM_RegisterRd[4:0]
-@28
-TOP.SimTop.u_cpu.forward.EX_MEM_RegWrite
-@22
-TOP.SimTop.u_cpu.EXE.es_src1[63:0]
-TOP.SimTop.u_cpu.EXE.es_src2[63:0]
-TOP.SimTop.u_cpu.EXE.ws_alu_result[63:0]
-@28
-TOP.SimTop.u_cpu.EXE.es_valid
+TOP.SimTop.u_cpu.icache.tag2(0)[20:0]
 [pattern_trace] 1
 [pattern_trace] 0
