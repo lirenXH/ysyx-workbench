@@ -3,7 +3,7 @@ module ysyx_22040759_wraxi # (
     parameter RW_DATA_WIDTH     = 64,
     parameter RW_ADDR_WIDTH     = 64,
     parameter AXI_DATA_WIDTH    = 64,
-    parameter AXI_ADDR_WIDTH    = 64,
+    parameter AXI_ADDR_WIDTH    = 32,
     parameter AXI_ID_WIDTH      = 4,
     parameter AXI_USER_WIDTH    = 1
 )(
@@ -11,7 +11,7 @@ module ysyx_22040759_wraxi # (
     input                               rst               ,
     
     input                               wr_addr_valid_i   ,
-    input  [63:0]                       wr_addr_i         ,
+    input  [AXI_ADDR_WIDTH-1:0]         wr_addr_i         ,
     input  [2:0]                        wr_size_i         ,
     output                              wr_data_valid_o   ,
     input  [63:0]                       wr_data_i         ,  

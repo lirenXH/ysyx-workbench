@@ -17,7 +17,7 @@ module ysyx_22040759_IF(
     input  [63:0] if_data_read   ,
     input         if_ready       ,
     output   reg  if_valid       ,
-    output [63:0] inst_addr          
+    output [31:0] inst_addr          
 );
 
 
@@ -95,7 +95,7 @@ end
 
 assign if_valid        = fs_valid && !pcwrite;//取指有效
 
-assign inst_addr       = pc_to_axi;
+assign inst_addr       = pc_to_axi[31:0];
 
 //assign fs_inst         = br_taken ? 32'h13 : if_data_read[31:0] ; //nop:inst brush
 assign fs_inst         = (jump_r || !handshake_done) ? 32'h13 : if_data_read[31:0] ;     //nop:inst brush

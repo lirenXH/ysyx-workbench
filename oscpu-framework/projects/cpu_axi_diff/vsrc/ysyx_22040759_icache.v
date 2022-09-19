@@ -6,19 +6,16 @@
 `define OFFSET 2:0	
 
 module ysyx_22040759_icache#(
-  // Cache parameters
-  parameter NWAYS = 2,							//两路组相联
-  parameter NSETS = 256,						//cache set 数量
-  // Memory related paramter, make sure it matches memory module
+  parameter NWAYS = 2,			//两路组相联
+  parameter NSETS = 256,		//cache set 数量
   parameter MWIDTH = 64,		// same as block size  内存数据位宽
-  // More cache related parameters
   parameter INDEX_WIDTH = 8,	//index位宽
   parameter TAG_WIDTH = 21		//tag位宽
 )(
     input           clk              ,
     input           rst              ,
     //to or from if
-    input  [63:0]   icache_addr      ,      //cache读地址
+    input  [31:0]   icache_addr      ,      //cache读地址
     input           icache_ren       ,      //一直为1
     output [63:0]   icache_if_data_o ,      //所取指令
     output  reg     icache_if_ready  ,
@@ -26,7 +23,7 @@ module ysyx_22040759_icache#(
     input  [63:0]   ram_icache_rdata ,      //ram回填数据
     input           icache_data_valid,      //回填数据有效
     output          hit_miss         ,      //miss即为读ram_addr_valid
-    output [63:0]   icache_ram_raddr ,      //读ram地址
+    output [31:0]   icache_ram_raddr ,      //读ram地址
     output          icache_ram_ren          //不一定为1
 );
 // WAY 1 cache data
@@ -50,7 +47,7 @@ assign     hit_miss = hit_miss_r;
 assign     icache_ram_ren = !((valid1[icache_addr[`INDEX]] && (tag1[icache_addr[`INDEX]] == icache_addr[`TAG]))
 		                   || (valid2[icache_addr[`INDEX]] && (tag2[icache_addr[`INDEX]] == icache_addr[`TAG])));
 //assign icache_if_ready  = !icache_ram_ren && icache_if_ready_temp;
-assign icache_ram_raddr = {icache_addr[63:3], {3{1'b0}}};
+assign icache_ram_raddr = {icache_addr[31:3], {3{1'b0}}};
 assign icache_if_data_o = icache_if_data_o_r;
 
 parameter IDLE = 2'b00;
@@ -121,7 +118,6 @@ always@(posedge clk)begin
 			end
             //way 1 lru 两路都有效，开始替换
             else if(lru1[icache_addr[`INDEX]] == 1'b1 && icache_data_valid)begin
-                $display("tihuan");
                 mem1[icache_addr[`INDEX]] <= ram_icache_rdata;
 				tag1[icache_addr[`INDEX]] <= icache_addr[`TAG];
 				valid1[icache_addr[`INDEX]] <= 1'b1;

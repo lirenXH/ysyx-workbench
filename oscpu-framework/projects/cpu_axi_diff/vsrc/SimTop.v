@@ -228,14 +228,14 @@ module SimTop(
     wire        icache_valid;
     wire        icache_ready;
     wire [63:0] icache_data_read;
-    wire [63:0] icache_addr;
+    wire [31:0] icache_addr;
 
     wire mem_valid;
     wire mem_ready;
     wire mem_req;
     wire [63:0] mem_data_read;
     wire [63:0] mem_data_write;
-    wire [63:0] mem_addr;
+    wire [31:0] mem_addr;
     wire [2:0]  mem_size;
     //wire [1:0]  mem_resp;
     ysyx_22040759_cpu u_cpu(
@@ -253,8 +253,7 @@ module SimTop(
         .mem_data_read               (mem_data_read),                
         .mem_data_write              (mem_data_write),                
         .mem_addr                    (mem_addr),                
-        .mem_size                    (mem_size)
-        //.mem_resp                    (mem_resp)              
+        .mem_size                    (mem_size)              
     );
 
 

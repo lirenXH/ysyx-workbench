@@ -3,7 +3,7 @@ module ysyx_22040759_rdaxi # (
     parameter RD_DATA_WIDTH     = 64,
     parameter RD_ADDR_WIDTH     = 64,
     parameter AXI_DATA_WIDTH    = 64,
-    parameter AXI_ADDR_WIDTH    = 64,
+    parameter AXI_ADDR_WIDTH    = 32,
     parameter AXI_ID_WIDTH      = 4,
     parameter AXI_USER_WIDTH    = 1
 )(
@@ -11,7 +11,7 @@ module ysyx_22040759_rdaxi # (
     input                               rst             ,
     //from arbiter
     input                               rd_addr_valid_i,
-    input      [AXI_ADDR_WIDTH:0]       rd_addr_i       ,
+    input      [AXI_ADDR_WIDTH-1:0]       rd_addr_i       ,
     input      [2:0]                    rd_size_i       ,
     output                              rd_data_valid_o ,             //ready
     output     [63:0]                   rdaxi_data_o    ,       

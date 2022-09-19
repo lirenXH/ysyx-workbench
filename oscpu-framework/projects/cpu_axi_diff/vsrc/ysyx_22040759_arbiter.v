@@ -4,18 +4,18 @@ module ysyx_22040759_arbiter(
     input               rst,
 
     input               icache_addr_valid_i   ,
-    input    [63:0]     icache_rd_addr_i      ,
+    input    [31:0]     icache_rd_addr_i      ,
     output              icache_data_valid_o   ,
     output   [63:0]     icache_data_o         ,
 
     input               mem_rd_addr_valid_i  ,
-    input    [63:0]     mem_rd_addr_i     ,
+    input    [31:0]     mem_rd_addr_i     ,
     input    [2:0]      mem_rd_size_i     ,
     output              mem_rd_data_valid_o  ,
     output   [63:0]     mem_rd_data_o        ,     
     
     output              rd_addr_valid_o   ,
-    output   [63:0]     rd_addr_o         ,
+    output   [31:0]     rd_addr_o         ,
     output   [2:0]      rd_size_o         ,
     input               rd_data_valid_i   ,
     input    [63:0]     rd_data_i

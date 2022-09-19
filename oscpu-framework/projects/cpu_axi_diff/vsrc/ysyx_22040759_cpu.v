@@ -7,14 +7,14 @@ module ysyx_22040759_cpu(
     output          icache_valid,     
     input           icache_ready,
     input  [63:0]   icache_data_read,
-    output [63:0]   icache_addr,     
+    output [31:0]   icache_addr,     
 
     output          mem_valid       ,
     input           mem_ready       ,
     output          mem_req         ,
     input  [63:0]   mem_data_read   ,
     output [63:0]   mem_data_write  ,
-    output [63:0]   mem_addr        ,
+    output [31:0]   mem_addr        ,
     output [2:0]    mem_size         
 );
 //difftest
@@ -59,7 +59,7 @@ wire       ms_mem_ren;
 wire       if_valid;       
 wire       if_ready;
 wire [63:0]if_data_read;
-wire [63:0]if_addr;  
+wire [31:0]if_addr;  
 ysyx_22040759_IF IF(
     .clk            (clock),
     .rst            (reset),
