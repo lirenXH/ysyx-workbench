@@ -86,7 +86,6 @@ ysyx_22040759_icache icache(
 //to or from ram
 .ram_icache_rdata (icache_data_read),
 .icache_data_valid(icache_ready),
-.hit_miss         (),
 .icache_ram_raddr (icache_addr),
 .icache_ram_ren   (icache_valid) 
 );
