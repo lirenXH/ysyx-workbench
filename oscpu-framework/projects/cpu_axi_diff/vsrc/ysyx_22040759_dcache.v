@@ -12,6 +12,7 @@ module ysyx_22040759_dcache (
   input [2:0]         mem_dcache_size        ,  //
   output[63:0]        dcache_mem_data_read   ,  //1读数据
   output              dcache_mem_ready       ,  //1ready
+  //output              load_hit               ,
   //from or to AXI
   output              dcache_ram_valid       ,  //1访存地址有效
   output              dcache_ram_req         ,  //1访存写使能
@@ -21,6 +22,7 @@ module ysyx_22040759_dcache (
   input               ram_dcache_ready       ,  //1访存数据有效
   input [63:0]        ram_dcache_data_read      //1回填数据
 );
+wire [127:0] ram_dcache_data_read_temp = mem_dcache_addr[3] ? {ram_dcache_data_read,64'd0} : {64'd0,ram_dcache_data_read};
 wire flushUse;
 wire flush_addr_valid;
 wire flush_wen;
@@ -57,6 +59,7 @@ reg [22:0]meta2Tag [0:63];
 reg [2:0] plru[0:63];
 // Data 
 wire [127:0]sram_dout [3:0];
+//assign load_hit = hit && !mem_dcache_req && mem_dcache_valid;
 wire refill_bypass;
 reg refill_bypassR ; // 因为访问SRAM要有两个周期 bypass 也要维持至少两个周期
 // 查询路径
@@ -74,10 +77,9 @@ wire [127:0] hit_data = ({128{hit_vector[0]}} & sram_dout[0] )|
                         ({128{hit_vector[2]}} & sram_dout[2] )| 
                         ({128{hit_vector[3]}} & sram_dout[3] );
 // refill 旁路的数据选择
-wire [127:0] out_data = (refill_bypass || refill_bypassR) ? ram_dcache_data_read : hit_data;
+wire [127:0] out_data = (refill_bypass || refill_bypassR) ? ram_dcache_data_read_temp : hit_data;
 // 根据地址选择最终输出的64bit数据
 assign dcache_mem_data_read = mem_dcache_addr[3] ? out_data[127:64] : out_data[63:0];
-
 always@(posedge clk)
   if(rst)
     refill_bypassR <= 1'b0;
@@ -151,11 +153,12 @@ parameter IDLE    = 4'b0001,
 
 reg  [3:0] cur_state;
 reg  [3:0] nxt_state;
-always@(posedge clk)
+always@(posedge clk)begin
   if(rst)
     cur_state <= IDLE;
   else 
     cur_state <= nxt_state;
+end
 wire miss  = ~hit & mem_dcache_valid;  //地址有效且未命中
 wire dirty = (replace_way[0] & meta0D[index]) | 
              (replace_way[1] & meta1D[index]) | 
@@ -292,7 +295,7 @@ generate
     // addr 要根据invalidate 状态机选择相应的控制通路
     assign sram_addr[i]  = flushUse ? flushSramAddr : index;  //??
     // 重填写要注意 如果lsu请求为写 要将内存来的数据和请求拼接后写入
-    assign sram_din[i]   = = (hit_wen&&(cur_state == IDLE)) ? hit_wdata : 
+    assign sram_din[i]   = (hit_wen&&(cur_state == IDLE)) ? hit_wdata : 
                            mem_dcache_req ? ((ram_dcache_data_read & ~hit_wmask) | (hit_wdata & hit_wmask)) :
                            ram_dcache_data_read;
     assign sram_wmask[i] = (hit_wen&&(cur_state == IDLE)) ? ~hit_wmask : 128'h0;
