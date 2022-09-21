@@ -9,13 +9,13 @@ module ysyx_22040759_cpu(
     input  [63:0]   icache_data_read,
     output [31:0]   icache_addr,     
 
-    output          mem_valid       ,
-    input           mem_ready       ,
-    output          mem_req         ,
-    input  [63:0]   mem_data_read   ,
-    output [63:0]   mem_data_write  ,
-    output [31:0]   mem_addr        ,
-    output [2:0]    mem_size         
+    output          dcache_valid       ,
+    input           dcache_ready       ,
+    output          dcache_req         ,
+    input  [63:0]   dcache_data_read   ,
+    output [63:0]   dcache_data_write  ,
+    output [31:0]   dcache_addr        ,
+    output [2:0]    dcache_size         
 );
 //difftest
 wire [63:0] regs_ds_o[31:0];
@@ -60,6 +60,14 @@ wire       if_valid;
 wire       if_ready;
 wire [63:0]if_data_read;
 wire [31:0]if_addr;  
+
+wire       mem_valid       ;
+wire       mem_ready       ;
+wire       mem_req         ;
+wire [63:0]mem_data_read   ;
+wire [63:0]mem_data_write  ;
+wire [31:0]mem_addr        ;
+wire [2:0] mem_size        ;
 ysyx_22040759_IF IF(
     .clk            (clock),
     .rst            (reset),
@@ -183,14 +191,37 @@ ysyx_22040759_MEM MEM(
     .ms_to_ws_valid  (ms_to_ws_valid),
     .ms_to_ws_bus    (ms_to_ws_bus),
     .ms_isload       (ms_isload),
-    //to axi
-    .mem_valid       (mem_valid),
-    .mem_ready       (mem_ready),
-    .mem_req         (mem_req),
-    .mem_data_read   (mem_data_read),
+    //to dcache
+    .mem_valid       (mem_valid     ),
+    .mem_ready       (mem_ready     ),
+    .mem_req         (mem_req       ),
+    .mem_data_read   (mem_data_read ),
     .mem_data_write  (mem_data_write),
-    .mem_addr        (mem_addr),
-    .mem_size        (mem_size)
+    .mem_addr        (mem_addr      ),
+    .mem_size        (mem_size      )
+);
+
+ysyx_22040759_dcache dcache (
+  .clk                    (clock),
+  .rst                    (reset),   
+  .invalidate             (1'b0), // 刷新meta中的有效位
+  //from or to MEM
+  .mem_dcache_valid       (mem_valid        ),  //1请求 
+  .mem_dcache_addr        (mem_addr         ),  //1地址
+  .mem_dcache_req         (mem_req          ),  //1写使能
+  .lsu_dcache_invalidate_i(1'b0             ),  //先置零    !!  
+  .mem_dcache_data_write  (mem_data_write   ),  //1写数据
+  .mem_dcache_size        (mem_size         ),  //
+  .dcache_mem_data_read   (mem_data_read    ),  //1读数据
+  .dcache_mem_ready       (mem_ready        ),  //1ready
+  //from or to AXI
+  .dcache_ram_valid       (dcache_valid     ),  //1访存地址有效
+  .dcache_ram_req         (dcache_req       ),  //1访存写使能
+  .dcache_ram_addr        (dcache_addr      ),  //1访存地址
+  .dcache_ram_data_write  (dcache_data_write),  //1访存写数据
+  .dcache_ram_size        (dcache_size      ),  //1读写数据大小         
+  .ram_dcache_ready       (dcache_ready     ),  //1访存数据有效
+  .ram_dcache_data_read   (dcache_data_read )   //1回填数据
 );
 
 ysyx_22040759_WB WB(

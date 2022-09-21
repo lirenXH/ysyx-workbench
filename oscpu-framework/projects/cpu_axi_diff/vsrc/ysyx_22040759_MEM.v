@@ -95,7 +95,7 @@ assign ms_to_ws_bus ={
 
     assign   ms_hs_done     = mem_valid & mem_ready;    //读/写握手
     assign   mem_valid      = ms_mem_ren;
-    assign   mem_req        = ms_mem_wen ? 1'b1 : 1'b0;
+    assign   mem_req        = ms_mem_wen;
     assign   mem_size       = ms_func3;
     assign   mem_addr       = ms_alu_result[31:0];
     assign   mem_data_write = ms_src2;

@@ -94,7 +94,7 @@ wire w_state_write = w_state == W_STATE_WRITE, w_state_resp = w_state == W_STATE
     wire [2:0] axi_size     = AXI_SIZE[2:0];
     
     wire [AXI_ADDR_WIDTH-1:0] axi_waddr           = {wr_addr_i[AXI_ADDR_WIDTH-1:ALIGNED_WIDTH], {ALIGNED_WIDTH{1'b0}}};
-    wire  [2:0]  data_yu;
+    wire  [2:0]  addr_yu;
     assign axi_aw_valid_o   = w_state_addr;
     assign axi_aw_addr_o    = axi_waddr;
     assign axi_aw_prot_o    = `AXI_PROT_UNPRIVILEGED_ACCESS | `AXI_PROT_SECURE_ACCESS | `AXI_PROT_DATA_ACCESS;
@@ -107,26 +107,26 @@ wire w_state_write = w_state == W_STATE_WRITE, w_state_resp = w_state == W_STATE
     assign axi_aw_cache_o   = `AXI_AWCACHE_NORMAL_NON_CACHEABLE_NON_BUFFERABLE;
     assign axi_aw_qos_o     = 4'h0;
 
-    assign data_yu          = wr_addr_i[2:0];
+    assign addr_yu          = wr_addr_i[2:0];
 
     always @(*)begin
         case(wr_size_i[1:0])         //注意 地址时序问题
-            2'b00:   axi_w_strb_o = ({8{data_yu==0}} & 8'b0000_0001)                                     //sb
-                                   |({8{data_yu==1}} & 8'b0000_0010)
-                                   |({8{data_yu==2}} & 8'b0000_0100)
-                                   |({8{data_yu==3}} & 8'b0000_1000)
-                                   |({8{data_yu==4}} & 8'b0001_0000)
-                                   |({8{data_yu==5}} & 8'b0010_0000)
-                                   |({8{data_yu==6}} & 8'b0100_0000)
-                                   |({8{data_yu==7}} & 8'b1000_0000);
+            2'b00:   axi_w_strb_o = ({8{addr_yu==0}} & 8'b0000_0001)                                     //sb
+                                   |({8{addr_yu==1}} & 8'b0000_0010)
+                                   |({8{addr_yu==2}} & 8'b0000_0100)
+                                   |({8{addr_yu==3}} & 8'b0000_1000)
+                                   |({8{addr_yu==4}} & 8'b0001_0000)
+                                   |({8{addr_yu==5}} & 8'b0010_0000)
+                                   |({8{addr_yu==6}} & 8'b0100_0000)
+                                   |({8{addr_yu==7}} & 8'b1000_0000);
 
-            2'b01:   axi_w_strb_o = ({8{data_yu==0}} & 8'b0000_0011)                                     //sh
-                                   |({8{data_yu==2}} & 8'b0000_1100)
-                                   |({8{data_yu==4}} & 8'b0011_0000)
-                                   |({8{data_yu==6}} & 8'b1100_0000);
+            2'b01:   axi_w_strb_o = ({8{addr_yu==0}} & 8'b0000_0011)                                     //sh
+                                   |({8{addr_yu==2}} & 8'b0000_1100)
+                                   |({8{addr_yu==4}} & 8'b0011_0000)
+                                   |({8{addr_yu==6}} & 8'b1100_0000);
 
-            2'b10:   axi_w_strb_o = ({8{data_yu==0}} & 8'b0000_1111)                                     //sw
-                                   |({8{data_yu==4}} & 8'b1111_0000);
+            2'b10:   axi_w_strb_o = ({8{addr_yu==0}} & 8'b0000_1111)                                     //sw
+                                   |({8{addr_yu==4}} & 8'b1111_0000);
 
             2'b11:   axi_w_strb_o = 8'b1111_1111;                                                        //sd
             default: axi_w_strb_o = 8'b1111_1111;                     
@@ -134,7 +134,7 @@ wire w_state_write = w_state == W_STATE_WRITE, w_state_resp = w_state == W_STATE
     end                          
 
     assign axi_w_valid_o     = w_state == W_STATE_WRITE;
-    assign axi_w_data_o      = wr_data_i << (data_yu * 8);
+    assign axi_w_data_o      = wr_data_i << (addr_yu * 8);
     assign axi_w_last_o     = 1'b1;
 
     assign axi_b_ready_o     = w_state == W_STATE_RESP;

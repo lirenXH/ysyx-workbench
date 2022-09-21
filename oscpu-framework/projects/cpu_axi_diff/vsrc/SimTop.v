@@ -167,13 +167,13 @@ module SimTop(
         .icache_data_valid_o            (icache_ready),
         .icache_data_o                  (icache_data_read),
 
-        .mem_addr_valid_i               (mem_valid),
-        .mem_wen_i                      (mem_req),
-        .mem_addr_i                     (mem_addr),
-        .mem_size_i                     (mem_size),
-        .mem_wdata_i                    (mem_data_write),
-        .ram_data_valid_o               (mem_ready),
-        .ram_rdata_o                    (mem_data_read),
+        .mem_addr_valid_i               (dcache_valid),
+        .mem_wen_i                      (dcache_req),
+        .mem_addr_i                     (dcache_addr),
+        .mem_size_i                     (dcache_size),
+        .mem_wdata_i                    (dcache_data_write),
+        .ram_data_valid_o               (dcache_ready),
+        .ram_rdata_o                    (dcache_data_read),
         
         .axi_aw_ready_i                 (aw_ready),
         .axi_aw_valid_o                 (aw_valid),
@@ -230,13 +230,13 @@ module SimTop(
     wire [63:0] icache_data_read;
     wire [31:0] icache_addr;
 
-    wire mem_valid;
-    wire mem_ready;
-    wire mem_req;
-    wire [63:0] mem_data_read;
-    wire [63:0] mem_data_write;
-    wire [31:0] mem_addr;
-    wire [2:0]  mem_size;
+    wire        dcache_valid;
+    wire        dcache_ready;
+    wire        dcache_req;
+    wire [63:0] dcache_data_read;
+    wire [63:0] dcache_data_write;
+    wire [31:0] dcache_addr;
+    wire [2:0]  dcache_size;
     //wire [1:0]  mem_resp;
     ysyx_22040759_cpu u_cpu(
         .clock                       (clock),
@@ -247,13 +247,13 @@ module SimTop(
         .icache_data_read            (icache_data_read),
         .icache_addr                 (icache_addr),
         
-        .mem_valid                   (mem_valid),                
-        .mem_ready                   (mem_ready), 
-        .mem_req                     (mem_req),               
-        .mem_data_read               (mem_data_read),                
-        .mem_data_write              (mem_data_write),                
-        .mem_addr                    (mem_addr),                
-        .mem_size                    (mem_size)              
+        .dcache_valid                (dcache_valid),                
+        .dcache_ready                (dcache_ready), 
+        .dcache_req                  (dcache_req),               
+        .dcache_data_read            (dcache_data_read),                
+        .dcache_data_write           (dcache_data_write),                
+        .dcache_addr                 (dcache_addr),                
+        .dcache_size                 (dcache_size)              
     );
 
 
