@@ -309,7 +309,7 @@ generate
     assign sram_wen[i]   = ((cur_state == REFILL) && replace_way[i]) || (hit_wen && hit_vector[i]);
     // 下面三个是数据信号 不需要像wen那么精细的控制 只要 区分 refill 写 和 命中写即可
     // addr 要根据invalidate 状态机选择相应的控制通路
-    assign sram_addr[i]  = flushUse ? flushSramAddr : mem_dcache_addr[9:4];  //??
+    assign sram_addr[i]  = flushUse ? flushSramAddr : mem_dcache_addr[8:3];  //??
     // 重填写要注意 如果lsu请求为写 要将内存来的数据和请求拼接后写入
     assign sram_din[i]   = (hit_wen&&(cur_state == IDLE)) ? hit_wdata : 
                            mem_dcache_req ? ((ram_dcache_data_read_temp & ~hit_wmask) | (hit_wdata & hit_wmask)) :
