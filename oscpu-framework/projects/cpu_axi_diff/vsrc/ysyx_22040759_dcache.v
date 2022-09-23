@@ -59,7 +59,11 @@ reg [22:0]meta2Tag [0:63];
 reg [2:0] plru[0:63];
 // Data 
 wire [127:0]sram_dout [3:0];
-//assign load_hit = hit && !mem_dcache_req && mem_dcache_valid;
+reg [63:0] dcache_mem_data_read_r;
+wire [63:0]dcache_mem_data_read_1 ;
+wire [63:0]dcache_mem_data_read_2 ;
+wire [63:0]dcache_mem_data_read_3 ;
+reg load_hit ;
 wire refill_bypass;
 reg refill_bypassR ; // 因为访问SRAM要有两个周期 bypass 也要维持至少两个周期
 // 查询路径
@@ -79,20 +83,32 @@ wire [127:0] hit_data = ({128{hit_vector[0]}} & sram_dout[0] )|
 // refill 旁路的数据选择
 wire [127:0] out_data = (refill_bypass || refill_bypassR) ? ram_dcache_data_read_temp : hit_data;
 // 根据地址选择最终输出的64bit数据
-assign dcache_mem_data_read = mem_dcache_addr[3] ? out_data[127:64] : out_data[63:0];
+assign dcache_mem_data_read_1 = mem_dcache_addr[3] ? out_data[127:64] : out_data[63:0];//分开高低64bit
+assign dcache_mem_data_read_2 = dcache_mem_data_read_1 >> (addr_yu * 8);//对齐最低位
+assign dcache_mem_data_read_3 = ({64{mem_dcache_size==3'b000}} & {{56{dcache_mem_data_read_2[7 ]}},dcache_mem_data_read_2[7 :0]})                                      
+                               |({64{mem_dcache_size==3'b001}} & {{48{dcache_mem_data_read_2[15]}},dcache_mem_data_read_2[15:0]})
+                               |({64{mem_dcache_size==3'b010}} & {{32{dcache_mem_data_read_2[31]}},dcache_mem_data_read_2[31:0]})
+                               |({64{mem_dcache_size==3'b011}} & dcache_mem_data_read_2)
+                               |({64{mem_dcache_size==3'b100}} & {56'b0,dcache_mem_data_read_2[7:0] })                                      
+                               |({64{mem_dcache_size==3'b101}} & {48'b0,dcache_mem_data_read_2[15:0]})
+                               |({64{mem_dcache_size==3'b110}} & {32'b0,dcache_mem_data_read_2[31:0]});
+assign dcache_mem_data_read = load_hit ? dcache_mem_data_read_r : dcache_mem_data_read_3;
 always@(posedge clk)
   if(rst)
     refill_bypassR <= 1'b0;
   else 
     refill_bypassR <= refill_bypass;
 reg hitR;
-always@(posedge clk)
+always@(posedge clk)begin
+  load_hit <= hit && !mem_dcache_req && mem_dcache_valid;
+  dcache_mem_data_read_r <= dcache_mem_data_read_3;
   if(rst)
     hitR <= 1'b0;
   else if(hit && mem_dcache_valid && ~lsu_dcache_invalidate_i)
     hitR <= 1'b1;
   else
     hitR <= 1'b0;
+end
 // 命令有效且数据准备好了
 reg invalidateOK;
 assign dcache_mem_ready = (hitR  || refill_bypass || refill_bypassR || invalidateOK) && mem_dcache_valid;
@@ -102,7 +118,7 @@ wire [2:0]   addr_yu    = mem_dcache_addr[2:0];
 reg  [63:0]  wmask = 64'd0;
 always @(*)begin
     case(mem_dcache_size[1:0])       
-        2'b00:   wmask =        ({64{addr_yu==0}} & 64'h0000_0000_0000_00ff)                                     //sb
+        2'b00:   wmask =        ({64{addr_yu==0}} & 64'h0000_0000_0000_00ff)        //sb
                                |({64{addr_yu==1}} & 64'h0000_0000_0000_ff00)
                                |({64{addr_yu==2}} & 64'h0000_0000_00ff_0000)
                                |({64{addr_yu==3}} & 64'h0000_0000_ff00_0000)
@@ -111,20 +127,20 @@ always @(*)begin
                                |({64{addr_yu==6}} & 64'h00ff_0000_0000_0000)
                                |({64{addr_yu==7}} & 64'hff00_0000_0000_0000);
 
-        2'b01:   wmask =        ({64{addr_yu==0}} & 64'h0000_0000_0000_ffff)                                     //sh
+        2'b01:   wmask =        ({64{addr_yu==0}} & 64'h0000_0000_0000_ffff)        //sh
                                |({64{addr_yu==2}} & 64'h0000_0000_ffff_0000)
                                |({64{addr_yu==4}} & 64'h0000_ffff_0000_0000)
                                |({64{addr_yu==6}} & 64'hffff_0000_0000_0000);
                                
-        2'b10:   wmask =        ({64{addr_yu==0}} & 64'h0000_0000_ffff_ffff)                                     //sw
+        2'b10:   wmask =        ({64{addr_yu==0}} & 64'h0000_0000_ffff_ffff)        //sw
                                |({64{addr_yu==4}} & 64'hffff_ffff_0000_0000);
         2'b11:   wmask = 64'hffff_ffff_ffff_ffff;                                                       
         default: wmask = 64'h0000_0000_0000_0000;                     
     endcase
 end  
-
+wire [63:0]  mem_dcache_data_write_1 = mem_dcache_data_write << (addr_yu * 8);//对齐最低位
 wire [127:0] hit_wmask  = mem_dcache_addr[3] ? {wmask,64'h0} : {64'h0,wmask};
-wire [127:0] hit_wdata  = mem_dcache_addr[3] ? {mem_dcache_data_write,64'h0} : {64'h0,mem_dcache_data_write};
+wire [127:0] hit_wdata  = mem_dcache_addr[3] ? {mem_dcache_data_write_1,64'h0} : {64'h0,mem_dcache_data_write_1};
 // 更新路径
 // findout invalid way
 wire [3:0] invalid_victor = ~{meta0V[index],meta1V[index],meta2V[index],meta3V[index]};
@@ -293,12 +309,12 @@ generate
     assign sram_wen[i]   = ((cur_state == REFILL) && replace_way[i]) || (hit_wen && hit_vector[i]);
     // 下面三个是数据信号 不需要像wen那么精细的控制 只要 区分 refill 写 和 命中写即可
     // addr 要根据invalidate 状态机选择相应的控制通路
-    assign sram_addr[i]  = flushUse ? flushSramAddr : index;  //??
+    assign sram_addr[i]  = flushUse ? flushSramAddr : mem_dcache_addr[9:4];  //??
     // 重填写要注意 如果lsu请求为写 要将内存来的数据和请求拼接后写入
     assign sram_din[i]   = (hit_wen&&(cur_state == IDLE)) ? hit_wdata : 
-                           mem_dcache_req ? ((ram_dcache_data_read & ~hit_wmask) | (hit_wdata & hit_wmask)) :
-                           ram_dcache_data_read;
-    assign sram_wmask[i] = (hit_wen&&(cur_state == IDLE)) ? ~hit_wmask : 128'h0;
+                           mem_dcache_req ? ((ram_dcache_data_read_temp & ~hit_wmask) | (hit_wdata & hit_wmask)) :
+                           ram_dcache_data_read_temp;
+    assign sram_wmask[i] = (hit_wen&&(cur_state == IDLE)) ? ~hit_wmask : mem_dcache_addr[3] ? {64'b0,~64'b0} : {~64'b0,64'b0};
     SRAM sram(
       .clk(clk),
       .cs (mem_dcache_valid),

@@ -18,7 +18,7 @@ module ysyx_22040759_MEM(
     output [63:0]  ms_load_data     ,
     //to fazard
     output         ms_mem_ren       ,
-    //to axi
+    //to dcache
     output         mem_valid       ,
     input          mem_ready       ,
     output         mem_req         ,
