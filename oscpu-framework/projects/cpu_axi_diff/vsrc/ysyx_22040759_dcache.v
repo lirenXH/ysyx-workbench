@@ -414,7 +414,7 @@ always@(posedge clk)
   else 
     invalidateOK <= 1'b0;
 
-// To mem 跟Cache 写通路共用 因为 invalidate 与 hit 逻辑都是 走的LSU通路 所以不会同时发生
+//
 assign  dcache_ram_valid      = flushUse ? flush_addr_valid : normal_dcache_ram_valid     ;
 assign  dcache_ram_req        = flushUse ? flush_wen        : normal_dcache_ram_req       ;
 assign  dcache_ram_addr       = flushUse ? flush_addr       : normal_dcache_ram_addr      ;

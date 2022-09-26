@@ -1,7 +1,6 @@
 `include"./ysyx_22040759_inst.v"
 `include"./ysyx_22040759_define.v"
-module ysyx_22040759_ID(                                                //写后读  ： 阻塞  前递
-                                                                        //分支跳转： 冲刷
+module ysyx_22040759_ID(
     input              clk           ,
     input              rst           ,
         //allowin
@@ -84,7 +83,7 @@ module ysyx_22040759_ID(                                                //写后
             fs_to_ds_bus_r <= fs_to_ds_bus;
         end
         //else if(!fs_to_ds_valid)begin
-        //    fs_to_ds_bus_r <= {32'h13,64'h0}; //不能简单为0
+        //    fs_to_ds_bus_r <= {32'h13,64'h0};
         //end
     end
 
@@ -109,68 +108,68 @@ module ysyx_22040759_ID(                                                //写后
         if(en_control==0)begin
         casez(inst)
                                    //     3        5       2          2          1         2       2            1       1          1
-                                   // imme_sel alu_sel    alu_a_sel  alu_b_sel  reg_wen   pc_sel  wreg_sel    mem_wen mem_ren  jump_flag
-            `auipc  :      con_signal={`imm_u,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `lui    :      con_signal={`imm_u,`alu_add  ,`alu_a_0  ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `jal    :      con_signal={`imm_j,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    ,   `Y};
-            `jalr   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,    `N   ,  `N    ,   `Y};
-            `sh     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `Y    ,   `N};
-            `sd     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `Y    ,   `N};
-            `sw     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `Y    ,   `N};
-            `sb     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,    `Y   ,  `Y    ,   `N};
-            `lb     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `ld     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `lw     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `lh     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `lwu    :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `lhu    :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `lbu    :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,    `N   ,  `Y    ,   `N};
-            `and    :      con_signal={`imm_r,`alu_and  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `andi   :      con_signal={`imm_i,`alu_and  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `add    :      con_signal={`imm_r,`alu_add  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `or     :      con_signal={`imm_r,`alu_or   ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `ori    :      con_signal={`imm_i,`alu_or   ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `xor    :      con_signal={`imm_r,`alu_xor  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `xori   :      con_signal={`imm_i,`alu_xor  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `mul    :      con_signal={`imm_r,`alu_mul  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `mulw   :      con_signal={`imm_r,`alu_mulw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `div    :      con_signal={`imm_r,`alu_div  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `divu   :      con_signal={`imm_r,`alu_divu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `divw   :      con_signal={`imm_r,`alu_divw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `rem    :      con_signal={`imm_r,`alu_rem  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `remu   :      con_signal={`imm_r,`alu_remu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `remw   :      con_signal={`imm_r,`alu_remw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `addi   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `addw   :      con_signal={`imm_r,`alu_addw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `addiw  :      con_signal={`imm_i,`alu_addw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `sub    :      con_signal={`imm_r,`alu_sub  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `subw   :      con_signal={`imm_r,`alu_subw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `slti   :      con_signal={`imm_i,`alu_slt  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `sltiu  :      con_signal={`imm_i,`alu_sltu ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `slt    :      con_signal={`imm_r,`alu_slt  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N}; 
-            `sltu   :      con_signal={`imm_r,`alu_sltu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N}; 
-            `sra    :      con_signal={`imm_r,`alu_sra  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `srai   :      con_signal={`imm_i,`alu_sra  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `sraw   :      con_signal={`imm_r,`alu_sraw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `sraiw  :      con_signal={`imm_i,`alu_sraw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `slliw  :      con_signal={`imm_i,`alu_sllw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `sllw   :      con_signal={`imm_r,`alu_sllw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `sll    :      con_signal={`imm_r,`alu_sll  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `slli   :      con_signal={`imm_i,`alu_sll  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `srl    :      con_signal={`imm_r,`alu_srl  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `srli   :      con_signal={`imm_i,`alu_srl  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `srlw   :      con_signal={`imm_r,`alu_srlw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
-            `srliw  :      con_signal={`imm_i,`alu_srlw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,    `N   ,  `N    ,   `N};
+                                   // imme_sel alu_sel    alu_a_sel  alu_b_sel  reg_wen   pc_sel  wreg_sel   mem_wen mem_ren  jump_flag
+            `auipc  :      con_signal={`imm_u,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `lui    :      con_signal={`imm_u,`alu_add  ,`alu_a_0  ,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `jal    :      con_signal={`imm_j,`alu_add  ,`alu_a_pc ,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,   `N   ,  `N    ,   `Y};
+            `jalr   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_alu,`wreg_pc ,   `N   ,  `N    ,   `Y};
+            `sh     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,   `Y   ,  `Y    ,   `N};
+            `sd     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,   `Y   ,  `Y    ,   `N};
+            `sw     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,   `Y   ,  `Y    ,   `N};
+            `sb     :      con_signal={`imm_s,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_nwen,`pc_pc ,`wreg_xx ,   `Y   ,  `Y    ,   `N};
+            `lb     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `ld     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `lw     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `lh     :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `lwu    :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `lhu    :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `lbu    :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_ram,   `N   ,  `Y    ,   `N};
+            `and    :      con_signal={`imm_r,`alu_and  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `andi   :      con_signal={`imm_i,`alu_and  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `add    :      con_signal={`imm_r,`alu_add  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `or     :      con_signal={`imm_r,`alu_or   ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `ori    :      con_signal={`imm_i,`alu_or   ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `xor    :      con_signal={`imm_r,`alu_xor  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `xori   :      con_signal={`imm_i,`alu_xor  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `mul    :      con_signal={`imm_r,`alu_mul  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `mulw   :      con_signal={`imm_r,`alu_mulw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `div    :      con_signal={`imm_r,`alu_div  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `divu   :      con_signal={`imm_r,`alu_divu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `divw   :      con_signal={`imm_r,`alu_divw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `rem    :      con_signal={`imm_r,`alu_rem  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `remu   :      con_signal={`imm_r,`alu_remu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `remw   :      con_signal={`imm_r,`alu_remw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `addi   :      con_signal={`imm_i,`alu_add  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `addw   :      con_signal={`imm_r,`alu_addw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `addiw  :      con_signal={`imm_i,`alu_addw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `sub    :      con_signal={`imm_r,`alu_sub  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `subw   :      con_signal={`imm_r,`alu_subw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `slti   :      con_signal={`imm_i,`alu_slt  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `sltiu  :      con_signal={`imm_i,`alu_sltu ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `slt    :      con_signal={`imm_r,`alu_slt  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N}; 
+            `sltu   :      con_signal={`imm_r,`alu_sltu ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N}; 
+            `sra    :      con_signal={`imm_r,`alu_sra  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `srai   :      con_signal={`imm_i,`alu_sra  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `sraw   :      con_signal={`imm_r,`alu_sraw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `sraiw  :      con_signal={`imm_i,`alu_sraw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `slliw  :      con_signal={`imm_i,`alu_sllw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `sllw   :      con_signal={`imm_r,`alu_sllw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `sll    :      con_signal={`imm_r,`alu_sll  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `slli   :      con_signal={`imm_i,`alu_sll  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `srl    :      con_signal={`imm_r,`alu_srl  ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `srli   :      con_signal={`imm_i,`alu_srl  ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `srlw   :      con_signal={`imm_r,`alu_srlw ,`alu_a_reg,`alu_b_reg,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            `srliw  :      con_signal={`imm_i,`alu_srlw ,`alu_a_reg,`alu_b_imm,`reg_wen ,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
             //fenzhi
-            `bne    :      con_signal={`imm_b,`bru_bne  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `beq    :      con_signal={`imm_b,`bru_beq  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `bge    :      con_signal={`imm_b,`bru_bge  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `blt    :      con_signal={`imm_b,`bru_blt  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `bltu   :      con_signal={`imm_b,`bru_bltu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `bgeu   :      con_signal={`imm_b,`bru_bgeu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,    `N   ,  `N    ,   `Y};
-            `ebreak :      con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    ,   `N};
-            `nop    :      con_signal={`imm_i,`alu_add  ,`alu_a_0  ,`alu_b_0  ,`reg_nwen,`pc_pc ,`wreg_alu ,   `N   ,  `N    ,   `N};
-            default :      con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,    `N   ,  `N    ,   `N};
+            `bne    :      con_signal={`imm_b,`bru_bne  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,   `N   ,  `N    ,   `Y};
+            `beq    :      con_signal={`imm_b,`bru_beq  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,   `N   ,  `N    ,   `Y};
+            `bge    :      con_signal={`imm_b,`bru_bge  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,   `N   ,  `N    ,   `Y};
+            `blt    :      con_signal={`imm_b,`bru_blt  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,   `N   ,  `N    ,   `Y};
+            `bltu   :      con_signal={`imm_b,`bru_bltu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,   `N   ,  `N    ,   `Y};
+            `bgeu   :      con_signal={`imm_b,`bru_bgeu ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`bru_pc,`wreg_xx ,   `N   ,  `N    ,   `Y};
+            `ebreak :      con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,   `N   ,  `N    ,   `N};
+            `nop    :      con_signal={`imm_i,`alu_add  ,`alu_a_0  ,`alu_b_0  ,`reg_nwen,`pc_pc ,`wreg_alu,   `N   ,  `N    ,   `N};
+            default :      con_signal={`imm_x,`alu_xxx  ,`alu_a_x  ,`alu_b_x  ,`reg_nwen,`pc_pc ,`wreg_xx ,   `N   ,  `N    ,   `N};
         endcase
         end
         else begin

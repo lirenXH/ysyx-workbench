@@ -62,7 +62,7 @@ assign rf_wreg_data=({64{ws_wreg_sel==`wreg_pc }} & ws_pc +64'd4) |     //jalr
 
 assign ws_to_rf_bus = {rf_wen      ,  //69:69
                        rf_waddr    ,  //68:64
-                       rf_wreg_data   //63:0
+                       rf_wreg_data   //63:0        //需要和CSR选一下
                       };
 
 endmodule
