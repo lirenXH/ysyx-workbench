@@ -51,14 +51,14 @@
 `define alu_div     5'd13  
 `define alu_divu    5'd14   //01101
 
-`define alu_addw    5'b10000//最高位为1时  代表32位w   16
-`define alu_sllw    5'b10001
-`define alu_mulw    5'b10010
-`define alu_divw    5'b10011
-`define alu_remw    5'b10100
-`define alu_subw    5'b10101
-`define alu_sraw    5'b10110
-`define alu_srlw    5'b10111
+`define alu_addw    5'b11000//最高位和次高位为1时  代表32位w   16
+`define alu_sllw    5'b11001
+`define alu_mulw    5'b11010
+`define alu_divw    5'b11011
+`define alu_remw    5'b11100
+`define alu_subw    5'b11101
+`define alu_sraw    5'b11110
+`define alu_srlw    5'b11111
 //bru_sel
 `define bru_beq     5'd6
 `define bru_bne     5'd1
@@ -68,6 +68,13 @@
 `define bru_bgeu    5'd5
 `define bru_jal     5'd0
 `define bru_jalr    5'd7
+//clu_sel
+`define clu_c       5'b10001
+`define clu_s       5'b10010
+`define clu_w       5'b10011
+`define clu_ecall   5'b10100
+`define clu_ebreak  5'b10101
+`define clu_mret    5'b10110
 //alu_a_sel
 `define alu_a_x     2'd0
 `define alu_a_reg   2'd0

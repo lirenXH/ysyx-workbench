@@ -20,7 +20,7 @@ module ysyx_22040759_alu(
     wire    [63:0]     rem_result;
     wire    [63:0]     remu_result;
     wire    [63:0]     sltu_result;
-    wire               risc32_mode = alu_sel[4];
+    wire               risc32_mode = alu_sel[4:3] == 2'b11;
 
     wire [31:0] srl_32 = alu_a[31:0] >> shamt[4:0]          ;   
     wire [31:0] sra_32 = $signed(alu_a[31:0]) >>> shamt[4:0];
@@ -62,7 +62,7 @@ module ysyx_22040759_alu(
                       | ({64{alu_sel == `alu_mulw }} & mul_result  )
                       | ({64{alu_sel == `alu_rem  }} & rem_result  )
                       | ({64{alu_sel == `alu_remw }} & rem_result  )
-                      | ({64{alu_sel == `alu_remu }} & remu_result  )
+                      | ({64{alu_sel == `alu_remu }} & remu_result )
                       | ({64{alu_sel == `alu_sltu }} & sltu_result )
                       | ({64{alu_sel == `alu_slt  }} & slt_result  )
                       | ({64{alu_sel == `alu_sra  }} & sra_result  )
