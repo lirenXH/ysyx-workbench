@@ -116,7 +116,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, t = C(csr1);C(csr1)=(t | src1) ;R(dest)=t);
   INSTPAT("??????? ????? ????? 011 ????? 11100 11", csrrc  , I, t = C(csr1);C(csr1)=t & ~src1;R(dest)=t);
   //INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, t = s->pc + (word_t)4;s->dnpc = (src1 + src2) & 0xfffffffe;R(dest) = t);
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->snpc = isa_raise_intr(11,C(0x305)));//C(0x305) is mtvec 需要修改dnpc 因此需要将mtvec当作返回值传回
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(11,C(0x305)));//C(0x305) is mtvec 需要修改dnpc 因此需要将mtvec当作返回值传回
   //INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , N, isa_raise_intr(11,s->pc));
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
