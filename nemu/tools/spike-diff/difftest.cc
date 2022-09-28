@@ -50,7 +50,7 @@ void sim_t::diff_get_regs(void* diff_context) {
   ctx->csr[0]  = state->mstatus;
   ctx->csr[65] = state->mepc;
   ctx->csr[66] = state->mcause;
-  printf("get mstatus =  0x%016lx",state->mstatus);
+  printf("get mstatus =  0x%016lx\n",state->mstatus);
   ctx->pc = state->pc;
 }
 
@@ -59,7 +59,7 @@ void sim_t::diff_set_regs(void* diff_context) {
   for (int i = 0; i < NXPR; i++) {
     state->XPR.write(i, (sword_t)ctx->gpr[i]);
   }
-  printf("set mstatus = 0x%016lx",ctx->csr[0]);
+  printf("set mstatus = 0x%016lx\n",ctx->csr[0]);
   state->mstatus = ctx->csr[0];
   state->mepc    = ctx->csr[65];
   state->mcause  = ctx->csr[66];
