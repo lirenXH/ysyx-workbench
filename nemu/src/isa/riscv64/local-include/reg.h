@@ -9,8 +9,8 @@ static inline int check_reg_idx(int idx) {
 }
 
 static inline int check_csr_idx(int idx) {
-  printf("csr idx = 0x%08x\n",idx);
-  IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx <= 75));//check csr idx
+  //printf("csr idx = 0x%08x\n",idx);
+  //IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx <= 75));//check csr idx
   return idx;
 }
 
