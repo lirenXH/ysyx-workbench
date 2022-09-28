@@ -23,11 +23,14 @@ void isa_reg_display() {
     printf("%s -> 0x%08lX\n",regs[i],cpu.gpr[i]);
   for(i=0;i<=75;i++){
     if(i >= 0 && i < 7)
-      printf("%s -> 0x%08lX\n",csrs[i],cpu.csr[i]);
+      printf("%s -> 0x%08lX  ",csrs[i],cpu.csr[i]);
+    printf("\n");
     if(i >= 64 && i < 69)
-      printf("%s -> 0x%08lX\n",csrs[i],cpu.csr[i]);
+      printf("%s -> 0x%08lX  ",csrs[i],cpu.csr[i]);
+    printf("\n");
     if(i >= 74 && i <= 75)
-      printf("%s -> 0x%08lX\n",csrs[i],cpu.csr[i]);
+      printf("%s -> 0x%08lX  ",csrs[i],cpu.csr[i]);
+    printf("\n");
   }
 }
 
