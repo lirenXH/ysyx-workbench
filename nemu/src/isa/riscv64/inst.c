@@ -28,6 +28,7 @@ static word_t immB(uint32_t i) { return (SEXT(BITS(i, 31, 31), 1) << 12) | (BITS
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, word_t *csr1, int type) {
   uint32_t i = s->isa.inst.val;
+  printf("inst is 0x%08x",i);
   int rd  = BITS(i, 11, 7);
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
