@@ -58,10 +58,10 @@ void sim_t::diff_set_regs(void* diff_context) {
   for (int i = 0; i < NXPR; i++) {
     state->XPR.write(i, (sword_t)ctx->gpr[i]);
   }
-  printf("set mstatus = 0x%016lx",ctx->csr[67]);
+  printf("set mstatus = 0x%016lx",ctx->csr[0]);
   state->mcause  = ctx->csr[66];
   state->mepc    = ctx->csr[65];
-  state->mstatus = ctx->csr[67];
+  state->mstatus = ctx->csr[0];
   state->pc      = ctx->pc;
 }
 
