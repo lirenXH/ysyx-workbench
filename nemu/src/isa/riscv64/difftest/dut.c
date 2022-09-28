@@ -27,7 +27,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
       printf("ref_r.pc=%lx,cpu.pc=%lx\n",ref_r->pc,cpu.pc);
       pc_flag=0;
     }
-  if(ref_r->csr[65]==cpu.csr[65] && ref_r->csr[66]==cpu.csr[66] && ref_r->csr[0]==cpu.csr[0]) //65 mepc 66mcause 67mstatus
+  if(ref_r->csr[65]==cpu.csr[65] && ref_r->csr[66]==cpu.csr[66] && ref_r->csr[0]==cpu.csr[0]) //65 mepc 66mcause 0mstatus
       csr_flag=1;
   else{
     if(ref_r->csr[65]!=cpu.csr[65])
