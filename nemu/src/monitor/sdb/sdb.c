@@ -136,6 +136,7 @@ void sdb_set_batch_mode() {
 
 void sdb_mainloop() {
   cpu.csr[0] = 0xa00001800; //IDO for mstatus difftest
+  printf("cpu.csr set 1800\n");
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
