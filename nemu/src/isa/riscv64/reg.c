@@ -24,7 +24,7 @@ void isa_reg_display() {
   for(i=0;i<=75;i++){
     if(i >= 0 && i < 7)
       printf("%8s -> 0x%016lx  ",csrs[i],cpu.csr[i]);
-    if(i==4)
+    if(i==4 ||i==7)
       printf("\n");
     if(i >= 64 && i < 69)
       printf("%8s -> 0x%016lx  ",csrs[i],cpu.csr[i]);
