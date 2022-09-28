@@ -50,6 +50,7 @@ void sim_t::diff_get_regs(void* diff_context) {
   ctx->csr[0]  = state->mcause;
   ctx->csr[65] = state->mepc;
   ctx->csr[66] = state->mstatus;
+  printf("get mstatus =  0x%016lx",state->mstatus);
   ctx->pc = state->pc;
 }
 
