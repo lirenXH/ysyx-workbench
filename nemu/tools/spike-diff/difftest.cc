@@ -60,7 +60,7 @@ void sim_t::diff_set_regs(void* diff_context) {
     state->XPR.write(i, (sword_t)ctx->gpr[i]);
   }
   printf("set mstatus = 0x%016lx\n",ctx->csr[0]);
-  state->mstatus = ctx->csr[0];
+  //state->mstatus = ctx->csr[0];
   state->mepc    = ctx->csr[65];
   state->mcause  = ctx->csr[66];
   state->pc      = ctx->pc;
