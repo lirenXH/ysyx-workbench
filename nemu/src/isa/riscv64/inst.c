@@ -28,7 +28,7 @@ static word_t immB(uint32_t i) { return (SEXT(BITS(i, 31, 31), 1) << 12) | (BITS
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, word_t *csr1, int type) {
   uint32_t i = s->isa.inst.val;
-  printf("inst is 0x%08x",i);
+  //printf("inst is 0x%08x\n",i);
   int rd  = BITS(i, 11, 7);
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
@@ -121,7 +121,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();
-  
+  printf("t = 0x%016lx csr1 = 0x%016lx\n",t,csr1);
   R(0) = 0; // reset $zero to 0
 
   return 0;
