@@ -25,6 +25,7 @@ static debug_module_config_t difftest_dm_config = {
 
 struct diff_context_t {
   word_t gpr[32];
+  word_t csr[76];
   word_t pc;
 };
 
@@ -46,6 +47,9 @@ void sim_t::diff_get_regs(void* diff_context) {
   for (int i = 0; i < NXPR; i++) {
     ctx->gpr[i] = state->XPR[i];
   }
+  ctx->csr[66] = state->mcause;
+  ctx->csr[65] = state->mepc;
+  ctx->csr[67] = state->mstatus;
   ctx->pc = state->pc;
 }
 
@@ -54,7 +58,10 @@ void sim_t::diff_set_regs(void* diff_context) {
   for (int i = 0; i < NXPR; i++) {
     state->XPR.write(i, (sword_t)ctx->gpr[i]);
   }
-  state->pc = ctx->pc;
+  state->mcause  = ctx->csr[66];
+  state->mepc    = ctx->csr[65];
+  state->mstatus = ctx->csr[67];
+  state->pc      = ctx->pc;
 }
 
 void sim_t::diff_memcpy(reg_t dest, void* src, size_t n) {

@@ -10,6 +10,7 @@ char *regs1[] = {
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   int re_flag=1;
   int pc_flag=1;
+  int csr_flag=1;
   for(int i=0;i<32;i++){
     if(ref_r->gpr[i]==cpu.gpr[i])
       re_flag=1;
@@ -26,7 +27,13 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
       printf("ref_r.pc=%lx,cpu.pc=%lx\n",ref_r->pc,cpu.pc);
       pc_flag=0;
     }
-  if(re_flag==1&&pc_flag==1)
+  if(ref_r->csr[65]==cpu.csr[65] && ref_r->csr[66]==cpu.csr[66] && ref_r->csr[0]==cpu.csr[0]) //65 mepc 66mcause 67mstatus
+      csr_flag=1;
+  else{
+      printf("csr wrong");
+      csr_flag=0;
+  }
+  if(re_flag==1&&pc_flag==1&&csr_flag==1)
     return true;
   else
     return false;
