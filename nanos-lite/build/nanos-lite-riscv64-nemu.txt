@@ -772,7 +772,7 @@ Disassembly of section .text:
     80000a98:	012787b3          	add	a5,a5,s2
     80000a9c:	00078067          	jr	a5
     80000aa0:	01813783          	ld	a5,24(sp)
-    80000aa4:	0007bd83          	ld	s11,0(a5)
+    80000aa4:	0007ad83          	lw	s11,0(a5)
     80000aa8:	00878793          	addi	a5,a5,8
     80000aac:	00f13c23          	sd	a5,24(sp)
     80000ab0:	1c0dc663          	bltz	s11,80000c7c <printf+0x2b0>
