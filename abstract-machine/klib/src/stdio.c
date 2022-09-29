@@ -6,7 +6,8 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 			
 void printNum(unsigned long num, int base);
-void printDeci(int dec);				
+void printDeci(int dec);	
+void printDeci_long(long int dec_long);			
 void printStr(char *str);	
 int printf_count;
 int printf(const char *fmt, ...) {
@@ -25,6 +26,8 @@ int printf(const char *fmt, ...) {
 		switch (fmt[++i]) 
 		{
 			case 'd': printDeci(va_arg(va_ptr,int));           
+			  		  break; 
+			case 'l': printDeci_long(va_arg(va_ptr,int));     //mean ld      
 			  		  break; 
 		    case 'c': putch(va_arg(va_ptr,int));            
 			  		  break;
@@ -64,6 +67,24 @@ void printDeci(int dec)
     else
     {
         printNum(dec, 10); 
+    }
+}
+
+void printDeci_long(long int dec_long)
+{
+	if (dec_long < 0)
+    {
+        putch('-');
+		dec_long = -dec_long;  	 
+    }
+    if (dec_long == 0)
+    {
+        putch('0');
+		return;
+    }
+    else
+    {
+        printNum(dec_long, 10); 
     }
 }
 
