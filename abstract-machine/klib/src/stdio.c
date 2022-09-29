@@ -29,7 +29,9 @@ int printf(const char *fmt, ...) {
 			case 'd': printDeci(va_arg(va_ptr,int));           
 			  		  break; 
 			case 'x': printHex(va_arg(va_ptr,int));           
-			  		  break; 
+			  		  break;
+			case 'p': printHex(va_arg(va_ptr,int));           
+			  		  break;  
 			case 'l': printDeci_long(va_arg(va_ptr,int));     //mean ld      
 			  		  break; 
 		    case 'c': putch(va_arg(va_ptr,int));            
