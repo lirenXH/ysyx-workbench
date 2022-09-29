@@ -7,7 +7,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 static inline bool get_CU0(Context *c) { return (c->status >> 28) & 0x1; }
 
 Context* __am_irq_handle(Context *c) {
-  printf("mstatus=0x%08lx,mepc=0x%08lx,mcause=0x%08lx\n",c.mstatus,c.mepc,c.mcause);
+  
   if (user_handler) {
     Event ev = {0};
     uint32_t ex_code = 0;
