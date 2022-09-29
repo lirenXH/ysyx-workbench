@@ -178,7 +178,7 @@ Disassembly of section .text:
     80000268:	02013823          	sd	zero,48(sp)
     8000026c:	02013c23          	sd	zero,56(sp)
     80000270:	07c000ef          	jal	ra,800002ec <ramdisk_read>
-    80000274:	00010593          	mv	a1,sp
+    80000274:	02000593          	li	a1,32
     80000278:	00001517          	auipc	a0,0x1
     8000027c:	45050513          	addi	a0,a0,1104 # 800016c8 <__func__.1+0x158>
     80000280:	78c000ef          	jal	ra,80000a0c <printf>

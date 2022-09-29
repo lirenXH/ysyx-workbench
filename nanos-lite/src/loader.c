@@ -13,7 +13,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr elf_E = {};
   //Elf_Phdr elf_P = {};
   ramdisk_read(&elf_E , 0 , sizeof(elf_E));
-  printf("moshu is %x",elf_E.e_ident);
+  printf("moshu is %x",32);
   assert(*(uint32_t *)elf_E.e_ident == 0x464c457f);
   TODO();
   return 0;
