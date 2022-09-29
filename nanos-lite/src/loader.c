@@ -19,6 +19,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     uint64_t phoff_temp = elf_E.e_phoff + elf_E.e_phentsize * i;
     ramdisk_read(&elf_P,phoff_temp,elf_E.e_phentsize);
     if(elf_P.p_type == PT_LOAD){
+      printf("load %d\n",i);
       ramdisk_read((void*)elf_P.p_paddr,elf_P.p_offset,elf_P.p_memsz);//若是load则 load对应size
       memset((void *)(elf_P.p_vaddr + elf_P.p_filesz), 0 ,(elf_P.p_memsz - elf_P.p_filesz));  //清零 对应位置
     }
@@ -29,7 +30,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
 void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);    //需要返回一个入口地址
-  printf("entry = %d",entry);
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
