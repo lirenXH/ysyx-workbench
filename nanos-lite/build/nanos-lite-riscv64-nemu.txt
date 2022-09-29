@@ -183,8 +183,8 @@ Disassembly of section .text:
     8000027c:	45050513          	addi	a0,a0,1104 # 800016c8 <__func__.1+0x158>
     80000280:	78c000ef          	jal	ra,80000a0c <printf>
     80000284:	00012703          	lw	a4,0(sp)
-    80000288:	7f4557b7          	lui	a5,0x7f455
-    8000028c:	c4678793          	addi	a5,a5,-954 # 7f454c46 <_entry_offset+0x7f454c46>
+    80000288:	464c47b7          	lui	a5,0x464c4
+    8000028c:	57f78793          	addi	a5,a5,1407 # 464c457f <_entry_offset+0x464c457f>
     80000290:	02f70a63          	beq	a4,a5,800002c4 <naive_uload+0x88>
     80000294:	00001717          	auipc	a4,0x1
     80000298:	44470713          	addi	a4,a4,1092 # 800016d8 <__func__.1+0x168>
@@ -788,7 +788,7 @@ Disassembly of section .text:
     80000ad8:	012787b3          	add	a5,a5,s2
     80000adc:	00078067          	jr	a5
     80000ae0:	01813783          	ld	a5,24(sp)
-    80000ae4:	0007bd83          	ld	s11,0(a5)
+    80000ae4:	0007ad83          	lw	s11,0(a5)
     80000ae8:	00878793          	addi	a5,a5,8
     80000aec:	00f13c23          	sd	a5,24(sp)
     80000af0:	1c0dc663          	bltz	s11,80000cbc <printf+0x2b0>
