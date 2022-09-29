@@ -9,8 +9,9 @@ Context* __am_irq_handle(Context *c) {
           printf("handle mcause is %d\n",c->mcause);
     Event ev = {0};
     switch (c->mcause) {
-      case 11 :  
+      case 11 :  printf("1");
         if(c->GPR1 == -1){
+          printf("2");
           ev.event = EVENT_YIELD;//事件分发
           c->mepc += 4;  //pc+4用于恢复上下文
         }break;
