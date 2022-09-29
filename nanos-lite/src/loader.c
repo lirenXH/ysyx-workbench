@@ -1,6 +1,6 @@
 #include <proc.h>
 #include <elf.h>
-
+#include <common.h>
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
 # define Elf_Phdr Elf64_Phdr
@@ -10,6 +10,10 @@
 #endif
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  Elf_Ehdr elf_E = {};
+  //Elf_Phdr elf_P = {};
+  ramdisk_read(&elf_E , 0 , sizeof(elf_E));
+  printf("moshu is %d\n",elf_E.e_ident);
   TODO();
   return 0;
 }
