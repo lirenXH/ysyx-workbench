@@ -3,6 +3,7 @@ cmd_/home/xuhao/learngit/ysyx-workbench/nemu/build/obj-riscv64-nemu-interpreter/
 source_/home/xuhao/learngit/ysyx-workbench/nemu/build/obj-riscv64-nemu-interpreter/src/isa/riscv64/system/intr.o := src/isa/riscv64/system/intr.c
 
 deps_/home/xuhao/learngit/ysyx-workbench/nemu/build/obj-riscv64-nemu-interpreter/src/isa/riscv64/system/intr.o := \
+    $(wildcard include/config/etrace.h) \
   /home/xuhao/learngit/ysyx-workbench/nemu/include/isa.h \
   /home/xuhao/learngit/ysyx-workbench/nemu/src/isa/riscv64/include/isa-def.h \
   /home/xuhao/learngit/ysyx-workbench/nemu/include/common.h \
