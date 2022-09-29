@@ -8,7 +8,9 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   cpu.csr[66] = NO;     //mcause
   return epc;
 }
-
+word_t isa_mret_intr() {
+  return cpu.csr[65];
+}
 word_t isa_query_intr() {
   return INTR_EMPTY;
 }
