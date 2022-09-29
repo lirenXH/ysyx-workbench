@@ -69,7 +69,7 @@ void printDeci(int dec)
     }
     else
     {
-        printNum(dec, 16); 
+        printNum(dec, 10); 
     }
 }
 
@@ -87,7 +87,7 @@ void printHex(int dec)
     }
     else
     {
-        printNum(dec, 10); 
+        printNum(dec, 16); 
     }
 }
 
