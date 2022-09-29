@@ -11,7 +11,6 @@ Context* __am_irq_handle(Context *c) {
       case 11 :  
         if(c->GPR1 == -1){
           ev.event = EVENT_YIELD;
-          printf("set EVENT_YIELD\n");
           c->mepc += 4;
         }
       default: ev.event = EVENT_ERROR; break;
