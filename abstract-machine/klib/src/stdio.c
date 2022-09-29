@@ -28,7 +28,7 @@ int printf(const char *fmt, ...) {
 		{
 			case 'd': printDeci(va_arg(va_ptr,int));           
 			  		  break; 
-			case 'x': printHex(va_arg(va_ptr,int));           
+			case 'x': printHex(va_arg(va_ptr,unsigned int));           
 			  		  break;
 			case 'p': printHex(va_arg(va_ptr,unsigned int));           
 			  		  break;  
