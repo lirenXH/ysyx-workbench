@@ -13,7 +13,7 @@ Context* __am_irq_handle(Context *c) {
           ev.event = EVENT_YIELD;//事件分发
           c->mepc += 4;  //pc+4用于恢复上下文
         }break;
-      default: ev.event = EVENT_ERROR; break;
+      default: ev.event = EVENT_ERROR;printf("\n4\n"); break;
     }
 
     c = user_handler(ev, c);
