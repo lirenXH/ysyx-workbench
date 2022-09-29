@@ -30,7 +30,7 @@ int printf(const char *fmt, ...) {
 			  		  break; 
 			case 'x': printHex(va_arg(va_ptr,int));           
 			  		  break; 
-			case 'l': printDeci_long(va_arg(va_ptr,int));     //mean ld      
+			case 'l': printDeci_long(va_arg(va_ptr,long int));     //mean ld      
 			  		  break; 
 		    case 'c': putch(va_arg(va_ptr,int));            
 			  		  break;
