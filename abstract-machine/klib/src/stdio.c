@@ -7,6 +7,7 @@
 			
 void printNum(unsigned long num, int base);
 void printDeci(int dec);	
+void printHex(int dec);
 void printDeci_long(long int dec_long);			
 void printStr(char *str);	
 int printf_count;
@@ -26,6 +27,8 @@ int printf(const char *fmt, ...) {
 		switch (fmt[++i]) 
 		{
 			case 'd': printDeci(va_arg(va_ptr,int));           
+			  		  break; 
+			case 'x': printHex(va_arg(va_ptr,int));           
 			  		  break; 
 			case 'l': printDeci_long(va_arg(va_ptr,int));     //mean ld      
 			  		  break; 
@@ -66,12 +69,31 @@ void printDeci(int dec)
     }
     else
     {
+        printNum(dec, 16); 
+    }
+}
+
+void printHex(int dec)
+{
+	if (dec < 0)
+    {
+        putch('-');
+		dec = -dec;  	 
+    }
+    if (dec == 0)
+    {
+        putch('0');
+		return;
+    }
+    else
+    {
         printNum(dec, 10); 
     }
 }
 
 void printDeci_long(long int dec_long)
 {
+	putch('1');
 	if (dec_long < 0)
     {
         putch('-');
