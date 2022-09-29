@@ -7,14 +7,14 @@
 [1;34m[src/device/io/mmio.c:18 add_mmio_map] Add mmio map 'keyboard' at [0xa0000060, 0xa0000063][0m
 [1;34m[src/device/io/mmio.c:18 add_mmio_map] Add mmio map 'audio' at [0xa0000200, 0xa0000217][0m
 [1;34m[src/device/io/mmio.c:18 add_mmio_map] Add mmio map 'audio-sbuf' at [0xa1200000, 0xa120ffff][0m
-[1;34m[src/monitor/monitor.c:47 load_img] The image is /home/xuhao/learngit/ysyx-workbench/nanos-lite/build/nanos-lite-riscv64-nemu.bin, size = 40980[0m
+[1;34m[src/monitor/monitor.c:47 load_img] The image is /home/xuhao/learngit/ysyx-workbench/nanos-lite/build/nanos-lite-riscv64-nemu.bin, size = 73748[0m
 [1;34m[src/cpu/difftest/dut.c:69 init_difftest] Differential testing: [1;32mON[0m[0m
 [1;34m[src/cpu/difftest/dut.c:70 init_difftest] The result of every instruction will be compared with /home/xuhao/learngit/ysyx-workbench/nemu/tools/spike-diff/build/riscv64-spike-so. This will help you a lot for debugging, but also significantly reduce the performance. If it is not necessary, you can turn it off in menuconfig.[0m
 [1;34m[src/monitor/monitor.c:14 welcome] Trace: [1;32mON[0m[0m
 [1;34m[src/monitor/monitor.c:15 welcome] If trace is enabled, a log file will be generated to record the trace. This may lead to a large log file. If it is not necessary, you can disable it in menuconfig[0m
 [1;34m[src/monitor/monitor.c:18 welcome] Build time: 11:34:59, Sep 29 2022[0m
 0x0000000080000000: 13 04 00 00 mv	s0, zero
-0x0000000080000004: 17 31 01 00 auipc	sp, 19
+0x0000000080000004: 17 b1 01 00 auipc	sp, 27
 0x0000000080000008: 13 01 c1 ff addi	sp, sp, -4
 0x000000008000000c: ef 00 40 26 jal	0x80000270
 0x0000000080000270: 13 01 01 ff addi	sp, sp, -16
@@ -41,7 +41,7 @@
 0x0000000080000a54: 23 34 51 03 sd	s5, 40(sp)
 0x0000000080000a58: 23 30 61 03 sd	s6, 32(sp)
 0x0000000080000a5c: 23 3c 71 01 sd	s7, 24(sp)
-0x0000000080000a60: 17 95 00 00 auipc	a0, 9
+0x0000000080000a60: 17 15 01 00 auipc	a0, 17
 0x0000000080000a64: 23 28 05 5a sw	zero, 1456(a0)
 0x0000000080000a68: 03 c5 09 00 lbu	a0, 0(s3)
 0x0000000080000a6c: 23 34 f1 08 sd	a5, 136(sp)
@@ -53,7 +53,7 @@
 0x0000000080000a84: 23 38 01 09 sd	a6, 144(sp)
 0x0000000080000a88: 23 3c 11 09 sd	a7, 152(sp)
 0x0000000080000a8c: 23 34 f1 00 sd	a5, 8(sp)
-0x0000000080000a90: 17 99 00 00 auipc	s2, 9
+0x0000000080000a90: 17 19 01 00 auipc	s2, 17
 0x0000000080000a94: 13 09 09 58 addi	s2, s2, 1408
 0x0000000080000a98: 63 02 05 04 beqz	a0, 0x80000adc
 0x0000000080000a9c: 93 04 00 00 mv	s1, zero
