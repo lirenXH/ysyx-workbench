@@ -29,6 +29,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
 void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);    //需要返回一个入口地址
+  printf("entry = %d",entry);
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
