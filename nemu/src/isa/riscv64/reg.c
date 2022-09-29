@@ -35,6 +35,7 @@ void isa_reg_display() {
     if(i==75)
       printf("\n");
   }
+  printf("pc -> 0x%016lx\n",cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
