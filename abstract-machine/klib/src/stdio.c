@@ -7,7 +7,7 @@
 			
 void printNum(unsigned long num, int base);
 void printDeci(int dec);	
-void printHex(int dec);
+void printHex(unsigned int dec);
 void printDeci_long(long int dec_long);			
 void printStr(char *str);	
 int printf_count;
@@ -75,7 +75,7 @@ void printDeci(int dec)
     }
 }
 
-void printHex(int dec)
+void printHex(unsigned int dec)
 {
 	if (dec < 0)
     {
