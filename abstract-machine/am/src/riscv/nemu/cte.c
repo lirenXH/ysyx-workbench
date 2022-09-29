@@ -13,7 +13,9 @@ Context* __am_irq_handle(Context *c) {
         if(c->GPR1 == -1){
           ev.event = EVENT_YIELD;//事件分发
           c->mepc += 4;  //pc+4用于恢复上下文
-        }break;
+        }else
+          ev.event = EVENT_SYSCALL;
+        break;
       default: ev.event = EVENT_ERROR; break;
     }
 
