@@ -37,7 +37,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case 0 : strace_main(a[0],c->GPRx);halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;strace_main(a[0],c->GPRx);break;
-    case 4 : printf("do syscall_write\n");system_write((int)a[1],(void*)a[2],a[3]);break;
+    case 4 : printf("do syscall_write\n");system_write((int)a[1],(void*)a[2],a[3]);strace_main(a[0],c->GPRx);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
