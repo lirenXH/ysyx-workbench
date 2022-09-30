@@ -12,9 +12,11 @@ Context* __am_irq_handle(Context *c) {
         if(c->GPR1 == -1){//事件二次分发
           ev.event = EVENT_YIELD;
           c->mepc += 4;  //pc+4用于恢复上下文
-        }else if(c->GPR1 == 1){
+        }else if((c->GPR1>=0) && (c->GPR1<=19)){
           ev.event = EVENT_SYSCALL;
-          printf("system_call\n");
+          c->mepc += 4;
+        }else{
+          ev.event = EVENT_ERROR;
         }
         break;
       default: ev.event = EVENT_ERROR; break;
