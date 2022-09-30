@@ -70,12 +70,12 @@ Disassembly of section .text:
     800000d0:	00813023          	sd	s0,0(sp)
     800000d4:	00113423          	sd	ra,8(sp)
     800000d8:	00100793          	li	a5,1
-    800000dc:	00053603          	ld	a2,0(a0)
-    800000e0:	00050413          	mv	s0,a0
-    800000e4:	06f70463          	beq	a4,a5,8000014c <do_syscall+0x84>
-    800000e8:	00400793          	li	a5,4
-    800000ec:	02f71a63          	bne	a4,a5,80000120 <do_syscall+0x58>
-    800000f0:	0006059b          	sext.w	a1,a2
+    800000dc:	00050413          	mv	s0,a0
+    800000e0:	06f70663          	beq	a4,a5,8000014c <do_syscall+0x84>
+    800000e4:	00400793          	li	a5,4
+    800000e8:	02f71c63          	bne	a4,a5,80000120 <do_syscall+0x58>
+    800000ec:	09052583          	lw	a1,144(a0)
+    800000f0:	0a053603          	ld	a2,160(a0)
     800000f4:	00001517          	auipc	a0,0x1
     800000f8:	04450513          	addi	a0,a0,68 # 80001138 <__func__.0+0xe8>
     800000fc:	361000ef          	jal	ra,80000c5c <printf>
@@ -106,8 +106,8 @@ Disassembly of section .text:
     80000160:	00100513          	li	a0,1
     80000164:	01010113          	addi	sp,sp,16
     80000168:	f1dff06f          	j	80000084 <strace_main>
-    8000016c:	00000513          	li	a0,0
-    80000170:	00060593          	mv	a1,a2
+    8000016c:	00053583          	ld	a1,0(a0)
+    80000170:	00000513          	li	a0,0
     80000174:	f11ff0ef          	jal	ra,80000084 <strace_main>
     80000178:	00042503          	lw	a0,0(s0)
     8000017c:	440000ef          	jal	ra,800005bc <halt>
