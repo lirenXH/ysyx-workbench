@@ -61,7 +61,7 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count) {
-  //_syscall_(SYS_write,fd,(intptr_t)buf,count);//需要带下划线 和linux区分 buf 和 intptr的类型
+  _syscall_(SYS_write,fd,(intptr_t)buf,count);//需要带下划线 和linux区分 buf 和 intptr的类型
   _exit(SYS_write);
   return 0;
 }
