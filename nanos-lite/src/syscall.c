@@ -23,6 +23,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case 0 : strace_main(a[0],c->GPRx);halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;strace_main(a[0],c->GPRx);break;
+    case 4 : break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
