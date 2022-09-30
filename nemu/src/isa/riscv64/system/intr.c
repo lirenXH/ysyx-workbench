@@ -1,7 +1,7 @@
 #include <isa.h>
 vaddr_t epc_all;
 void etrace_main(){
-  printf("etrace interrupt/exception NO is 0x%lx \ncurrect pc is 0x%08lx,mtevc is 0x%08lx\n",cpu.csr[66],cpu.pc,epc_all);
+  printf("etrace interrupt/exception NO is 0x%lx \ncurrect pc is 0x%08lx,mtevc is 0x%08lx\n\n",cpu.csr[66],cpu.pc,epc_all);
 }
 
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
