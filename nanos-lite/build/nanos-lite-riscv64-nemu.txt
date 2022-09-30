@@ -17,7 +17,7 @@ Disassembly of section .text:
     80000014:	00001737          	lui	a4,0x1
     80000018:	fff70713          	addi	a4,a4,-1 # fff <_entry_offset+0xfff>
     8000001c:	0000b797          	auipc	a5,0xb
-    80000020:	8e47b783          	ld	a5,-1820(a5) # 8000a900 <heap>
+    80000020:	8ec7b783          	ld	a5,-1812(a5) # 8000a908 <heap>
     80000024:	00e787b3          	add	a5,a5,a4
     80000028:	fffff737          	lui	a4,0xfffff
     8000002c:	00e7f733          	and	a4,a5,a4
@@ -354,7 +354,7 @@ Disassembly of section .text:
     80000510:	00002717          	auipc	a4,0x2
     80000514:	95970713          	addi	a4,a4,-1703 # 80001e69 <ramdisk_start>
     80000518:	0000a797          	auipc	a5,0xa
-    8000051c:	3e178793          	addi	a5,a5,993 # 8000a8f9 <_data>
+    8000051c:	3e978793          	addi	a5,a5,1001 # 8000a901 <_data>
     80000520:	00113423          	sd	ra,8(sp)
     80000524:	00813023          	sd	s0,0(sp)
     80000528:	00c586b3          	add	a3,a1,a2
@@ -383,7 +383,7 @@ Disassembly of section .text:
 
 0000000080000584 <init_ramdisk>:
     80000584:	0000a797          	auipc	a5,0xa
-    80000588:	37578793          	addi	a5,a5,885 # 8000a8f9 <_data>
+    80000588:	37d78793          	addi	a5,a5,893 # 8000a901 <_data>
     8000058c:	00002717          	auipc	a4,0x2
     80000590:	8dd70713          	addi	a4,a4,-1827 # 80001e69 <ramdisk_start>
     80000594:	40e78833          	sub	a6,a5,a4
@@ -468,9 +468,9 @@ Disassembly of section .text:
     80000688:	ff010113          	addi	sp,sp,-16
     8000068c:	00113423          	sd	ra,8(sp)
     80000690:	0000a797          	auipc	a5,0xa
-    80000694:	28078793          	addi	a5,a5,640 # 8000a910 <lut>
+    80000694:	28878793          	addi	a5,a5,648 # 8000a918 <lut>
     80000698:	0000a697          	auipc	a3,0xa
-    8000069c:	67868693          	addi	a3,a3,1656 # 8000ad10 <lut+0x400>
+    8000069c:	68068693          	addi	a3,a3,1664 # 8000ad18 <lut+0x400>
     800006a0:	00000617          	auipc	a2,0x0
     800006a4:	f8060613          	addi	a2,a2,-128 # 80000620 <fail>
     800006a8:	00c0006f          	j	800006b4 <ioe_init+0x2c>
