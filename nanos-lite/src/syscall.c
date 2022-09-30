@@ -10,6 +10,9 @@ void strace_main(uintptr_t a7,uintptr_t re){
   case 1:
     printf("strace system call yield , ID is 1\nthe return value is %d\n\n",re);
     break;
+  case 4:
+    printf("strace system call write , ID is 4\nthe return value is %d\n\n",re);
+    break;
   default:
     printf("should not come here");
     break;
