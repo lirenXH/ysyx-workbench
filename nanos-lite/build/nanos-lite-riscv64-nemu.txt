@@ -74,8 +74,8 @@ Disassembly of section .text:
     800000e0:	06f70663          	beq	a4,a5,8000014c <do_syscall+0x84>
     800000e4:	00400793          	li	a5,4
     800000e8:	02f71c63          	bne	a4,a5,80000120 <do_syscall+0x58>
-    800000ec:	09052583          	lw	a1,144(a0)
-    800000f0:	0a053603          	ld	a2,160(a0)
+    800000ec:	00852583          	lw	a1,8(a0)
+    800000f0:	06853603          	ld	a2,104(a0)
     800000f4:	00001517          	auipc	a0,0x1
     800000f8:	04450513          	addi	a0,a0,68 # 80001138 <__func__.0+0xe8>
     800000fc:	361000ef          	jal	ra,80000c5c <printf>
