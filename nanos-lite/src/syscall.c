@@ -23,8 +23,10 @@ size_t system_write(int fd,const void* buf,size_t len){
   int i;
   printf("system_write fd:%p, len:%p\n",fd,len);
   if((fd == 1)&&(fd == 2)){
-    for(i=0;i<len;i++)
+    for(i=0;i<len;i++){
       putch( ((char*)buf)[i] );//输出i个字符
+      printf("%d ",i);
+    }
     return len;//返回写的字节数
   }
   return -1;
