@@ -21,7 +21,7 @@ void strace_main(uintptr_t a7,uintptr_t re){
 
 size_t system_write(int fd,const void* buf,size_t len){
   int i;
-  Log("system_write fd:%p, len:%p\n",fd,len);
+  printf("system_write fd:%p, len:%p\n",fd,len);
   if((fd == 1)&&(fd == 2)){
     for(i=0;i<len;i++)
       putch( ((char*)buf)[i] );//输出i个字符
@@ -40,7 +40,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case 0 : strace_main(a[0],c->GPRx);halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;strace_main(a[0],c->GPRx);break;
-    case 4 : printf("do syscall_write\n");c->GPRx = system_write((int)a[1],(void*)a[2],a[3]); strace_main(a[0],c->GPRx);break;
+    case 4 : c->GPRx = system_write((int)a[1],(void*)a[2],a[3]); strace_main(a[0],c->GPRx);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
