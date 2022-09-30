@@ -25,7 +25,7 @@ size_t system_write(int fd,const void* buf,size_t len){
   if((fd == 1)&&(fd == 2)){
     for(i=0;i<len;i++)
       putch( ((char*)buf)[i] );//输出i个字符
-    return len;//返回写的字节数
+    return 0;//返回写的字节数
   }
   return -1;
 }
