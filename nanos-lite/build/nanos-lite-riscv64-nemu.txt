@@ -55,7 +55,7 @@ Disassembly of section .text:
     8000009c:	00050413          	mv	s0,a0
     800000a0:	065000ef          	jal	ra,80000904 <yield>
     800000a4:	00813083          	ld	ra,8(sp)
-    800000a8:	08043423          	sd	zero,136(s0)
+    800000a8:	00043023          	sd	zero,0(s0)
     800000ac:	00013403          	ld	s0,0(sp)
     800000b0:	01010113          	addi	sp,sp,16
     800000b4:	00008067          	ret
