@@ -19,11 +19,11 @@ void strace_main(uintptr_t a7,uintptr_t re){
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
-  printf("syscall no is %d\n",a[0]);
+
   switch (a[0]) {
     case 0 : strace_main(a[0],c->GPRx);halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;strace_main(a[0],c->GPRx);break;
-    case 4 : printf("write");break;
+    case 4 : /*system_write();*/break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
