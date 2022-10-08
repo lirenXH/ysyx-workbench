@@ -1,0 +1,2 @@
+verdi -f ./flist.f -ssf wave.fsdb -sswr signal.rc
+

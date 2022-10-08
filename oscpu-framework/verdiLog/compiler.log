@@ -1,0 +1,1015 @@
+*design* DebussyLib (btIdent Verdi_N-2017.12-SP2)
+Command arguments:
+    +define+verilog
+    -f ./flist.f
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SRAM.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/TOP.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_arbiter.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_axi.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_clint.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_dcache.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_define.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_EXE.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_forward.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_GPR.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_hazard.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_icache.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_IF.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_inst_ram.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_inst.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_MEM.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_mul.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_rdaxi.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_reqDispute.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_WB.v
+        /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_wraxi.v
+
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 1: 
+
+*Error* macro `AXI_ADDR_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 21: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 23: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 24: 
+
+*Error* macro `AXI_DATA_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 34: 
+
+*Error* macro `AXI_DATA_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 35: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 41: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 42: 
+
+*Error* macro `AXI_ADDR_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 46: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 48: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 49: 
+
+*Error* macro `AXI_DATA_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 60: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 62: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 63: 
+
+*Error* macro `AXI_ADDR_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 68: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 70: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 71: 
+
+*Error* macro `AXI_DATA_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 82: 
+
+*Error* macro `AXI_DATA_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 83: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 85: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 90: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 91: 
+
+*Error* macro `AXI_ADDR_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 95: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 97: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 98: 
+
+*Error* macro `AXI_DATA_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 110: 
+
+*Error* macro `AXI_ID_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 112: 
+
+*Error* macro `AXI_USER_WIDTH not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 113: 
+
+*Warning* symbol icache_valid duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 228: 
+
+*Warning* symbol icache_ready duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 229: 
+
+*Warning* symbol icache_data_read duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 230: 
+
+*Warning* symbol icache_addr duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 231: 
+
+*Warning* symbol dcache_valid duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 233: 
+
+*Warning* symbol dcache_ready duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 234: 
+
+*Warning* symbol dcache_req duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 235: 
+
+*Warning* symbol dcache_data_read duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 236: 
+
+*Warning* symbol dcache_data_write duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 237: 
+
+*Warning* symbol dcache_addr duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 238: 
+
+*Warning* symbol dcache_size duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 239: 
+
+*Error* Syntax error at wire
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/TOP.v", 3: 
+
+*Error* Syntax error at $fsdbDumpMDA
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/TOP.v", 11: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 1: 
+
+*Error* macro `alu_add not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 51: 
+
+*Error* Syntax error at }
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 51: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 52: 
+
+*Error* macro `alu_addw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 52: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 53: 
+
+*Error* macro `alu_sub not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 53: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 54: 
+
+*Error* macro `alu_subw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 54: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 55: 
+
+*Error* macro `alu_or not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 55: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 56: 
+
+*Error* macro `alu_and not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 56: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 57: 
+
+*Error* macro `alu_xor not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 57: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 58: 
+
+*Error* macro `alu_div not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 58: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 59: 
+
+*Error* macro `alu_divw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 59: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 60: 
+
+*Error* macro `alu_divu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 60: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 61: 
+
+*Error* macro `alu_mul not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 61: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 62: 
+
+*Error* macro `alu_mulw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 62: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 63: 
+
+*Error* macro `alu_rem not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 63: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 64: 
+
+*Error* macro `alu_remw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 64: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 65: 
+
+*Error* macro `alu_remu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 65: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 66: 
+
+*Error* macro `alu_sltu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 66: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 67: 
+
+*Error* macro `alu_slt not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 67: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 68: 
+
+*Error* macro `alu_sra not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 68: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 69: 
+
+*Error* macro `alu_sraw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 69: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 70: 
+
+*Error* macro `alu_srl not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 70: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 71: 
+
+*Error* macro `alu_srlw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 71: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 72: 
+
+*Error* macro `alu_sll not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 72: 
+
+*Error* Syntax error at |
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 73: 
+
+*Error* macro `alu_sllw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_alu.v", 73: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_arbiter.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_axi.v", 2: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 1: 
+
+*Error* macro `bru_jalr not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 19: 
+
+*Error* Syntax error at ?
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 19: 
+
+*Error* macro `bru_jalr not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 19: 
+
+*Error* macro `bru_jal not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 23: 
+
+*Error* Syntax error at &&
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 23: 
+
+*Error* macro `wreg_pc not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 23: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 24: 
+
+*Error* macro `bru_jalr not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 24: 
+
+*Error* macro `wreg_pc not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 24: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 25: 
+
+*Error* macro `bru_beq not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 25: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 26: 
+
+*Error* macro `bru_bne not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 26: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 27: 
+
+*Error* macro `bru_blt not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 27: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 28: 
+
+*Error* macro `bru_bge not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 28: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 29: 
+
+*Error* macro `bru_bgeu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 29: 
+
+*Error* Syntax error at (
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 30: 
+
+*Error* macro `bru_bltu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_bru.v", 30: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_clint.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 1: 
+
+*Error* macro `REG_BUS not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 246: 
+
+*Error* Syntax error at ;
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 246: 
+
+*Error* macro `REG_BUS not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 247: 
+
+*Error* Syntax error at ;
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 247: 
+
+*Error* macro `REG_BUS not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 254: 
+
+*Error* Syntax error at ;
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 254: 
+
+*Error* macro `RISCV_PRIV_MODE_M not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 344: 
+
+*Error* Syntax error at ,
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 344: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 345: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 346: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 347: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 348: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 349: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 350: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 351: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 352: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 353: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 354: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 355: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 356: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 357: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 358: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 359: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 360: 
+
+*Error* Syntax error at .
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 361: 
+
+*Error* Syntax error at )
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 362: 
+
+*Error* cmt_wdata is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 246: 
+
+*Error* cmt_pc is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 247: 
+
+*Error* regs_diff is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 254: 
+
+*Error* cmt_wdata is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 260: 
+
+*Error* cmt_pc is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 260: 
+
+*Error* cmt_wdata is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 265: 
+
+*Error* cmt_pc is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 266: 
+
+*Error* regs_diff is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 270: 
+
+*Error* illegal memory regs_ds_o
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 135: 
+
+*Error* illegal LHS in procedural assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 260: 
+
+*Error* illegal LHS in procedural assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 265: 
+
+*Error* illegal LHS in procedural assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 266: 
+
+*Error* illegal LHS in procedural assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 270: 
+
+*Error* illegal memory regs_diff
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 270: 
+
+*Error* illegal memory regs_ds_o
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 270: 
+
+*Error* `include file "./ysyx_22040759_inst.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v", 2: 
+
+*Error* Syntax error at [
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v", 13: 
+
+*Error* illegal LHS in continuous assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v", 42: 
+
+*Error* illegal LHS in continuous assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v", 43: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_dcache.v", 1: 
+
+*Warning* symbol flush_wdata duplicated
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_dcache.v", 406: 
+
+*Error* addr_yu is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_dcache.v", 87: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_EXE.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_forward.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_GPR.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_hazard.v", 40: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_icache.v", 1: 
+
+*Error* `include file "./ysyx_22040759_inst.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 2: 
+
+*Error* macro `auipc not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 113: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 113: 
+
+*Error* macro `lui not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 114: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 114: 
+
+*Error* macro `jal not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 115: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 115: 
+
+*Error* macro `jalr not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 116: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 116: 
+
+*Error* macro `sh not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 117: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 117: 
+
+*Error* macro `sd not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 118: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 118: 
+
+*Error* macro `sw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 119: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 119: 
+
+*Error* macro `sb not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 120: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 120: 
+
+*Error* macro `lb not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 121: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 121: 
+
+*Error* macro `ld not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 122: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 122: 
+
+*Error* macro `lw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 123: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 123: 
+
+*Error* macro `lh not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 124: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 124: 
+
+*Error* macro `lwu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 125: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 125: 
+
+*Error* macro `lhu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 126: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 126: 
+
+*Error* macro `lbu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 127: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 127: 
+
+*Error* macro `and not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 128: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 128: 
+
+*Error* macro `andi not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 129: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 129: 
+
+*Error* macro `add not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 130: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 130: 
+
+*Error* macro `or not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 131: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 131: 
+
+*Error* macro `ori not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 132: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 132: 
+
+*Error* macro `xor not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 133: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 133: 
+
+*Error* macro `xori not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 134: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 134: 
+
+*Error* macro `mul not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 135: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 135: 
+
+*Error* macro `mulw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 136: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 136: 
+
+*Error* macro `div not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 137: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 137: 
+
+*Error* macro `divu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 138: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 138: 
+
+*Error* macro `divw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 139: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 139: 
+
+*Error* macro `rem not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 140: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 140: 
+
+*Error* macro `remu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 141: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 141: 
+
+*Error* macro `remw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 142: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 142: 
+
+*Error* macro `addi not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 143: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 143: 
+
+*Error* macro `addw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 144: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 144: 
+
+*Error* macro `addiw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 145: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 145: 
+
+*Error* macro `sub not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 146: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 146: 
+
+*Error* macro `subw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 147: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 147: 
+
+*Error* macro `slti not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 148: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 148: 
+
+*Error* macro `sltiu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 149: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 149: 
+
+*Error* macro `slt not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 150: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 150: 
+
+*Error* macro `sltu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 151: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 151: 
+
+*Error* macro `sra not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 152: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 152: 
+
+*Error* macro `srai not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 153: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 153: 
+
+*Error* macro `sraw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 154: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 154: 
+
+*Error* macro `sraiw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 155: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 155: 
+
+*Error* macro `slliw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 156: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 156: 
+
+*Error* macro `sllw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 157: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 157: 
+
+*Error* macro `sll not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 158: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 158: 
+
+*Error* macro `slli not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 159: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 159: 
+
+*Error* macro `srl not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 160: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 160: 
+
+*Error* macro `srli not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 161: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 161: 
+
+*Error* macro `srlw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 162: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 162: 
+
+*Error* macro `srliw not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 163: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 163: 
+
+*Error* macro `bne not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 165: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 165: 
+
+*Error* macro `beq not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 166: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 166: 
+
+*Error* macro `bge not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 167: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 167: 
+
+*Error* macro `blt not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 168: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 168: 
+
+*Error* macro `bltu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 169: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 169: 
+
+*Error* macro `bgeu not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 170: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 170: 
+
+*Error* macro `ebreak not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 171: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 171: 
+
+*Error* macro `nop not defined
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 172: 
+
+*Error* Syntax error at =
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 172: 
+
+*Error* illegal memory regs_ds_o
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_ID.v", 228: 
+
+*Error* `include file "./ysyx_22040759_inst.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_IF.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_IF.v", 2: 
+
+*Error* illegal LHS in continuous assignment
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_IF.v", 96: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_inst_ram.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_MEM.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_mul.v", 1: 
+
+*Error* Syntax error at )
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_mul.v", 20: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_rdaxi.v", 1: 
+
+*Error* axi_len is referenced before declaration
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_rdaxi.v", 67: 
+
+*Error* non-constant instance parameter
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_rdaxi.v", 78: 
+
+*Error* non-constant instance parameter
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_rdaxi.v", 79: 
+
+*Error* non-constant instance parameter
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_rdaxi.v", 80: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_reqDispute.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_WB.v", 1: 
+
+*Error* `include file "./ysyx_22040759_define.v" cannot be read
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_wraxi.v", 1: 
+
+*Error* non-constant instance parameter
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_wraxi.v", 72: 
+
+*Error* non-constant instance parameter
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_wraxi.v", 73: 
+
+*Error* non-constant instance parameter
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_wraxi.v", 74: 
+Highest level modules:
+TOP
+ysyx_22040759_clint
+ysyx_22040759_data_ram
+ysyx_22040759_inst_ram
+ysyx_22040759_mul
+
+
+*Warning* port sizes differ (64 vs 1) in port connection (port icache_data_o)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 168: 
+
+*Warning* port sizes differ (3 vs 1) in port connection (port mem_size_i)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 173: 
+
+*Warning* port sizes differ (64 vs 1) in port connection (port mem_wdata_i)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 174: 
+
+*Warning* port sizes differ (64 vs 1) in port connection (port ram_rdata_o)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 176: 
+
+*Warning* port sizes differ (64 vs 1) in port connection (port icache_data_read)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 247: 
+
+*Warning* port sizes differ (32 vs 1) in port connection (port icache_addr)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 248: 
+
+*Warning* port sizes differ (64 vs 1) in port connection (port dcache_data_read)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 253: 
+
+*Warning* port sizes differ (64 vs 1) in port connection (port dcache_data_write)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 254: 
+
+*Warning* port sizes differ (32 vs 1) in port connection (port dcache_addr)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 255: 
+
+*Warning* port sizes differ (3 vs 1) in port connection (port dcache_size)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/SimTop.v", 256: 
+
+*Warning* port sizes differ (8 vs 1) in port connection (port io_uart_in_ch)
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/TOP.v", 24: 
+
+*Error* view DifftestInstrCommit is not defined for instance DifftestInstrCommit
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 279: 
+
+*Error* view DifftestArchIntRegState is not defined for instance DifftestArchIntRegState
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 294: 
+
+*Error* view DifftestTrapEvent is not defined for instance DifftestTrapEvent
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 331: 
+
+*Error* view DifftestCSRState is not defined for instance DifftestCSRState
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 341: 
+
+*Error* view DifftestArchFpRegState is not defined for instance DifftestArchFpRegState
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_cpu.v", 364: 
+
+*Error* view RAMHelper is not defined for instance data_RAMHelper
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_data_ram.v", 52: 
+
+*Error* view RAMHelper is not defined for instance inst_RAMHelper
+"/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/ysyx_22040759_inst_ram.v", 10: 
+Total	302 error(s),   23 warning(s)

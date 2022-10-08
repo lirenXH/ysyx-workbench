@@ -1,0 +1,4 @@
+Command Line: /usr/synopsys/verdi/Verdi_N-2017.12-SP2/platform/LINUXAMD64/bin/Novas -f ./flist.f -ssf wave.fsdb -sswr signal.rc
+uname(Linux ubuntu 5.11.0-49-generic #55-Ubuntu SMP Wed Jan 12 17:36:34 UTC 2022 x86_64)
+Disabled AskUser2 Message (Response 0): Close all windows and exit verdi?
+au time 612.649541 22.968825 14.339779 delta 699506688 699506688 total 1060937728 1060937728

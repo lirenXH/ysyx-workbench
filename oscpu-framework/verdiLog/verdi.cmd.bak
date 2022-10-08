@@ -1,0 +1,91 @@
+verdiWindowResize -win $_Verdi_1 "71" "26" "3766" "1856"
+debImport "-f" "./flist.f"
+wvCreateWindow
+wvOpenFile -win $_nWave2 \
+           {/home/xuhao/learngit/ysyx-workbench/oscpu-framework/wave.fsdb}
+wvRestoreSignal -win $_nWave2 "signal.rc" -overWriteAutoAlias on
+wvZoomOut -win $_nWave2
+wvZoomOut -win $_nWave2
+wvZoomOut -win $_nWave2
+wvZoomOut -win $_nWave2
+wvSetCursor -win $_nWave2 231167.503453 -snap {("normal" 4)}
+wvScrollDown -win $_nWave2 0
+wvScrollDown -win $_nWave2 0
+wvScrollDown -win $_nWave2 0
+wvSelectSignal -win $_nWave2 {( "inst" 5 )} 
+wvSetSearchMode -win $_nWave2 -value 80000040
+wvSearchPrev -win $_nWave2
+wvSelectSignal -win $_nWave2 {( "inst" 5 )} 
+wvSetPosition -win $_nWave2 {("inst" 5)}
+wvExpandBus -win $_nWave2 {("inst" 5)}
+wvSetPosition -win $_nWave2 {("cache" 6)}
+wvSelectSignal -win $_nWave2 {( "inst" 5 )} 
+wvSetPosition -win $_nWave2 {("inst" 5)}
+wvCollapseBus -win $_nWave2 {("inst" 5)}
+wvSetPosition -win $_nWave2 {("inst" 5)}
+wvSetPosition -win $_nWave2 {("cache" 6)}
+wvSearchPrev -win $_nWave2
+wvSearchNext -win $_nWave2
+wvSearchPrev -win $_nWave2
+wvSearchPrev -win $_nWave2
+wvSetCursor -win $_nWave2 231395.269660 -snap {("inst" 5)}
+wvSetCursor -win $_nWave2 231533.275785 -snap {("inst" 5)}
+wvScrollUp -win $_nWave2 2
+wvSelectGroup -win $_nWave2 {G3}
+wvSelectGroup -win $_nWave2 {pc}
+wvSetPosition -win $_nWave2 {("pc" 0)}
+wvSetPosition -win $_nWave2 {("AXI_write" 10)}
+wvSetPosition -win $_nWave2 {("AXI_write" 9)}
+wvSetPosition -win $_nWave2 {("AXI_write" 8)}
+wvSetPosition -win $_nWave2 {("AXI_write" 7)}
+wvSetPosition -win $_nWave2 {("AXI_write" 6)}
+wvSetPosition -win $_nWave2 {("AXI_write" 5)}
+wvSetPosition -win $_nWave2 {("AXI_write" 3)}
+wvSetPosition -win $_nWave2 {("AXI_write" 2)}
+wvSetPosition -win $_nWave2 {("AXI_write" 1)}
+wvSetPosition -win $_nWave2 {("G2" 9)}
+wvSetPosition -win $_nWave2 {("G2" 7)}
+wvSetPosition -win $_nWave2 {("G2" 5)}
+wvSetPosition -win $_nWave2 {("G2" 2)}
+wvSetPosition -win $_nWave2 {("G2" 1)}
+wvSetPosition -win $_nWave2 {("G1" 5)}
+wvSetPosition -win $_nWave2 {("G1" 2)}
+wvSetPosition -win $_nWave2 {("G1" 1)}
+wvSetPosition -win $_nWave2 {("cache" 0)}
+wvSetPosition -win $_nWave2 {("AXI_read" 6)}
+wvSetPosition -win $_nWave2 {("AXI_read" 5)}
+wvSetPosition -win $_nWave2 {("AXI_read" 1)}
+wvSetPosition -win $_nWave2 {("normal" 6)}
+wvSetPosition -win $_nWave2 {("normal" 4)}
+wvSetPosition -win $_nWave2 {("normal" 2)}
+wvSetPosition -win $_nWave2 {("normal" 1)}
+wvSetPosition -win $_nWave2 {("normal" 0)}
+wvSetPosition -win $_nWave2 {("inst" 6)}
+wvSetPosition -win $_nWave2 {("inst" 5)}
+wvSetPosition -win $_nWave2 {("inst" 4)}
+wvSetPosition -win $_nWave2 {("inst" 3)}
+wvSetPosition -win $_nWave2 {("inst" 2)}
+wvSetPosition -win $_nWave2 {("inst" 1)}
+wvSetPosition -win $_nWave2 {("inst" 0)}
+wvSetPosition -win $_nWave2 {("G3" 0)}
+wvMoveSelected -win $_nWave2
+wvSetPosition -win $_nWave2 {("G3" 0)}
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 
+wvSetPosition -win $_nWave2 {("pc" 5)}
+wvExpandBus -win $_nWave2 {("pc" 5)}
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 
+wvSetPosition -win $_nWave2 {("pc" 5)}
+wvCollapseBus -win $_nWave2 {("pc" 5)}
+wvSetPosition -win $_nWave2 {("pc" 5)}
+wvSelectSignal -win $_nWave2 {( "pc" 6 )} 
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 
+wvExpandBus -win $_nWave2 {("pc" 5)}
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 
+wvSetPosition -win $_nWave2 {("pc" 5)}
+wvCollapseBus -win $_nWave2 {("pc" 5)}
+wvSetPosition -win $_nWave2 {("pc" 5)}
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 
+wvExpandBus -win $_nWave2 {("pc" 5)}
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 
+wvScrollDown -win $_nWave2 0
+wvSelectSignal -win $_nWave2 {( "pc" 5 )} 

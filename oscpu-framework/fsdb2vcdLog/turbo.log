@@ -1,0 +1,6 @@
+Command Line: /usr/synopsys/verdi/Verdi_N-2017.12-SP2/platform/LINUXAMD64/bin/fsdb2vcd wave.fsdb
+uname(Linux ubuntu 5.11.0-49-generic #55-Ubuntu SMP Wed Jan 12 17:36:34 UTC 2022 x86_64)
+Load signals (0)-(5000) time 0.005119 0.001210 0.006785 delta 209825792 209825792 total 293396480 293396480
+Write signals (0)-(5000) time 0.004746 0.004071 0.000000 delta 0 0 total 293396480 293396480
+Unload (0)-(5000) time 0.000037 0.000038 0.000000 delta 0 0 total 293396480 293396480
+au time 0.513475 0.005865 0.034431 delta 223707136 223707136 total 261222400 261222400

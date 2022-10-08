@@ -1,0 +1,3 @@
+Command Line: /usr/synopsys/verdi/Verdi_N-2017.12-SP2/platform/LINUXAMD64/bin/vfast projects/cpu_axi_diff/build/2022-09-23@16:27:29.vcd
+uname(Linux ubuntu 5.11.0-49-generic #55-Ubuntu SMP Wed Jan 12 17:36:34 UTC 2022 x86_64)
+au time 105.980248 65.522567 40.452321 delta 92753920 92753920 total 115859456 115859456

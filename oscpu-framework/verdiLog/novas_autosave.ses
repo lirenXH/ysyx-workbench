@@ -1,0 +1,81 @@
+@verdi rc file Version 1.0
+[General]
+saveDB = TRUE
+relativePath = FALSE
+saveSingleView = FALSE
+saveNWaveWinId = 
+VerdiVersion = Verdi_N-2017.12-SP2
+[KeyNote]
+Line1 = Automatic Backup 0
+Line2 = Save Open Database Information: Yes
+Line3 = Path Option: Absolute Paths
+Line4 = Windows Option: All Windows
+[TestBench]
+ConstrViewShow = 0
+InherViewShow = 0
+FSDBMsgShow = 0
+AnnotationShow = 0
+powerDumped = 0
+[hb]
+postSimFile = /home/xuhao/learngit/ysyx-workbench/oscpu-framework/2022-09-23@16:27:29.vcd.fsdb
+syncTime = 13533
+viewport = 71 26 3766 1856 0 0 829 3764
+activeNode = "TOP"
+activeScope = "TOP"
+activeFile = "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/TOP.v"
+interactiveMode = False
+viewType = Source
+simulatorMode = False
+sourceBeginLine = 0
+baMode = False
+srcLineNum = True
+AutoWrap = True
+IdentifyFalseLogic = False
+syncSignal = False
+traceMode = Hierarchical
+showTraceInSchema = True
+paMode = False
+funcMode = False
+powerAwareAnnot = True
+amsAnnot = True
+traceCrossHier = True
+DnDtraceCrossHierOnly = True
+traceIncTopPort = False
+leadingZero = False
+signalPane = False
+Scope1 = "TOP"
+multipleSelection = 1 0 3 0 0
+sdfCheckUndef = FALSE
+simFlow = FALSE
+[hb.design]
+importCmd = "-f" "./flist.f" 
+invokeDir = /home/xuhao/learngit/ysyx-workbench/oscpu-framework
+[hb.sourceTab.1]
+scope = TOP
+File = /home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/vsrc/TOP.v
+Line = 1
+[nMemoryManager]
+FsdbFile = /home/xuhao/learngit/ysyx-workbench/oscpu-framework/2022-09-23@16:27:29.vcd.fsdb
+UserActionNum = 0
+nMemWindowNum = 0
+[wave.0]
+viewPort = 0 28 3766 1607 315 207
+primaryWindow = TRUE
+SessionFile = /home/xuhao/learngit/ysyx-workbench/oscpu-framework/verdiLog/novas_autosave.ses.wave.0
+displayGrid = FALSE
+hierarchicalName = FALSE
+snap = TRUE
+displayLeadingZeros = FALSE
+fixDelta = FALSE
+displayCursorMarker = FALSE
+autoUpdate = FALSE
+highlightGlitchs = FALSE
+waveformSyncCursorMarker = FALSE
+waveformSyncHorizontalRange = FALSE
+waveformSyncVerticalscroll = FALSE
+displayErrors = TRUE
+displayMsgSymbols = TRUE
+showMsgDescriptions = TRUE
+autoFit = FALSE
+displayDeltaY = FALSE
+centerCursor = FALSE
