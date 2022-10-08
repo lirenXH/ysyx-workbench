@@ -5,16 +5,16 @@ void strace_main(uintptr_t a7,uintptr_t re){
   switch (a7)
   {
   case 0:
-    printf("strace system call exit , ID is 0\nthe return value is %d\n\n",re);
+    printf("strace system call exit  , ID is 0 the return value is %d\n\n",re);
     break;
   case 1:
-    printf("strace system call yield , ID is 1\nthe return value is %d\n\n",re);
+    printf("strace system call yield , ID is 1 the return value is %d\n\n",re);
     break;
   case 4:
-    printf("strace system call write , ID is 4\nthe return value is %d\n\n",re);
+    printf("strace system call write , ID is 4 the return value is %d\n\n",re);
     break;
   case 9:
-    printf("strace system call sbrk  , ID is 9\nthe return value is %d\n\n",re);
+    printf("strace system call sbrk  , ID is 9 the return value is %d\n\n",re);
     break;
   default:
     printf("should not come here");
@@ -45,7 +45,7 @@ void do_syscall(Context *c) {
     case 0 : strace_main(a[0],c->GPRx);halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;strace_main(a[0],c->GPRx);break;
     case 4 : c->GPRx = system_write((int)a[1],(void*)a[2],(size_t)a[3]);strace_main(a[0],c->GPRx);break;
-    case 9 : c->GPRx = 0;strace_main(a[0],c->GPRx);break;
+    case 9 : c->GPRx = 0;strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
