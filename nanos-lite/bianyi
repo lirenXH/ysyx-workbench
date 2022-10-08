@@ -1,6 +1,6 @@
-cd ../navy-apps/tests/hello/
+cd ../navy-apps/tests/dummy/
 make ISA=riscv64
-mv build/hello-riscv64 ../../../nanos-lite/build/ramdisk.img
+mv build/dummy-riscv64 ../../../nanos-lite/build/ramdisk.img
 cd ../../../
 cd nanos-lite/
 make ARCH=riscv64-nemu
