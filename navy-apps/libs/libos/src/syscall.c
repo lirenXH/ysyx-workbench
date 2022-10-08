@@ -66,7 +66,7 @@ int _write(int fd, void *buf, size_t count) {
   return 0;
 }
 
-void *_sbrk(intptr_t increment) {
+void *_sbrk(intptr_t increment) {         //返回-1表示堆区调整失败
   return (void *)-1;
 }
 
