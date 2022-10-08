@@ -45,7 +45,7 @@ void do_syscall(Context *c) {
     case 0 : strace_main(a[0],c->GPRx);halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;strace_main(a[0],c->GPRx);break;
     case 4 : c->GPRx = system_write((int)a[1],(void*)a[2],(size_t)a[3]);strace_main(a[0],c->GPRx);break;
-    case 9 : c->GPRx = 0;strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
+    case 9 : c->GPRx = -1;strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
