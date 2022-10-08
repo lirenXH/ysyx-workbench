@@ -138,7 +138,7 @@ Disassembly of section .text:
     800001e0:	49c000ef          	jal	ra,8000067c <halt>
     800001e4:	00001697          	auipc	a3,0x1
     800001e8:	0dc68693          	addi	a3,a3,220 # 800012c0 <__func__.0>
-    800001ec:	03100613          	li	a2,49
+    800001ec:	03500613          	li	a2,53
     800001f0:	00001597          	auipc	a1,0x1
     800001f4:	04858593          	addi	a1,a1,72 # 80001238 <__func__.0+0x128>
     800001f8:	00001517          	auipc	a0,0x1
