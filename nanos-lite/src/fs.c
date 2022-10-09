@@ -41,6 +41,7 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+  ramdisk_read(buf,fd,len);
   return 0;
 }
 
@@ -54,4 +55,16 @@ size_t fs_lseek(int fd, size_t offset, int whence){
 
 int fs_close(int fd){
   return 0;
+}
+
+size_t write(int fd,const void* buf,size_t len){
+  int i;
+  //printf("system_write fd:%p, len:%p\n",fd,len);
+  if((fd == 1)||(fd == 2)){
+    for(i=0;i<len;i++){
+      putch( ((char*)buf)[i] );//输出i个字符
+    }
+    return len;//返回写的字节数
+  }
+  return -1;
 }

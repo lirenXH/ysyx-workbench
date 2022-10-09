@@ -13,6 +13,9 @@ void strace_main(uintptr_t a7,uintptr_t re){
   case 2:
     printf("strace system call open  , ID is 2 the return value is %d\n\n",re);
     break;
+  case 3:
+    printf("strace system call read  , ID is 2 the return value is %d\n\n",re);
+    break;
   case 4:
     printf("strace system call write , ID is 4 the return value is %d\n\n",re);
     break;
@@ -25,17 +28,6 @@ void strace_main(uintptr_t a7,uintptr_t re){
   }
 }
 
-size_t write(int fd,const void* buf,size_t len){
-  int i;
-  //printf("system_write fd:%p, len:%p\n",fd,len);
-  if((fd == 1)||(fd == 2)){
-    for(i=0;i<len;i++){
-      putch( ((char*)buf)[i] );//输出i个字符
-    }
-    return len;//返回写的字节数
-  }
-  return -1;
-}
 
 
 void do_syscall(Context *c) {
@@ -49,7 +41,10 @@ void do_syscall(Context *c) {
              halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;
              strace_main(a[0],c->GPRx);break;
-    case 2 : break;
+    //case 2 : c->GPRx = fs_open(a[1],a[2],(size_t)a[3]);
+    //         strace_main(a[0],c->GPRx);break;
+    case 3 : c->GPRx = fs_read((int)a[1],(void*)a[2],(size_t)a[3]);
+             strace_main(a[0],c->GPRx);break;
     case 4 : c->GPRx = write((int)a[1],(void*)a[2],(size_t)a[3]);
              strace_main(a[0],c->GPRx);break;
     case 9 : c->GPRx = 0;
