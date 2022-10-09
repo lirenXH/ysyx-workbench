@@ -303,7 +303,7 @@ Disassembly of section .text:
     8000043c:	309000ef          	jal	ra,80000f44 <printf>
     80000440:	00813083          	ld	ra,8(sp)
     80000444:	00001597          	auipc	a1,0x1
-    80000448:	e9458593          	addi	a1,a1,-364 # 800012d8 <_etext+0xcc>
+    80000448:	ea458593          	addi	a1,a1,-348 # 800012e8 <_etext+0xdc>
     8000044c:	00000513          	li	a0,0
     80000450:	01010113          	addi	sp,sp,16
     80000454:	1fc0006f          	j	80000650 <naive_uload>
