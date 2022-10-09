@@ -34,3 +34,24 @@ static Finfo file_table[] __attribute__((used)) = {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
+
+
+int fs_open(const char *pathname, int flags, int mode){   //返回值为一文件描述符 方便后续read write fd使用
+  return 0;
+}
+
+size_t fs_read(int fd, void *buf, size_t len){
+  return 0;
+}
+
+size_t fs_write(int fd, const void *buf, size_t len){
+  return 0;
+}
+
+size_t fs_lseek(int fd, size_t offset, int whence){
+  return 0;
+}
+
+int fs_close(int fd){
+  return 0;
+}

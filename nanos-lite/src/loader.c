@@ -9,7 +9,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-static uintptr_t loader(PCB *pcb, const char *filename) {
+static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传filename进去
   int i = 0;
   Elf_Ehdr elf_E = {};
   Elf_Phdr elf_P = {};

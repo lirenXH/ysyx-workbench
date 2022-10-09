@@ -57,8 +57,9 @@ void _exit(int status) {
   while (1);
 }
 
-int _open(const char *path, int flags, mode_t mode) {
-  _exit(SYS_open);
+int _open(const char *path, int flags, mode_t mode) { //打开一个文件, 并返回相应的文件描述符
+  _syscall_(SYS_open,*path,(intptr_t)flags,mode);
+  //_exit(SYS_open);
   return 0;
 }
 
@@ -89,7 +90,7 @@ int _close(int fd) {
   return 0;
 }
 
-off_t _lseek(int fd, off_t offset, int whence) {
+off_t _lseek(int fd, off_t offset, int whence) {  //用来调整偏移量
   _exit(SYS_lseek);
   return 0;
 }
