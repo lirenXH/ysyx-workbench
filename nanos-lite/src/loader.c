@@ -31,6 +31,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传fil
       fs_read(fd , (void*)elf_P.p_paddr , elf_P.p_memsz);
       //ramdisk_read((void*)elf_P.p_paddr , elf_P.p_offset , elf_P.p_memsz);//若是load则 load对应size
       memset((void *)(elf_P.p_vaddr + elf_P.p_filesz), 0 ,(elf_P.p_memsz - elf_P.p_filesz));  //清零 对应位置
+      printf("\n");
     }
   }
   return elf_E.e_entry;
