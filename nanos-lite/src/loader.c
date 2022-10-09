@@ -15,13 +15,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传fil
   Elf_Ehdr elf_E = {};
   Elf_Phdr elf_P = {};
   fs_read(0, &elf_E, sizeof(elf_E));
-  printf("0 \n");
   //ramdisk_read(&elf_E , 0 , sizeof(elf_E));
   assert(*(uint32_t *)elf_E.e_ident == 0x464c457f);
   for(i=0;i<elf_E.e_phnum;i++){
     //uint64_t phoff_temp = elf_E.e_phoff + elf_E.e_phentsize * i;
     //ramdisk_read(&elf_P,phoff_temp,elf_E.e_phentsize);
     fs_read(fd, &elf_P, elf_E.e_phentsize);
+    printf("fd = %d\n",fd);
     if(elf_P.p_type == PT_LOAD){
       printf("load %d\n",i);
       ramdisk_read((void*)elf_P.p_paddr,elf_P.p_offset,elf_P.p_memsz);//若是load则 load对应size
