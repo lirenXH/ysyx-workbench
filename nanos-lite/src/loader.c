@@ -27,7 +27,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传fil
       memset((void *)(elf_P.p_vaddr + elf_P.p_filesz), 0 ,(elf_P.p_memsz - elf_P.p_filesz));  //清零 对应位置
     }
   }
-  //TODO();
   return elf_E.e_entry;
 }
 
