@@ -10,7 +10,7 @@ typedef struct {
   ReadFn read;
   WriteFn write;
 } Finfo;
-
+size_t seek_offset = 0;
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
@@ -49,17 +49,25 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
 }
 
 size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数据大小
-  ramdisk_read(buf,file_table[fd].disk_offset,len);
-  return 0;
+  ramdisk_read(buf,file_table[fd].disk_offset + seek_offset,len);
+  return len;
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
-  ramdisk_write(buf,file_table[fd].disk_offset,len);
-  return 0;
+  ramdisk_write(buf,file_table[fd].disk_offset + seek_offset,len);
+  return len;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  return 0;
+  if(whence == 0)
+    seek_offset = offset - file_table[fd].disk_offset;    //从头开始
+  else if(whence == 1)
+    seek_offset = offset;                                 //从当前位置开始
+  else if(whence == 2)
+    seek_offset = file_table[fd].size + offset; //从尾部开始
+  else
+    assert(2);
+  return file_table[fd].disk_offset + seek_offset;  //返回当前偏移量位置
 }
 
 int fs_close(int fd){

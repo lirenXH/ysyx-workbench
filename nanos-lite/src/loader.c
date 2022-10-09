@@ -9,6 +9,8 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
+enum {SEEK_SET, SEEK_CUR, SEEK_END};
+
 static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传filename进去
   uint64_t fd = fs_open(filename,0,0);
   int i = 0;
@@ -19,6 +21,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传fil
   assert(*(uint32_t *)elf_E.e_ident == 0x464c457f);
   for(i=0;i<elf_E.e_phnum;i++){
     //uint64_t phoff_temp = elf_E.e_phoff + elf_E.e_phentsize * i;
+    uint64_t phoff_temp = elf_E.e_phentsize * i;
+    fs_lseek(fd,phoff_temp,SEEK_CUR);
     //ramdisk_read(&elf_P,phoff_temp,elf_E.e_phentsize);
     fs_read(fd, &elf_P, elf_E.e_phentsize);
     if(elf_P.p_type == PT_LOAD){
