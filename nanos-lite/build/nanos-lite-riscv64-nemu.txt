@@ -548,7 +548,7 @@ Disassembly of section .text:
     800007e8:	00098513          	mv	a0,s3
     800007ec:	029000ef          	jal	ra,80001014 <printf>
     800007f0:	01013583          	ld	a1,16(sp)
-    800007f4:	00100613          	li	a2,1
+    800007f4:	00000613          	li	a2,0
     800007f8:	00048513          	mv	a0,s1
     800007fc:	991ff0ef          	jal	ra,8000018c <fs_lseek>
     80000800:	03013603          	ld	a2,48(sp)
