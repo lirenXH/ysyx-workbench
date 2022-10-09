@@ -46,7 +46,7 @@ void do_syscall(Context *c) {
              strace_main(a[0],c->GPRx);break;
     case 3 : c->GPRx = fs_read((int)a[1],(void*)a[2],(size_t)a[3]);
              strace_main(a[0],c->GPRx);break;
-    case 4 : c->GPRx = write((int)a[1],(void*)a[2],(size_t)a[3]);
+    case 4 : c->GPRx = fs_write((int)a[1],(void*)a[2],(size_t)a[3]);
              strace_main(a[0],c->GPRx);break;
     case 7 : c->GPRx = fs_close((int)a[1]);
              strace_main(a[0],c->GPRx);break;   //保证返回值正确
