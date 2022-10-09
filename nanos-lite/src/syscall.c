@@ -16,6 +16,12 @@ void strace_main(uintptr_t a7,uintptr_t re){
   case 4:
     printf("strace system call write , ID is 4 the return value is %d\n\n",re);
     break;
+  case 7:
+    printf("strace system call lseek , ID is 7 the return value is %d\n\n",re);
+    break;
+  case 8:
+    printf("strace system call close , ID is 8 the return value is %d\n\n",re);
+    break;
   case 9:
     printf("strace system call sbrk  , ID is 9 the return value is %d\n\n",re);
     break;
@@ -41,6 +47,10 @@ void do_syscall(Context *c) {
     case 3 : c->GPRx = fs_read((int)a[1],(void*)a[2],(size_t)a[3]);
              strace_main(a[0],c->GPRx);break;
     case 4 : c->GPRx = write((int)a[1],(void*)a[2],(size_t)a[3]);
+             strace_main(a[0],c->GPRx);break;
+    case 7 : c->GPRx = fs_close((int)a[1]);
+             strace_main(a[0],c->GPRx);break;   //保证返回值正确
+    case 8 : c->GPRx = fs_lseek((int)a[1],a[2],(int)a[3]);
              strace_main(a[0],c->GPRx);break;
     case 9 : c->GPRx = 0;
              strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
