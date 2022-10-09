@@ -27,7 +27,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) { //调用fs_open 传fil
     fs_read(fd, &elf_P, elf_E.e_phentsize);
     if(elf_P.p_type == PT_LOAD){
       printf("load %d\n",i);
-      fs_lseek(fd,elf_P.p_offset,SEEK_CUR);
+      fs_lseek(fd,elf_P.p_offset,SEEK_SET);
       fs_read(fd , (void*)elf_P.p_paddr , elf_P.p_memsz);
       //ramdisk_read((void*)elf_P.p_paddr , elf_P.p_offset , elf_P.p_memsz);//若是load则 load对应size
       memset((void *)(elf_P.p_vaddr + elf_P.p_filesz), 0 ,(elf_P.p_memsz - elf_P.p_filesz));  //清零 对应位置
