@@ -10,9 +10,6 @@ void strace_main(uintptr_t a7,uintptr_t re){
   case 1:
     printf("strace system call yield , ID is 1 the return value is %d\n\n",re);
     break;
-  case 2:
-    printf("strace system call open  , ID is 2 the return value is %d\n\n",re);
-    break;
   case 3:
     printf("strace system call read  , ID is 2 the return value is %d\n\n",re);
     break;
@@ -41,8 +38,6 @@ void do_syscall(Context *c) {
              halt(c->GPRx);break;
     case 1 : yield();c->GPRx = 0 ;
              strace_main(a[0],c->GPRx);break;
-    //case 2 : c->GPRx = fs_open(a[1],a[2],(size_t)a[3]);
-    //         strace_main(a[0],c->GPRx);break;
     case 3 : c->GPRx = fs_read((int)a[1],(void*)a[2],(size_t)a[3]);
              strace_main(a[0],c->GPRx);break;
     case 4 : c->GPRx = write((int)a[1],(void*)a[2],(size_t)a[3]);

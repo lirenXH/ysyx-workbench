@@ -37,15 +37,24 @@ void init_fs() {
 
 
 int fs_open(const char *pathname, int flags, int mode){   //返回值为一文件描述符 方便后续read write fd使用
+  int i;
+  for(i=0;i<22;i++){
+    if(file_table[i].name == pathname){
+      Log("load file %s",pathname);
+      return i;
+    }
+  }
+  assert(1);
   return 0;
 }
 
-size_t fs_read(int fd, void *buf, size_t len){
-  ramdisk_read(buf,fd,len);
+size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数据大小
+  ramdisk_read(buf,file_table[fd].disk_offset,len);
   return 0;
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
+  ramdisk_write(buf,file_table[fd].disk_offset,len);
   return 0;
 }
 
@@ -59,7 +68,6 @@ int fs_close(int fd){
 
 size_t write(int fd,const void* buf,size_t len){
   int i;
-  //printf("system_write fd:%p, len:%p\n",fd,len);
   if((fd == 1)||(fd == 2)){
     for(i=0;i<len;i++){
       putch( ((char*)buf)[i] );//输出i个字符
