@@ -115,7 +115,7 @@ Disassembly of section .text:
     80000184:	090010ef          	jal	ra,80001214 <printf>
     80000188:	0104b583          	ld	a1,16(s1)
     8000018c:	0009b783          	ld	a5,0(s3)
-    80000190:	00040613          	mv	a2,s0
+    80000190:	06440613          	addi	a2,s0,100
     80000194:	00090513          	mv	a0,s2
     80000198:	00f585b3          	add	a1,a1,a5
     8000019c:	071000ef          	jal	ra,80000a0c <ramdisk_read>
