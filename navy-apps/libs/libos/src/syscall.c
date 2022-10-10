@@ -58,7 +58,10 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) { //打开一个文件, 并返回相应的文件描述符
-  return _syscall_(SYS_open,(intptr_t)path,(intptr_t)flags,mode);
+  intptr_t a;
+  a =  _syscall_(SYS_open,(intptr_t)path,(intptr_t)flags,mode);
+  printf("a = %d",a);
+  return a;
   //_exit(SYS_open);
 }
 
