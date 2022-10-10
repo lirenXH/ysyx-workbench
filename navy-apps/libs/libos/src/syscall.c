@@ -41,7 +41,6 @@
 #endif
 
 extern char _end;
-intptr_t end = (intptr_t)&_end;         //program break一开始的位置位于_end
 
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
@@ -69,6 +68,7 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {         //返回-1表示堆区调整失败
+  intptr_t end = (intptr_t)&_end;         //program break一开始的位置位于_end
   intptr_t old = end;                     //记录旧program break的位置
   intptr_t new = end + increment;         //被调用时, 根据记录的program break位置和参数increment, 计算出新program break
   if(_syscall_(SYS_brk,new,0,0) == 0){    //通过SYS_brk系统调用来让操作系统设置新program break , 若SYS_brk系统调用成功, 该系统调用会返回0
