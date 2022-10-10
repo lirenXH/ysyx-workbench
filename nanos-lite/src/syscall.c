@@ -48,6 +48,7 @@ void do_syscall(Context *c) {
     case 1 : yield();c->GPRx = 0 ;
              strace_main(a[0],c->GPRx);break;
     case 2 : c->GPRx = fs_open((const char *)a[1],(int)a[2],(int)a[3]);
+             printf("(const char *)a[1] = %s\n",(const char *)a[1]);
              strace_main(a[0],c->GPRx);break;
     case 3 : c->GPRx = fs_read((int)a[1],(void*)a[2],(size_t)a[3]);
              strace_main(a[0],c->GPRx);break;
