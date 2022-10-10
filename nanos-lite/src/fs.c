@@ -38,7 +38,7 @@ void init_fs() {
 
 int fs_open(const char *pathname, int flags, int mode){   //返回值为一文件描述符 方便后续read write fd使用
   int i;
-  printf("*pathname = %x\n",*pathname);
+  printf("*pathname = %s\n",pathname);
   for(i=0;i<22;i++){
     printf("file_table[i].name = %s,pathname = %s\n",file_table[i].name,pathname);
     if(file_table[i].name == (char *)pathname){
