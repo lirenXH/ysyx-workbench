@@ -45,7 +45,7 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
     }
   }
   assert(i);
-  return 0;
+  return 13;
 }
 
 size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数据大小
