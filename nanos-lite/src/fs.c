@@ -62,7 +62,7 @@ size_t fs_read1(int fd, void *buf, size_t len){    //返回值应该是读入数
 }
 
 size_t fs_write(int fd,const void* buf,size_t len){
-  printf("fs_write fd : %d  len : %d\n",fd,len);
+  //printf("fs_write fd : %d  len : %d\n",fd,len);
   int i;
   if((fd == 1)||(fd == 2)){
     for(i=0;i<len;i++){
