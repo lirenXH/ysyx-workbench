@@ -40,9 +40,10 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
   int i;
   //printf("pathname = %s\n",pathname);
   for(i=0;i<22;i++){
+    printf("fd = %d",i);
     if(file_table[i].name == pathname){
       Log("load file %s  fd is %d",pathname,i);
-      printf("fd = %d",i);
+      
       return i;
     }
   }
