@@ -71,12 +71,13 @@ size_t fs_write(int fd,const void* buf,size_t len){
 
 size_t fs_lseek(int fd, size_t offset, int whence){
   printf("fs_lseek fd = %d offset = %d whence = %d\n",fd,offset,whence);
+  printf("seek_offset = %d\n",seek_offset);
   if(whence == 0)
     seek_offset = offset - file_table[fd].disk_offset;    //从头开始
   else if(whence == 1)
     seek_offset = offset;                                 //从当前位置开始
   else if(whence == 2)
-    seek_offset = file_table[fd].size + offset; //从尾部开始
+    seek_offset = file_table[fd].size + offset;           //从尾部开始
   else
     assert(2);
   return file_table[fd].disk_offset + seek_offset;  //返回当前偏移量位置
