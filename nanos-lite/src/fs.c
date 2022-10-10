@@ -44,7 +44,7 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
       return i;
     }
   }
-  assert(1);
+  assert(!i);
   return 0;
 }
 
