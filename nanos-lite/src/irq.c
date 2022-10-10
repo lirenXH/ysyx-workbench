@@ -2,9 +2,9 @@
 
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
-    case 1 : Log("Event ID = 1 is EVENT_YIELD!\n");break;
-    case 2 : Log("Event ID = 2 is EVENT_SYSTEMCALL!\n");do_syscall(c);break;
-    case 4 : Log("Event ID = 4 is EVENT_ERROR!\n");break;
+    case 1 : /*Log("Event ID = 1 is EVENT_YIELD!\n")     */;break;
+    case 2 : /*Log("Event ID = 2 is EVENT_SYSTEMCALL!\n")*/;do_syscall(c);break;
+    case 4 : /*Log("Event ID = 4 is EVENT_ERROR!\n")     */;break;
     default: panic("Unhandled event ID = %d", e.event);break;
   }
 
