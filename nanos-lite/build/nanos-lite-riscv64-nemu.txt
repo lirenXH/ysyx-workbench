@@ -71,7 +71,7 @@ Disassembly of section .text:
     800000dc:	00090593          	mv	a1,s2
     800000e0:	02840413          	addi	s0,s0,40
     800000e4:	6d1000ef          	jal	ra,80000fb4 <strcmp>
-    800000e8:	fc050ce3          	beqz	a0,800000c0 <fs_open+0x4c>
+    800000e8:	fc051ce3          	bnez	a0,800000c0 <fs_open+0x4c>
     800000ec:	02813083          	ld	ra,40(sp)
     800000f0:	02013403          	ld	s0,32(sp)
     800000f4:	01013903          	ld	s2,16(sp)

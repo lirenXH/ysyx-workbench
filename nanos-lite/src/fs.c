@@ -41,7 +41,7 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
   printf("pathname = %s\n",pathname);
   for(i=0;i<22;i++){
     printf("file_table[i].name = %s,pathname = %s.\n",file_table[i].name,pathname);
-    if(strcmp(file_table[i].name,(char *)pathname)){
+    if(strcmp(file_table[i].name,(char *)pathname)==0){
       //Log("load file %s  fd is %d",pathname,i);
       return i;
     }
