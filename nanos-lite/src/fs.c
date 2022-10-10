@@ -45,6 +45,7 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
     }
   }
     return 13;
+    Log("load file %s  fd is %d",pathname,i);
   assert(i);
 
 }
