@@ -57,6 +57,7 @@ size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数�
 size_t fs_read1(int fd, void *buf, size_t len){    //返回值应该是读入数据大小
   printf("file_table[%d].disk_offset + seek_offset = %d\n",fd,file_table[fd].disk_offset + seek_offset);
   ramdisk_read(buf,2 * file_table[fd].disk_offset + seek_offset ,len);
+  seek_offset = seek_offset + len;
   return len;
 }
 
