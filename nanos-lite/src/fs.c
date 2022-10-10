@@ -62,7 +62,7 @@ size_t fs_read1(int fd, void *buf, size_t len){    //返回值应该是读入数
 }
 
 size_t fs_write(int fd,const void* buf,size_t len){
-  //printf("fs_write fd : %d  len : %d\n",fd,len);
+  printf("fs_write fd : %d  len : %d\n",fd,len);
   int i;
   if((fd == 1)||(fd == 2)){
     for(i=0;i<len;i++){
@@ -70,7 +70,8 @@ size_t fs_write(int fd,const void* buf,size_t len){
     }
     return len;//返回写的字节数
   }else{
-    ramdisk_write(buf,file_table[fd].disk_offset + seek_offset,len);
+    ramdisk_write(buf,2 * file_table[fd].disk_offset + seek_offset,len);
+    seek_offset = seek_offset + len;
     return len;
   }
   return -1;
