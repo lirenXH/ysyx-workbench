@@ -20,10 +20,10 @@ void strace_main(uintptr_t a7,uintptr_t re){
     printf("strace system call write , ID is 4 the return value is %d\n\n",re);
     break;
   case 7:
-    printf("strace system call lseek , ID is 7 the return value is %d\n\n",re);
+    printf("strace system call close , ID is 7 the return value is %d\n\n",re);
     break;
   case 8:
-    printf("strace system call close , ID is 8 the return value is %d\n\n",re);
+    printf("strace system call lseek , ID is 8 the return value is %d\n\n",re);
     break;
   case 9:
     printf("strace system call sbrk  , ID is 9 the return value is %d\n\n",re);
