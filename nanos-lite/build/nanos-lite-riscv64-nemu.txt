@@ -591,7 +591,7 @@ Disassembly of section .text:
     80000894:	9d9ff0ef          	jal	ra,8000026c <fs_lseek>
     80000898:	07615603          	lhu	a2,118(sp)
     8000089c:	00810593          	addi	a1,sp,8
-    800008a0:	00000513          	li	a0,0
+    800008a0:	00048513          	mv	a0,s1
     800008a4:	889ff0ef          	jal	ra,8000012c <fs_read1>
     800008a8:	00812703          	lw	a4,8(sp)
     800008ac:	00100793          	li	a5,1
@@ -605,7 +605,7 @@ Disassembly of section .text:
     800008cc:	9a1ff0ef          	jal	ra,8000026c <fs_lseek>
     800008d0:	03013603          	ld	a2,48(sp)
     800008d4:	02013583          	ld	a1,32(sp)
-    800008d8:	00000513          	li	a0,0
+    800008d8:	00048513          	mv	a0,s1
     800008dc:	0014041b          	addiw	s0,s0,1
     800008e0:	84dff0ef          	jal	ra,8000012c <fs_read1>
     800008e4:	02813783          	ld	a5,40(sp)
