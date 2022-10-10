@@ -10,8 +10,11 @@ void strace_main(uintptr_t a7,uintptr_t re){
   case 1:
     printf("strace system call yield , ID is 1 the return value is %d\n\n",re);
     break;
+  case 2:
+    printf("strace system call open  , ID is 2 the return value is %d\n\n",re);
+    break;
   case 3:
-    printf("strace system call read  , ID is 2 the return value is %d\n\n",re);
+    printf("strace system call read  , ID is 3 the return value is %d\n\n",re);
     break;
   case 4:
     printf("strace system call write , ID is 4 the return value is %d\n\n",re);
