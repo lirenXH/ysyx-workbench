@@ -77,10 +77,10 @@ size_t fs_lseek(int fd, size_t offset, int whence){
   else if(whence == 1)
     seek_offset = offset;                                 //从当前位置开始
   else if(whence == 2)
-    seek_offset = file_table[fd].disk_offset + offset;           //从尾部开始
+    seek_offset = file_table[fd].size + offset;           //从尾部开始
   else
     assert(2);
-  return file_table[fd].disk_offset + seek_offset;  //返回当前偏移量位置
+  return seek_offset;  //返回当前偏移量位置
 }
 
 int fs_close(int fd){
