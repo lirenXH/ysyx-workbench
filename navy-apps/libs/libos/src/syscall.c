@@ -58,15 +58,13 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) { //打开一个文件, 并返回相应的文件描述符
-  _syscall_(SYS_open,*path,(intptr_t)flags,mode);
+  return _syscall_(SYS_open,*path,(intptr_t)flags,mode);
   //_exit(SYS_open);
-  return 0;
 }
 
 int _write(int fd, void *buf, size_t count) {
-  _syscall_(SYS_write,fd,(intptr_t)buf,count);//需要带下划线 和linux区分 buf 和 intptr的类型
+  return _syscall_(SYS_write,fd,(intptr_t)buf,count);//需要带下划线 和linux区分 buf 和 intptr的类型
   //_exit(SYS_write);
-  return 0;
 }
 
 void *_sbrk(intptr_t increment) {         //返回-1表示堆区调整失败
@@ -81,21 +79,18 @@ void *_sbrk(intptr_t increment) {         //返回-1表示堆区调整失败
 }
 
 int _read(int fd, void *buf, size_t count) {
-  _syscall_(SYS_read,fd,(intptr_t)buf,count);
+  return _syscall_(SYS_read,fd,(intptr_t)buf,count);
   //_exit(SYS_read);
-  return 0;
 }
 
 int _close(int fd) {
-  _syscall_(SYS_close,fd,0,0);
+  return _syscall_(SYS_close,fd,0,0);
   //_exit(SYS_close);
-  return 0;
 }
 
 off_t _lseek(int fd, off_t offset, int whence) {  //用来调整偏移量
-  _syscall_(SYS_lseek,fd,offset,whence);
+  return _syscall_(SYS_lseek,fd,offset,whence);
   //_exit(SYS_lseek);
-  return 0;
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
