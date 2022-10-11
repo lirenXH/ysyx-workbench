@@ -7,6 +7,8 @@ int main() {
     struct timeval tv_end;
     gettimeofday(&tv_begin,NULL);
     gettimeofday(&tv_end,NULL);
+    printf("tv_begin_sec:%d\n",tv_begin.tv_sec);
+    printf("tv_end___sec:%d\n",tv_end.tv_sec);
     for(int i = 0 ;i < 10 ; i++){
         int cha = tv_end.tv_sec - tv_begin.tv_sec;
         while(cha != 1){
