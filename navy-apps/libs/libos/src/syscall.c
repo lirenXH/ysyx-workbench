@@ -5,7 +5,6 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
-#include <stdio.h>
 // helper macros
 #define _concat(x, y) x ## y
 #define concat(x, y) _concat(x, y)
@@ -89,7 +88,6 @@ off_t _lseek(int fd, off_t offset, int whence) {  //用来调整偏移量
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
-  printf("1");
   return _syscall_(SYS_gettimeofday,0,0,0);
 }
 
