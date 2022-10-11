@@ -68,10 +68,11 @@ size_t fs_write(int fd,const void* buf,size_t len){
     seek_offset = seek_offset + len;
     return len;
 
-  }else{
-    file_table->write(buf,0,len);
+  }else if(file_table[fd].write == serial_write){
+    file_table[fd].write(buf,0,len);
     return len;//返回写的字节数
-  }
+  }else
+    panic("should not reach here");
   return -1;
 }
 
