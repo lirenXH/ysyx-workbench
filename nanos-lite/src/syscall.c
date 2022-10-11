@@ -60,7 +60,7 @@ void do_syscall(Context *c) {
              strace_main(a[0],c->GPRx);break;
     case 9 : c->GPRx = 0;
              strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
-    case 19 : c->GPRx = 0;c->GPR2 = io_read(AM_TIMER_UPTIME).us;
+    case 19 : c->GPRx = 0;c->GPR1 = io_read(AM_TIMER_UPTIME).us;
              break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
