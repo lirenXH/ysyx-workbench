@@ -28,6 +28,9 @@ void strace_main(uintptr_t a7,uintptr_t re){
   case 9:
     printf("strace system call sbrk  , ID is 9 the return value is %d\n\n",re);
     break;
+  case 19:
+    printf("strace system call gettimeofday  , ID is 19 the return value is %d\n\n",re);
+    break;
   default:
     printf("should not come here");
     break;
@@ -59,6 +62,8 @@ void do_syscall(Context *c) {
              strace_main(a[0],c->GPRx);break;
     case 9 : c->GPRx = 0;
              strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
+    case 19 : c->GPRx = 0;
+             strace_main(a[0],c->GPRx);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
