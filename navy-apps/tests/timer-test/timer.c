@@ -11,7 +11,7 @@ int main() {
         int cha = tv_end.tv_sec - tv_begin.tv_sec;
         while(cha != 1){
             gettimeofday(&tv_end,NULL);
-            printf("cah = %d\n",cha);
+            printf("cha = %d\n",cha);
         }
         gettimeofday(&tv_begin,NULL);
         printf("gettimeofday 1s\n");

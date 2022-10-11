@@ -37,7 +37,10 @@ void strace_main(uintptr_t a7,uintptr_t re){
   }
 }
 
-
+void get_ttime(long int tv_sec,long int tv_usec){
+  size_t us = io_read(AM_TIMER_UPTIME).us;
+  printf("us = %ld\n",us);
+}
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -62,9 +65,8 @@ void do_syscall(Context *c) {
              strace_main(a[0],c->GPRx);break;
     case 9 : c->GPRx = 0;
              strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
-    case 19 : c->GPRx = 0;
+    case 19 : c->GPRx = 0;get_ttime(a[1],a[2]);
              break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
-
