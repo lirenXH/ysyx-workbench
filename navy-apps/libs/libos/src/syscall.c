@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
-//#include<stdio.h>
+#include<stdio.h>
 // helper macros
 #define _concat(x, y) x ## y
 #define concat(x, y) _concat(x, y)
@@ -93,6 +93,7 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
   _syscall_(SYS_gettimeofday,usec,0,0);
   tv->tv_usec= usec;
   tv->tv_sec = usec / 1000000;
+  printf("tv->tv_sec = %d\n",tv->tv_sec);
   return 0;
 }
 
