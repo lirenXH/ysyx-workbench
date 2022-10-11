@@ -38,8 +38,8 @@ void strace_main(uintptr_t a7,uintptr_t re){
 }
 
 void get_ttime(long int tv_sec,long int tv_usec){
-  size_t us = io_read(AM_TIMER_UPTIME).us;
-  printf("us = %ld\n",us);
+  tv_usec = io_read(AM_TIMER_UPTIME).us;
+  tv_sec  = tv_usec / 1000000;
 }
 
 void do_syscall(Context *c) {
