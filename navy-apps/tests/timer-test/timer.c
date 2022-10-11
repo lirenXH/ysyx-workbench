@@ -15,7 +15,7 @@ int main() {
         printf("tv_end___usec:%d\n",tv_end.tv_usec);
         while(cha != 1){
             gettimeofday(&tv_end,NULL);
-            //printf("cha = %d\n",cha);
+            printf("cha = %d\n",cha);
         }
         gettimeofday(&tv_begin,NULL);
         printf("gettimeofday 1s\n");
