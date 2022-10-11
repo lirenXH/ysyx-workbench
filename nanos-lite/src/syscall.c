@@ -37,11 +37,6 @@ void strace_main(uintptr_t a7,uintptr_t re){
   }
 }
 
-void get_ttime(long int tv_sec,long int tv_usec){
-  tv_usec = io_read(AM_TIMER_UPTIME).us;
-  tv_sec  = tv_usec / 1000000;
-}
-
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
