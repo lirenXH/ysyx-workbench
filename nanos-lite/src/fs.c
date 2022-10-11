@@ -26,8 +26,8 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
-  [FD_STDOUT] = {"stdout", 0, 0, invalid_read, invalid_write},
-  [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
+  [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
+  [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -63,14 +63,16 @@ size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数�
 
 size_t fs_write(int fd,const void* buf,size_t len){
   printf("fs_write fd : %d  len : %d\n",fd,len);
-  if((fd == 1)||(fd == 2)){
-    serial_write(buf,0,len);
-    return len;//返回写的字节数
-  }else{
+  if(file_table->write == NULL){
     ramdisk_write(buf,2 * file_table[fd].disk_offset + seek_offset,len);
     seek_offset = seek_offset + len;
     return len;
-  }
+
+  }else if(file_table->write == serial_write){
+    file_table->write(buf,0,len);
+    return len;//返回写的字节数
+  }else
+    panic("should not come here");
   return -1;
 }
 
