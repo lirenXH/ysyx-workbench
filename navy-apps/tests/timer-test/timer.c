@@ -18,7 +18,7 @@ int main() {
             break;
         }
         gettimeofday(&tv_begin,NULL);
-        printf("gettimeofday 1s\n");
+        printf("gettimeofday %ds\n",i);
     }
     return 0;
 }
