@@ -62,7 +62,7 @@ size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数�
 }
 
 size_t fs_write(int fd,const void* buf,size_t len){
-  //printf("fs_write fd : %d  len : %d\n",fd,len);
+  printf("fs_write fd : %d  len : %d\n",fd,len);
   if((fd == 1)||(fd == 2)){
     serial_write(buf,0,len);
     return len;//返回写的字节数
