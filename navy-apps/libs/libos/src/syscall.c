@@ -94,7 +94,7 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
   printf("usec1 = %ld,\n",usec);
   tv->tv_usec= usec;
   tv->tv_sec = usec / 1000000;
-  printf("tv->tv_usec = %ld,tv->tv_sec = %ld\n",tv->tv_usec,tv->tv_sec);
+  printf("tv->tv_usec = %d,tv->tv_sec = %d\n",tv->tv_usec,tv->tv_sec);
   return 0;
 }
 
