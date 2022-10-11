@@ -91,10 +91,9 @@ off_t _lseek(int fd, off_t offset, int whence) {  //用来调整偏移量
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
   intptr_t usec = 0;
   _syscall_(SYS_gettimeofday,0,0,tv->tv_usec);
-  //printf("usec1 = %ld,\n",usec);
-  tv->tv_usec= &usec;
+  tv->tv_usec= usec;
+  printf("usec = %ld,tv->tv_usec = %ld\n",usec,tv->tv_usec);
   tv->tv_sec = tv->tv_usec / 1000000;
-  printf("tv->tv_usec = %x,tv->tv_sec = %x\n",tv->tv_usec,tv->tv_sec);
   return 0;
 }
 
