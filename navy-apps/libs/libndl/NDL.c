@@ -16,7 +16,7 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char* buf, int len) {
     char key[32];
-    assert(len == 64);
+    //assert(len == 64);
     int n = 32 < len ? 32 : len;
     ssize_t size = read(keyboard_fd, key, n);
     if (size == 0) {
