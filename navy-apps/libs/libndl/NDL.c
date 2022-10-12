@@ -43,8 +43,8 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
     }
     close(fbctl);
   }
-  w = 640;
-  h = 480;
+  *w = 640;
+  *h = 480;
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
