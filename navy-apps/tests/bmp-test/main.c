@@ -5,18 +5,14 @@
 #include <BMP.h>
 
 int main() {
-  printf("qadawdad1");
   NDL_Init(0);
-  //int w, h;
-  printf("1wdwda");
-  //void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
-  printf("1wdasd");
-  //assert(bmp);
-  //NDL_OpenCanvas(&w, &h);
-  //printf("1dadw");
-  //NDL_DrawRect(bmp, 0, 0, w, h);
-  //free(bmp);
-  //NDL_Quit();
+  int w, h;
+  void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
+  assert(bmp);
+  NDL_OpenCanvas(&w, &h);
+  NDL_DrawRect(bmp, 0, 0, w, h);
+  free(bmp);
+  NDL_Quit();
   printf("Test ends! Spinning...\n");
   while (1);
   return 0;
