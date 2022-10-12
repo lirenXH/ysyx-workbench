@@ -22,7 +22,7 @@ int main() {
             break;
         }
         gettimeofday(&tv_begin,NULL);
-        printf("gettimeofday %ds\n",i);
+        printf("gettimeofday %ds NDL_GetTicks() = %d\n",i,NDL_GetTicks());
     }
 
     
