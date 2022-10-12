@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+#include <assert.h>
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -13,8 +13,16 @@ uint32_t NDL_GetTicks() {
   return tv.tv_usec;
 }
 
-int NDL_PollEvent(char *buf, int len) {
-  return 0;
+int NDL_PollEvent(char* buf, int len) {
+    char key[32];
+    assert(len == 64);
+    int n = 32 < len ? 32 : len;
+    //ssize_t size = read(event_fd, key, n);
+    //if (size == 0) {
+    //    return 0;
+    //}
+    strncpy(buf, key, 32);
+    return 1;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
