@@ -28,6 +28,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(updown){
     sprintf(buf,"kd %s\n",keyname[key_code]);
   }else{
+    printf("key_code = %d\n",key_code);
     sprintf(buf,"ku %s\n",keyname[key_code]);
   }
   return 0;

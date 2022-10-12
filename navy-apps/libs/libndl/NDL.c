@@ -19,7 +19,6 @@ int NDL_PollEvent(char* buf, int len) {
     assert(len == 64);
     int n = 32 < len ? 32 : len;
     ssize_t size = read(keyboard_fd, key, n);
-    printf("keyboard_fd = %d,size = %d\n",keyboard_fd,size);
     if (size == 0) {
         return 0;
     }
