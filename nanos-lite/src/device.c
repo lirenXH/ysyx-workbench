@@ -27,10 +27,12 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   size_t key_code = io_read(AM_INPUT_KEYBRD).keycode;
   if(updown){
     sprintf(buf,"kd %s\n",keyname[key_code]);
+    return len;
   }else if(key_code != 0){
     sprintf(buf,"ku %s\n",keyname[key_code]);
-  }
-  return 0;
+    return len;
+  }else
+    return 0;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {

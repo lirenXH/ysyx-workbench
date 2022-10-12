@@ -62,7 +62,7 @@ size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数�
     seek_offset = seek_offset + len;
     return len;
   }else{
-    file_table[fd].read(buf,0,len);
+    len = file_table[fd].read(buf,0,len);
     return len;//返回写的字节数
   }
 }
