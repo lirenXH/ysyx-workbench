@@ -41,6 +41,8 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
   int i;
   for(i=0;i<22;i++){
     if(strcmp(file_table[i].name,(char *)pathname)==0){
+      if(i <= 3)
+        return i;
       Log("load file %s  fd is %d",pathname,i);
       return i;
     }
