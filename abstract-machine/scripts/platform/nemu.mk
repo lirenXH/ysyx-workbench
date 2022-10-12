@@ -15,7 +15,7 @@ NEMUFLAGS += -l $(shell dirname $(IMAGE).elf)/nemu-log.txt
 ####
 NEMUFLAGS += -f $(IMAGE_ELF)  #ftrace
 ####
-#NEMUFLAGS += -b            #批处理
+NEMUFLAGS += -b            #批处理
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/nemu/include
 .PHONY: $(AM_HOME)/am/src/platform/nemu/trm.c
