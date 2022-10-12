@@ -19,14 +19,17 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
   for(i=0;i<len;i++){
       putch( ((char*)buf)[i] );//输出i个字符
     }
-    printf("key %s\n",keyname[1]);
   return 0;
 }
 
-size_t events_read(const void *buf, size_t offset, size_t len) {
-  //size_t updown   = io_read(AM_INPUT_KEYBRD).keydown;
-  //size_t key_code = io_read(AM_INPUT_KEYBRD).keycode;
-  
+size_t events_read(void *buf, size_t offset, size_t len) {
+  size_t updown   = io_read(AM_INPUT_KEYBRD).keydown;
+  size_t key_code = io_read(AM_INPUT_KEYBRD).keycode;
+  if(updown){
+    snprintf(buf,len,"kd %s\n",keyname[key_code]);
+  }else{
+    snprintf(buf,len,"ku %s\n",keyname[key_code]);
+  }
   return 0;
 }
 
