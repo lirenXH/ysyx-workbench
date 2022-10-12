@@ -9,7 +9,6 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 struct timeval tv;
 size_t keyboard_fd;
-FILE  *vga_info_fd;
 uint32_t NDL_GetTicks() {
   gettimeofday(&tv,NULL);
   return tv.tv_usec;
@@ -44,9 +43,8 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
     }
     close(fbctl);
   }
-  vga_info_fd =  open("/proc/dispinfo","r+");
-  fscanf(vga_info_fd,"WIDTH :%d",w);
-  fscanf(vga_info_fd,"HEIGHT:%d",h);
+  w = 640;
+  h = 480;
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
