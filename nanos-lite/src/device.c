@@ -27,8 +27,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   size_t key_code = io_read(AM_INPUT_KEYBRD).keycode;
   if(updown){
     sprintf(buf,"kd %s\n",keyname[key_code]);
-  }else{
-    printf("key_code = %d\n",key_code);
+  }else if(key_code != 0){
     sprintf(buf,"ku %s\n",keyname[key_code]);
   }
   return 0;
