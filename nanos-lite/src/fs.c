@@ -40,7 +40,7 @@ void init_fs() {
 
 int fs_open(const char *pathname, int flags, int mode){   //返回值为一文件描述符 方便后续read write fd使用
   int i;
-  for(i=0;i<30;i++){
+  for(i=0;i<31;i++){
     if(strcmp(file_table[i].name,(char *)pathname)==0){
       Log("load file %s  fd is %d",pathname,i);
       return i;
