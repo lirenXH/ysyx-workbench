@@ -5,15 +5,15 @@
 #include <BMP.h>
 
 int main() {
-  printf("1");
+  printf("qadawdad1");
   NDL_Init(0);
   int w, h;
-  printf("1");
+  printf("1wdwda");
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
-  printf("1");
+  printf("1wdasd");
   assert(bmp);
   NDL_OpenCanvas(&w, &h);
-  printf("1");
+  printf("1dadw");
   NDL_DrawRect(bmp, 0, 0, w, h);
   free(bmp);
   NDL_Quit();
