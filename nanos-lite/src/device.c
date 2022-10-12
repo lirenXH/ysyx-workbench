@@ -26,9 +26,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   size_t updown   = io_read(AM_INPUT_KEYBRD).keydown;
   size_t key_code = io_read(AM_INPUT_KEYBRD).keycode;
   if(updown){
-    snprintf(buf,len,"kd %s\n",keyname[key_code]);
+    sprintf(buf,"kd %s\n",keyname[key_code]);
   }else{
-    snprintf(buf,len,"ku %s\n",keyname[key_code]);
+    sprintf(buf,"ku %s\n",keyname[key_code]);
   }
   return 0;
 }
