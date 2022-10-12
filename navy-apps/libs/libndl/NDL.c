@@ -17,10 +17,10 @@ int NDL_PollEvent(char* buf, int len) {
     char key[32];
     assert(len == 64);
     int n = 32 < len ? 32 : len;
-    //ssize_t size = read(event_fd, key, n);
-    //if (size == 0) {
-    //    return 0;
-    //}
+    ssize_t size = read(4, key, n);
+    if (size == 0) {
+        return 0;
+    }
     strncpy(buf, key, 32);
     return 1;
 }
