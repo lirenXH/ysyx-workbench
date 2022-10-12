@@ -11,7 +11,7 @@ typedef struct {
   WriteFn write;
 } Finfo;
 size_t seek_offset = 0;
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_KB ,FD_FB};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -28,6 +28,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
+  [FD_KB]     = {"/dev/events", 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -68,11 +69,11 @@ size_t fs_write(int fd,const void* buf,size_t len){
     seek_offset = seek_offset + len;
     return len;
 
-  }else if(file_table[fd].write == serial_write){
+  //}else if(file_table[fd].write == serial_write){
+  }else{                                  //包括键盘，串口 均无偏移量
     file_table[fd].write(buf,0,len);
     return len;//返回写的字节数
-  }else
-    panic("should not reach here");
+  }
   return -1;
 }
 

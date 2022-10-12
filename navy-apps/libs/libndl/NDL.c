@@ -8,6 +8,7 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 struct timeval tv;
+size_t keyboard_fd;
 uint32_t NDL_GetTicks() {
   gettimeofday(&tv,NULL);
   return tv.tv_usec;
@@ -17,7 +18,7 @@ int NDL_PollEvent(char* buf, int len) {
     char key[32];
     assert(len == 64);
     int n = 32 < len ? 32 : len;
-    ssize_t size = read(4, key, n);
+    ssize_t size = read(keyboard_fd, key, n);
     if (size == 0) {
         return 0;
     }
@@ -66,6 +67,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  keyboard_fd = fopen("/dev/events","r+");
   tv.tv_sec  = 0;
   tv.tv_usec = 0;
   return 0;
