@@ -55,7 +55,7 @@ Disassembly of section .text:
     8000009c:	00000493          	li	s1,0
     800000a0:	00002997          	auipc	s3,0x2
     800000a4:	96098993          	addi	s3,s3,-1696 # 80001a00 <_etext+0x80>
-    800000a8:	01b00a13          	li	s4,27
+    800000a8:	01e00a13          	li	s4,30
     800000ac:	0100006f          	j	800000bc <fs_open+0x48>
     800000b0:	0014849b          	addiw	s1,s1,1
     800000b4:	02840413          	addi	s0,s0,40
