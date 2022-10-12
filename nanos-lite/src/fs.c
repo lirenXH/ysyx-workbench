@@ -50,7 +50,7 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
   return 0;
 }
 
-size_t fs_read1(int fd, void *buf, size_t len){    //专门给loader用 伏笔
+size_t fs_read1(int fd, void *buf, size_t len){    //专门给loader用
   //printf("file_table[%d].disk_offset + seek_offset = %d\n",fd,file_table[fd].disk_offset + seek_offset);
   ramdisk_read(buf,file_table[fd].disk_offset + seek_offset,len);
   return len;
@@ -89,9 +89,23 @@ size_t fs_lseek(int fd, size_t offset, int whence){
   if(whence == 0)
     seek_offset = offset;    //从头开始
   else if(whence == 1)
-    seek_offset = offset + file_table[fd].disk_offset;    //从当前位置开始
+    seek_offset = offset + file_table[fd].disk_offset;            //从当前位置开始
   else if(whence == 2)
-    seek_offset = file_table[fd].size + offset + file_table[fd].disk_offset; //从尾部开始
+    seek_offset = file_table[fd].size + offset + file_table[fd].disk_offset;           //从尾部开始
+  else
+    assert(0);
+  return seek_offset;  //返回当前偏移量位置
+}
+
+size_t fs_lseek1(int fd, size_t offset, int whence){    //专门给loader用
+  //printf("fs_lseek fd = %d offset = %d whence = %d\n",fd,offset,whence);1
+  //printf("seek_offset = %d\n",seek_offset);
+  if(whence == 0)
+    seek_offset = offset - file_table[fd].disk_offset;    //从头开始
+  else if(whence == 1)
+    seek_offset = offset;                                 //从当前位置开始
+  else if(whence == 2)
+    seek_offset = file_table[fd].size + offset;           //从尾部开始
   else
     assert(0);
   return seek_offset;  //返回当前偏移量位置
