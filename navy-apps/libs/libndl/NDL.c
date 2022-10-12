@@ -67,7 +67,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  keyboard_fd = fopen("/dev/events","r+");
+  keyboard_fd = open("/dev/events","r+");
   tv.tv_sec  = 0;
   tv.tv_usec = 0;
   return 0;
