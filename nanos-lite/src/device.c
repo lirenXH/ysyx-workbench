@@ -25,14 +25,15 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   size_t updown   = io_read(AM_INPUT_KEYBRD).keydown;
   size_t key_code = io_read(AM_INPUT_KEYBRD).keycode;
-  if(updown){
+  if(key_code == 0){
+    return 0;
+  }else if(updown){
     sprintf(buf,"kd %s\n",keyname[key_code]);
     return len;
-  }else if(key_code != 0){
+  }else{
     sprintf(buf,"ku %s\n",keyname[key_code]);
     return len;
-  }else
-    return 0;
+  }
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
