@@ -20,5 +20,7 @@ int main() {
         gettimeofday(&tv_begin,NULL);
         printf("gettimeofday %ds\n",i);
     }
+
+    //NDL_Init(0);
     return 0;
 }
