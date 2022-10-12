@@ -25,7 +25,7 @@ int NDL_PollEvent(char* buf, int len) {
     return 1;
 }
 
-void NDL_OpenCanvas(int *w, int *h) {
+void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
