@@ -57,7 +57,7 @@ void do_syscall(Context *c) {
     case 7 : c->GPRx = fs_close((int)a[1]);
              strace_main(a[0],c->GPRx);break;   //保证返回值正确
     case 8 : c->GPRx = fs_lseek((int)a[1],a[2],(int)a[3]);
-             strace_main(a[0],c->GPRx);break;
+             /*strace_main(a[0],c->GPRx);*/break;
     case 9 : c->GPRx = 0;
              strace_main(a[0],c->GPRx);break;    //只需要让SYS_brk系统调用总是返回0即可
     case 19: c->GPRx = io_read(AM_TIMER_UPTIME).us;
