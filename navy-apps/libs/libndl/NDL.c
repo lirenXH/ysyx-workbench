@@ -48,7 +48,7 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
     }
     close(fbctl);
   } 
-
+  printf("NDL w = %d , h = %d\n",w,h);
 }
 //通过往/dev/fb中的正确位置写入像素信息来绘制图像. 你需要梳理清楚系统屏幕(即frame buffer), 
 //NDL_OpenCanvas()打开的画布, 以及NDL_DrawRect()指示的绘制区域之间的位置关系.
