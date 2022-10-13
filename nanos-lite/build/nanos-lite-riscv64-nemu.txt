@@ -550,7 +550,7 @@ Disassembly of section .text:
     800007e8:	355000ef          	jal	ra,8000133c <printf>
     800007ec:	00813083          	ld	ra,8(sp)
     800007f0:	00001597          	auipc	a1,0x1
-    800007f4:	38858593          	addi	a1,a1,904 # 80001b78 <_etext+0x148>
+    800007f4:	3b858593          	addi	a1,a1,952 # 80001ba8 <_etext+0x178>
     800007f8:	00000513          	li	a0,0
     800007fc:	01010113          	addi	sp,sp,16
     80000800:	1740006f          	j	80000974 <naive_uload>
