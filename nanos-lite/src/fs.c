@@ -76,8 +76,6 @@ size_t fs_write(int fd,const void* buf,size_t len){
     ramdisk_write(buf,file_table[fd].disk_offset + seek_offset,len);
     seek_offset = seek_offset + len;
     return len;
-
-  //}else if(file_table[fd].write == serial_write){
   }else{                                  //包括键盘，串口 均无偏移量
     file_table[fd].write(buf,0,len);
     return len;//返回写的字节数

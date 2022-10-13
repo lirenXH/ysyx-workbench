@@ -273,7 +273,7 @@ Disassembly of section .text:
     800003e4:	88070713          	addi	a4,a4,-1920 # 80001c60 <_etext+0x170>
     800003e8:	00002697          	auipc	a3,0x2
     800003ec:	ba068693          	addi	a3,a3,-1120 # 80001f88 <__func__.1>
-    800003f0:	06200613          	li	a2,98
+    800003f0:	06000613          	li	a2,96
     800003f4:	00001597          	auipc	a1,0x1
     800003f8:	6fc58593          	addi	a1,a1,1788 # 80001af0 <_etext>
     800003fc:	00001517          	auipc	a0,0x1
@@ -319,7 +319,7 @@ Disassembly of section .text:
     80000494:	7d070713          	addi	a4,a4,2000 # 80001c60 <_etext+0x170>
     80000498:	00002697          	auipc	a3,0x2
     8000049c:	ae068693          	addi	a3,a3,-1312 # 80001f78 <__func__.0>
-    800004a0:	07100613          	li	a2,113
+    800004a0:	06f00613          	li	a2,111
     800004a4:	00001597          	auipc	a1,0x1
     800004a8:	64c58593          	addi	a1,a1,1612 # 80001af0 <_etext>
     800004ac:	00001517          	auipc	a0,0x1
