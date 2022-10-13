@@ -82,6 +82,7 @@ size_t fs_write(int fd,const void* buf,size_t len){
     seek_offset = seek_offset + len;
     return len;
   }else{                                       //包括键盘，串口 均无偏移量
+  printf("kebord write");
     file_table[fd].write(buf,0,len);
     return len;//返回写的字节数
   }
