@@ -63,7 +63,7 @@ int _open(const char *path, int flags, mode_t mode) {              //打开一�
 }
 
 int _write(int fd, void *buf, size_t count) {
-  return _syscall_(SYS_write,fd,(intptr_t)buf,count/8);              //需要带下划线 和linux区分 buf 和 intptr的类型
+  return _syscall_(SYS_write,fd,(intptr_t)buf,count);              //需要带下划线 和linux区分 buf 和 intptr的类型
 }
 
 void *_sbrk(intptr_t increment) {         //返回-1表示堆区调整失败
