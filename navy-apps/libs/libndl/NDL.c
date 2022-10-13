@@ -54,7 +54,7 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
 //NDL_OpenCanvas()打开的画布, 以及NDL_DrawRect()指示的绘制区域之间的位置关系.
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   vga_fd = open("/dev/fb","r+");
-
+  printf("w = %d , h = %d\n",w,h);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
