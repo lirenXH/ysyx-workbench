@@ -2,7 +2,7 @@
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
-uint32_t *fb_canva;
+//uint32_t *fb_canva;
 typedef struct {
   char *name;
   size_t size;
@@ -35,7 +35,7 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-  fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
+  //fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
 }
 
 
@@ -82,7 +82,6 @@ size_t fs_write(int fd,const void* buf,size_t len){
     seek_offset = seek_offset + len;
     return len;
   }else{                                       //包括键盘，串口 均无偏移量
-  printf("kebord write");
     file_table[fd].write(buf,0,len);
     return len;//返回写的字节数
   }

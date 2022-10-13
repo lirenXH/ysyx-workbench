@@ -13,7 +13,7 @@ static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
 };
-extern uint32_t *fb_canva;
+//extern uint32_t *fb_canva;
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   int i = 0;
   for(i=0;i<len;i++){
