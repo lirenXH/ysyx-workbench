@@ -37,8 +37,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   printf("dispinfo\n");
-  AM_GPU_CONFIG_T vga_info = io_read(AM_GPU_CONFIG);
-  printf("w = %d,h = %d\n",vga_info.width,vga_info.height);
   return 0;
 }
 
