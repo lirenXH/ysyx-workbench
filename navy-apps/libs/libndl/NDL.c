@@ -81,7 +81,7 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
-  keyboard_fd = fopen("/dev/events","r+");
+  keyboard_fd = open("/dev/events","r+");
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
