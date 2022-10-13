@@ -16,7 +16,6 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char* buf, int len) {
-    keyboard_fd = open("/dev/events","r+");
     char key[32];
     int n = 32 < len ? 32 : len;
     ssize_t size = read(keyboard_fd, key, n);
@@ -73,6 +72,7 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
+  keyboard_fd = open("/dev/events","r+");
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
