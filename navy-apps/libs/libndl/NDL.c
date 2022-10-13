@@ -9,7 +9,7 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 struct timeval tv;
 FILE *keyboard_fd;
-FILE *vga_fd;
+
 uint32_t NDL_GetTicks() {
   gettimeofday(&tv,NULL);
   return tv.tv_usec;
@@ -52,7 +52,7 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
 //通过往/dev/fb中的正确位置写入像素信息来绘制图像. 你需要梳理清楚系统屏幕(即frame buffer), 
 //NDL_OpenCanvas()打开的画布, 以及NDL_DrawRect()指示的绘制区域之间的位置关系.
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  vga_fd = fopen("/dev/fb","r+");
+  FILE *vga_fd = fopen("/dev/fb","w+");
   if(w==0||h==0)
     assert("w or h == 0");
   printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
