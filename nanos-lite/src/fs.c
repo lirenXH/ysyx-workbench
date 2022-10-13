@@ -35,7 +35,7 @@ static Finfo file_table[] __attribute__((used)) = {
 uint32_t *fb_canva;
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-  fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
+  //fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
 }
 
 
