@@ -29,7 +29,6 @@ void* BMP_Load(const char *filename, int *width, int *height) {
   printf("hdr.bitcount = %d\n",hdr.bitcount);
   printf("hdr.compression = %d\n",hdr.compression);
   if (hdr.bitcount != 24) return NULL;
-  printf("2222.5");
   if (hdr.compression != 0) return NULL;
   printf("3333");
   int w = hdr.width;
