@@ -2,7 +2,7 @@
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
-
+uint32_t *fb_canva;
 typedef struct {
   char *name;
   size_t size;
@@ -32,7 +32,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_VGA]    = {"/dev/fb", 0, 0, dispinfo_read, fb_write},
 #include "files.h"
 };
-uint32_t *fb_canva;
+
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
@@ -77,6 +77,7 @@ size_t fs_write(int fd,const void* buf,size_t len){
     seek_offset = seek_offset + len;
     return len;
   }else if(file_table[fd].write == fb_write){  //VGA
+    printf("VGA write");
     file_table[fd].write(buf,seek_offset,len);
     seek_offset = seek_offset + len;
     return len;
