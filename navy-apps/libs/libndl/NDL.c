@@ -53,17 +53,17 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
 //NDL_OpenCanvas()打开的画布, 以及NDL_DrawRect()指示的绘制区域之间的位置关系.
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   FILE *vga_fd = open("/dev/fb","w+");
-  //if(w==0||h==0)
-  //  assert("w or h == 0");
-  //printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
-  //fseek(vga_fd, 0, SEEK_SET);              //设置初始画布指针位置
-  //for(int i = y ; i < (y+h) ; i++){        //从y开始写h行
-  //  fseek(vga_fd, w*i*32, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
-  //  for(int j = x ; j < (x+w) ; j++){      //从x开始写w个
-  //    //printf("write i = %d , j = %d pix = %d\n",i,j,pixels[i]);
-  //    //write(vga_fd,pixels,32);      //写入像素
-  //  }
-  //}
+  if(w==0||h==0)
+    assert("w or h == 0");
+  printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
+  fseek(&vga_fd, 0, SEEK_SET);              //设置初始画布指针位置
+  for(int i = y ; i < (y+h) ; i++){        //从y开始写h行
+    fseek(&vga_fd, w*i*32, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
+    for(int j = x ; j < (x+w) ; j++){      //从x开始写w个
+      //printf("write i = %d , j = %d pix = %d\n",i,j,pixels[i]);
+      //write(vga_fd,pixels,32);      //写入像素
+    }
+  }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
