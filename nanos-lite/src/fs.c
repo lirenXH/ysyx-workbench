@@ -86,8 +86,8 @@ size_t fs_write(int fd,const void* buf,size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-  //printf("fs_lseek fd = %d offset = %d whence = %d\n",fd,offset,whence);1
-  //printf("seek_offset = %d\n",seek_offset);
+  printf("fs_lseek fd = %d offset = %d whence = %d\n",fd,offset,whence);
+  printf("seek_offset = %d\n",seek_offset);
   if(whence == 0)
     seek_offset = offset;    //从头开始
   else if(whence == 1)
