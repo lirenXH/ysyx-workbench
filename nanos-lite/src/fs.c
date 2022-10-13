@@ -40,6 +40,7 @@ void init_fs() {
 
 
 int fs_open(const char *pathname, int flags, int mode){   //返回值为一文件描述符 方便后续read write fd使用
+  seek_offset = 0;
   int i;
   for(i=0;i<31;i++){
     if(strcmp(file_table[i].name,(char *)pathname)==0){
@@ -54,7 +55,6 @@ int fs_open(const char *pathname, int flags, int mode){   //返回值为一文�
 size_t fs_read1(int fd, void *buf, size_t len){    //专门给loader用
   //printf("file_table[%d].disk_offset + seek_offset = %d\n",fd,file_table[fd].disk_offset + seek_offset);
   ramdisk_read(buf,file_table[fd].disk_offset + seek_offset,len);
-  seek_offset = 0;
   return len;
 }
 
@@ -63,7 +63,6 @@ size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数�
   if(file_table[fd].read == NULL){
     ramdisk_read(buf,file_table[fd].disk_offset + seek_offset ,len);
     seek_offset = seek_offset + len;
-    seek_offset = 0;
     return len;
   }else{
     len = file_table[fd].read(buf,0,len);
@@ -76,7 +75,6 @@ size_t fs_write(int fd,const void* buf,size_t len){
   if(file_table[fd].write == NULL){
     ramdisk_write(buf,file_table[fd].disk_offset + seek_offset,len);
     seek_offset = seek_offset + len;
-    seek_offset = 0;
     return len;
 
   //}else if(file_table[fd].write == serial_write){
