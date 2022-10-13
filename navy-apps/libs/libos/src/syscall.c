@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
-//#include<stdio.h>
+#include<stdio.h>
 // helper macros
 #define _concat(x, y) x ## y
 #define concat(x, y) _concat(x, y)
@@ -77,6 +77,7 @@ void *_sbrk(intptr_t increment) {         //返回-1表示堆区调整失败
 }
 
 int _read(int fd, void *buf, size_t count) {
+  printf("count = %d\n",count);
   return _syscall_(SYS_read,fd,(intptr_t)buf,count);
 }
 
