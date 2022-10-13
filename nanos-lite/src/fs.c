@@ -80,6 +80,7 @@ size_t fs_write(int fd,const void* buf,size_t len){
     //printf("VGA write");
     file_table[fd].write(buf,seek_offset,len);
     seek_offset = seek_offset + len;
+    printf("VGA write seek_offset = %d\n",seek_offset);
     return len;
   }else{                                       //包括键盘，串口 均无偏移量
     file_table[fd].write(buf,0,len);
