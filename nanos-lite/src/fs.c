@@ -59,7 +59,7 @@ size_t fs_read1(int fd, void *buf, size_t len){    //专门给loader用
 }
 
 size_t fs_read(int fd, void *buf, size_t len){    //返回值应该是读入数据大小
-  printf("file_table[%d].disk_offset + seek_offset  = %d\n",fd,file_table[fd].disk_offset + seek_offset);
+  printf("file_table[%d].disk_offset + seek_offset  = %d,len = %d\n",fd,file_table[fd].disk_offset + seek_offset,len);
   if(file_table[fd].read == NULL){
     ramdisk_read(buf,file_table[fd].disk_offset + seek_offset ,len);
     seek_offset = seek_offset + len;
