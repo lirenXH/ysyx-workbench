@@ -9,12 +9,14 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 struct timeval tv;
 size_t keyboard_fd;
+size_t vga_fd;
 uint32_t NDL_GetTicks() {
   gettimeofday(&tv,NULL);
   return tv.tv_usec;
 }
 
 int NDL_PollEvent(char* buf, int len) {
+    keyboard_fd = open("/dev/events","r+");
     char key[32];
     int n = 32 < len ? 32 : len;
     ssize_t size = read(keyboard_fd, key, n);
@@ -26,6 +28,9 @@ int NDL_PollEvent(char* buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
+  vga_fd = open("/dev/fb","r+");
+  *w = 400; //(简化)
+  *h = 300;
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -42,11 +47,11 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
       if (strcmp(buf, "mmap ok") == 0) break;
     }
     close(fbctl);
-  }
-  *w = 640;
-  *h = 480;
-}
+  } 
 
+}
+//通过往/dev/fb中的正确位置写入像素信息来绘制图像. 你需要梳理清楚系统屏幕(即frame buffer), 
+//NDL_OpenCanvas()打开的画布, 以及NDL_DrawRect()指示的绘制区域之间的位置关系.
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 }
 
@@ -68,7 +73,6 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  //keyboard_fd = open("/dev/events","r+");
   tv.tv_sec  = 0;
   tv.tv_usec = 0;
   return 0;
