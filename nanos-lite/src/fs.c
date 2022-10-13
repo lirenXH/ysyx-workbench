@@ -93,7 +93,7 @@ size_t fs_lseek(int fd, size_t offset, int whence){
     seek_offset = file_table[fd].size + offset;           //从尾部开始
   else
     assert(0);
-  printf("seek_offset = %d\n",seek_offset);
+  //printf("seek_offset = %d\n",seek_offset);
   return seek_offset;  //返回当前偏移量位置
 }
 
