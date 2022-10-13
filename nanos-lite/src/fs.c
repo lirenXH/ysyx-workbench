@@ -29,13 +29,13 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
   [FD_KB]     = {"/dev/events", 0, 0, events_read, invalid_write},
-  [FD_VGA]    = {"/dev/fb", 0, 0, dispinfo_read, invalid_write},
+  [FD_VGA]    = {"/dev/fb", 0, 0, dispinfo_read, fb_write},
 #include "files.h"
 };
-
+uint32_t *fb_canva;
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-  //uint32_t fb_canva[120000];
+  fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
 }
 
 
@@ -76,7 +76,11 @@ size_t fs_write(int fd,const void* buf,size_t len){
     ramdisk_write(buf,file_table[fd].disk_offset + seek_offset,len);
     seek_offset = seek_offset + len;
     return len;
-  }else{                                  //包括键盘，串口 均无偏移量
+  }else if(file_table[fd].write == fb_write){  //VGA
+    file_table[fd].write(buf,seek_offset,len);
+    seek_offset = seek_offset + len;
+    return len;
+  }else{                                       //包括键盘，串口 均无偏移量
     file_table[fd].write(buf,0,len);
     return len;//返回写的字节数
   }
