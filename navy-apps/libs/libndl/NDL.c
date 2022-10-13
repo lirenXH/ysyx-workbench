@@ -57,12 +57,12 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     assert("w or h == 0");
   printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
   fseek(vga_fd, 0, SEEK_SET);              //设置初始画布指针位置
-  //for(int i = y ; i < (y+h) ; i++){        //从y开始写h行
-  //  fseek(vga_fd, w*i*32, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
-  //  for(int j = x ; j < (x+w) ; j++){      //从x开始写w个
-  //    write(vga_fd,pixels[w*i+j],32);      //写入像素
-  //  }
-  //}
+  for(int i = y ; i < (y+h) ; i++){        //从y开始写h行
+    fseek(vga_fd, w*i*32, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
+    for(int j = x ; j < (x+w) ; j++){      //从x开始写w个
+      write(vga_fd,pixels[w*i+j],32);      //写入像素
+    }
+  }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
