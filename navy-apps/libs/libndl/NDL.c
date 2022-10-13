@@ -29,6 +29,8 @@ int NDL_PollEvent(char* buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
   vga_fd = open("/dev/fb","r+");
+  char vga_buf[32];
+  read(vga_fd,vga_buf,32);
   *w = 400; //(简化)
   *h = 300;
   if (getenv("NWM_APP")) {
