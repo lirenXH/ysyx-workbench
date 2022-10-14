@@ -52,8 +52,8 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
   printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
   printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
-  ctl.sync = true;
-  printf("sync2 = %d\n",ctl.sync);
+  ctl.sync = 1; //屏幕刷新
+  printf("sync = %d\n",ctl.sync);
   return 0;
 }
 
