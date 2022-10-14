@@ -46,18 +46,17 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 //然后调用IOE来进行绘图. 另外我们约定每次绘图后总是马上将frame buffer中的内容同步到屏幕上.
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   printf("offset = %d , len = %d\n",offset,len);
-  //strncpy(fb_canva,buf,32);
-  fb_canva[1] = 0xffffff;
-  //uint32_t *f = (uint32_t*)(uintptr_t)FB_ADDR;
+  fb_canva[1] = 0x1111ff;
   AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
-  printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
-  printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
+  //printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
+  //printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
   ctl.x = 0;
   ctl.y = 0;
   ctl.w = 400;
   ctl.h = 300; 
   ctl.pixels = fb_canva;
-  ctl.sync = 1; //屏幕刷新
+  printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
+  ctl.sync = 1;            //屏幕刷新
   return 0;
 }
 
