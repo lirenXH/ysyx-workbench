@@ -57,7 +57,6 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   ctl.pixels = fb_canva;
   io_write(AM_GPU_FBDRAW, 0, 0, fb_canva, 400, 300, true);
   printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
-  ctl.sync = 1;            //屏幕刷新
   return 0;
 }
 
