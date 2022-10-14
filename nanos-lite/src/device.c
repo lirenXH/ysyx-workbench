@@ -51,7 +51,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   //uint32_t *f = (uint32_t*)(uintptr_t)FB_ADDR;
   AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
   printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
-  printf("pixels = %x\n",ctl.pixels);
+  printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
   ctl.sync = true;
   return 0;
 }
