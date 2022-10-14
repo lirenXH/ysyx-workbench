@@ -11,7 +11,6 @@ struct timeval tv;
 int keyboard_fd;
 long NDL_GetTicks() {
   gettimeofday(&tv,NULL);
-  //printf("tv.tv_sec * 1000000 + tv.tv_usec = %ld\n",tv.tv_sec * 1000000 + tv.tv_usec);
   long us = tv.tv_sec * 1000000 + tv.tv_usec;
   return us;
 }
