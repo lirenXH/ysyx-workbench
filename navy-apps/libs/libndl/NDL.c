@@ -55,12 +55,12 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   FILE *vga_fd = open("/dev/fb","w+");
   if(w==0||h==0)
     assert("w or h == 0");
-  printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
+  //printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
   fseek(vga_file, 0, SEEK_SET);              //设置初始画布指针位置
   for(int i = y ; i < (y+h) ; i++){        //从y开始写h行
-    //fseek(vga_file, 300*i, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
-      printf("write i = %d ,pixels = %x\n",i,pixels[i*128]);
-      write(vga_fd,&pixels[i*128],w);      //写入像素
+    fseek(vga_file, 300*i, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
+    //printf("write i = %d ,pixels = %x\n",i,pixels[i*128]);
+    write(vga_fd,&pixels[i*128],w);      //写入像素
   }
 }
 
