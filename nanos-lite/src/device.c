@@ -51,16 +51,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   for(int i=0;i<len;i++){
     fb_canva[i] = ((uint32_t*)buf)[i]; //???
   }
-  //AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
-  //printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
-  //printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
-  //ctl.x = 0;
-  //ctl.y = 0;
-  //ctl.w = 400;
-  //ctl.h = 300; 
-  //ctl.pixels = fb_canva;
   io_write(AM_GPU_FBDRAW, 0, ctl.y, fb_canva, 400, 1, true);
-  //printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
   return 0;
 }
 
