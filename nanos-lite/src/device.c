@@ -50,6 +50,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   //fb_canva[1] = 0;
   AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
   printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
+  printf("pixels = %x\n",ctl.pixels);
   return 0;
 }
 
