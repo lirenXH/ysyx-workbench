@@ -16,6 +16,8 @@ long NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char* buf, int len) {
+
+    //printf("keyfd = %d\n",keyboard_fd);
     char key[32];
     int n = 32 < len ? 32 : len;
     ssize_t size = read(keyboard_fd, key, n);

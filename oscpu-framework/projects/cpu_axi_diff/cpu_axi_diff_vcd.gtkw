@@ -1,13 +1,13 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Sep 23 12:21:27 2022
+[*] Fri Oct 14 08:23:52 2022
 [*]
-[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/build/2022-09-23@19:53:08.vcd"
-[dumpfile_mtime] "Fri Sep 23 11:54:01 2022"
-[dumpfile_size] 3974822763
+[dumpfile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/build/2022-10-14@16:23:42.vcd"
+[dumpfile_mtime] "Fri Oct 14 08:23:43 2022"
+[dumpfile_size] 17744244
 [savefile] "/home/xuhao/learngit/ysyx-workbench/oscpu-framework/projects/cpu_axi_diff/cpu_axi_diff_vcd.gtkw"
-[timestart] 231749
-[size] 3766 1856
+[timestart] 0
+[size] 3762 1852
 [pos] -1 -1
 *-1.351074 231759 13470 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
