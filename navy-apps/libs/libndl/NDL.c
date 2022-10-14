@@ -9,8 +9,7 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 struct timeval tv;
 int keyboard_fd;
-int vga_fd;
-FILE *vga_file;
+FILE *vga_fd;
 uint32_t NDL_GetTicks() {
   gettimeofday(&tv,NULL);
   return tv.tv_usec;
@@ -53,17 +52,16 @@ void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
 //通过往/dev/fb中的正确位置写入像素信息来绘制图像. 你需要梳理清楚系统屏幕(即frame buffer), 
 //NDL_OpenCanvas()打开的画布, 以及NDL_DrawRect()指示的绘制区域之间的位置关系.
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  vga_file = fopen("/dev/fb","w+");
-  vga_fd = open("/dev/fb","w+");
+  FILE *vga_fd = open("/dev/fb","w+");
   if(w==0||h==0)
     assert("w or h == 0");
   printf("x =%d,y =%d,w =%d,h =%d\n",x,y,w,h);
-  fseek(vga_file, 0, SEEK_SET);              //设置初始画布指针位置
+  fseek(vga_fd, 0, SEEK_SET);              //设置初始画布指针位置
   for(int i = y ; i < (y+h) ; i++){        //从y开始写h行
-    fseek(vga_file, 300*i, SEEK_SET);        //写完一行后设置画布指针在下一行的初始位置
+    fseek(vga_fd, 300*i, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
     for(int j = x ; j < (x+w) ; j++){      //从x开始写w个
       printf("write i = %d , j = %d,pixels = %x\n",i,j,pixels[i*128+j]);
-      write(vga_fd,pixels[i*128+j],128);      //写入像素
+      fwrite(pixels,3,128,vga_fd);      //写入像素
     }
   }
 }
