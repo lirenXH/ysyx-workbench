@@ -2,7 +2,7 @@
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
-char *fb_canva;
+uint32_t *fb_canva;
 typedef struct {
   char *name;
   size_t size;
@@ -35,7 +35,7 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-  fb_canva = (char *)malloc(400 * 300 * sizeof(uint32_t));
+  fb_canva = (uint32_t *)malloc(400 * 300 * sizeof(uint32_t));
 }
 
 
