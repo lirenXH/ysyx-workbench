@@ -45,8 +45,10 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 //用于把buf中的len字节写到屏幕上offset处. 你需要先从offset计算出屏幕上的坐标, 
 //然后调用IOE来进行绘图. 另外我们约定每次绘图后总是马上将frame buffer中的内容同步到屏幕上.
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
   printf("offset = %d , len = %d\n",offset,len);
-  fb_canva[1] = 0x1111ff;
+  ctl.x = offset/300;
+  //fb_canva =;
   //AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
   //printf("x = %d,y = %d,w = %d,h = %d\n",ctl.x,ctl.y,ctl.w,ctl.h);
   //printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
@@ -55,7 +57,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   //ctl.w = 400;
   //ctl.h = 300; 
   //ctl.pixels = fb_canva;
-  io_write(AM_GPU_FBDRAW, 0, 0, fb_canva, 400, 300, true);
+  io_write(AM_GPU_FBDRAW, ctl.x, 0, fb_canva, 400, 1, true);
   //printf("pixels = %x,sync = %d\n",ctl.pixels,ctl.sync);
   return 0;
 }
