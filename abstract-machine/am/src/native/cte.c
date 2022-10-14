@@ -30,7 +30,7 @@ static void irq_handle(Context *c) {
 
   __am_switch(c);
 
-  // magic call to restore context
+  // magic call to restore context1
   void (*p)(Context *c) = (void *)(uintptr_t)0x100008;
   p(c);
   __am_panic_on_return();
