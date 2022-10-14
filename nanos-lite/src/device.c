@@ -13,7 +13,7 @@ static const char *keyname[256] __attribute__((used)) = {
   [AM_KEY_NONE] = "NONE",
   AM_KEYS(NAME)
 };
-extern uint32_t *fb_canva;
+extern char *fb_canva;
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   int i = 0;
   for(i=0;i<len;i++){
@@ -47,7 +47,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 //然后调用IOE来进行绘图. 另外我们约定每次绘图后总是马上将frame buffer中的内容同步到屏幕上.
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   printf("offset = %d , len = %d\n",offset,len/32);
-
+  strncpy(fb_canva,buf,32);
   //fb_canva[1] = 0;
   return 0;
 }
