@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 SDL_TimerID SDL_AddTimer(uint32_t interval, SDL_NewTimerCallback callback, void *param) {
+  printf("SDL_AddTimer NO");
   return NULL;
 }
 
@@ -11,6 +12,7 @@ int SDL_RemoveTimer(SDL_TimerID id) {
 }
 
 uint32_t SDL_GetTicks() {
+  printf("SDL_GetTicks NO");
   return 0;
 }
 
