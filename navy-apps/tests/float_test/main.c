@@ -28,7 +28,7 @@ int main() {
     }
     printf("c = %d\n",c);
 
-    fixedpt abs_a = fixedpt_rconst(-1.2);
+    fixedpt abs_a = fixedpt_rconst(1.2);
     fixedpt abs_c = fixedpt_abs(abs_a);
     printf("abs_a = %d\n",abs_a);
     printf("abs_c = %d\n",abs_c);
