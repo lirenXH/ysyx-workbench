@@ -129,7 +129,6 @@ static void open_display() {
 }
 
 static void open_event() {
-  printf("1");
   key_queue_lock = SDL_CreateMutex();
   evt_fd = dup(dummy_fd);
 }
@@ -165,11 +164,11 @@ int open(const char *path, int flags, ...) {
   if (strcmp(path, "/proc/dispinfo") == 0) {
     return dispinfo_fd;
   } else if (strcmp(path, "/dev/events") == 0) {
-    printf("evt ret %d",evt_fd);
     return evt_fd;
   } else if (strcmp(path, "/dev/fb") == 0) {
     return fb_memfd;
   } else if (strcmp(path, "/dev/sb") == 0) {
+    printf("sb_fifo[1] = %d\n",sb_fifo[1]);
     return sb_fifo[1];
   } else if (strcmp(path, "/dev/sbctl") == 0) {
     return sbctl_fd;
@@ -180,7 +179,7 @@ int open(const char *path, int flags, ...) {
 }
 
 ssize_t read(int fd, void *buf, size_t count) {
-  printf("fd = %d , evt_fd = %d ,dispinfo_fd = %d\n",fd,evt_fd,dispinfo_fd);
+  printf("fd = %d , evt_fd = %d ,sbctl_fd = %d\n",fd,evt_fd,sbctl_fd);
   if (fd == dispinfo_fd) {
     return snprintf((char *)buf, count, "WIDTH: %d\nHEIGHT: %d\n", disp_w, disp_h);
   } else if (fd == evt_fd) {
