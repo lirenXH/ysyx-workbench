@@ -19,7 +19,9 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  //NDL_PollEvent();
+  char buf[64];
+  if(NDL_PollEvent(buf, sizeof(buf)))
+    printf("%s\n",buf[10]);
   //printf("SDL_WaitEvent NO");
   return 1;
 }
