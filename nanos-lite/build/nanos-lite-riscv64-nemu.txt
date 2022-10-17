@@ -401,7 +401,7 @@ Disassembly of section .text:
     800005ac:	02113c23          	sd	ra,56(sp)
     800005b0:	00060493          	mv	s1,a2
     800005b4:	0a5000ef          	jal	ra,80000e58 <ioe_read>
-    800005b8:	12c00793          	li	a5,300
+    800005b8:	19000793          	li	a5,400
     800005bc:	02f95633          	divu	a2,s2,a5
     800005c0:	0022f817          	auipc	a6,0x22f
     800005c4:	a4083803          	ld	a6,-1472(a6) # 8022f000 <fb_canva>
@@ -417,7 +417,7 @@ Disassembly of section .text:
     800005ec:	00478793          	addi	a5,a5,4
     800005f0:	fee7ae23          	sw	a4,-4(a5)
     800005f4:	fed518e3          	bne	a0,a3,800005e4 <fb_write+0x58>
-    800005f8:	12c00793          	li	a5,300
+    800005f8:	19000793          	li	a5,400
     800005fc:	412787bb          	subw	a5,a5,s2
     80000600:	00100713          	li	a4,1
     80000604:	00b00513          	li	a0,11

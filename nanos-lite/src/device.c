@@ -57,12 +57,12 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   AM_GPU_FBDRAW_T ctl = io_read(AM_GPU_FBDRAW);
   //printf("offset = %d , len = %d\n",offset,len);
-  ctl.x = offset%300;
-  ctl.y = offset/300;
+  ctl.x = offset%400;
+  ctl.y = offset/400;
   for(int i=0;i<len;i++){
     fb_canva[i] = ((uint32_t*)buf)[i]; //???
   }
-  io_write(AM_GPU_FBDRAW, ctl.x, ctl.y, fb_canva, 300-ctl.x, 1, true);
+  io_write(AM_GPU_FBDRAW, ctl.x, ctl.y, fb_canva, 400-ctl.x, 1, true);
   return 0;
 }
 void init_device() {
