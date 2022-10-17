@@ -11,11 +11,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   printf("dst->w = %d,dst->h = %d\n",dst->w,dst->h);
-  uint32_t *pixels_fill = malloc(dst->w * dst->h * sizeof(uint32_t));
+  uint32_t *pixels_fill = malloc(400 * 300 * sizeof(uint32_t));
   printf("dst->w = %d,dst->h = %d\n",dst->w,dst->h);
-  for(int i=0;i<dst->h;i++){
-    for(int j=0;j<dst->w;j++){
-      pixels_fill[dst->w * i + j] = color;
+  for(int i=0;i<300;i++){
+    for(int j=0;j<400;j++){
+      pixels_fill[300 * i + j] = color;
     }
   }
   if(dstrect == NULL){
