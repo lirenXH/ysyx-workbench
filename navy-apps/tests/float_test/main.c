@@ -13,6 +13,6 @@ int main() {
     printf("c = %d\n",c);
     float aa = 2;
     fixedpt AA = fixedpt_rconst(aa);
-    printf("AA dut floor = %d\n",fixedpt_floor(aa));
+    printf("AA dut floor = %d\n",fixedpt_floor(AA));
     return 0;
 }
