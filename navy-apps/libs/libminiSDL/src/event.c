@@ -19,7 +19,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  printf("SDL_WaitEvent NO");
+  //printf("SDL_WaitEvent NO");
   return 1;
 }
 
