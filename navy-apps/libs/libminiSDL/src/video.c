@@ -13,8 +13,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  printf("SDL_Surface.w = %d,SDL_Surface.h = %d\nx = %d,y = %d,w = %d,h = %d\n",s->w,s->h,x,y,w,h);
-  NDL_DrawRect(s->pixels, 0, 0, s->w, s->h);
+  //printf("SDL_Surface.w = %d,SDL_Surface.h = %d\nx = %d,y = %d,w = %d,h = %d\n",s->w,s->h,x,y,w,h);
+  if((x==0)&&(y==0)&&(w==0)&&(h==0))
+    NDL_DrawRect(s->pixels, 0, 0, 400, 300);
+  else
+    NDL_DrawRect(s->pixels, x, y, w, h);
   //printf("SDL_UpdateRect NO\n");
 }
 
