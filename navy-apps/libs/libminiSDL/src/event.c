@@ -22,7 +22,9 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   if(NDL_PollEvent(buf, sizeof(buf))){
     for(int i=0;i<5;i++)
-    printf("%d\n",buf[i]);
+      printf("%d\n",buf[i]);
+    event->type = SDL_KEYDOWN;
+    event->key.keysym.sym = SDLK_DOWN;
   }
   //printf("SDL_WaitEvent NO");
   return 1;
