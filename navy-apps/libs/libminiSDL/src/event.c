@@ -21,11 +21,13 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   if(NDL_PollEvent(buf, sizeof(buf))){
-    for(int i=3;i<5;i++)
-      printf("%d\n",buf[i]-'0'); 
-    //if(buf[1]==)
-    //  event->type = SDL_KEYDOWN;
-    //event->key.keysym.sym = SDLK_DOWN;
+    if(buf[1]==100){
+      event->type = SDL_KEYDOWN;
+      event->key.keysym.sym = (buf[3]-'0')*10+(buf[4]-'0');
+    }else{
+      event->type = SDL_KEYUP;
+      event->key.keysym.sym = (buf[3]-'0')*10+(buf[4]-'0');
+    }
   }
   //printf("SDL_WaitEvent NO");
   return 1;
