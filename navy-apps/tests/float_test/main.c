@@ -14,5 +14,8 @@ int main() {
     float aa = 2;
     fixedpt AA = fixedpt_rconst(aa);
     printf("AA dut floor = %d\n",fixedpt_floor(AA));
+    float bb = 2;
+    fixedpt AA = fixedpt_rconst(aa);
+    printf("AA dut floor = %d\n",fixedpt_floor(AA));
     return 0;
 }
