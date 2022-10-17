@@ -29,7 +29,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(ev.keycode == 0){
     return 0;
   }else if(ev.keydown){
-    //printf("ev.keycode = %d\n",ev.keycode);
+    printf("ev.keycode = %d\n",ev.keycode);
     sprintf(buf,"kd %d\n",ev.keycode);
     return len;
   }else{
