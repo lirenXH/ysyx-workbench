@@ -608,7 +608,7 @@ Disassembly of section .text:
     800008c8:	38d000ef          	jal	ra,80001454 <printf>
     800008cc:	00813083          	ld	ra,8(sp)
     800008d0:	00001597          	auipc	a1,0x1
-    800008d4:	40858593          	addi	a1,a1,1032 # 80001cd8 <_etext+0x190>
+    800008d4:	3e858593          	addi	a1,a1,1000 # 80001cb8 <_etext+0x170>
     800008d8:	00000513          	li	a0,0
     800008dc:	01010113          	addi	sp,sp,16
     800008e0:	1740006f          	j	80000a54 <naive_uload>
