@@ -64,7 +64,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     fseek(vga_file, 400*i+x, SEEK_SET);       //写完一行后设置画布指针在下一行的初始位置
     //printf("write i = %d ,pixels = %x\n",i,pixels[i*128]);
     //write(vga_fd,&pixels[(i-y)*w],w);      //写入像素
-    write(vga_fd,&pixels,w);
+    write(vga_fd,&pixels[i*w],w);
   }
 }
 
