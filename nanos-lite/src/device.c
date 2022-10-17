@@ -59,7 +59,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   //printf("offset = %d , len = %d\n",offset,len);
   ctl.x = offset%400;
   ctl.y = offset/400;
-  for(int i=ctl.x;i<(ctl.x+len);i++){
+  for(int i=0;i<len;i++){
     fb_canva[i] = ((uint32_t*)buf)[i]; //???
   }
   io_write(AM_GPU_FBDRAW, ctl.x, ctl.y, fb_canva, 400-ctl.x, 1, true);
