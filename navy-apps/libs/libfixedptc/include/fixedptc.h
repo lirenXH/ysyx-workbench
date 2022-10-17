@@ -157,12 +157,12 @@ static inline fixedpt fixedpt_floor(fixedpt A) {
 }
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
-	fixedpt C = fixedpt_sub(A,fixedpt_floor(A));
+	fixedpt C = fixedpt_sub(A,fixedpt_floor(A) << FIXEDPT_FBITS);
 	printf("A = %d A_floor = %d C = %d\n",A,fixedpt_floor(A),C);
 	if(C == 0) 
 		return fixedpt_toint(A);
 	else
-		return fixedpt_toint(A + 256);
+		return fixedpt_toint(A + FIXEDPT_ONE);
 }
 
 /*
