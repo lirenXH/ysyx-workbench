@@ -30,10 +30,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     return 0;
   }else if(ev.keydown){
     //printf("ev.keycode = %d\n",ev.keycode);
-    sprintf(buf,"kd %s\n",keyname[ev.keycode]);
+    sprintf(buf,"kd %d\n",ev.keycode);
     return len;
   }else{
-    sprintf(buf,"ku %s\n",keyname[ev.keycode]);
+    sprintf(buf,"ku %d\n",ev.keycode);
     return len;
   }
 }
