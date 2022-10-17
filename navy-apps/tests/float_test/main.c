@@ -24,9 +24,12 @@ int main() {
     printf("b = %d\n",b);
     int c = 0;
     if (fixedpt_fromint(b) > fixedpt_rconst(7.9)) {
-        printf("c111\n");
       c = fixedpt_toint(fixedpt_div(fixedpt_muli(a + FIXEDPT_ONE, b), fixedpt_rconst(2.3)));
     }
     printf("c = %d\n",c);
+
+    fixedpt abs_a = fixedpt_rconst(-1.2);
+    fixedpt abs_c = fixedpt_abs(abs_a);
+    printf("abs = %d\n",fixedpt_toint(abs_c));
     return 0;
 }
