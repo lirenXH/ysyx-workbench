@@ -10,6 +10,8 @@ int main() {
     if (b > fixedpt_rconst(7.9)) {
       c = fixedpt_toint(fixedpt_div(fixedpt_mul(a + FIXEDPT_ONE, b), fixedpt_rconst(2.3)));
     }
-     printf("c = %d\n",c);
-     return 0;
+    printf("c = %d\n",c);
+    fixedpt aa = fixedpt_rconst(1.2);
+    printf("aa floor = %d\n",fixedpt_floor(aa));
+    return 0;
 }
