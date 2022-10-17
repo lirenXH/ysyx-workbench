@@ -24,8 +24,8 @@ int SDL_WaitEvent(SDL_Event *event) {
     for(int i=0;i<5;i++)
       printf("%d\n",buf[i]);
     //if(buf[1]==)
-      event->type = SDL_KEYDOWN;
-    event->key.keysym.sym = SDLK_DOWN;
+    //  event->type = SDL_KEYDOWN;
+    //event->key.keysym.sym = SDLK_DOWN;
   }
   //printf("SDL_WaitEvent NO");
   return 1;
