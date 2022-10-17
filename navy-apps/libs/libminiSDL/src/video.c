@@ -13,7 +13,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  printf("SDL_Surface.w = %d,SDL_Surface.h = %d\nx = %d,y = %d,w = %d,h = %d\n",SDL_Surface.w,SDL_Surface.h,x,y,w,h);
+  printf("SDL_Surface.w = %d,SDL_Surface.h = %d\nx = %d,y = %d,w = %d,h = %d\n",s->w,s->h,x,y,w,h);
   //printf("SDL_UpdateRect NO\n");
 }
 
