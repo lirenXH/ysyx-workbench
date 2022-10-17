@@ -2,7 +2,7 @@
 #include <fixedptc.h>
 
 int main() {
-  float a =1.1;
+  float a =23.5;
   int b = 0;
   //fixedpt_fromint(a);
   b = fixedpt_floor(fixedpt_fromint(a));
