@@ -15,7 +15,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   printf("dst->w = %d,dst->h = %d\n",dst->w,dst->h);
   for(int i=0;i<300;i++){
     for(int j=0;j<400;j++){
-      pixels_fill[300 * i + j] = color;
+      pixels_fill[400 * i + j] = color;
     }
   }
   if(dstrect == NULL){
