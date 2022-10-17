@@ -157,8 +157,7 @@ static inline fixedpt fixedpt_floor(fixedpt A) {
 }
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
-	fixedpt C = fixedpt_sub(A,(fixedpt_floor(A) << FIXEDPT_FBITS));
-	if(C == 0) 
+	if(fixedpt_sub(A,(fixedpt_floor(A) << FIXEDPT_FBITS))) 
 		return fixedpt_toint(A);
 	else
 		return fixedpt_toint(A + FIXEDPT_ONE);
