@@ -25,7 +25,7 @@ int main() {
     int c = 0;
     if (fixedpt_fromint(b) > fixedpt_rconst(7.9)) {
         printf("c111\n");
-      c = fixedpt_toint(fixedpt_divi(fixedpt_muli(a + FIXEDPT_ONE, b), fixedpt_rconst(2.3)));
+      c = fixedpt_toint(fixedpt_div(fixedpt_muli(a + FIXEDPT_ONE, b), fixedpt_rconst(2.3)));
     }
     printf("c = %d\n",c);
     return 0;
