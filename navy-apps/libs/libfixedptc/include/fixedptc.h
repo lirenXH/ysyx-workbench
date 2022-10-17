@@ -158,7 +158,7 @@ static inline fixedpt fixedpt_floor(fixedpt A) {
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
 	fixedpt C = fixedpt_sub(A,(fixedpt_floor(A) << FIXEDPT_FBITS));
-	printf("c = %d\n",C);
+	printf("c = %d\n",fixedpt_sub(A,(fixedpt_floor(A) << FIXEDPT_FBITS));
 	if(C == 0) 
 		return fixedpt_toint(A);
 	else
