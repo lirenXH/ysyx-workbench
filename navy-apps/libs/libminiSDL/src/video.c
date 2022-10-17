@@ -13,7 +13,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  printf("SDL_UpdateRect NO\n");
+  printf("x = %d,y = %d,w = %d,h = %d\n",x,y,w,h);
+  //printf("SDL_UpdateRect NO\n");
 }
 
 // APIs below are already implemented.
