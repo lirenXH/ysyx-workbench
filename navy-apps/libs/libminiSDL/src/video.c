@@ -42,8 +42,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         continue;
       dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[src->w*(i+src_y)+(j+src_x)];
       
-      printf("src (%d,%d)\n",(j+src_x),src->w*(i+src_y));
-      printf("dst (%d,%d)\n",(j+dstrect->x),(400*(i+dstrect->y)));
+      printf("src (%d,%d)\n",(j+src_x),(i+src_y));
+      printf("dst (%d,%d)\n",(j+dstrect->x),(i+dstrect->y));
     }
   }
 }
