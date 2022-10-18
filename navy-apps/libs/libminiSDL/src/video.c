@@ -33,7 +33,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   printf("src尺寸        = (%d,%d)\n",src->w,src->h);
   printf("复制矩形大小    = (%d,%d)\n",blit_w,blit_h);
   printf("目标dst起始坐标 = (%d,%d)\n",blit_x,blit_y);
-  printf("dst尺寸        = (%d,%d)\n\n",dst->w,dst->h);
+  printf("dst尺寸        = (%d,%d)\n\n",dstrect->w,dstrect->h);
   for(int i=0;i<blit_h;i++){
     if((i+dstrect->y)>=300||(i+dstrect->y)<0)
         continue;
