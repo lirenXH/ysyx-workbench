@@ -29,7 +29,7 @@ int NDL_PollEvent(char* buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {    //只需要记录画布的大小
-  if(w==0&&h==0){
+  if((&w==0)&&(&h==0)){
     *w = 400; //(简化)
     *h = 300;
     printf("W = 400 , H = 300\n");
