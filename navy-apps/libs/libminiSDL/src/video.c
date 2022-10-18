@@ -13,7 +13,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   int src_y = 0  ;//复制矩形在src中的起始位置
   int blit_x = 0 ;//目标位置x
   int blit_y = 0 ;//目标位置y
-  printf("dst11 w = %d,dst11 h = %d\n",dst->w,dst->h);
+  printf("src11 w = %d,src11 h = %d\n",src->w,src->h);
   if(srcrect == NULL){
     blit_w = 400;blit_h = 300;
     src_x = 0;src_y = 0;
