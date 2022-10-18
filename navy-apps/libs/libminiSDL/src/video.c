@@ -3,10 +3,39 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-
+//                                      若为NULL 复制整个                       若为NULL 从(0,0)开始
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  int blit_w = 0 ;//复制矩形的宽度
+  int blit_h = 0 ;//复制矩形的长度
+  int src_x = 0  ;//复制矩形在src中的起始位置
+  int src_y = 0  ;//复制矩形在src中的起始位置
+  int blit_x = 0 ;//目标位置x
+  int blit_y = 0 ;//目标位置y
+  if(srcrect == NULL){
+    blit_w = 400;blit_h = 300;
+    src_x = 0;src_y = 0;
+  }else{
+    blit_w = src->w;blit_h = src->h;
+    src_x = srcrect->x;src_y = srcrect->y;
+  }
+  if(dstrect == NULL){
+    blit_x = 0;
+    blit_y = 0;
+  }else{
+    blit_x = dstrect->x;
+    blit_y = dstrect->y;
+  }
+  for(int i=0;i<blit_h;i++){
+    if((i+dstrect->y)>=300)
+        continue;
+    for(int j=0;j<blit_w;j++){
+      if((j+dstrect->x)>=400)
+        continue;
+      dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[400*(i+src_y)+(j+src_x)];
+    }
+  }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
