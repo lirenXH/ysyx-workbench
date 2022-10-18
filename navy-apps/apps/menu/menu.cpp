@@ -145,7 +145,7 @@ static void display_menu(int n) {
   printf("screen->w = %d\n",screen->w);
   printf("logo w = %d logo h = %d\n",logo_sf->w,logo_sf->h);
   SDL_BlitSurface(logo_sf, NULL, screen, &rect);
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+  //SDL_UpdateRect(screen, 0, 0, 0, 0);
   printf("Available applications:\n");
   char buf[80];
   int i;
