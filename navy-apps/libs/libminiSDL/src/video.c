@@ -29,10 +29,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     printf("blit_x = %d blit_y = %d\n",blit_x,blit_y);
   }
   for(int i=0;i<blit_h;i++){
-    if((i+dstrect->y)>=300)
+    if((i+dstrect->y)>=300||(i+dstrect->y)<0)
         continue;
     for(int j=0;j<blit_w;j++){
-      if((j+dstrect->x)>=400)
+      if((j+dstrect->x)>=400||(j+dstrect->x)<0)
         continue;
       dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[400*(i+src_y)+(j+src_x)];
       //printf("x= %d y =%d\n",400*(i+dstrect->y)+(j+dstrect->x),400*(i+src_y)+(j+src_x));
