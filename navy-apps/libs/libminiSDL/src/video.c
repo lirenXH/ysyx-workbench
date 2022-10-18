@@ -35,8 +35,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       if((j+dstrect->x)>=400||(j+dstrect->x)<0)
         continue;
       dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[400*(i+src_y)+(j+src_x)];
-      printf("dst x= %d y =%d\n",400*(i+dstrect->y),(j+dstrect->x));
-      printf("src x= %d y =%d\n",400*(i+src_y),(j+src_x));
+      printf("dst x= %d y =%d\n",(i+dstrect->y),(j+dstrect->x));
+      printf("src x= %d y =%d\n",(i+src_y),(j+src_x));
     }
   }
 }
