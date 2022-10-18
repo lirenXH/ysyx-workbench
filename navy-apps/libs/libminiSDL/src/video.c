@@ -44,7 +44,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       
       //printf("src (%d,%d)\n",(j+src_x),(i+src_y));
       //printf("dst (%d,%d)\n",(j+dstrect->x),(i+dstrect->y));
-      NDL_DrawRect(s->pixels, 0, 0, 400, 300);
+      NDL_DrawRect(dst->pixels, 0, 0, 400, 300);
     }
   }
 }
