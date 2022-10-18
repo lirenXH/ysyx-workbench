@@ -15,7 +15,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   int blit_y = 0 ;//目标位置y
   printf("src11 w = %d,src11 h = %d\n",src->w,src->h);
   if(srcrect == NULL){
-    blit_w = srcrect->x;blit_h = srcrect->y;
+    blit_w = src->w;blit_h = src->h;
     src_x = 0;src_y = 0;
   }else{
     blit_w = src->w;blit_h = src->h;
