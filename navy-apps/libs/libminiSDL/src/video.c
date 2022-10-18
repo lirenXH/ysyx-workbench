@@ -30,9 +30,9 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     blit_y = dstrect->y;
     //printf("blit_x = %d blit_y = %d\n",blit_x,blit_y);
   }
-  printf("src尺寸        = (%d,%d)\n",src->w,src->h);
-  printf("复制矩形大小    = (%d,%d)\n",blit_w,blit_h);
-  printf("目标dst起始坐标 = (%d,%d)\n\n",blit_x,blit_y);
+  //printf("src尺寸        = (%d,%d)\n",src->w,src->h);
+  //printf("复制矩形大小    = (%d,%d)\n",blit_w,blit_h);
+  //printf("目标dst起始坐标 = (%d,%d)\n\n",blit_x,blit_y);
   //printf("dst尺寸        = (%d,%d)\n\n",dstrect->h);
   for(int i=0;i<blit_h;i++){
     if((i+dstrect->y)>=300||(i+dstrect->y)<0)
@@ -42,8 +42,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         continue;
       dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[src->w*(i+src_y)+(j+src_x)];
       
-      printf("src (%d,%d)\n",(j+src_x),(i+src_y));
-      printf("dst (%d,%d)\n",(j+dstrect->x),(i+dstrect->y));
+      //printf("src (%d,%d)\n",(j+src_x),(i+src_y));
+      //printf("dst (%d,%d)\n",(j+dstrect->x),(i+dstrect->y));
     }
   }
 }
