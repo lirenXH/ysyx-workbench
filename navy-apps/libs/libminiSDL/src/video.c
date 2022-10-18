@@ -40,10 +40,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     for(int j=0;j<blit_w;j++){
       if((j+dstrect->x)>=400||(j+dstrect->x)<0)
         continue;
-      dst->pixels[500*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[src->w*(i+src_y)+(j+src_x)];
+      dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[src->w*(i+src_y)+(j+src_x)];
       
       //printf("src (%d,%d)\n",(j+src_x),(i+src_y));
       //printf("dst (%d,%d)\n",(j+dstrect->x),(i+dstrect->y));
+      SDL_UpdateRect(dst->pitch,0,0,0,0);
     }
   }
 }
