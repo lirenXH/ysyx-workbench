@@ -34,7 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       if((j+dstrect->x)>=400)
         continue;
       //dst->pixels[400*(i+dstrect->y)+(j+dstrect->x)] = src->pixels[400*(i+src_y)+(j+src_x)];
-      dst->pixels[1] = src->pixels[1];
+      dst->pixels[1] = 0;
     }
   }
 }
